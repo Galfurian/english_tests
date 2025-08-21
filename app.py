@@ -6,20 +6,19 @@ import urllib.parse
 import logging
 
 # Configure logging
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+logging.basicConfig(
+    level=logging.INFO, format="%(asctime)s [%(levelname)-7s] - %(message)s"
+)
 
 app = Flask(__name__)
 
 # Configuration for blank generation
-BLANK_COUNT_RANGE = (3, 5) # (min_blanks, max_blanks)
-TEXT_LENGTH = 50 # Max new tokens for generated text
+BLANK_COUNT_RANGE = (3, 5)  # (min_blanks, max_blanks)
+TEXT_LENGTH = 50  # Max new tokens for generated text
 
 # Load the DistilGPT2 model
 # This will download the model the first time it's run
 generator = pipeline("text-generation", model="gpt2-medium")
-
-# --- Helper Functions ---
-
 
 # --- Helper Functions ---
 
@@ -54,7 +53,9 @@ def _generate_raw_text(initial_prompt: str, generator, text_length: int) -> str:
 def _select_blanks(words: list[str], min_offset: int, num_blanks_range: tuple) -> dict:
     """Selects words to be turned into blanks, returning {index: original_word}."""
     if len(words) < min_offset + 1:
-        logging.warning(f"Not enough words ({len(words)}) to select blanks with offset {min_offset}.")
+        logging.warning(
+            f"Not enough words ({len(words)}) to select blanks with offset {min_offset}."
+        )
         return {}  # Not enough words to select blanks with offset
 
     population_for_blanks = list(enumerate(words))[min_offset:]
@@ -90,7 +91,9 @@ def _create_display_parts(words: list[str], blanks_data: dict) -> list[str]:
     return display_parts
 
 
-def generate_exercise_text(num_blanks_range: tuple = (3, 5), text_length: int = 150) -> tuple:
+def generate_exercise_text(
+    num_blanks_range: tuple = (3, 5), text_length: int = 150
+) -> tuple:
     """Generates a paragraph and creates blanks."""
     min_words_for_blanks = (
         10  # Require at least 10 words before starting to pick blanks
@@ -103,7 +106,7 @@ def generate_exercise_text(num_blanks_range: tuple = (3, 5), text_length: int = 
     )
 
     generated_text = _generate_raw_text(initial_prompt, generator, text_length)
-    if not generated_text: # If raw text generation failed
+    if not generated_text:  # If raw text generation failed
         logging.error("Failed to generate suitable raw text after multiple attempts.")
         return (
             ["This", "is", "a", "fallback", "text.", "BLANK_4"],
@@ -136,72 +139,90 @@ def generate_exercise_text(num_blanks_range: tuple = (3, 5), text_length: int = 
     )
 
 
+def _process_get_request():
+    display_parts, blanks_data, word_bank, original_full_text = generate_exercise_text(
+        num_blanks_range=BLANK_COUNT_RANGE, text_length=TEXT_LENGTH
+    )
+    correct_answers_json = json.dumps(blanks_data)
+    return render_template(
+        "index.html",
+        display_parts=display_parts,
+        word_bank=word_bank,
+        correct_answers_json=correct_answers_json,
+        original_full_text=original_full_text,
+    )
+
+
+def _process_post_request():
+    user_answers = {}
+    for key, value in request.form.items():
+        if key.startswith("BLANK_"):
+            index = int(key.split("_")[1])
+            user_answers[index] = value.strip().lower()
+
+    correct_answers_json = request.form.get("correct_answers_json")
+    original_full_text = request.form.get("original_full_text")
+    display_parts_str = request.form.get("display_parts_str")
+
+    try:
+        correct_answers = json.loads(correct_answers_json)
+        correct_answers = {int(k): v for k, v in correct_answers.items()}
+    except json.JSONDecodeError as e:
+        logging.error(
+            f"JSONDecodeError for correct_answers_json: {e} - Data: {correct_answers_json}"
+        )
+        return (
+            render_template(
+                "error.html", message="Error processing correct answers data."
+            ),
+            500,
+        )  # Return an error to the user
+
+    try:
+        display_parts = json.loads(urllib.parse.unquote(display_parts_str))
+    except json.JSONDecodeError as e:
+        logging.error(
+            f"JSONDecodeError for display_parts_str: {e} - Data: {display_parts_str}"
+        )
+        return (
+            render_template(
+                "error.html", message="Error processing display parts data."
+            ),
+            500,
+        )  # Return an error to the user
+
+    results = {}
+    score = 0
+    total_blanks = len(correct_answers)
+
+    for index, correct_word in correct_answers.items():
+        user_word = user_answers.get(index, "")
+        is_correct = user_word == correct_word
+        results[index] = {
+            "user": user_word,
+            "correct": correct_word,
+            "is_correct": is_correct,
+        }
+        if is_correct:
+            score += 1
+
+    return render_template(
+        "index.html",
+        display_parts=display_parts,
+        word_bank=[],
+        results=results,
+        score=score,
+        total_blanks=total_blanks,
+        original_full_text=original_full_text,
+    )
+
+
 @app.route("/", methods=["GET", "POST"])
 def index():
     if request.method == "POST":
-        user_answers = {}
-        for key, value in request.form.items():
-            if key.startswith("BLANK_"):
-                index = int(key.split("_")[1])
-                user_answers[index] = value.strip().lower()
-
-        # Retrieve the correct answers and original text from hidden fields
-        correct_answers_json = request.form.get("correct_answers_json")
-        original_full_text = request.form.get("original_full_text")
-        display_parts_str = request.form.get("display_parts_str")
-
-        # Reconstruct correct_answers dictionary from JSON
-        try:
-            correct_answers = json.loads(correct_answers_json)
-            correct_answers = {int(k): v for k, v in correct_answers.items()}
-        except json.JSONDecodeError as e:
-            logging.error(f"JSONDecodeError for correct_answers_json: {e} - Data: {correct_answers_json}")
-            return "Error processing data.", 500 # Return an error to the user
-
-        try:
-            display_parts = json.loads(urllib.parse.unquote(display_parts_str))
-        except json.JSONDecodeError as e:
-            logging.error(f"JSONDecodeError for display_parts_str: {e} - Data: {display_parts_str}")
-            return "Error processing data.", 500 # Return an error to the user
-
-        results = {}
-        score = 0
-        total_blanks = len(correct_answers)
-
-        for index, correct_word in correct_answers.items():
-            user_word = user_answers.get(index, "")
-            is_correct = user_word == correct_word
-            results[index] = {
-                "user": user_word,
-                "correct": correct_word,
-                "is_correct": is_correct,
-            }
-            if is_correct:
-                score += 1
-
-        return render_template(
-            "index.html",
-            display_parts=display_parts,
-            word_bank=[],  # No word bank on results page
-            results=results,
-            score=score,
-            total_blanks=total_blanks,
-            original_full_text=original_full_text,
-        )
-
-    else:  # GET request
-        display_parts, blanks_data, word_bank, original_full_text = (
-            generate_exercise_text(num_blanks_range=BLANK_COUNT_RANGE, text_length=TEXT_LENGTH)
-        )
-        # Convert blanks_data dict to a JSON string for passing to template
-        correct_answers_json = json.dumps(blanks_data)
-        return render_template(
-            "index.html",
-            display_parts=display_parts,
-            word_bank=word_bank,
-            correct_answers_json=correct_answers_json,
-            original_full_text=original_full_text,
-        )
+        return _process_post_request()
+    else:
+        return _process_get_request()
 
 
 if __name__ == "__main__":
