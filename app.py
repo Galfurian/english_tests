@@ -15,6 +15,12 @@ app = Flask(__name__)
 # Configuration for blank generation
 BLANK_COUNT_RANGE = (3, 5)  # (min_blanks, max_blanks)
 TEXT_LENGTH = 50  # Max new tokens for generated text
+USE_LLM_GENERATION = False  # Set to False to use a standard text for debugging
+FALLBACK_TEXT = (
+    "This is a standard text for debugging purposes. "
+    "Basically, it provides a consistent base for testing, the blanks generation, and checking logic. "
+    "You can modify this text in the code."
+)
 
 # Load the DistilGPT2 model
 # This will download the model the first time it's run
@@ -71,12 +77,33 @@ def _select_blanks(words: list[str], min_offset: int, num_blanks_range: tuple) -
     if num_blanks == 0 and max_possible_blanks > 0:
         num_blanks = 1
 
-    words_to_remove_from_population = random.sample(population_for_blanks, num_blanks)
-    words_to_remove_from_population.sort(key=lambda x: x[0])
-
     blanks_data = {}
-    for idx, word in words_to_remove_from_population:
-        blanks_data[idx] = word.strip(".,!?;:").lower()
+    selected_indices = set()
+    available_indices = [idx for idx, _ in population_for_blanks]
+    
+    # Try to select non-adjacent blanks
+    for _ in range(num_blanks):
+        if not available_indices:
+            logging.warning("Not enough non-adjacent words to select all blanks.")
+            break
+        
+        chosen_idx_in_population = random.choice(available_indices)
+        original_idx = population_for_blanks[available_indices.index(chosen_idx_in_population)][0]
+        
+        selected_indices.add(original_idx)
+        blanks_data[original_idx] = words[original_idx].strip('.,!?;:').lower()
+        
+        # Remove chosen index and its neighbors from available_indices
+        available_indices = [idx for idx in available_indices if idx != original_idx and idx != original_idx - 1 and idx != original_idx + 1]
+
+    if not blanks_data and population_for_blanks: # Fallback if no blanks could be selected non-adjacently
+        logging.warning("Could not select non-adjacent blanks, falling back to random selection.")
+        # Fallback to original random.sample if non-adjacent selection fails
+        words_to_remove_from_population = random.sample(population_for_blanks, num_blanks)
+        words_to_remove_from_population.sort(key=lambda x: x[0])
+        for idx, word in words_to_remove_from_population:
+            blanks_data[idx] = word.strip('.,!?;:').lower()
+
     return blanks_data
 
 
@@ -85,10 +112,28 @@ def _create_display_parts(words: list[str], blanks_data: dict) -> list[str]:
     display_parts = []
     for i, word in enumerate(words):
         if i in blanks_data:
+            word_part, punctuation_part = _split_word_and_punctuation(word)
             display_parts.append(f"BLANK_{i}")
+            if punctuation_part:
+                display_parts.append(punctuation_part)
         else:
             display_parts.append(word)
     return display_parts
+
+def _split_word_and_punctuation(word: str) -> tuple[str, str]:
+    """Splits a word into its word part and trailing punctuation part."""
+    punctuation = '.,!?;:'
+    word_part = word
+    punctuation_part = ''
+    
+    # Iterate from the end to find trailing punctuation
+    for i in range(len(word) - 1, -1, -1):
+        if word[i] in punctuation:
+            punctuation_part = word[i] + punctuation_part
+            word_part = word[:i]
+        else:
+            break
+    return word_part, punctuation_part
 
 
 def generate_exercise_text(
@@ -105,15 +150,16 @@ def generate_exercise_text(
         "The paragraph should be coherent and flow naturally. "
     )
 
-    generated_text = _generate_raw_text(initial_prompt, generator, text_length)
-    if not generated_text:  # If raw text generation failed
-        logging.error("Failed to generate suitable raw text after multiple attempts.")
-        return (
-            ["This", "is", "a", "fallback", "text.", "BLANK_4"],
-            {4: "fallback"},
-            ["fallback"],
-            "This is a fallback text. fallback",
-        )
+    if USE_LLM_GENERATION:
+        generated_text = _generate_raw_text(initial_prompt, generator, text_length)
+        if not generated_text:  # If raw text generation failed
+            logging.error(
+                "Failed to generate suitable raw text after multiple attempts."
+            )
+            # Fallback to a standard text if LLM generation fails
+            generated_text = FALLBACK_TEXT
+    else:
+        generated_text = FALLBACK_TEXT
 
     words = generated_text.split()
 
