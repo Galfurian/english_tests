@@ -10,18 +10,27 @@ logging.basicConfig(
 
 # Punctuation characters to consider for blank selection.
 PUNCTUATION = ".!,?;:'\""
-# Configuration for blank generation (min_blanks, max_blanks)
-BLANK_COUNT_RANGE = (3, 5)  # This will become dynamic with the slider
+
 # Set to False to use a standard text for debugging.
 USE_LLM_GENERATION = True
+
 # Fallback text for debugging purposes.
 FALLBACK_TEXT = (
     "This is a standard text for debugging purposes. "
-    "Basically, it provides a consistent base for testing, the blanks generation, and checking logic. "
-    "You can modify this text in the code."
+    "Basically, it provides a consistent base for testing, "
+    "the blanks generation, and checking logic. "
+    "You can modify this text in the code. "
 )
+
 # Prompt for the LLM to generate text.
-LLM_PROMPT = "You are an English teacher creating simple reading material for beginner students. Write a short, engaging paragraph about your morning routine, or a visit to a park, or cooking a simple meal. Ensure the language is simple, uses common vocabulary, and has clear, short sentences suitable for an English learner. Avoid complex grammar or obscure words."
+LLM_PROMPT = (
+    "You are an English teacher creating simple reading material for beginner "
+    "students. Write a short, engaging paragraph about your morning routine, "
+    "or a visit to a park, or cooking a simple meal. "
+    "Ensure the language is simple, uses common vocabulary, and has clear, "
+    "short sentences suitable for an English learner. "
+    "Avoid complex grammar or obscure words."
+)
 
 # Load the DistilGPT2 model
 # This will download the model the first time it's run
@@ -69,8 +78,10 @@ def generate_raw_text(initial_prompt: str, generator, text_length: int) -> str:
     return ""
 
 
-def _select_blanks(words: list[str], num_blanks_range: tuple) -> dict:
-    """Selects words to be turned into blanks, returning {index: original_word}."""
+def _select_blanks(words: list[str], min_blanks: int, max_blanks: int) -> dict:
+    """Selects words to be turned into blanks, returning {index: original_word}.
+    Accepts min_blanks and max_blanks directly.
+    """
     # Check if the words list is empty or too short.
     population_for_blanks = _get_blank_selection_population(words)
     if not population_for_blanks:
@@ -78,7 +89,9 @@ def _select_blanks(words: list[str], num_blanks_range: tuple) -> dict:
         return {}
 
     # Determine the number of blanks to select.
-    num_blanks = _determine_num_blanks(len(population_for_blanks), num_blanks_range)
+    num_blanks = _determine_num_blanks(
+        len(population_for_blanks), min_blanks, max_blanks
+    )
     if num_blanks == 0:
         logging.warning("No blanks to select based on the population size.")
         return {}
@@ -100,15 +113,19 @@ def _get_blank_selection_population(words: list[str]) -> list[tuple[int, str]]:
     return list(enumerate(words))
 
 
-def _determine_num_blanks(population_size: int, num_blanks_range: tuple) -> int:
-    """Calculates the actual number of blanks to select."""
-    # Ge the maximum possible blanks based on population size.
+def _determine_num_blanks(
+    population_size: int, min_blanks: int, max_blanks: int
+) -> int:
+    """Calculates the actual number of blanks to select.
+    Accepts min_blanks and max_blanks directly.
+    """
+    # Get the maximum possible blanks based on population size.
     max_possible_blanks = max(1, population_size // 2)
 
     # Ensure the range is within the bounds of the population size.
     num_blanks = random.randint(
-        min(num_blanks_range[0], max_possible_blanks),
-        min(num_blanks_range[1], max_possible_blanks),
+        min(min_blanks, max_possible_blanks),
+        min(max_blanks, max_possible_blanks),
     )
 
     # Ensure at least one blank is selected if possible.
@@ -196,10 +213,14 @@ def _split_word_and_punctuation(word: str) -> tuple[str, str]:
     return word_part, punctuation_part
 
 
-def generate_exercise_data(original_full_text: str, num_blanks_range: tuple) -> tuple:
-    """Generates exercise data (blanks, word bank, display parts) for a given text."""
+def generate_exercise_data(
+    original_full_text: str, min_blanks: int, max_blanks: int
+) -> tuple:
+    """Generates exercise data (blanks, word bank, display parts) for a given text.
+    Accepts min_blanks and max_blanks directly.
+    """
     words = original_full_text.split()
-    blanks_data = _select_blanks(words, num_blanks_range)
+    blanks_data = _select_blanks(words, min_blanks, max_blanks)
 
     if not blanks_data:
         # Fallback if blank selection fails for some reason
@@ -216,8 +237,12 @@ def generate_exercise_data(original_full_text: str, num_blanks_range: tuple) -> 
     return display_parts, blanks_data, word_bank
 
 
-def get_new_text_and_blanks(num_blanks_range: tuple, text_length: int) -> tuple:
-    """Generates a new text and then selects blanks for it."""
+def get_new_text_and_blanks(
+    min_blanks: int, max_blanks: int, text_length: int
+) -> tuple:
+    """Generates a new text and then selects blanks for it.
+    Accepts min_blanks and max_blanks directly.
+    """
     if USE_LLM_GENERATION:
         generated_text = generate_raw_text(LLM_PROMPT, generator, text_length)
         if not generated_text:
@@ -227,7 +252,7 @@ def get_new_text_and_blanks(num_blanks_range: tuple, text_length: int) -> tuple:
         generated_text = FALLBACK_TEXT
 
     display_parts, blanks_data, word_bank = generate_exercise_data(
-        generated_text, num_blanks_range
+        generated_text, min_blanks, max_blanks
     )
 
     return display_parts, blanks_data, word_bank, generated_text

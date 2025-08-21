@@ -2,18 +2,10 @@ from flask import Flask, render_template, request, jsonify, session
 import json
 import urllib.parse
 import logging
-import os # Import os for secret key generation
+import os
 
 # Import functions and configurations from core.py
-from core import (
-    get_new_text_and_blanks,
-    generate_exercise_data,
-    BLANK_COUNT_RANGE, # Will be replaced by dynamic calculation
-    LLM_PROMPT,
-    generator,
-    USE_LLM_GENERATION,
-    FALLBACK_TEXT
-)
+from core import get_new_text_and_blanks, generate_exercise_data
 
 app = Flask(__name__)
 
@@ -21,17 +13,41 @@ app = Flask(__name__)
 # Set a secret key for session management.
 # In a production environment, this should be a strong, randomly generated key
 # loaded from an environment variable or a secure configuration file.
-app.secret_key = os.environ.get('FLASK_SECRET_KEY', 'a_very_secret_key_that_should_be_changed_in_production_12345')
+app.secret_key = os.environ.get(
+    "FLASK_SECRET_KEY", "a_very_secret_key_that_should_be_changed_in_production_12345"
+)
 # --- IMPORTANT ---
+
+
+def _compute_min_max_blanks(
+    slider_value: float,
+    text_length: int,
+    min_percentage: int,
+    max_percentage: int,
+):
+    # Make sure the slider value is between 1 and 10, and offset to 0-9.
+    slider_value = max(1.0, min(10.0, slider_value)) - 1.0
+    # Map the slider value (0-9) to blank percentage.
+    percentage = min_percentage
+    percentage += (slider_value / 9.0) * (max_percentage - min_percentage)
+    # Turn the percentage into a floating point value between 0.0 and 1.0.
+    percentage = float(percentage) / 100.0
+    # We'll use a heuristic of 5 characters per word for estimation.
+    estimated_words = text_length / 5
+    # Compute the minimum and maximum number of blanks.
+    min_blanks = max(1, int(estimated_words * (percentage) * 0.8))
+    max_blanks = max(min_blanks + 1, int(estimated_words * (percentage) * 1.2))
+    return min_blanks, max_blanks
+
 
 def _process_get_request():
     # Check if exercise data exists in the session
-    if 'original_full_text' in session and 'blanks_data' in session:
+    if "original_full_text" in session and "blanks_data" in session:
         logging.info("Retrieving exercise from session.")
-        display_parts = session.get('display_parts')
-        blanks_data = session.get('blanks_data')
-        word_bank = session.get('word_bank')
-        original_full_text = session.get('original_full_text')
+        display_parts = session.get("display_parts")
+        blanks_data = session.get("blanks_data")
+        word_bank = session.get("word_bank")
+        original_full_text = session.get("original_full_text")
     else:
         logging.info("No exercise in session. Rendering empty page.")
         # Render with empty data if no exercise is in session
@@ -39,7 +55,7 @@ def _process_get_request():
         blanks_data = {}
         word_bank = []
         original_full_text = ""
-    
+
     correct_answers_json = json.dumps(blanks_data)
     return render_template(
         "index.html",
@@ -48,6 +64,7 @@ def _process_get_request():
         correct_answers_json=correct_answers_json,
         original_full_text=original_full_text,
     )
+
 
 def _process_post_request():
     user_answers = {}
@@ -112,6 +129,7 @@ def _process_post_request():
         original_full_text=original_full_text,
     )
 
+
 @app.route("/", methods=["GET", "POST"])
 def index():
     if request.method == "POST":
@@ -119,72 +137,78 @@ def index():
     else:
         return _process_get_request()
 
+
 # New endpoint for re-blanking
 @app.route("/reblank", methods=["POST"])
 def reblank():
+    # Get the request data.
     data = request.get_json()
+    # Get the original text.
     original_text = data.get("original_text")
-    slider_value = int(data.get("slider_value", 5)) # Default to 5 if not provided
-
-    # Map slider value (1-10) to blank percentage (20%-60%)
-    blank_percentage = 20 + (slider_value - 1) * (40 / 9)
-    
-    # Calculate num_blanks_range based on percentage and text length
-    words = original_text.split()
-    total_words = len(words)
-    
-    min_blanks = max(1, int(total_words * (blank_percentage / 100) * 0.8)) # 80% of target
-    max_blanks = max(min_blanks + 1, int(total_words * (blank_percentage / 100) * 1.2)) # 120% of target
-    
-    num_blanks_range = (min_blanks, max_blanks)
-
+    # Get the slider value.
+    slider_value = int(data.get("slider_value", 5))
+    # Compute the minimum and maximum number of blanks.
+    min_blanks, max_blanks = _compute_min_max_blanks(
+        slider_value,
+        len(original_text),
+        5,
+        25,
+    )
+    # Generate exercise data.
     display_parts, blanks_data, word_bank = generate_exercise_data(
-        original_text, num_blanks_range
+        original_text,
+        min_blanks,
+        max_blanks,
+    )
+    # Update session with new blank data
+    session["display_parts"] = display_parts
+    session["blanks_data"] = blanks_data
+    session["word_bank"] = word_bank
+    session["original_full_text"] = (
+        original_text  # Ensure original text is also in session
     )
 
-    # Update session with new blank data
-    session['display_parts'] = display_parts
-    session['blanks_data'] = blanks_data
-    session['word_bank'] = word_bank
-    session['original_full_text'] = original_text # Ensure original text is also in session
+    return jsonify(
+        {
+            "display_parts": display_parts,
+            "blanks_data": blanks_data,
+            "word_bank": word_bank,
+        }
+    )
 
-    return jsonify({
-        "display_parts": display_parts,
-        "blanks_data": blanks_data,
-        "word_bank": word_bank
-    })
 
 @app.route("/generate_new_text", methods=["POST"])
 def generate_new_text_route():
+    # Get the request data.
     data = request.get_json()
+    # Get text_length from request
+    text_length = int(data.get("text_length", 250))
+    # Get the slider value.
     slider_value = int(data.get("slider_value", 5))
-    text_length = int(data.get("text_length", 250)) # Get text_length from request
-
-    # Map slider value (1-10) to blank percentage (20%-60%)
-    blank_percentage = 20 + (slider_value - 1) * (40 / 9)
-    
-    # Calculate num_blanks_range based on percentage and the provided text_length
-    # We'll use a heuristic of 5 characters per word for estimation
-    estimated_words = text_length / 5 
-    
-    min_blanks = max(1, int(estimated_words * (blank_percentage / 100) * 0.8))
-    max_blanks = max(min_blanks + 1, int(estimated_words * (blank_percentage / 100) * 1.2))
-    
-    num_blanks_range = (min_blanks, max_blanks)
-
-    display_parts, blanks_data, word_bank, original_full_text = get_new_text_and_blanks(
-        num_blanks_range=num_blanks_range, text_length=text_length # Pass text_length
+    # Compute the minimum and maximum number of blanks.
+    min_blanks, max_blanks = _compute_min_max_blanks(
+        slider_value,
+        text_length,
+        5,
+        25,
     )
+    # Generate new text and blanks.
+    display_parts, blanks_data, word_bank, original_full_text = get_new_text_and_blanks(
+        min_blanks=min_blanks,
+        max_blanks=max_blanks,
+        text_length=text_length,
+    )
+    # Update session with new text and blank data.
+    session["display_parts"] = display_parts
+    session["blanks_data"] = blanks_data
+    session["word_bank"] = word_bank
+    session["original_full_text"] = original_full_text
 
-    # Update session with new text and blank data
-    session['display_parts'] = display_parts
-    session['blanks_data'] = blanks_data
-    session['word_bank'] = word_bank
-    session['original_full_text'] = original_full_text
-
-    return jsonify({
-        "display_parts": display_parts,
-        "blanks_data": blanks_data,
-        "word_bank": word_bank,
-        "original_full_text": original_full_text
-    })
+    return jsonify(
+        {
+            "display_parts": display_parts,
+            "blanks_data": blanks_data,
+            "word_bank": word_bank,
+            "original_full_text": original_full_text,
+        }
+    )
