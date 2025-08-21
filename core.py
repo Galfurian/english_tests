@@ -689,15 +689,19 @@ def _get_fallback_exercise_data() -> tuple:
     )
 
 
-def get_random_exercise() -> dict:
+def get_random_exercise(difficulty: str | None = None) -> dict:
     """Selects a random exercise from the loaded exercises.
 
+    Args:
+        difficulty: Optional difficulty level ("beginner", "intermediate", "advanced").
+                   If None, selects from all exercises.
+
     Returns:
-        Dictionary containing the exercise data with 'text' and 'title' keys.
+        Dictionary containing the exercise data with 'text', 'title', and 'difficulty' keys.
         Returns a fallback exercise if no exercises are available or on error.
     """
     try:
-        logging.info("Selecting random exercise from loaded exercises")
+        logging.info("Selecting random exercise from loaded exercises (difficulty: %s)", difficulty)
 
         # Check if exercises are available
         if not EXERCISES:
@@ -705,13 +709,27 @@ def get_random_exercise() -> dict:
             return {
                 "text": "This is a fallback exercise text.",
                 "title": "Fallback Exercise",
+                "difficulty": "beginner",
             }
+
+        # Filter exercises by difficulty if specified
+        available_exercises = EXERCISES
+        if difficulty:
+            available_exercises = [
+                exercise for exercise in EXERCISES 
+                if exercise.get("difficulty", "beginner").lower() == difficulty.lower()
+            ]
+            
+            if not available_exercises:
+                logging.warning(f"No exercises found for difficulty '{difficulty}', using all exercises")
+                available_exercises = EXERCISES
 
         # Select a random exercise
         try:
-            selected_exercise = random.choice(EXERCISES)
+            selected_exercise = random.choice(available_exercises)
             selected_text = selected_exercise.get("text", "")
             exercise_title = selected_exercise.get("title", "Unknown")
+            exercise_difficulty = selected_exercise.get("difficulty", "beginner")
 
             if not selected_text or not selected_text.strip():
                 logging.warning(
@@ -720,10 +738,11 @@ def get_random_exercise() -> dict:
                 return {
                     "text": "This is a fallback exercise text.",
                     "title": "Fallback Exercise",
+                    "difficulty": "beginner",
                 }
 
             logging.info(
-                f"Selected exercise: '{exercise_title}' (length: {len(selected_text)})"
+                f"Selected exercise: '{exercise_title}' (difficulty: {exercise_difficulty}, length: {len(selected_text)})"
             )
             return selected_exercise
 
@@ -732,6 +751,7 @@ def get_random_exercise() -> dict:
             return {
                 "text": "This is a fallback exercise text.",
                 "title": "Fallback Exercise",
+                "difficulty": "beginner",
             }
 
     except Exception as e:
@@ -739,6 +759,7 @@ def get_random_exercise() -> dict:
         return {
             "text": "This is a fallback exercise text.",
             "title": "Fallback Exercise",
+            "difficulty": "beginner",
         }
 
 
@@ -843,7 +864,7 @@ def create_exercise_with_blanks_percentage(
 
 
 def get_exercise_with_percentage_blanks(
-    difficulty_level: int, include_random_words: bool = False
+    difficulty_level: int, include_random_words: bool = False, exercise_difficulty: str | None = None
 ) -> tuple:
     """Selects a random exercise and generates blanks using percentage-based difficulty.
 
@@ -851,13 +872,14 @@ def get_exercise_with_percentage_blanks(
         difficulty_level: Integer from 1 to 10 determining the percentage of blanks
                          (1 = ~5% blanks, 10 = ~25% blanks)
         include_random_words: If True, adds random words from the text to the word bank
+        exercise_difficulty: Optional difficulty level ("beginner", "intermediate", "advanced")
 
     Returns:
         Tuple of (display_parts, blanks_data, word_bank, selected_text, exercise_title)
     """
     try:
-        # Get a random exercise
-        exercise = get_random_exercise()
+        # Get a random exercise with specified difficulty
+        exercise = get_random_exercise(exercise_difficulty)
         exercise_text = exercise.get("text", "")
         exercise_title = exercise.get("title", "Unknown Exercise")
 

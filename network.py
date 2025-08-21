@@ -486,10 +486,21 @@ def get_new_test_route():
             )
             include_random_words = False
 
+        # Get the exercise_difficulty parameter
+        exercise_difficulty = data.get("exercise_difficulty")
+        if exercise_difficulty and not isinstance(exercise_difficulty, str):
+            logging.warning(
+                "Invalid exercise_difficulty value: %s, ignoring",
+                exercise_difficulty,
+            )
+            exercise_difficulty = None
+
         # Generate new text and blanks using percentage-based approach.
         display_parts, blanks_data, word_bank, original_full_text, exercise_title = (
             get_exercise_with_percentage_blanks(
-                difficulty_level=slider_value, include_random_words=include_random_words
+                difficulty_level=slider_value, 
+                include_random_words=include_random_words,
+                exercise_difficulty=exercise_difficulty
             )
         )
 
