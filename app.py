@@ -1,9 +1,11 @@
+from math import log
 from flask import Flask, render_template, request
 from transformers import pipeline
 import random
 import json
 import urllib.parse
 import logging
+import re
 
 # Configure logging
 logging.basicConfig(
@@ -12,15 +14,20 @@ logging.basicConfig(
 
 app = Flask(__name__)
 
-# Configuration for blank generation
-BLANK_COUNT_RANGE = (3, 5)  # (min_blanks, max_blanks)
-TEXT_LENGTH = 50  # Max new tokens for generated text
-USE_LLM_GENERATION = False  # Set to False to use a standard text for debugging
+# Configuration for blank generation (min_blanks, max_blanks)
+BLANK_COUNT_RANGE = (3, 5)
+# Max new tokens for generated text.
+TEXT_LENGTH = 50
+# Set to False to use a standard text for debugging.
+USE_LLM_GENERATION = True
+# Fallback text for debugging purposes.
 FALLBACK_TEXT = (
     "This is a standard text for debugging purposes. "
     "Basically, it provides a consistent base for testing, the blanks generation, and checking logic. "
     "You can modify this text in the code."
 )
+# Prompt for the LLM to generate text.
+LLM_PROMPT = "Write a short, engaging paragraph about your morning routine, or a visit to a park, or cooking a simple meal."
 
 # Load the DistilGPT2 model
 # This will download the model the first time it's run
@@ -31,11 +38,13 @@ generator = pipeline("text-generation", model="gpt2-medium")
 
 def _generate_raw_text(initial_prompt: str, generator, text_length: int) -> str:
     """Generates text using the LLM and handles prompt removal/stripping."""
-    for _ in range(5):  # Try up to 5 times to get a good text
+    # Try up to 5 times to get a good text.
+    for attempt in range(5):
+        logging.info("Generating text with LLM, attempt %d", attempt + 1)
         generated_sequences = generator(
             initial_prompt,
             max_new_tokens=text_length,
-            truncation=True,
+            truncation=False,
             num_return_sequences=3,
             do_sample=True,
             temperature=0.8,
@@ -51,59 +60,116 @@ def _generate_raw_text(initial_prompt: str, generator, text_length: int) -> str:
 
         words = generated_text.split()
         # Ensure text is long enough for meaningful blank selection
-        if len(words) >= 15:  # Increased minimum length for raw text
+        if len(words) >= 15:
+            # Cut at the first period from the end to ensure complete sentences
+            last_period_index = generated_text.rfind(".")
+            if last_period_index != -1:
+                generated_text = generated_text[: last_period_index + 1]
+                words = generated_text.split()  # Re-split words after cutting
             return generated_text
-    return ""  # Return empty string if no suitable text is generated after tries
+    logging.warning(
+        "Failed to generate suitable text after multiple attempts. "
+        "Returning an empty string."
+    )
+    # Return empty string if no suitable text is generated after tries.
+    return ""
 
 
-def _select_blanks(words: list[str], min_offset: int, num_blanks_range: tuple) -> dict:
+def _select_blanks(words: list[str], num_blanks_range: tuple) -> dict:
     """Selects words to be turned into blanks, returning {index: original_word}."""
-    if len(words) < min_offset + 1:
-        logging.warning(
-            f"Not enough words ({len(words)}) to select blanks with offset {min_offset}."
-        )
-        return {}  # Not enough words to select blanks with offset
-
-    population_for_blanks = list(enumerate(words))[min_offset:]
-    if not population_for_blanks:  # Ensure population is not empty
-        logging.warning(f"Population for blanks is empty after offset {min_offset}.")
+    # Check if the words list is empty or too short.
+    population_for_blanks = _get_blank_selection_population(words)
+    if not population_for_blanks:
+        logging.warning("No words available for blank selection.")
         return {}
 
-    max_possible_blanks = max(1, len(population_for_blanks) // 2)
+    # Determine the number of blanks to select.
+    num_blanks = _determine_num_blanks(len(population_for_blanks), num_blanks_range)
+    if num_blanks == 0:
+        logging.warning("No blanks to select based on the population size.")
+        return {}
+
+    blanks_data = _select_non_adjacent_blanks(population_for_blanks, num_blanks)
+    # If non-adjacent selection failed to get enough blanks
+    if len(blanks_data) < num_blanks:
+        logging.warning(
+            "Could not select enough non-adjacent blanks,"
+            "falling back to random selection."
+        )
+        blanks_data = _select_random_blanks(population_for_blanks, num_blanks)
+
+    return blanks_data
+
+
+def _get_blank_selection_population(words: list[str]) -> list[tuple[int, str]]:
+    """Extracts the initial population of words for blank selection."""
+    return list(enumerate(words))
+
+
+def _determine_num_blanks(population_size: int, num_blanks_range: tuple) -> int:
+    """Calculates the actual number of blanks to select."""
+    # Ge the maximum possible blanks based on population size.
+    max_possible_blanks = max(1, population_size // 2)
+
+    # Ensure the range is within the bounds of the population size.
     num_blanks = random.randint(
         min(num_blanks_range[0], max_possible_blanks),
         min(num_blanks_range[1], max_possible_blanks),
     )
+
+    # Ensure at least one blank is selected if possible.
     if num_blanks == 0 and max_possible_blanks > 0:
         num_blanks = 1
+    return num_blanks
 
+
+def _select_non_adjacent_blanks(
+    population: list[tuple[int, str]], num_blanks: int
+) -> dict:
+    """Selects non-adjacent blanks from the population."""
     blanks_data = {}
     selected_indices = set()
-    available_indices = [idx for idx, _ in population_for_blanks]
-    
-    # Try to select non-adjacent blanks
+    available_population = list(population)
+
     for _ in range(num_blanks):
-        if not available_indices:
-            logging.warning("Not enough non-adjacent words to select all blanks.")
+        if not available_population:
+            logging.warning(
+                "Not enough words in population to select all non-adjacent blanks."
+            )
             break
-        
-        chosen_idx_in_population = random.choice(available_indices)
-        original_idx = population_for_blanks[available_indices.index(chosen_idx_in_population)][0]
-        
+
+        # Select a random word from the available population
+        chosen_item = random.choice(available_population)
+        original_idx, original_word = chosen_item
+
+        # Add to blanks_data
+        blanks_data[original_idx] = original_word.strip(".,!?;:'\"")
         selected_indices.add(original_idx)
-        blanks_data[original_idx] = words[original_idx].strip('.,!?;:').lower()
-        
-        # Remove chosen index and its neighbors from available_indices
-        available_indices = [idx for idx in available_indices if idx != original_idx and idx != original_idx - 1 and idx != original_idx + 1]
 
-    if not blanks_data and population_for_blanks: # Fallback if no blanks could be selected non-adjacently
-        logging.warning("Could not select non-adjacent blanks, falling back to random selection.")
-        # Fallback to original random.sample if non-adjacent selection fails
-        words_to_remove_from_population = random.sample(population_for_blanks, num_blanks)
-        words_to_remove_from_population.sort(key=lambda x: x[0])
-        for idx, word in words_to_remove_from_population:
-            blanks_data[idx] = word.strip('.,!?;:').lower()
+        # Remove chosen item and its neighbors from available_population
+        new_available_population = []
+        for idx, word in available_population:
+            if (
+                idx != original_idx
+                and idx != original_idx - 1
+                and idx != original_idx + 1
+            ):
+                new_available_population.append((idx, word))
+        available_population = new_available_population
 
+    return blanks_data
+
+
+def _select_random_blanks(population: list[tuple[int, str]], num_blanks: int) -> dict:
+    """Selects random blanks from the population (fallback)."""
+    # Get a random sample of words from the population.
+    words_to_remove_from_population = random.sample(population, num_blanks)
+    # Sort by index to maintain order in the final output.
+    words_to_remove_from_population.sort(key=lambda x: x[0])
+    # Create a dictionary with the index as key and the word as value.
+    blanks_data = {}
+    for idx, word in words_to_remove_from_population:
+        blanks_data[idx] = word.strip(".,!?;:'\"")
     return blanks_data
 
 
@@ -120,12 +186,13 @@ def _create_display_parts(words: list[str], blanks_data: dict) -> list[str]:
             display_parts.append(word)
     return display_parts
 
+
 def _split_word_and_punctuation(word: str) -> tuple[str, str]:
     """Splits a word into its word part and trailing punctuation part."""
-    punctuation = '.,!?;:'
+    punctuation = ".,!?;:"
     word_part = word
-    punctuation_part = ''
-    
+    punctuation_part = ""
+
     # Iterate from the end to find trailing punctuation
     for i in range(len(word) - 1, -1, -1):
         if word[i] in punctuation:
@@ -139,42 +206,48 @@ def _split_word_and_punctuation(word: str) -> tuple[str, str]:
 def generate_exercise_text(
     num_blanks_range: tuple = (3, 5), text_length: int = 150
 ) -> tuple:
-    """Generates a paragraph and creates blanks."""
-    min_words_for_blanks = (
-        10  # Require at least 10 words before starting to pick blanks
-    )
-    initial_prompt = (
-        "Write a short, engaging paragraph about a common everyday topic, "
-        "such as a morning routine, a visit to a park, or cooking a simple meal. "
-        "Ensure the language is clear and suitable for an English learner. "
-        "The paragraph should be coherent and flow naturally. "
-    )
+    """Generates the exercise text with blanks and a word bank.
 
+    Args:
+        num_blanks_range (tuple, optional):
+            Range of number of blanks to select (min_blanks, max_blanks).
+            Defaults to (3, 5).
+        text_length (int, optional):
+            Maximum length of the generated text in new tokens.
+            Defaults to 150.
+
+    Returns:
+        tuple: A tuple containing:
+            - display_parts (list): List of words and BLANK placeholders.
+            - blanks_data (dict): Dictionary mapping blank indices to original words.
+            - word_bank (list): List of words to fill the blanks.
+            - generated_text (str): The original text used for the exercise.
+    """
+    # If LLM generation is enabled, generate text using the model.
     if USE_LLM_GENERATION:
-        generated_text = _generate_raw_text(initial_prompt, generator, text_length)
-        if not generated_text:  # If raw text generation failed
-            logging.error(
-                "Failed to generate suitable raw text after multiple attempts."
-            )
-            # Fallback to a standard text if LLM generation fails
+        generated_text = _generate_raw_text(LLM_PROMPT, generator, text_length)
+        if not generated_text:
+            logging.error("Using fallback text due to empty generated text.")
             generated_text = FALLBACK_TEXT
     else:
         generated_text = FALLBACK_TEXT
-
+    # Split the generated text into words.
     words = generated_text.split()
-
-    blanks_data = _select_blanks(words, min_words_for_blanks, num_blanks_range)
-    if not blanks_data:  # If blank selection failed (e.g., text too short after offset)
+    # Select blanks from the generated text.
+    blanks_data = _select_blanks(words, num_blanks_range)
+    # If blank selection failed (e.g., text too short after offset)
+    if not blanks_data:
         return (
             ["This", "is", "another", "fallback", "text.", "BLANK_4"],
             {4: "fallback"},
             ["fallback"],
             "This is another fallback text. fallback",
         )
-
+    # Create display parts with BLANK placeholders.
     display_parts = _create_display_parts(words, blanks_data)
-
+    # Create a word bank from the blanks data.
     word_bank = [blanks_data[idx] for idx in blanks_data.keys()]
+    # Shuffle the word bank for randomness.
     random.shuffle(word_bank)
 
     return (
