@@ -73,56 +73,39 @@ def _process_post_request():
             index = int(key.split("_")[1])
             user_answers[index] = value.strip().lower()
 
-    correct_answers_json = request.form.get("correct_answers_json")
-    original_full_text = request.form.get("original_full_text")
-    display_parts_str = request.form.get("display_parts_str")
-
-    try:
-        correct_answers = json.loads(correct_answers_json)
-        correct_answers = {int(k): v for k, v in correct_answers.items()}
-    except json.JSONDecodeError as e:
-        logging.error(
-            f"JSONDecodeError for correct_answers_json: {e} - Data: {correct_answers_json}"
-        )
-        return (
-            render_template(
-                "error.html", message="Error processing correct answers data."
-            ),
-            500,
-        )
-
-    try:
-        display_parts = json.loads(urllib.parse.unquote(display_parts_str))
-    except json.JSONDecodeError as e:
-        logging.error(
-            f"JSONDecodeError for display_parts_str: {e} - Data: {display_parts_str}"
-        )
-        return (
-            render_template(
-                "error.html", message="Error processing display parts data."
-            ),
-            500,
-        )
+    # Retrieve correct answers and original text from session
+    correct_answers = session.get("blanks_data", {})
+    original_full_text = session.get("original_full_text", "")
+    display_parts = session.get("display_parts", []) # Get display parts from session
 
     results = {}
     score = 0
-    total_blanks = len(correct_answers)
+    total_blanks = 0 # Initialize total_blanks here
 
-    for index, correct_word in correct_answers.items():
-        user_word = user_answers.get(index, "")
-        is_correct = user_word == correct_word
-        results[index] = {
-            "user": user_word,
-            "correct": correct_word,
-            "is_correct": is_correct,
-        }
-        if is_correct:
-            score += 1
+    # Iterate through display_parts to ensure results are built for every blank shown
+    for part in display_parts:
+        if part.startswith("BLANK_"):
+            original_index = int(part.split("_")[1])
+            total_blanks += 1 # Count total blanks from display_parts
+
+            correct_word = correct_answers.get(original_index, "[MISSING]") # Use .get() for safety
+            user_word = user_answers.get(original_index, "")
+            is_correct = user_word == correct_word
+
+            results[original_index] = {
+                "user": user_word,
+                "correct": correct_word,
+                "is_correct": is_correct,
+            }
+            if is_correct:
+                score += 1
+
+    logging.info(f"Final results dictionary: {results}") # Add this log
 
     return render_template(
         "index.html",
-        display_parts=display_parts,
-        word_bank=[],
+        display_parts=display_parts, # Pass display_parts from session
+        word_bank=[], # Word bank is not needed on results page
         results=results,
         score=score,
         total_blanks=total_blanks,

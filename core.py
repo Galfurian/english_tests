@@ -9,7 +9,7 @@ logging.basicConfig(
 )
 
 # Punctuation characters to consider for blank selection.
-PUNCTUATION = ".!,?;:'\""
+PUNCTUATION = ".!,?;:'\"()[]{}<>"
 
 # Set to False to use a standard text for debugging.
 USE_LLM_GENERATION = True
@@ -109,8 +109,24 @@ def _select_blanks(words: list[str], min_blanks: int, max_blanks: int) -> dict:
 
 
 def _get_blank_selection_population(words: list[str]) -> list[tuple[int, str]]:
-    """Extracts the initial population of words for blank selection."""
-    return list(enumerate(words))
+    """Extracts the initial population of words for blank selection.
+    Filters words to include only those primarily composed of letters,
+    allowing for internal dashes and apostrophes, and stripping external punctuation.
+    """
+    population = []
+    for idx, word in enumerate(words):
+        # First, strip leading/trailing punctuation from the word
+        # Use the global PUNCTUATION constant
+        cleaned_word = word.strip(PUNCTUATION)
+
+        # Check if the cleaned word (after removing internal dashes and apostrophes)
+        # consists only of alphabetic characters.
+        # This allows words like "well-being" and "don't" to be considered.
+        # We use isalpha() for "only letters" requirement.
+        if cleaned_word.replace("-", "").replace("'", "").isalpha():
+            population.append((idx, word)) # Keep the original word with punctuation for later stripping
+
+    return population
 
 
 def _determine_num_blanks(
@@ -149,7 +165,7 @@ def _select_non_adjacent_blanks(
             )
             break
 
-        # Select a random word from the available population
+        # Select a random word from the available population.
         chosen_item = random.choice(available_population)
         original_idx, original_word = chosen_item
 
