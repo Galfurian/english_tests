@@ -9,7 +9,7 @@ p { margin-top: 5px; margin-bottom: 5px; }
 hr { border: 0; height: 1px; background-color: #ccc; margin: 15px 0; }
 .slider-container, .text-length-container, .checkbox-container { margin-top: 10px; display: flex; align-items: center; }
 .slider-container label, .text-length-container label, .checkbox-container label { margin-right: 10px; }
-.slider-container input[type="range"] { flex-grow: 1; margin-right: 10px; }
+.slider-container input[type="range"] { flex-grow: 1; margin-left: 10px; margin-right: 10px; }
 .text-length-container input[type="number"] { width: 80px; text-align: center; }
 .checkbox-container input[type="checkbox"] { margin-right: 5px; }
 .blank-input { width: 80px; text-align: center; border: 1px solid #aaa; padding: 3px; margin: 0 2px; }

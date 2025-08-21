@@ -853,27 +853,28 @@ def get_exercise_with_percentage_blanks(
         include_random_words: If True, adds random words from the text to the word bank
 
     Returns:
-        Tuple of (display_parts, blanks_data, word_bank, selected_text)
+        Tuple of (display_parts, blanks_data, word_bank, selected_text, exercise_title)
     """
     try:
         # Get a random exercise
         exercise = get_random_exercise()
         exercise_text = exercise.get("text", "")
+        exercise_title = exercise.get("title", "Unknown Exercise")
 
         if not exercise_text:
             logging.error("No text found in selected exercise")
-            return _get_fallback_exercise_data() + ("Fallback exercise text.",)
+            return _get_fallback_exercise_data() + ("Fallback exercise text.", "Fallback Exercise")
 
         # Create the exercise with percentage-based blanks
         display_parts, blanks_data, word_bank = create_exercise_with_blanks_percentage(
             exercise_text, difficulty_level, include_random_words
         )
 
-        return display_parts, blanks_data, word_bank, exercise_text
+        return display_parts, blanks_data, word_bank, exercise_text, exercise_title
 
     except Exception as e:
         logging.error(
             "Unexpected error in get_exercise_with_percentage_blanks: %s, using fallback",
             e,
         )
-        return _get_fallback_exercise_data() + ("Fallback exercise text.",)
+        return _get_fallback_exercise_data() + ("Fallback exercise text.", "Fallback Exercise")

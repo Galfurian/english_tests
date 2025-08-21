@@ -17,6 +17,9 @@
             <h2>Your Score: {{ score }} / {{ total_blanks }}</h2>
             <p>Review your answers below:</p>
             <div class="exercise-text">
+                {% if exercise_title %}
+                    <h2>{{ exercise_title }}</h2>
+                {% endif %}
                 {% for part in display_parts %}
                     {% if part.startswith('BLANK_') %}
                         {% set original_index = part.split('_')[1] %}
@@ -42,15 +45,15 @@
         </div>
     {% else %}
         <div class="controls">
-            <div class="section-title">Text Generation</div>
             <button id="getNewTestBtn">Get New Test</button>
-            <hr>
-            <div class="section-title">Blanking Options</div>
             <button id="reblankTextBtn">Re-blank Text</button>
+            <button type="submit" form="exerciseForm">Check Answers</button>
+            <hr>
+            <h3>Settings</h3>
             <div class="slider-container">
-                <label for="blankSlider">Number of Blanks:</label>
-                <input type="range" id="blankSlider" min="1" max="10" value="5">
+                <label for="blankSlider">Number of blank slots:</label>
                 <span id="sliderValue">5</span>
+                <input type="range" id="blankSlider" min="1" max="10" value="5">
             </div>
             <div class="checkbox-container">
                 <label for="includeRandomWords">
@@ -58,12 +61,13 @@
                     Include extra words for difficulty
                 </label>
             </div>
-            <hr>
-            <button type="submit" form="exerciseForm">Check Answers</button>
         </div>
 
         <form method="POST" id="exerciseForm">
             <div class="exercise-text" id="exerciseTextContainer">
+                {% if exercise_title %}
+                    <h2>{{ exercise_title }}</h2>
+                {% endif %}
                 {% if display_parts %}
                     {% for part in display_parts %}
                         {% if part.startswith('BLANK_') %}
@@ -74,7 +78,7 @@
                         {% endif %}
                     {% endfor %}
                 {% else %}
-                    <p>Click "Generate New Text" to start an exercise.</p>
+                    <p>Click "Get New Test" to start an exercise.</p>
                 {% endif %}
             </div>
 
@@ -118,6 +122,14 @@
 
             async function updateExerciseDisplay(data) {
                 exerciseTextContainer.innerHTML = ''; // Clear current content
+                
+                // Add exercise title if available
+                if (data.exercise_title) {
+                    const titleElement = document.createElement('h2');
+                    titleElement.textContent = data.exercise_title;
+                    exerciseTextContainer.appendChild(titleElement);
+                }
+                
                 if (data.display_parts && data.display_parts.length > 0) {
                     data.display_parts.forEach(part => {
                         if (part.startsWith('BLANK_')) {
@@ -133,7 +145,9 @@
                         }
                     });
                 } else {
-                    exerciseTextContainer.innerHTML = '<p>Click "Generate New Text" to start an exercise.</p>';
+                    const fallbackElement = document.createElement('p');
+                    fallbackElement.textContent = 'Click "Get New Test" to start an exercise.';
+                    exerciseTextContainer.appendChild(fallbackElement);
                 }
 
 

@@ -55,6 +55,7 @@ def _process_get_request():
                 blanks_data = session.get("blanks_data", {})
                 word_bank = session.get("word_bank", [])
                 original_full_text = session.get("original_full_text", "")
+                exercise_title = session.get("exercise_title", "")
 
                 # Validate session data
                 if not isinstance(display_parts, list):
@@ -69,6 +70,9 @@ def _process_get_request():
                 if not isinstance(original_full_text, str):
                     logging.warning("Invalid original_full_text in session, resetting")
                     original_full_text = ""
+                if not isinstance(exercise_title, str):
+                    logging.warning("Invalid exercise_title in session, resetting")
+                    exercise_title = ""
 
             except Exception as e:
                 logging.error("Error retrieving session data: %s", e)
@@ -76,6 +80,7 @@ def _process_get_request():
                 blanks_data = {}
                 word_bank = []
                 original_full_text = ""
+                exercise_title = ""
         else:
             logging.info("No exercise in session. Rendering empty page.")
             # Render with empty data if no exercise is in session
@@ -83,6 +88,7 @@ def _process_get_request():
             blanks_data = {}
             word_bank = []
             original_full_text = ""
+            exercise_title = ""
 
         try:
             correct_answers_json = json.dumps(blanks_data)
@@ -96,6 +102,7 @@ def _process_get_request():
             word_bank=word_bank,
             correct_answers_json=correct_answers_json,
             original_full_text=original_full_text,
+            exercise_title=exercise_title,
         )
 
     except Exception as e:
@@ -416,12 +423,14 @@ def reblank():
             logging.error("Failed to generate exercise data for reblank")
             return jsonify({"error": "Failed to generate exercise data"}), 500
 
-        # Update session with new blank data
+        # Update session with new blank data (preserve existing title)
         try:
             session["display_parts"] = display_parts
             session["blanks_data"] = blanks_data
             session["word_bank"] = word_bank
             session["original_full_text"] = original_text
+            # Keep existing exercise_title if it exists
+            current_title = session.get("exercise_title", "")
         except Exception as e:
             logging.error("Error updating session in reblank: %s", e)
             return jsonify({"error": "Failed to save exercise data"}), 500
@@ -434,6 +443,7 @@ def reblank():
                 "display_parts": display_parts,
                 "blanks_data": blanks_data,
                 "word_bank": word_bank,
+                "exercise_title": current_title,
             }
         )
 
@@ -477,7 +487,7 @@ def get_new_test_route():
             include_random_words = False
 
         # Generate new text and blanks using percentage-based approach.
-        display_parts, blanks_data, word_bank, original_full_text = (
+        display_parts, blanks_data, word_bank, original_full_text, exercise_title = (
             get_exercise_with_percentage_blanks(
                 difficulty_level=slider_value, include_random_words=include_random_words
             )
@@ -498,6 +508,7 @@ def get_new_test_route():
             session["blanks_data"] = blanks_data
             session["word_bank"] = word_bank
             session["original_full_text"] = original_full_text
+            session["exercise_title"] = exercise_title
         except Exception as e:
             logging.error("Error updating session in get_new_test: %s", e)
             return jsonify({"error": "Failed to save exercise data"}), 500
@@ -511,6 +522,7 @@ def get_new_test_route():
                 "blanks_data": blanks_data,
                 "word_bank": word_bank,
                 "original_full_text": original_full_text,
+                "exercise_title": exercise_title,
             }
         )
 
