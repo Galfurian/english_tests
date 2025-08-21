@@ -1,9 +1,8 @@
 import random
 import logging
-import re
 import time
-from unittest import result
-from transformers import pipeline
+import json
+import os
 
 # Configure logging (can be moved to a central config if needed later)
 logging.basicConfig(level=logging.INFO, format="[%(levelname)-7s] %(message)s")
@@ -11,244 +10,40 @@ logging.basicConfig(level=logging.INFO, format="[%(levelname)-7s] %(message)s")
 # Punctuation characters to consider for blank selection.
 PUNCTUATION = ".!,?;:'\"()[]{}<>"
 
-# Set to False to use a standard text for debugging.
-USE_LLM_GENERATION = False
 
-# Fallback text for debugging purposes.
-FALLBACK_TEXT = (
-    "Many people believe that technology has made our lives easier, but it also creates new challenges. For example, smartphones allow us to stay connected with friends and family at any time, yet they can also reduce the amount of real face-to-face communication. In addition, social media platforms give us the chance to share our opinions with a large audience, but they sometimes spread false information quickly. Therefore, it is important to use technology wisely, balancing its advantages with the possible negative effects. "
-)
-FALLBACK_TEXT = "Traveling is often seen as one of the most valuable experiences a person can have, not only because it allows us to see new places, but also because it helps us grow as individuals. When we travel, we are pushed out of our comfort zone, which makes us more flexible and independent. For example, when visiting a foreign country, we may face language barriers, cultural differences, or unfamiliar customs. Solving these challenges develops problem-solving skills and gives us confidence. In addition, travel teaches us tolerance and respect for diversity. Meeting people with different traditions, lifestyles, and beliefs shows us that the world is much bigger than the small circle we usually live in. Moreover, travel can create unforgettable memories, such as watching a beautiful sunset, tasting local food for the first time, or making friends from other countries. These moments stay with us and often shape the way we see the world for the rest of our lives."
-
-
-# Prompt for the LLM to generate text.
-LLM_PROMPT = (
-    "You are an English teacher creating simple reading material for beginner "
-    "students. Write a short, engaging paragraph about your morning routine, "
-    "or a visit to a park, or cooking a simple meal. "
-    "Ensure the language is simple, uses common vocabulary, and has clear, "
-    "short sentences suitable for an English learner. "
-    "Avoid complex grammar or obscure words."
-)
-
-# Load the DistilGPT2 model
-# This will download the model the first time it's run
-try:
-    logging.info("Loading text generation model...")
-    generator = pipeline("text-generation", model="gpt2-medium")
-    logging.info("Model loaded successfully")
-except Exception as e:
-    logging.error("Failed to load text generation model: %s", e)
-    logging.warning("Text generation will not be available. Using fallback text only.")
-    generator = None
-
-# Prompt for validating generated text
-VALIDATION_PROMPT = (
-    "Please correct any grammar errors, spelling mistakes, or unclear sentences in the following text. "
-    "Keep the original meaning and style. Only return the corrected text without any additional commentary. "
-    "Text to correct: "
-)
-
-# --- Helper Functions for Text Generation and Blank Management ---
-
-
-def _validate_text_with_llm(text: str, generator) -> str:
-    """Uses the LLM to validate and fix the generated text. Returns the validated/fixed text."""
-    start_time = time.time()
-
-    # Input validation
-    if not text or not isinstance(text, str):
-        logging.error("Invalid input text for validation: %s", repr(text))
-        return text  # Return original text if invalid input
-
-    if not generator:
-        logging.warning("Generator is None or invalid, skipping LLM validation")
-        return text  # Return original text if no generator available
-
-    logging.info("Starting text validation phase for text length: %d", len(text))
-
+# Load the exercises from the json.
+def load_exercises_from_json(json_file_path: str = "data/exercises.json") -> list[dict]:
+    """Load exercises from the JSON file."""
     try:
-        validation_prompt = VALIDATION_PROMPT + text
+        # Get the absolute path relative to the script location
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        full_path = os.path.join(current_dir, json_file_path)
 
-        if len(validation_prompt) > 1024:  # Reasonable limit
-            logging.warning(
-                "Validation prompt too long (%d chars), truncating",
-                len(validation_prompt),
+        if not os.path.exists(full_path):
+            logging.error(f"Exercise file not found: {full_path}")
+            return []
+
+        with open(full_path, "r", encoding="utf-8") as file:
+            data = json.load(file)
+            exercises = data.get("exercises", [])
+            logging.info(
+                f"Successfully loaded {len(exercises)} exercises from {json_file_path}"
             )
-            validation_prompt = validation_prompt[:1024]
+            return exercises
 
-        logging.info("Validation prompt length: %d", len(validation_prompt))
-
-        validation_response = generator(
-            validation_prompt,
-            max_new_tokens=len(text.split()) + 20,  # Allow room for corrections but limit based on original length
-            truncation=False,
-            num_return_sequences=1,
-            do_sample=True,
-            temperature=0.2,  # Lower temperature for more focused corrections
-            top_p=0.8,  # Nucleus sampling for better quality
-        )
-
-        if not validation_response or len(validation_response) == 0:
-            logging.error("Empty response from generator during validation")
-            return text  # Return original text if validation fails
-
-        validated_text = validation_response[0]["generated_text"]
-
-        if validated_text.startswith(validation_prompt):
-            validated_text = validated_text[len(validation_prompt):].strip()
-        else:
-            validated_text = validated_text.strip()
-
-        end_time = time.time()
-        duration = end_time - start_time
-        
-        # If we got meaningful validated text, use it; otherwise return original
-        if validated_text and len(validated_text.split()) >= len(text.split()) * 0.5:  # Ensure we have reasonable content
-            # Basic check to see if the validated text is reasonable
-            if len(validated_text) <= len(text) * 2:  # Don't accept text that's too much longer
-                logging.info("Text validation completed in %.2f seconds. Text improved/validated.", duration)
-                return validated_text
-            else:
-                logging.warning("Validated text too long, using original text.")
-                return text
-        else:
-            logging.info("Text validation completed in %.2f seconds. Using original text.", duration)
-            return text
-
-    except KeyError as e:
-        end_time = time.time()
-        duration = end_time - start_time
-        logging.error(
-            "Key error during text validation: %s after %.2f seconds. Response structure unexpected.",
-            e,
-            duration,
-        )
-        return text  # Return original text on error
-    except (TypeError, AttributeError) as e:
-        end_time = time.time()
-        duration = end_time - start_time
-        logging.error(
-            "Type/Attribute error during text validation: %s after %.2f seconds.",
-            e,
-            duration,
-        )
-        return text  # Return original text on error
+    except json.JSONDecodeError as e:
+        logging.error(f"Error parsing JSON file {json_file_path}: {e}")
+        return []
+    except FileNotFoundError:
+        logging.error(f"Exercise file not found: {json_file_path}")
+        return []
     except Exception as e:
-        end_time = time.time()
-        duration = end_time - start_time
-        logging.error(
-            "Unexpected error during text validation: %s after %.2f seconds. Using original text.",
-            e,
-            duration,
-        )
-        return text  # Return original text on error
+        logging.error(f"Unexpected error loading exercises: {e}")
+        return []
 
 
-def generate_raw_text(initial_prompt: str, generator, text_length: int) -> str:
-    """Generates text using the LLM and handles prompt removal/stripping."""
-
-    # Input validation
-    if not initial_prompt or not isinstance(initial_prompt, str):
-        logging.error("Invalid initial_prompt: %s", repr(initial_prompt))
-        return ""
-
-    if not generator:
-        logging.error("Generator is None or invalid")
-        return ""
-
-    if not isinstance(text_length, int) or text_length <= 0:
-        logging.error("Invalid text_length: %s, must be positive integer", text_length)
-        return ""
-
-    if text_length > 500:  # Reasonable upper limit
-        logging.warning("Text length %d is very large, capping at 500", text_length)
-        text_length = 500
-
-    logging.info(
-        "Starting text generation with prompt length: %d, target length: %d",
-        len(initial_prompt),
-        text_length,
-    )
-
-    # Try up to 5 times to get a good text.
-    for attempt in range(5):
-        try:
-            logging.info("Generating text with LLM, attempt %d", attempt + 1)
-
-            generated_sequences = generator(
-                initial_prompt,
-                max_new_tokens=text_length,
-                truncation=False,
-                num_return_sequences=3,
-                do_sample=True,
-                temperature=0.8,
-                top_k=50,
-                top_p=0.95,
-            )
-
-            if not generated_sequences or len(generated_sequences) == 0:
-                logging.warning(
-                    "Empty response from generator on attempt %d", attempt + 1
-                )
-                continue
-
-            try:
-                generated_text = generated_sequences[0]["generated_text"]
-            except (KeyError, IndexError, TypeError) as e:
-                logging.error(
-                    "Failed to extract generated text on attempt %d: %s", attempt + 1, e
-                )
-                continue
-
-            if generated_text.startswith(initial_prompt):
-                generated_text = generated_text[len(initial_prompt) :].strip()
-            else:
-                generated_text = generated_text.strip()
-
-            words = generated_text.split()
-
-            # Ensure text is long enough for meaningful blank selection
-            if len(words) >= 15:
-                # Cut at the first period from the end to ensure complete sentences
-                last_period_index = generated_text.rfind(".")
-                if last_period_index != -1:
-                    generated_text = generated_text[: last_period_index + 1]
-                    words = generated_text.split()  # Re-split words after cutting
-
-                # Second pass: validate the text with the LLM
-                logging.info("Validating generated text with LLM")
-                try:
-                    validated_text = _validate_text_with_llm(generated_text, generator)
-                    if validated_text:
-                        logging.info("Text validation passed, using validated text")
-                        return validated_text
-                    else:
-                        logging.info("Text validation failed, trying again")
-                        continue
-                except Exception as e:
-                    logging.error(
-                        "Error during text validation on attempt %d: %s", attempt + 1, e
-                    )
-                    continue
-            else:
-                logging.warning(
-                    "Generated text too short (%d words) on attempt %d",
-                    len(words),
-                    attempt + 1,
-                )
-
-        except Exception as e:
-            logging.error(
-                "Unexpected error during text generation attempt %d: %s", attempt + 1, e
-            )
-            continue
-
-    logging.error(
-        "Failed to generate suitable text after 5 attempts. Returning empty string."
-    )
-    # Return empty string if no suitable text is generated after tries.
-    return ""
+# Global variable to store loaded exercises
+EXERCISES = load_exercises_from_json()
 
 
 def _select_blanks(
@@ -786,75 +581,71 @@ def _get_fallback_exercise_data() -> tuple:
 
 
 def get_new_text_and_blanks(
-    min_blanks: int, max_blanks: int, text_length: int
+    min_blanks: int, max_blanks: int, text_length: int | None = None
 ) -> tuple:
-    """Generates a new text and then selects blanks for it.
-    Accepts min_blanks and max_blanks directly.
+    """Selects a random exercise from the loaded exercises and generates blanks for it.
+
+    Args:
+        min_blanks: Minimum number of blanks to create
+        max_blanks: Maximum number of blanks to create
+        text_length: Ignored (kept for backward compatibility)
+
+    Returns:
+        Tuple of (display_parts, blanks_data, word_bank, selected_text)
     """
     # Input validation
-    if (
-        not isinstance(min_blanks, int)
-        or not isinstance(max_blanks, int)
-        or not isinstance(text_length, int)
-    ):
+    if not isinstance(min_blanks, int) or not isinstance(max_blanks, int):
         logging.error(
-            "Invalid parameters: min_blanks=%s, max_blanks=%s, text_length=%s",
+            "Invalid parameters: min_blanks=%s, max_blanks=%s",
             min_blanks,
             max_blanks,
-            text_length,
         )
-        return _get_fallback_exercise_data() + (FALLBACK_TEXT,)
+        return _get_fallback_exercise_data() + ("Fallback exercise text.",)
 
-    if min_blanks < 0 or max_blanks < 0 or text_length <= 0:
+    if min_blanks < 0 or max_blanks < 0:
         logging.error(
-            "Invalid parameter values: min_blanks=%d, max_blanks=%d, text_length=%d",
+            "Invalid parameter values: min_blanks=%d, max_blanks=%d",
             min_blanks,
             max_blanks,
-            text_length,
         )
-        return _get_fallback_exercise_data() + (FALLBACK_TEXT,)
+        return _get_fallback_exercise_data() + ("Fallback exercise text.",)
 
     try:
         logging.info(
-            "Generating new text and blanks: min_blanks=%d, max_blanks=%d, text_length=%d",
+            "Selecting exercise and generating blanks: min_blanks=%d, max_blanks=%d",
             min_blanks,
             max_blanks,
-            text_length,
         )
 
-        generated_text = ""
+        # Check if exercises are available
+        if not EXERCISES:
+            logging.warning("No exercises loaded, using fallback")
+            return _get_fallback_exercise_data() + ("Fallback exercise text.",)
 
-        if USE_LLM_GENERATION and generator:
-            try:
-                generated_text = generate_raw_text(LLM_PROMPT, generator, text_length)
-                if not generated_text:
-                    logging.warning(
-                        "LLM generation returned empty text, using fallback"
-                    )
-                    generated_text = FALLBACK_TEXT
-                else:
-                    logging.info(
-                        "Successfully generated text of length: %d", len(generated_text)
-                    )
-            except Exception as e:
-                logging.error("Error during LLM text generation: %s, using fallback", e)
-                generated_text = FALLBACK_TEXT
-        elif USE_LLM_GENERATION and not generator:
-            logging.warning(
-                "LLM generation requested but model not available, using fallback"
+        # Select a random exercise
+        try:
+            selected_exercise = random.choice(EXERCISES)
+            selected_text = selected_exercise.get("text", "")
+            exercise_title = selected_exercise.get("title", "Unknown")
+
+            if not selected_text or not selected_text.strip():
+                logging.warning(
+                    f"Empty text in exercise '{exercise_title}', using fallback"
+                )
+                return _get_fallback_exercise_data() + ("Fallback exercise text.",)
+
+            logging.info(
+                f"Selected exercise: '{exercise_title}' (length: {len(selected_text)})"
             )
-            generated_text = FALLBACK_TEXT
-        else:
-            logging.info("Using fallback text (LLM generation disabled)")
-            generated_text = FALLBACK_TEXT
 
-        if not generated_text or not generated_text.strip():
-            logging.error("Generated text is empty or whitespace-only, using fallback")
-            generated_text = FALLBACK_TEXT
+        except (IndexError, TypeError, KeyError) as e:
+            logging.error(f"Error selecting exercise: {e}, using fallback")
+            return _get_fallback_exercise_data() + ("Fallback exercise text.",)
 
+        # Generate exercise data from the selected text
         try:
             display_parts, blanks_data, word_bank = generate_exercise_data(
-                generated_text, min_blanks, max_blanks
+                selected_text, min_blanks, max_blanks
             )
 
             # Validate the results
@@ -862,7 +653,7 @@ def get_new_text_and_blanks(
                 logging.error(
                     "Exercise generation returned invalid data, using fallback"
                 )
-                return _get_fallback_exercise_data() + (FALLBACK_TEXT,)
+                return _get_fallback_exercise_data() + ("Fallback exercise text.",)
 
             logging.info(
                 "Successfully generated exercise with %d display parts, %d blanks, %d word bank items",
@@ -870,16 +661,16 @@ def get_new_text_and_blanks(
                 len(blanks_data),
                 len(word_bank),
             )
-            return display_parts, blanks_data, word_bank, generated_text
+            return display_parts, blanks_data, word_bank, selected_text
 
         except Exception as e:
             logging.error(
                 "Error during exercise data generation: %s, using fallback", e
             )
-            return _get_fallback_exercise_data() + (FALLBACK_TEXT,)
+            return _get_fallback_exercise_data() + ("Fallback exercise text.",)
 
     except Exception as e:
         logging.error(
             "Unexpected error in get_new_text_and_blanks: %s, using fallback", e
         )
-        return _get_fallback_exercise_data() + (FALLBACK_TEXT,)
+        return _get_fallback_exercise_data() + ("Fallback exercise text.",)
