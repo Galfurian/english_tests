@@ -40,7 +40,7 @@
                 <h3>Original Text:</h3>
                 <p>{{ original_full_text }}</p>
             </div>
-            <p><a href="/">Try another exercise</a> | <a href="/">Generate New Text</a></p>
+            <p><a href="/">Try another exercise</a></p>
         </div>
     {% else %}
         <form method="POST">
@@ -68,7 +68,6 @@
             <input type="hidden" name="original_full_text" value="{{ original_full_text }}">
             <input type="hidden" name="display_parts_str" value="{{ display_parts | tojson | urlencode }}">
             <button type="submit">Check Answers</button>
-            <p><a href="/">Generate New Text</a></p>
         </form>
     {% endif %}
 </body>
