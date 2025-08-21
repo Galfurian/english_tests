@@ -12,7 +12,9 @@ PUNCTUATION = ".!,?;:'\"()[]{}<>"
 
 
 # Load the exercises from the json.
-def load_exercises_from_json(json_file_path: str = "data/exercises.json") -> list[dict]:
+def _load_exercises_from_json(
+    json_file_path: str = "data/exercises.json",
+) -> list[dict]:
     """Load exercises from the JSON file."""
     try:
         # Get the absolute path relative to the script location
@@ -43,7 +45,7 @@ def load_exercises_from_json(json_file_path: str = "data/exercises.json") -> lis
 
 
 # Global variable to store loaded exercises
-EXERCISES = load_exercises_from_json()
+EXERCISES = _load_exercises_from_json()
 
 
 def _select_blanks(
@@ -487,11 +489,114 @@ def _split_word_and_punctuation(word: str) -> tuple[str, str]:
         return word, ""  # Fallback: return original word with no punctuation
 
 
-def generate_exercise_data(
-    original_full_text: str, min_blanks: int, max_blanks: int
+def _add_random_words_to_bank(
+    word_bank: list[str], words: list[str], blanks_data: dict[int, str]
+) -> list[str]:
+    """Adds random words from the text to the word bank to increase difficulty.
+
+    Args:
+        word_bank: Current word bank containing correct answers
+        words: All words from the original text
+        blanks_data: Dictionary of blank indices and their correct words
+
+    Returns:
+        Enhanced word bank with additional random words
+    """
+    # Input validation
+    if not isinstance(word_bank, list):
+        logging.error(
+            "Invalid word_bank parameter: expected list, got %s", type(word_bank)
+        )
+        return word_bank
+
+    if not isinstance(words, list):
+        logging.error("Invalid words parameter: expected list, got %s", type(words))
+        return word_bank
+
+    if not isinstance(blanks_data, dict):
+        logging.error(
+            "Invalid blanks_data parameter: expected dict, got %s", type(blanks_data)
+        )
+        return word_bank
+
+    try:
+        # Create a set of words that are already in blanks (to avoid duplicates)
+        blank_words = set(
+            word.lower().strip(PUNCTUATION) for word in blanks_data.values()
+        )
+
+        # Get potential random words from the text
+        potential_words = []
+        for idx, word in enumerate(words):
+            if not isinstance(word, str):
+                continue
+
+            # Clean the word
+            cleaned_word = word.strip(PUNCTUATION)
+
+            # Only consider words that are primarily letters and not already in blanks
+            if (
+                cleaned_word.replace("-", "").replace("'", "").isalpha()
+                and cleaned_word.lower() not in blank_words
+                and len(cleaned_word) > 2
+            ):  # Avoid very short words like "a", "an"
+                potential_words.append(cleaned_word)
+
+        # Remove duplicates while preserving order
+        seen = set()
+        unique_potential_words = []
+        for word in potential_words:
+            word_lower = word.lower()
+            if word_lower not in seen:
+                seen.add(word_lower)
+                unique_potential_words.append(word)
+
+        if not unique_potential_words:
+            logging.info("No suitable random words found in text")
+            return word_bank
+
+        # Calculate how many random words to add (50-75% of the number of correct answers)
+        num_correct_words = len(word_bank)
+        min_random = max(1, int(num_correct_words * 0.5))
+        max_random = max(min_random, int(num_correct_words * 0.75))
+        num_random_words = min(
+            random.randint(min_random, max_random), len(unique_potential_words)
+        )
+
+        # Select random words
+        random_words = random.sample(unique_potential_words, num_random_words)
+
+        # Add to word bank
+        enhanced_word_bank = word_bank + random_words
+
+        logging.info(
+            "Added %d random words to word bank (original: %d, enhanced: %d)",
+            len(random_words),
+            len(word_bank),
+            len(enhanced_word_bank),
+        )
+
+        return enhanced_word_bank
+
+    except Exception as e:
+        logging.error("Error adding random words to bank: %s", e)
+        return word_bank
+
+
+def _generate_exercise_data(
+    original_full_text: str,
+    min_blanks: int,
+    max_blanks: int,
+    include_random_words: bool = False,
 ) -> tuple:
     """Generates exercise data (blanks, word bank, display parts) for a given text.
     Accepts min_blanks and max_blanks directly.
+
+    Args:
+        original_full_text: The text to create blanks in
+        min_blanks: Minimum number of blanks to create
+        max_blanks: Maximum number of blanks to create
+        include_random_words: If True, adds random words from the text to the word bank
     """
     # Input validation
     if not isinstance(original_full_text, str):
@@ -503,7 +608,7 @@ def generate_exercise_data(
 
     if not original_full_text.strip():
         logging.error(
-            "Empty or whitespace-only text provided to generate_exercise_data"
+            "Empty or whitespace-only text provided to _generate_exercise_data"
         )
         return _get_fallback_exercise_data()
 
@@ -553,6 +658,10 @@ def generate_exercise_data(
             logging.error("Failed to create word bank")
             return _get_fallback_exercise_data()
 
+        # Add random words from the text if requested
+        if include_random_words:
+            word_bank = _add_random_words_to_bank(word_bank, words, blanks_data)
+
         try:
             random.shuffle(word_bank)
         except Exception as e:
@@ -566,7 +675,7 @@ def generate_exercise_data(
         return display_parts, blanks_data, word_bank
 
     except Exception as e:
-        logging.error("Unexpected error in generate_exercise_data: %s", e)
+        logging.error("Unexpected error in _generate_exercise_data: %s", e)
         return _get_fallback_exercise_data()
 
 
@@ -634,7 +743,7 @@ def get_random_exercise() -> dict:
 
 
 def create_exercise_with_blanks_percentage(
-    exercise_text: str, difficulty_level: int
+    exercise_text: str, difficulty_level: int, include_random_words: bool = False
 ) -> tuple:
     """Creates an exercise with blanks from the given text using percentage-based difficulty.
 
@@ -642,6 +751,7 @@ def create_exercise_with_blanks_percentage(
         exercise_text: The text to create blanks in
         difficulty_level: Integer from 1 to 10 determining the percentage of blanks
                          (1 = ~5% blanks, 10 = ~25% blanks)
+        include_random_words: If True, adds random words from the text to the word bank
 
     Returns:
         Tuple of (display_parts, blanks_data, word_bank)
@@ -674,9 +784,10 @@ def create_exercise_with_blanks_percentage(
 
     try:
         logging.info(
-            "Creating exercise with blanks: difficulty_level=%d, text_length=%d",
+            "Creating exercise with blanks: difficulty_level=%d, text_length=%d, include_random_words=%s",
             difficulty_level,
             len(exercise_text),
+            include_random_words,
         )
 
         # Calculate percentage of blanks based on difficulty level
@@ -709,8 +820,8 @@ def create_exercise_with_blanks_percentage(
         )
 
         # Generate exercise data using the calculated min/max blanks
-        display_parts, blanks_data, word_bank = generate_exercise_data(
-            exercise_text, min_blanks, max_blanks
+        display_parts, blanks_data, word_bank = _generate_exercise_data(
+            exercise_text, min_blanks, max_blanks, include_random_words
         )
 
         # Validate the results
@@ -731,12 +842,15 @@ def create_exercise_with_blanks_percentage(
         return _get_fallback_exercise_data()
 
 
-def get_exercise_with_percentage_blanks(difficulty_level: int) -> tuple:
+def get_exercise_with_percentage_blanks(
+    difficulty_level: int, include_random_words: bool = False
+) -> tuple:
     """Selects a random exercise and generates blanks using percentage-based difficulty.
 
     Args:
         difficulty_level: Integer from 1 to 10 determining the percentage of blanks
                          (1 = ~5% blanks, 10 = ~25% blanks)
+        include_random_words: If True, adds random words from the text to the word bank
 
     Returns:
         Tuple of (display_parts, blanks_data, word_bank, selected_text)
@@ -752,7 +866,7 @@ def get_exercise_with_percentage_blanks(difficulty_level: int) -> tuple:
 
         # Create the exercise with percentage-based blanks
         display_parts, blanks_data, word_bank = create_exercise_with_blanks_percentage(
-            exercise_text, difficulty_level
+            exercise_text, difficulty_level, include_random_words
         )
 
         return display_parts, blanks_data, word_bank, exercise_text

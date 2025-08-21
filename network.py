@@ -396,9 +396,20 @@ def reblank():
             logging.warning("Invalid slider_value, using default: %s", slider_value)
             slider_value = 5
 
+        # Get the include_random_words flag
+        include_random_words = data.get("include_random_words", False)
+        if not isinstance(include_random_words, bool):
+            logging.warning(
+                "Invalid include_random_words value: %s, using False",
+                include_random_words,
+            )
+            include_random_words = False
+
         # Generate exercise data using percentage-based approach.
         display_parts, blanks_data, word_bank = create_exercise_with_blanks_percentage(
-            original_text, difficulty_level=slider_value
+            original_text,
+            difficulty_level=slider_value,
+            include_random_words=include_random_words,
         )
 
         if not display_parts or not blanks_data or not word_bank:
@@ -431,18 +442,18 @@ def reblank():
         return jsonify({"error": "An unexpected error occurred"}), 500
 
 
-@app.route("/generate_new_text", methods=["POST"])
-def generate_new_text_route():
+@app.route("/get_new_test", methods=["POST"])
+def get_new_test_route():
     """Endpoint for generating completely new text and exercise."""
     try:
         if not request.is_json:
-            logging.error("Non-JSON request received at /generate_new_text")
+            logging.error("Non-JSON request received at /get_new_test")
             return jsonify({"error": "Content-Type must be application/json"}), 400
 
         # Get the request data.
         data = request.get_json()
         if not data:
-            logging.error("Empty JSON data received at /generate_new_text")
+            logging.error("Empty JSON data received at /get_new_test")
             return jsonify({"error": "No data provided"}), 400
 
         # Get the slider value.
@@ -456,9 +467,20 @@ def generate_new_text_route():
             logging.warning("Invalid slider_value, using default: %s", slider_value)
             slider_value = 5
 
+        # Get the include_random_words flag
+        include_random_words = data.get("include_random_words", False)
+        if not isinstance(include_random_words, bool):
+            logging.warning(
+                "Invalid include_random_words value: %s, using False",
+                include_random_words,
+            )
+            include_random_words = False
+
         # Generate new text and blanks using percentage-based approach.
         display_parts, blanks_data, word_bank, original_full_text = (
-            get_exercise_with_percentage_blanks(difficulty_level=slider_value)
+            get_exercise_with_percentage_blanks(
+                difficulty_level=slider_value, include_random_words=include_random_words
+            )
         )
 
         if (
@@ -477,7 +499,7 @@ def generate_new_text_route():
             session["word_bank"] = word_bank
             session["original_full_text"] = original_full_text
         except Exception as e:
-            logging.error("Error updating session in generate_new_text: %s", e)
+            logging.error("Error updating session in get_new_test: %s", e)
             return jsonify({"error": "Failed to save exercise data"}), 500
 
         logging.info(
@@ -493,5 +515,5 @@ def generate_new_text_route():
         )
 
     except Exception as e:
-        logging.error("Unexpected error in generate_new_text endpoint: %s", e)
+        logging.error("Unexpected error in get_new_test endpoint: %s", e)
         return jsonify({"error": "An unexpected error occurred"}), 500

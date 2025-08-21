@@ -43,7 +43,7 @@
     {% else %}
         <div class="controls">
             <div class="section-title">Text Generation</div>
-            <button id="generateNewTextBtn">Get New Test</button>
+            <button id="getNewTestBtn">Get New Test</button>
             <hr>
             <div class="section-title">Blanking Options</div>
             <button id="reblankTextBtn">Re-blank Text</button>
@@ -51,6 +51,12 @@
                 <label for="blankSlider">Number of Blanks:</label>
                 <input type="range" id="blankSlider" min="1" max="10" value="5">
                 <span id="sliderValue">5</span>
+            </div>
+            <div class="checkbox-container">
+                <label for="includeRandomWords">
+                    <input type="checkbox" id="includeRandomWords">
+                    Include extra words for difficulty
+                </label>
             </div>
             <hr>
             <button type="submit" form="exerciseForm">Check Answers</button>
@@ -91,10 +97,11 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const generateNewTextBtn = document.getElementById('generateNewTextBtn');
+            const getNewTestBtn = document.getElementById('getNewTestBtn');
             const reblankTextBtn = document.getElementById('reblankTextBtn');
             const blankSlider = document.getElementById('blankSlider');
             const sliderValueSpan = document.getElementById('sliderValue');
+            const includeRandomWordsCheckbox = document.getElementById('includeRandomWords');
             const exerciseTextContainer = document.getElementById('exerciseTextContainer');
             const wordBankContainer = document.getElementById('wordBankContainer');
             const correctAnswersJsonInput = document.getElementById('correctAnswersJson');
@@ -147,15 +154,16 @@
                 displayPartsStrInput.value = encodeURIComponent(JSON.stringify(data.display_parts));
             }
 
-            generateNewTextBtn.addEventListener('click', async function() {
+            getNewTestBtn.addEventListener('click', async function() {
                 try {
-                    const response = await fetch('/generate_new_text', {
+                    const response = await fetch('/get_new_test', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
                         },
                         body: JSON.stringify({
                             slider_value: blankSlider.value,
+                            include_random_words: includeRandomWordsCheckbox.checked,
                         }),
                     });
                     const data = await response.json();
@@ -181,7 +189,8 @@
                         },
                         body: JSON.stringify({
                             original_text: currentOriginalText,
-                            slider_value: blankSlider.value
+                            slider_value: blankSlider.value,
+                            include_random_words: includeRandomWordsCheckbox.checked
                         }),
                     });
                     const data = await response.json();
