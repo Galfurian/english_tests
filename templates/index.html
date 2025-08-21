@@ -43,11 +43,7 @@
     {% else %}
         <div class="controls">
             <div class="section-title">Text Generation</div>
-            <button id="generateNewTextBtn">Generate New Text</button>
-            <div class="text-length-container">
-                <label for="textLengthInput">Text Length (tokens):</label>
-                <input type="number" id="textLengthInput" value="80" min="50" max="500" step="10">
-            </div>
+            <button id="generateNewTextBtn">Get New Test</button>
             <hr>
             <div class="section-title">Blanking Options</div>
             <button id="reblankTextBtn">Re-blank Text</button>
@@ -99,7 +95,6 @@
             const reblankTextBtn = document.getElementById('reblankTextBtn');
             const blankSlider = document.getElementById('blankSlider');
             const sliderValueSpan = document.getElementById('sliderValue');
-            const textLengthInput = document.getElementById('textLengthInput'); // New
             const exerciseTextContainer = document.getElementById('exerciseTextContainer');
             const wordBankContainer = document.getElementById('wordBankContainer');
             const correctAnswersJsonInput = document.getElementById('correctAnswersJson');
@@ -161,7 +156,6 @@
                         },
                         body: JSON.stringify({
                             slider_value: blankSlider.value,
-                            text_length: textLengthInput.value // Pass text_length
                         }),
                     });
                     const data = await response.json();

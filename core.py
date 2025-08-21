@@ -580,47 +580,23 @@ def _get_fallback_exercise_data() -> tuple:
     )
 
 
-def get_new_text_and_blanks(
-    min_blanks: int, max_blanks: int, text_length: int | None = None
-) -> tuple:
-    """Selects a random exercise from the loaded exercises and generates blanks for it.
-
-    Args:
-        min_blanks: Minimum number of blanks to create
-        max_blanks: Maximum number of blanks to create
-        text_length: Ignored (kept for backward compatibility)
+def get_random_exercise() -> dict:
+    """Selects a random exercise from the loaded exercises.
 
     Returns:
-        Tuple of (display_parts, blanks_data, word_bank, selected_text)
+        Dictionary containing the exercise data with 'text' and 'title' keys.
+        Returns a fallback exercise if no exercises are available or on error.
     """
-    # Input validation
-    if not isinstance(min_blanks, int) or not isinstance(max_blanks, int):
-        logging.error(
-            "Invalid parameters: min_blanks=%s, max_blanks=%s",
-            min_blanks,
-            max_blanks,
-        )
-        return _get_fallback_exercise_data() + ("Fallback exercise text.",)
-
-    if min_blanks < 0 or max_blanks < 0:
-        logging.error(
-            "Invalid parameter values: min_blanks=%d, max_blanks=%d",
-            min_blanks,
-            max_blanks,
-        )
-        return _get_fallback_exercise_data() + ("Fallback exercise text.",)
-
     try:
-        logging.info(
-            "Selecting exercise and generating blanks: min_blanks=%d, max_blanks=%d",
-            min_blanks,
-            max_blanks,
-        )
+        logging.info("Selecting random exercise from loaded exercises")
 
         # Check if exercises are available
         if not EXERCISES:
             logging.warning("No exercises loaded, using fallback")
-            return _get_fallback_exercise_data() + ("Fallback exercise text.",)
+            return {
+                "text": "This is a fallback exercise text.",
+                "title": "Fallback Exercise",
+            }
 
         # Select a random exercise
         try:
@@ -632,45 +608,158 @@ def get_new_text_and_blanks(
                 logging.warning(
                     f"Empty text in exercise '{exercise_title}', using fallback"
                 )
-                return _get_fallback_exercise_data() + ("Fallback exercise text.",)
+                return {
+                    "text": "This is a fallback exercise text.",
+                    "title": "Fallback Exercise",
+                }
 
             logging.info(
                 f"Selected exercise: '{exercise_title}' (length: {len(selected_text)})"
             )
+            return selected_exercise
 
         except (IndexError, TypeError, KeyError) as e:
             logging.error(f"Error selecting exercise: {e}, using fallback")
+            return {
+                "text": "This is a fallback exercise text.",
+                "title": "Fallback Exercise",
+            }
+
+    except Exception as e:
+        logging.error("Unexpected error in get_random_exercise: %s, using fallback", e)
+        return {
+            "text": "This is a fallback exercise text.",
+            "title": "Fallback Exercise",
+        }
+
+
+def create_exercise_with_blanks_percentage(
+    exercise_text: str, difficulty_level: int
+) -> tuple:
+    """Creates an exercise with blanks from the given text using percentage-based difficulty.
+
+    Args:
+        exercise_text: The text to create blanks in
+        difficulty_level: Integer from 1 to 10 determining the percentage of blanks
+                         (1 = ~5% blanks, 10 = ~25% blanks)
+
+    Returns:
+        Tuple of (display_parts, blanks_data, word_bank)
+    """
+    # Input validation
+    if not isinstance(exercise_text, str):
+        logging.error(
+            "Invalid exercise_text parameter: expected string, got %s",
+            type(exercise_text),
+        )
+        return _get_fallback_exercise_data()
+
+    if not exercise_text.strip():
+        logging.error("Empty or whitespace-only text provided")
+        return _get_fallback_exercise_data()
+
+    if not isinstance(difficulty_level, int):
+        logging.error(
+            "Invalid difficulty_level parameter: expected int, got %s",
+            type(difficulty_level),
+        )
+        return _get_fallback_exercise_data()
+
+    if difficulty_level < 1 or difficulty_level > 10:
+        logging.error(
+            "Invalid difficulty_level value: %d (must be 1-10)",
+            difficulty_level,
+        )
+        return _get_fallback_exercise_data()
+
+    try:
+        logging.info(
+            "Creating exercise with blanks: difficulty_level=%d, text_length=%d",
+            difficulty_level,
+            len(exercise_text),
+        )
+
+        # Calculate percentage of blanks based on difficulty level
+        # Level 1 = 5%, Level 10 = 25%
+        min_percentage = 5 + (difficulty_level - 1) * 2.0  # 5% to 23%
+        max_percentage = min_percentage + 4.0  # Add 4% range
+
+        # Ensure we don't exceed 25% for the maximum
+        max_percentage = min(max_percentage, 25.0)
+
+        # Count words in the text to calculate actual min/max blanks
+        words = exercise_text.split()
+        if not words:
+            logging.error("No words found in text after splitting")
+            return _get_fallback_exercise_data()
+
+        total_words = len(words)
+
+        # Calculate min and max blanks based on percentages
+        min_blanks = max(1, int(total_words * min_percentage / 100.0))
+        max_blanks = max(min_blanks + 1, int(total_words * max_percentage / 100.0))
+
+        logging.info(
+            "Calculated blanks from %d words: min=%d (%.1f%%), max=%d (%.1f%%)",
+            total_words,
+            min_blanks,
+            min_percentage,
+            max_blanks,
+            max_percentage,
+        )
+
+        # Generate exercise data using the calculated min/max blanks
+        display_parts, blanks_data, word_bank = generate_exercise_data(
+            exercise_text, min_blanks, max_blanks
+        )
+
+        # Validate the results
+        if not display_parts or not blanks_data or not word_bank:
+            logging.error("Exercise generation returned invalid data, using fallback")
+            return _get_fallback_exercise_data()
+
+        logging.info(
+            "Successfully created exercise with %d display parts, %d blanks, %d word bank items",
+            len(display_parts),
+            len(blanks_data),
+            len(word_bank),
+        )
+        return display_parts, blanks_data, word_bank
+
+    except Exception as e:
+        logging.error("Error during exercise creation: %s, using fallback", e)
+        return _get_fallback_exercise_data()
+
+
+def get_exercise_with_percentage_blanks(difficulty_level: int) -> tuple:
+    """Selects a random exercise and generates blanks using percentage-based difficulty.
+
+    Args:
+        difficulty_level: Integer from 1 to 10 determining the percentage of blanks
+                         (1 = ~5% blanks, 10 = ~25% blanks)
+
+    Returns:
+        Tuple of (display_parts, blanks_data, word_bank, selected_text)
+    """
+    try:
+        # Get a random exercise
+        exercise = get_random_exercise()
+        exercise_text = exercise.get("text", "")
+
+        if not exercise_text:
+            logging.error("No text found in selected exercise")
             return _get_fallback_exercise_data() + ("Fallback exercise text.",)
 
-        # Generate exercise data from the selected text
-        try:
-            display_parts, blanks_data, word_bank = generate_exercise_data(
-                selected_text, min_blanks, max_blanks
-            )
+        # Create the exercise with percentage-based blanks
+        display_parts, blanks_data, word_bank = create_exercise_with_blanks_percentage(
+            exercise_text, difficulty_level
+        )
 
-            # Validate the results
-            if not display_parts or not blanks_data or not word_bank:
-                logging.error(
-                    "Exercise generation returned invalid data, using fallback"
-                )
-                return _get_fallback_exercise_data() + ("Fallback exercise text.",)
-
-            logging.info(
-                "Successfully generated exercise with %d display parts, %d blanks, %d word bank items",
-                len(display_parts),
-                len(blanks_data),
-                len(word_bank),
-            )
-            return display_parts, blanks_data, word_bank, selected_text
-
-        except Exception as e:
-            logging.error(
-                "Error during exercise data generation: %s, using fallback", e
-            )
-            return _get_fallback_exercise_data() + ("Fallback exercise text.",)
+        return display_parts, blanks_data, word_bank, exercise_text
 
     except Exception as e:
         logging.error(
-            "Unexpected error in get_new_text_and_blanks: %s, using fallback", e
+            "Unexpected error in get_exercise_with_percentage_blanks: %s, using fallback",
+            e,
         )
         return _get_fallback_exercise_data() + ("Fallback exercise text.",)

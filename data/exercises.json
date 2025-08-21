@@ -99,6 +99,156 @@
             "id": 20,
             "title": "Time Management",
             "text": "Effective time management maximizes productivity while reducing stress levels in professional environments. Prioritizing tasks based on urgency and importance helps focus energy efficiently. Digital calendars and reminder systems prevent forgotten appointments and deadlines. Eliminating distractions and establishing boundaries creates optimal working conditions. Regular breaks and leisure activities maintain motivation and prevent burnout syndrome."
+        },
+        {
+            "id": 21,
+            "title": "Morning Coffee",
+            "text": "I always drink coffee in the morning before going to work. First, I fill the coffee maker with water and add ground coffee. The machine takes about five minutes to brew a fresh cup. I like to add milk and one spoon of sugar. This daily ritual helps me start the day with energy."
+        },
+        {
+            "id": 22,
+            "title": "Walking the Dog",
+            "text": "My dog needs a walk every morning and evening. We usually go to the park near our house for about twenty minutes. He likes to run and play with other dogs. I bring a small bag to clean up after him. Walking together keeps both of us healthy and happy."
+        },
+        {
+            "id": 23,
+            "title": "Grocery Shopping",
+            "text": "I go grocery shopping every Saturday morning. I make a list of everything I need before leaving home. The supermarket is usually busy on weekends. I buy fresh fruits, vegetables, meat, and dairy products. Paying with a credit card is faster than using cash."
+        },
+        {
+            "id": 24,
+            "title": "Watching TV",
+            "text": "In the evening, I like to relax and watch television. My favorite programs are comedy shows and nature documentaries. I usually watch for one or two hours before going to bed. Sometimes I eat popcorn or drink tea while watching. The remote control is always on the coffee table."
+        },
+        {
+            "id": 25,
+            "title": "Birthday Party",
+            "text": "Last weekend, I went to my friend's birthday party. There were about fifteen people at the celebration. We ate delicious cake and sang happy birthday songs. Everyone brought presents and greeting cards. The party lasted until midnight and we had lots of fun."
+        },
+        {
+            "id": 26,
+            "title": "Doctor Visit",
+            "text": "Yesterday I had an appointment with my doctor for a regular checkup. I arrived at the clinic ten minutes early. The nurse checked my weight and blood pressure first. The doctor examined me and said I was in good health. The visit took about thirty minutes total."
+        },
+        {
+            "id": 27,
+            "title": "Rainy Day",
+            "text": "Today it is raining heavily outside. I decided to stay home and read a good book. The sound of rain on the window is very relaxing. I made hot chocolate and lit a candle. Rainy days are perfect for indoor activities and rest."
+        },
+        {
+            "id": 28,
+            "title": "Learning to Drive",
+            "text": "I am taking driving lessons every Tuesday and Thursday. My instructor is very patient and explains everything clearly. We practice parking, turning, and highway driving. I feel more confident behind the wheel each week. I hope to get my license next month."
+        },
+        {
+            "id": 29,
+            "title": "Phone Call",
+            "text": "This morning my mother called me from another city. We talked for almost an hour about family news. She told me about her garden and her new hobby. I shared stories about my work and weekend plans. Long phone calls help us stay close despite the distance."
+        },
+        {
+            "id": 30,
+            "title": "Bus Ride",
+            "text": "I take the bus to work every day instead of driving. The bus stop is only two blocks from my house. The journey takes about twenty-five minutes in normal traffic. I usually sit by the window and listen to music. The monthly bus pass saves money on transportation."
+        },
+        {
+            "id": 31,
+            "title": "Cleaning House",
+            "text": "Every Saturday I spend the morning cleaning my house. I start by making all the beds and organizing clothes. Then I vacuum the floors and dust the furniture. The kitchen and bathroom need the most attention. A clean house makes me feel organized and peaceful."
+        },
+        {
+            "id": 32,
+            "title": "Post Office",
+            "text": "I went to the post office to send a package to my sister. The clerk weighed the box and calculated the shipping cost. I chose express delivery so it arrives quickly. I also bought stamps for letters and postcards. The service was friendly and efficient."
+        },
+        {
+            "id": 33,
+            "title": "Bank Visit",
+            "text": "I visited the bank to open a new savings account. The banker explained different account options and interest rates. I filled out forms with my personal information and address. She gave me a temporary debit card and checkbook. The whole process took about forty-five minutes."
+        },
+        {
+            "id": 34,
+            "title": "Hair Salon",
+            "text": "I made an appointment at the hair salon for a haircut. The stylist asked what style I wanted and how much to cut. She washed my hair with shampoo and conditioner first. The haircut took about thirty minutes and looks very nice. I gave her a good tip for the excellent service."
+        },
+        {
+            "id": 35,
+            "title": "Car Repair",
+            "text": "My car made strange noises yesterday so I took it to the mechanic. He examined the engine and found the problem quickly. The repair cost two hundred dollars and took three hours. While waiting, I read magazines in the customer lounge. Now my car runs smoothly again."
+        },
+        {
+            "id": 36,
+            "title": "Movie Theater",
+            "text": "Last night I went to the movie theater with friends. We bought tickets online to avoid waiting in line. The new action movie was very exciting and entertaining. We shared a large bucket of popcorn and soft drinks. The sound system and big screen made the experience amazing."
+        },
+        {
+            "id": 37,
+            "title": "Dentist Appointment",
+            "text": "I visit the dentist every six months for teeth cleaning. The dental hygienist removes plaque and polishes my teeth carefully. The dentist checks for cavities and gum problems. This time everything looked healthy and clean. Regular dental care prevents serious problems later."
+        },
+        {
+            "id": 38,
+            "title": "Swimming Pool",
+            "text": "During summer, I swim at the community pool three times per week. The water is always clean and the perfect temperature. Swimming is excellent exercise for the whole body. I usually swim for forty-five minutes without stopping. The pool also has a sauna and hot tub for relaxation."
+        },
+        {
+            "id": 39,
+            "title": "Farmer's Market",
+            "text": "Every Sunday morning there is a farmer's market in the town square. Local farmers sell fresh vegetables, fruits, and homemade products. I love buying strawberries, tomatoes, and fresh bread there. The prices are reasonable and everything tastes better than supermarket food. The market creates a friendly community atmosphere."
+        },
+        {
+            "id": 40,
+            "title": "Computer Problems",
+            "text": "My computer stopped working properly last week. It was running very slowly and freezing frequently. I called a computer technician to fix the problem. He installed new software and cleaned the hard drive. Now the computer works perfectly and starts up quickly."
+        },
+        {
+            "id": 41,
+            "title": "Garden Work",
+            "text": "Spring is the best time to work in the garden. I plant new flowers and vegetables every year. Watering, weeding, and pruning keep plants healthy and beautiful. My tomatoes and roses grow very well in the sunny backyard. Gardening is relaxing and provides fresh food for cooking."
+        },
+        {
+            "id": 42,
+            "title": "Laundry Day",
+            "text": "I do laundry every Wednesday evening after work. First, I sort clothes by color and fabric type. The washing machine takes about forty minutes per load. Then I hang delicate items and put others in the dryer. Folding and putting away clean clothes completes the process."
+        },
+        {
+            "id": 43,
+            "title": "Bookstore Visit",
+            "text": "I spent an hour browsing at the local bookstore yesterday. The fiction section has many interesting novels and mystery books. I bought a cookbook and a travel guide for my vacation. The staff recommended several bestsellers and new releases. Reading books expands knowledge and provides entertainment."
+        },
+        {
+            "id": 44,
+            "title": "Ice Cream Shop",
+            "text": "On hot summer days, I like to buy ice cream from the shop downtown. They have twenty different flavors including chocolate, vanilla, and strawberry. I usually choose two scoops in a waffle cone. The ice cream is homemade and always tastes fresh and creamy. Children and adults both love this popular treat."
+        },
+        {
+            "id": 45,
+            "title": "Hotel Stay",
+            "text": "During my vacation, I stayed at a comfortable hotel near the beach. The room had a king-size bed, television, and private bathroom. Hotel staff provided fresh towels and cleaned the room daily. The breakfast buffet included eggs, fruit, and coffee. The swimming pool and gym facilities were excellent."
+        },
+        {
+            "id": 46,
+            "title": "Pizza Night",
+            "text": "Friday night is pizza night at our house. We order delivery from our favorite restaurant nearby. The pizza arrives hot and fresh in about thirty minutes. We like pepperoni, mushrooms, and extra cheese on top. Eating pizza while watching movies is a perfect way to end the week."
+        },
+        {
+            "id": 47,
+            "title": "Morning Jog",
+            "text": "I jog around the neighborhood every morning before breakfast. The fresh air and exercise wake up my body and mind. My usual route takes about twenty-five minutes to complete. I see other joggers, dog walkers, and people leaving for work. This healthy habit gives me energy for the entire day."
+        },
+        {
+            "id": 48,
+            "title": "Art Museum",
+            "text": "Last Saturday I visited the art museum with my cousin. We saw paintings, sculptures, and photographs by famous artists. The museum guide explained the history behind each exhibition. My favorite pieces were the colorful landscape paintings. Museums preserve culture and inspire creativity in visitors."
+        },
+        {
+            "id": 49,
+            "title": "Picnic in the Park",
+            "text": "We had a family picnic in the park last Sunday. Everyone brought different foods to share together. I made sandwiches and my sister brought homemade cookies. The children played games while adults talked and relaxed. Beautiful weather made the outdoor meal even more enjoyable."
+        },
+        {
+            "id": 50,
+            "title": "New Shoes",
+            "text": "I needed new running shoes so I went to the sports store. The salesperson measured my feet and showed me several options. I tried on five different pairs before making a decision. The shoes I bought are comfortable and have good support. Proper footwear prevents injuries during exercise and daily activities."
         }
     ]
 }

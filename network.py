@@ -5,7 +5,10 @@ import logging
 import os
 
 # Import functions and configurations from core.py
-from core import get_new_text_and_blanks, generate_exercise_data
+from core import (
+    get_exercise_with_percentage_blanks,
+    create_exercise_with_blanks_percentage,
+)
 
 app = Flask(__name__)
 
@@ -39,75 +42,6 @@ def internal_error(error):
 def handle_exception(error):
     logging.error("Unhandled exception: %s", error, exc_info=True)
     return render_template("error.html", error="An unexpected error occurred."), 500
-
-
-def _compute_min_max_blanks(
-    slider_value: float,
-    text_length: int,
-    min_percentage: int,
-    max_percentage: int,
-):
-    """Computes min and max blanks based on slider value and text length."""
-    # Input validation
-    try:
-        slider_value = float(slider_value)
-        text_length = int(text_length)
-        min_percentage = int(min_percentage)
-        max_percentage = int(max_percentage)
-    except (ValueError, TypeError) as e:
-        logging.error("Invalid parameter types in _compute_min_max_blanks: %s", e)
-        return 1, 2  # Safe defaults
-
-    if text_length <= 0:
-        logging.error("Invalid text_length: %d", text_length)
-        return 1, 2
-
-    if (
-        min_percentage < 0
-        or max_percentage < 0
-        or min_percentage > 100
-        or max_percentage > 100
-    ):
-        logging.error(
-            "Invalid percentage range: min=%d, max=%d", min_percentage, max_percentage
-        )
-        return 1, 2
-
-    if min_percentage > max_percentage:
-        logging.warning(
-            "min_percentage (%d) > max_percentage (%d), swapping",
-            min_percentage,
-            max_percentage,
-        )
-        min_percentage, max_percentage = max_percentage, min_percentage
-
-    try:
-        # Make sure the slider value is between 1 and 10, and offset to 0-9.
-        slider_value = max(1.0, min(10.0, slider_value)) - 1.0
-        # Map the slider value (0-9) to blank percentage.
-        percentage = min_percentage
-        percentage += (slider_value / 9.0) * (max_percentage - min_percentage)
-        # Turn the percentage into a floating point value between 0.0 and 1.0.
-        percentage = float(percentage) / 100.0
-        # We'll use a heuristic of 5 characters per word for estimation.
-        estimated_words = text_length / 5
-        # Compute the minimum and maximum number of blanks.
-        min_blanks = max(1, int(estimated_words * (percentage) * 0.8))
-        max_blanks = max(min_blanks + 1, int(estimated_words * (percentage) * 1.2))
-
-        logging.debug(
-            "Computed blanks: min=%d, max=%d (slider=%.1f, text_len=%d, est_words=%.1f)",
-            min_blanks,
-            max_blanks,
-            slider_value + 1,
-            text_length,
-            estimated_words,
-        )
-        return min_blanks, max_blanks
-
-    except Exception as e:
-        logging.error("Unexpected error in _compute_min_max_blanks: %s", e)
-        return 1, 2  # Safe defaults
 
 
 def _process_get_request():
@@ -462,19 +396,9 @@ def reblank():
             logging.warning("Invalid slider_value, using default: %s", slider_value)
             slider_value = 5
 
-        # Compute the minimum and maximum number of blanks.
-        min_blanks, max_blanks = _compute_min_max_blanks(
-            slider_value,
-            len(original_text),
-            5,
-            25,
-        )
-
-        # Generate exercise data.
-        display_parts, blanks_data, word_bank = generate_exercise_data(
-            original_text,
-            min_blanks,
-            max_blanks,
+        # Generate exercise data using percentage-based approach.
+        display_parts, blanks_data, word_bank = create_exercise_with_blanks_percentage(
+            original_text, difficulty_level=slider_value
         )
 
         if not display_parts or not blanks_data or not word_bank:
@@ -521,20 +445,6 @@ def generate_new_text_route():
             logging.error("Empty JSON data received at /generate_new_text")
             return jsonify({"error": "No data provided"}), 400
 
-        # Get text_length from request
-        text_length = data.get("text_length", 80)
-        try:
-            text_length = int(text_length)
-            if text_length <= 0:
-                logging.warning("Invalid text_length %d, using default", text_length)
-                text_length = 80
-            elif text_length > 500:
-                logging.warning("Text length %d too large, capping at 500", text_length)
-                text_length = 500
-        except (ValueError, TypeError):
-            logging.warning("Invalid text_length type, using default: %s", text_length)
-            text_length = 80
-
         # Get the slider value.
         slider_value = data.get("slider_value", 5)
         try:
@@ -546,21 +456,9 @@ def generate_new_text_route():
             logging.warning("Invalid slider_value, using default: %s", slider_value)
             slider_value = 5
 
-        # Compute the minimum and maximum number of blanks.
-        min_blanks, max_blanks = _compute_min_max_blanks(
-            slider_value,
-            text_length,
-            5,
-            25,
-        )
-
-        # Generate new text and blanks.
+        # Generate new text and blanks using percentage-based approach.
         display_parts, blanks_data, word_bank, original_full_text = (
-            get_new_text_and_blanks(
-                min_blanks=min_blanks,
-                max_blanks=max_blanks,
-                text_length=text_length,
-            )
+            get_exercise_with_percentage_blanks(difficulty_level=slider_value)
         )
 
         if (
