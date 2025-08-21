@@ -1,6 +1,8 @@
 import random
 import logging
 import re
+import time
+from unittest import result
 from transformers import pipeline
 
 # Configure logging (can be moved to a central config if needed later)
@@ -36,7 +38,57 @@ LLM_PROMPT = (
 # This will download the model the first time it's run
 generator = pipeline("text-generation", model="gpt2-medium")
 
+# Prompt for validating generated text
+VALIDATION_PROMPT = (
+    "Please evaluate if the following text is coherent, grammatically correct, "
+    "and uses simple vocabulary. Fix any issue like: incomplete sentences, "
+    "grammatical errors, complex vocabulary, or incoherent content. "
+    "Text to evaluate: "
+)
+
 # --- Helper Functions for Text Generation and Blank Management ---
+
+
+def _validate_text_with_llm(text: str, generator) -> bool:
+    """Uses the LLM to validate if the generated text makes sense."""
+    start_time = time.time()
+    logging.info("Starting text validation phase")
+
+    try:
+        validation_prompt = VALIDATION_PROMPT + text
+
+        logging.info("Validation prompt: %s", validation_prompt)
+
+        validation_response = generator(
+            validation_prompt,
+            max_new_tokens=10,
+            truncation=False,
+            num_return_sequences=1,
+            do_sample=False,
+            temperature=0.1,
+        )
+
+        generated_text = validation_response[0]["generated_text"]
+
+        if generated_text.startswith(validation_prompt):
+            generated_text = generated_text[len(validation_prompt) :].strip()
+        else:
+            generated_text = generated_text.strip()
+
+        end_time = time.time()
+        duration = end_time - start_time
+        logging.info(f"Text validation phase completed in {duration:.2f} seconds.")
+
+        return generated_text
+    except Exception as e:
+        end_time = time.time()
+        duration = end_time - start_time
+        logging.warning(
+            "Text validation failed with error: %s after %.2f seconds. Assuming text is valid.",
+            e,
+            duration,
+        )
+        return True
 
 
 def generate_raw_text(initial_prompt: str, generator, text_length: int) -> str:
@@ -69,7 +121,16 @@ def generate_raw_text(initial_prompt: str, generator, text_length: int) -> str:
             if last_period_index != -1:
                 generated_text = generated_text[: last_period_index + 1]
                 words = generated_text.split()  # Re-split words after cutting
-            return generated_text
+
+            # Second pass: validate the text with the LLM
+            logging.info("Validating generated text with LLM")
+            if _validate_text_with_llm(generated_text, generator):
+                logging.info("Text validation passed")
+                return generated_text
+            else:
+                logging.info("Text validation failed, trying again")
+                continue
+
     logging.warning(
         "Failed to generate suitable text after multiple attempts. "
         "Returning an empty string."
@@ -78,7 +139,9 @@ def generate_raw_text(initial_prompt: str, generator, text_length: int) -> str:
     return ""
 
 
-def _select_blanks(words: list[str], min_blanks: int, max_blanks: int) -> dict:
+def _select_blanks(
+    words: list[str], min_blanks: int, max_blanks: int
+) -> dict[int, str]:
     """Selects words to be turned into blanks, returning {index: original_word}.
     Accepts min_blanks and max_blanks directly.
     """
@@ -124,7 +187,9 @@ def _get_blank_selection_population(words: list[str]) -> list[tuple[int, str]]:
         # This allows words like "well-being" and "don't" to be considered.
         # We use isalpha() for "only letters" requirement.
         if cleaned_word.replace("-", "").replace("'", "").isalpha():
-            population.append((idx, word)) # Keep the original word with punctuation for later stripping
+            population.append(
+                (idx, word)
+            )  # Keep the original word with punctuation for later stripping
 
     return population
 
@@ -152,9 +217,9 @@ def _determine_num_blanks(
 
 def _select_non_adjacent_blanks(
     population: list[tuple[int, str]], num_blanks: int
-) -> dict:
+) -> dict[int, str]:
     """Selects non-adjacent blanks from the population."""
-    blanks_data = {}
+    blanks_data: dict[int, str] = {}
     selected_indices = set()
     available_population = list(population)
 

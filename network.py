@@ -67,45 +67,64 @@ def _process_get_request():
 
 
 def _process_post_request():
-    user_answers = {}
+    user_answers: dict[int, str] = {}
     for key, value in request.form.items():
         if key.startswith("BLANK_"):
             index = int(key.split("_")[1])
             user_answers[index] = value.strip().lower()
 
     # Retrieve correct answers and original text from session
-    correct_answers = session.get("blanks_data", {})
+    blanks_data: dict[int, str] = session.get("blanks_data", {})
     original_full_text = session.get("original_full_text", "")
-    display_parts = session.get("display_parts", []) # Get display parts from session
+    display_parts = session.get("display_parts", [])
 
     results = {}
     score = 0
-    total_blanks = 0 # Initialize total_blanks here
+    total_blanks = 0  # Initialize total_blanks here
+
+    # Make sure the index is a key.
+    correct_answers: dict[int, str] = {}
+    for index, word in blanks_data.items():
+        correct_answers[int(index)] = word
+
+    logging.info("Processing user answers...")
+    logging.info(f"User answers: {user_answers}")
+    logging.info(f"Correct answers: {correct_answers}")
 
     # Iterate through display_parts to ensure results are built for every blank shown
     for part in display_parts:
-        if part.startswith("BLANK_"):
-            original_index = int(part.split("_")[1])
-            total_blanks += 1 # Count total blanks from display_parts
+        # Skip non-blank parts
+        if not part.startswith("BLANK_"):
+            continue
+        # Get the original index.
+        original_index = int(part.split("_")[1])
+        # Count total blanks from display_parts.
+        total_blanks += 1
+        if original_index not in correct_answers:
+            logging.warning(
+                f"Original index {original_index} not found in correct answers. Skipping."
+            )
+        # Get the correct and user words.
+        correct_word = correct_answers.get(original_index, "[MISSING]")
+        # Get the user word.
+        user_word = user_answers.get(original_index, "")
+        # Check if the user's answer is correct.
+        is_correct = user_word.lower() == correct_word.lower()
 
-            correct_word = correct_answers.get(original_index, "[MISSING]") # Use .get() for safety
-            user_word = user_answers.get(original_index, "")
-            is_correct = user_word == correct_word
+        results[original_index] = {
+            "user": user_word,
+            "correct": correct_word,
+            "is_correct": is_correct,
+        }
+        if is_correct:
+            score += 1
 
-            results[original_index] = {
-                "user": user_word,
-                "correct": correct_word,
-                "is_correct": is_correct,
-            }
-            if is_correct:
-                score += 1
-
-    logging.info(f"Final results dictionary: {results}") # Add this log
+    logging.info(f"Displaying results: {results}")
 
     return render_template(
         "index.html",
-        display_parts=display_parts, # Pass display_parts from session
-        word_bank=[], # Word bank is not needed on results page
+        display_parts=display_parts,  # Pass display_parts from session
+        word_bank=[],  # Word bank is not needed on results page
         results=results,
         score=score,
         total_blanks=total_blanks,
@@ -165,7 +184,7 @@ def generate_new_text_route():
     # Get the request data.
     data = request.get_json()
     # Get text_length from request
-    text_length = int(data.get("text_length", 250))
+    text_length = int(data.get("text_length", 80))
     # Get the slider value.
     slider_value = int(data.get("slider_value", 5))
     # Compute the minimum and maximum number of blanks.

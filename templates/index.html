@@ -4,28 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>English Fill-in-the-Blanks</title>
-    <style>
-        body { font-family: sans-serif; margin: 20px; line-height: 1.6; }
-        .controls { margin-bottom: 20px; padding: 15px; border: 1px solid #ddd; background-color: #f5f5f5; border-radius: 5px; }
-        .controls button { margin-right: 10px; padding: 8px 15px; cursor: pointer; }
-        .slider-container, .text-length-container { margin-top: 10px; display: flex; align-items: center; }
-        .slider-container label, .text-length-container label { margin-right: 10px; }
-        .slider-container input[type="range"] { flex-grow: 1; margin-right: 10px; }
-        .text-length-container input[type="number"] { width: 80px; text-align: center; }
-        .exercise-text { border: 1px solid #ccc; padding: 15px; margin-bottom: 20px; background-color: #f9f9f9; min-height: 100px; /* Ensure visibility even when empty */ }
-        .blank-input { width: 80px; text-align: center; border: 1px solid #aaa; padding: 3px; margin: 0 2px; }
-        .word-bank { margin-top: 20px; padding: 10px; border: 1px dashed #ddd; background-color: #f0f0f0; }
-        .word-bank span { display: inline-block; margin: 5px; padding: 5px 10px; background-color: #e0e0e0; border-radius: 3px; }
-        .results { margin-top: 20px; padding: 15px; border: 1px solid #007bff; background-color: #e7f3ff; }
-        .correct { color: green; font-weight: bold; }
-        .incorrect { color: red; font-weight: bold; }
-        .original-text { margin-top: 20px; padding: 10px; border: 1px solid #eee; background-color: #fafafa; font-style: italic; }
-    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
     <h1>English Fill-in-the-Blanks</h1>
 
     {% if results %}
+        <div class="controls">
+            <button onclick="window.history.back()">Back</button>
+        </div>
         <div class="results">
             <h2>Your Score: {{ score }} / {{ total_blanks }}</h2>
             <p>Review your answers below:</p>
@@ -34,9 +21,15 @@
                     {% if part.startswith('BLANK_') %}
                         {% set original_index = part.split('_')[1] %}
                         {% set result = results[original_index | int] %}
-                        <span class="{{ 'correct' if result.is_correct else 'incorrect' }}">
-                            {{ result.user if result.user else '[empty]' }} (Correct: {{ result.correct }})
-                        </span>
+                        {% if result.is_correct %}
+                            <span class="correct">
+                                {{ result.user if result.user else '[empty]' }}
+                            </span>
+                        {% else %}
+                            <span class="incorrect">
+                                {{ result.user if result.user else '[empty]' }} (Correct: {{ result.correct }})
+                            </span>
+                        {% endif %}
                     {% else %}
                         {{ part }}  
                     {% endif %}
@@ -46,21 +39,25 @@
                 <h3>Original Text:</h3>
                 <p>{{ original_full_text }}</p>
             </div>
-            <p><a href="/">Try again with this exercise</a></p>
         </div>
     {% else %}
         <div class="controls">
+            <div class="section-title">Text Generation</div>
             <button id="generateNewTextBtn">Generate New Text</button>
+            <div class="text-length-container">
+                <label for="textLengthInput">Text Length (tokens):</label>
+                <input type="number" id="textLengthInput" value="80" min="50" max="500" step="10">
+            </div>
+            <hr>
+            <div class="section-title">Blanking Options</div>
             <button id="reblankTextBtn">Re-blank Text</button>
             <div class="slider-container">
                 <label for="blankSlider">Number of Blanks:</label>
                 <input type="range" id="blankSlider" min="1" max="10" value="5">
                 <span id="sliderValue">5</span>
             </div>
-            <div class="text-length-container">
-                <label for="textLengthInput">Text Length (tokens):</label>
-                <input type="number" id="textLengthInput" value="250" min="50" max="500" step="10">
-            </div>
+            <hr>
+            <button type="submit" form="exerciseForm">Check Answers</button>
         </div>
 
         <form method="POST" id="exerciseForm">

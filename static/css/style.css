@@ -1,0 +1,21 @@
+body { font-family: sans-serif; margin: 10px; line-height: 1.6; }
+h1 { margin-top: 5px; margin-bottom: 5px; }
+h2 { margin-top: 5px; margin-bottom: 5px; }
+h3 { margin-top: 5px; margin-bottom: 5px; }
+p { margin-top: 5px; margin-bottom: 5px; }
+.controls { margin-bottom: 10px; padding: 5px; border: 1px solid #ddd; background-color: #f5f5f5; border-radius: 5px; }
+.controls button { margin-right: 10px; padding: 5px; cursor: pointer; width: 150px; }
+.section-title { font-weight: bold; font-size: 1.25rem; margin-top: 5px; margin-bottom: 5px; }
+hr { border: 0; height: 1px; background-color: #ccc; margin: 15px 0; }
+.slider-container, .text-length-container { margin-top: 10px; display: flex; align-items: center; }
+.slider-container label, .text-length-container label { margin-right: 10px; }
+.slider-container input[type="range"] { flex-grow: 1; margin-right: 10px; }
+.text-length-container input[type="number"] { width: 80px; text-align: center; }
+.blank-input { width: 80px; text-align: center; border: 1px solid #aaa; padding: 3px; margin: 0 2px; }
+.word-bank { margin-top: 10px; padding: 10px; border: 1px dashed #ddd; background-color: #f0f0f0; }
+.word-bank span { display: inline-block; margin: 5px; padding: 5px 10px; background-color: #e0e0e0; border-radius: 3px; }
+.results { margin-top: 5px; padding: 10px; border: 1px solid #007bff; background-color: #e7f3ff; }
+.correct { color: green; font-weight: bold; }
+.incorrect { color: red; font-weight: bold; }
+.exercise-text { border: 1px solid #ccc; padding: 10px; margin-bottom: 10px; background-color: #f9f9f9; min-height: 100px; }
+.original-text { border: 1px solid #eee; padding: 10px; margin-bottom: 10px; background-color: #fafafa; font-style: italic; }
