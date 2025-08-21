@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English Fill-in-the-Blanks</title>
+    <style>
+        body { font-family: sans-serif; margin: 20px; line-height: 1.6; }
+        .exercise-text { border: 1px solid #ccc; padding: 15px; margin-bottom: 20px; background-color: #f9f9f9; }
+        .blank-input { width: 80px; text-align: center; border: 1px solid #aaa; padding: 3px; margin: 0 2px; }
+        .word-bank { margin-top: 20px; padding: 10px; border: 1px dashed #ddd; background-color: #f0f0f0; }
+        .word-bank span { display: inline-block; margin: 5px; padding: 5px 10px; background-color: #e0e0e0; border-radius: 3px; }
+        .results { margin-top: 20px; padding: 15px; border: 1px solid #007bff; background-color: #e7f3ff; }
+        .correct { color: green; font-weight: bold; }
+        .incorrect { color: red; font-weight: bold; }
+        .original-text { margin-top: 20px; padding: 10px; border: 1px solid #eee; background-color: #fafafa; font-style: italic; }
+    </style>
+</head>
+<body>
+    <h1>English Fill-in-the-Blanks</h1>
+
+    {% if results %}
+        <div class="results">
+            <h2>Your Score: {{ score }} / {{ total_blanks }}</h2>
+            <p>Review your answers below:</p>
+            <div class="exercise-text">
+                {% for part in display_parts %}
+                    {% if part.startswith('BLANK_') %}
+                        {% set original_index = part.split('_')[1] %}
+                        {% set result = results[original_index | int] %}
+                        <span class="{{ 'correct' if result.is_correct else 'incorrect' }}">
+                            {{ result.user if result.user else '[empty]' }} (Correct: {{ result.correct }})
+                        </span>
+                    {% else %}
+                        {{ part }}  
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <div class="original-text">
+                <h3>Original Text:</h3>
+                <p>{{ original_full_text }}</p>
+            </div>
+            <p><a href="/">Try another exercise</a> | <a href="/">Generate New Text</a></p>
+        </div>
+    {% else %}
+        <form method="POST">
+            <div class="exercise-text">
+                {% for part in display_parts %}
+                    {% if part.startswith('BLANK_') %}
+                        {% set original_index = part.split('_')[1] %}
+                        <input type="text" name="BLANK_{{ original_index }}" class="blank-input" autocomplete="off">
+                    {% else %}
+                        {{ part }}  
+                    {% endif %}
+                {% endfor %}
+            </div>
+
+            {% if word_bank %}
+                <div class="word-bank">
+                    <h3>Word Bank:</h3>
+                    {% for word in word_bank %}
+                        <span>{{ word }}</span>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            <input type="hidden" name="correct_answers_json" value="{{ correct_answers_json }}">
+            <input type="hidden" name="original_full_text" value="{{ original_full_text }}">
+            <input type="hidden" name="display_parts_str" value="{{ display_parts | tojson | urlencode }}">
+            <button type="submit">Check Answers</button>
+            <p><a href="/">Generate New Text</a></p>
+        </form>
+    {% endif %}
+</body>
+</html>
