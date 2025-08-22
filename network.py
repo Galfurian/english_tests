@@ -1,3 +1,4 @@
+import dis
 from flask import Flask, render_template, request, jsonify, session
 import json
 import urllib.parse
@@ -21,8 +22,12 @@ app.secret_key = os.environ.get(
 )
 # --- IMPORTANT ---
 
+# =============================================================================
+# GET FUNCTIONS
+# =============================================================================
 
-def _get_session_data_bool(data: dict, key: str) -> bool:
+
+def _get_data_bool(data: dict, key: str) -> bool:
     """
     Safely retrieves a boolean from session data with proper type checking.
 
@@ -45,7 +50,7 @@ def _get_session_data_bool(data: dict, key: str) -> bool:
     return False
 
 
-def _get_session_data_str(data: dict, key: str) -> str | None:
+def _get_data_str(data: dict, key: str) -> str | None:
     """
     Safely retrieves a string from session data with proper type checking.
 
@@ -64,12 +69,7 @@ def _get_session_data_str(data: dict, key: str) -> str | None:
     return None
 
 
-def _get_session_data_slider(
-    data: dict,
-    key: str,
-    min_val: int = 1,
-    max_val: int = 10,
-) -> int:
+def _get_data_slider(data: dict, key: str, min_val: int = 1, max_val: int = 10) -> int:
     """
     Safely retrieves a slider value from session data with proper type checking.
 
@@ -93,103 +93,10 @@ def _get_session_data_slider(
     return value
 
 
-# Global error handlers
-@app.errorhandler(404)
-def not_found_error(error):
-    logging.warning("404 error: %s", request.url)
-    return render_template("error.html", error="Page not found."), 404
-
-
-@app.errorhandler(500)
-def internal_error(error):
-    logging.error("500 error: %s", error)
-    return (
-        render_template("error.html", error="An internal server error occurred."),
-        500,
-    )
-
-
-@app.errorhandler(Exception)
-def handle_exception(error):
-    logging.error("Unhandled exception: %s", error, exc_info=True)
-    return render_template("error.html", error="An unexpected error occurred."), 500
-
-
-def _process_get_request():
-    """Processes GET requests for the main index page."""
-    try:
-        # Check if exercise data exists in the session
-        if "original_full_text" in session and "blanks_data" in session:
-            logging.info("Retrieving exercise from session.")
-            try:
-                display_parts = session.get("display_parts", [])
-                blanks_data = session.get("blanks_data", {})
-                word_bank = session.get("word_bank", [])
-                original_full_text = session.get("original_full_text", "")
-                exercise_title = session.get("exercise_title", "")
-
-                # Validate session data
-                if not isinstance(display_parts, list):
-                    logging.warning("Invalid display_parts in session, resetting")
-                    display_parts = []
-                if not isinstance(blanks_data, dict):
-                    logging.warning("Invalid blanks_data in session, resetting")
-                    blanks_data = {}
-                if not isinstance(word_bank, list):
-                    logging.warning("Invalid word_bank in session, resetting")
-                    word_bank = []
-                if not isinstance(original_full_text, str):
-                    logging.warning("Invalid original_full_text in session, resetting")
-                    original_full_text = ""
-                if not isinstance(exercise_title, str):
-                    logging.warning("Invalid exercise_title in session, resetting")
-                    exercise_title = ""
-
-            except Exception as e:
-                logging.error("Error retrieving session data: %s", e)
-                display_parts = []
-                blanks_data = {}
-                word_bank = []
-                original_full_text = ""
-                exercise_title = ""
-        else:
-            logging.info("No exercise in session. Rendering empty page.")
-            # Render with empty data if no exercise is in session
-            display_parts = []
-            blanks_data = {}
-            word_bank = []
-            original_full_text = ""
-            exercise_title = ""
-
-        try:
-            correct_answers_json = json.dumps(blanks_data)
-        except (TypeError, ValueError) as e:
-            logging.error("Error serializing blanks_data to JSON: %s", e)
-            correct_answers_json = "{}"
-
-        return render_template(
-            "index.html",
-            display_parts=display_parts,
-            word_bank=word_bank,
-            correct_answers_json=correct_answers_json,
-            original_full_text=original_full_text,
-            exercise_title=exercise_title,
-        )
-
-    except Exception as e:
-        logging.error("Unexpected error in _process_get_request: %s", e)
-        return (
-            render_template(
-                "error.html", error="An error occurred while loading the page."
-            ),
-            500,
-        )
-
-
-def _extract_user_answers(form) -> dict[int, str]:
+def _get_user_answers(form) -> dict[int, str]:
     """Extracts user answers from form data."""
     if not form:
-        logging.warning("Empty form provided to _extract_user_answers")
+        logging.warning("Empty form provided to _get_user_answers")
         return {}
 
     try:
@@ -225,66 +132,13 @@ def _extract_user_answers(form) -> dict[int, str]:
         return user_answers
 
     except Exception as e:
-        logging.error("Unexpected error in _extract_user_answers: %s", e)
+        logging.error("Unexpected error in _get_user_answers: %s", e)
         return {}
 
 
-def _get_exercise_data_from_session(session) -> tuple[list[str], dict[int, str], str]:
-    """Retrieves exercise data from session with validation."""
-    if not session:
-        logging.error("No session provided to _get_exercise_data_from_session")
-        return [], {}, ""
-
-    try:
-        display_parts = session.get("display_parts", [])
-        blanks_data = session.get("blanks_data", {})
-        original_full_text = session.get("original_full_text", "")
-
-        # Validate types
-        if not isinstance(display_parts, list):
-            logging.warning(
-                "Invalid display_parts type in session: %s", type(display_parts)
-            )
-            display_parts = []
-
-        if not isinstance(blanks_data, dict):
-            logging.warning(
-                "Invalid blanks_data type in session: %s", type(blanks_data)
-            )
-            blanks_data = {}
-        else:
-            # Validate blanks_data content
-            validated_blanks_data = {}
-            for key, value in blanks_data.items():
-                try:
-                    key_int = int(key) if not isinstance(key, int) else key
-                    value_str = str(value) if not isinstance(value, str) else value
-                    validated_blanks_data[key_int] = value_str
-                except (ValueError, TypeError) as e:
-                    logging.warning(
-                        "Invalid blanks_data item (%s: %s): %s", key, value, e
-                    )
-                    continue
-            blanks_data = validated_blanks_data
-
-        if not isinstance(original_full_text, str):
-            logging.warning(
-                "Invalid original_full_text type in session: %s",
-                type(original_full_text),
-            )
-            original_full_text = ""
-
-        logging.debug(
-            "Retrieved session data: %d display parts, %d blanks, text length %d",
-            len(display_parts),
-            len(blanks_data),
-            len(original_full_text),
-        )
-        return display_parts, blanks_data, original_full_text
-
-    except Exception as e:
-        logging.error("Unexpected error in _get_exercise_data_from_session: %s", e)
-        return [], {}, ""
+# =============================================================================
+# SUPPORT FUNCTIONS
+# =============================================================================
 
 
 def _evaluate_answers(
@@ -376,6 +230,82 @@ def _evaluate_answers(
         return {}, 0, 0
 
 
+# =============================================================================
+# PROCESSING FUNCTIONS
+# =============================================================================
+
+
+def _process_get_request():
+    """Processes GET requests for the main index page."""
+    try:
+        # Check if exercise data exists in the session
+        if "original_full_text" in session and "blanks_data" in session:
+            logging.info("Retrieving exercise from session.")
+            try:
+                display_parts = session.get("display_parts", [])
+                blanks_data = session.get("blanks_data", {})
+                word_bank = session.get("word_bank", [])
+                original_full_text = session.get("original_full_text", "")
+                exercise_title = session.get("exercise_title", "")
+
+                # Validate session data
+                if not isinstance(display_parts, list):
+                    logging.warning("Invalid display_parts in session, resetting")
+                    display_parts = []
+                if not isinstance(blanks_data, dict):
+                    logging.warning("Invalid blanks_data in session, resetting")
+                    blanks_data = {}
+                if not isinstance(word_bank, list):
+                    logging.warning("Invalid word_bank in session, resetting")
+                    word_bank = []
+                if not isinstance(original_full_text, str):
+                    logging.warning("Invalid original_full_text in session, resetting")
+                    original_full_text = ""
+                if not isinstance(exercise_title, str):
+                    logging.warning("Invalid exercise_title in session, resetting")
+                    exercise_title = ""
+
+            except Exception as e:
+                logging.error("Error retrieving session data: %s", e)
+                display_parts = []
+                blanks_data = {}
+                word_bank = []
+                original_full_text = ""
+                exercise_title = ""
+        else:
+            logging.info("No exercise in session. Rendering empty page.")
+            # Render with empty data if no exercise is in session
+            display_parts = []
+            blanks_data = {}
+            word_bank = []
+            original_full_text = ""
+            exercise_title = ""
+
+        try:
+            correct_answers_json = json.dumps(blanks_data)
+        except (TypeError, ValueError) as e:
+            logging.error("Error serializing blanks_data to JSON: %s", e)
+            correct_answers_json = "{}"
+
+        return render_template(
+            "index.html",
+            display_parts=display_parts,
+            word_bank=word_bank,
+            correct_answers_json=correct_answers_json,
+            exercise_title=exercise_title,
+            original_full_text=original_full_text,
+        )
+
+    except Exception as e:
+        logging.error("Unexpected error in _process_get_request: %s", e)
+        return (
+            render_template(
+                "error.html", error="An error occurred while loading the page."
+            ),
+            500,
+        )
+
+
 def _process_post_request():
     """Processes POST requests for answer submission."""
     try:
@@ -386,20 +316,38 @@ def _process_post_request():
                 400,
             )
 
-        user_answers = _extract_user_answers(request.form)
-        display_parts, blanks_data, original_full_text = (
-            _get_exercise_data_from_session(session)
-        )
+        # Extract user answers from the form.
+        user_answers = _get_user_answers(request.form)
 
-        if not blanks_data:
-            logging.error("No exercise data found in session for answer evaluation")
-            return (
-                render_template(
-                    "error.html",
-                    error="No exercise found. Please generate a new exercise.",
-                ),
-                400,
-            )
+        # Validate and extract original_full_text from session data.
+        original_full_text = session.get("original_full_text", None)
+        if not original_full_text:
+            logging.error("Invalid or missing original_full_text in session")
+            return jsonify({"error": "Invalid or missing original_full_text"}), 400
+
+        # Validate and extract word_bank from session data.
+        word_bank = session.get("word_bank", None)
+        if not word_bank:
+            logging.error("Invalid or missing word_bank in session")
+            return jsonify({"error": "Invalid or missing word_bank"}), 400
+
+        # Validate and extract exercise_title from session data.
+        exercise_title = session.get("exercise_title", None)
+        if not exercise_title:
+            logging.error("Invalid or missing exercise_title in session")
+            return jsonify({"error": "Invalid or missing exercise_title"}), 400
+
+        # Validate and extract display_parts and blanks_data from session.
+        display_parts = session.get("display_parts", None)
+        if not display_parts:
+            logging.error("Invalid or missing display_parts in session")
+            return jsonify({"error": "Invalid or missing display_parts"}), 400
+
+        # Validate and extract blanks_data from session.
+        blanks_data = session.get("blanks_data", None)
+        if not isinstance(blanks_data, dict):
+            logging.error("Invalid blanks_data type in session: %s", type(blanks_data))
+            return jsonify({"error": "Invalid or missing blanks_data"}), 400
 
         results, score, total_blanks = _evaluate_answers(
             user_answers, blanks_data, display_parts
@@ -408,10 +356,11 @@ def _process_post_request():
         return render_template(
             "index.html",
             display_parts=display_parts,
-            word_bank=[],
+            word_bank=word_bank,
             results=results,
             score=score,
             total_blanks=total_blanks,
+            exercise_title=exercise_title,
             original_full_text=original_full_text,
         )
 
@@ -423,6 +372,33 @@ def _process_post_request():
             ),
             500,
         )
+
+
+# =============================================================================
+# WEB ROUTES
+# =============================================================================
+
+
+# Global error handlers
+@app.errorhandler(404)
+def not_found_error(error):
+    logging.warning("404 error: %s", request.url)
+    return render_template("error.html", error="Page not found."), 404
+
+
+@app.errorhandler(500)
+def internal_error(error):
+    logging.error("500 error: %s", error)
+    return (
+        render_template("error.html", error="An internal server error occurred."),
+        500,
+    )
+
+
+@app.errorhandler(Exception)
+def handle_exception(error):
+    logging.error("Unhandled exception: %s", error, exc_info=True)
+    return render_template("error.html", error="An unexpected error occurred."), 500
 
 
 @app.route("/", methods=["GET", "POST"])
@@ -454,31 +430,31 @@ def reblank():
             return jsonify({"error": "No data provided"}), 400
 
         # Validate and extract original_full_text from session data.
-        original_full_text = _get_session_data_str(data, "original_full_text")
+        original_full_text = session.get("original_full_text", None)
         if not original_full_text:
             logging.error("Invalid or missing original_full_text in /reblank")
             return jsonify({"error": "Invalid or missing original_full_text"}), 400
 
         # Validate and extract exercise_title from session data.
-        exercise_title = _get_session_data_str(data, "exercise_title")
+        exercise_title = session.get("exercise_title", None)
         if not exercise_title:
             logging.error("Invalid or missing exercise_title in /reblank")
             return jsonify({"error": "Invalid or missing exercise_title"}), 400
 
         # Validate and extract exercise_difficulty from session data.
-        exercise_difficulty = _get_session_data_str(data, "exercise_difficulty")
+        exercise_difficulty = _get_data_str(data, "exercise_difficulty")
         if not exercise_difficulty:
             logging.error("Invalid or missing exercise_difficulty in /reblank")
             return jsonify({"error": "Invalid or missing exercise_difficulty"}), 400
 
         # Validate and extract slider_value from session data.
-        slider_value = _get_session_data_slider(data, "slider_value")
+        slider_value = _get_data_slider(data, "slider_value")
         if not slider_value:
             logging.error("Invalid or missing slider_value in /reblank")
             return jsonify({"error": "Invalid or missing slider_value"}), 400
 
         # Validate and extract include_random_words from session data.
-        include_random_words = _get_session_data_bool(data, "include_random_words")
+        include_random_words = _get_data_bool(data, "include_random_words")
         if include_random_words is None:
             logging.error("Invalid or missing include_random_words in /reblank")
             return jsonify({"error": "Invalid or missing include_random_words"}), 400
@@ -499,8 +475,6 @@ def reblank():
             session["display_parts"] = display_parts
             session["blanks_data"] = blanks_data
             session["word_bank"] = word_bank
-            session["exercise_title"] = exercise_title
-            session["original_full_text"] = original_full_text
         except Exception as e:
             logging.error("Error updating session in reblank: %s", e)
             return jsonify({"error": "Failed to save exercise data"}), 500
@@ -538,19 +512,19 @@ def get_new_test_route():
             return jsonify({"error": "No data provided"}), 400
 
         # Validate and extract exercise_difficulty from session data.
-        exercise_difficulty = _get_session_data_str(data, "exercise_difficulty")
+        exercise_difficulty = _get_data_str(data, "exercise_difficulty")
         if not exercise_difficulty:
             logging.error("Invalid or missing exercise_difficulty in /get_new_test")
             return jsonify({"error": "Invalid or missing exercise_difficulty"}), 400
 
         # Validate and extract slider_value from session data.
-        slider_value = _get_session_data_slider(data, "slider_value")
+        slider_value = _get_data_slider(data, "slider_value")
         if not slider_value:
             logging.error("Invalid or missing slider_value in /get_new_test")
             return jsonify({"error": "Invalid or missing slider_value"}), 400
 
         # Validate and extract include_random_words from session data.
-        include_random_words = _get_session_data_bool(data, "include_random_words")
+        include_random_words = _get_data_bool(data, "include_random_words")
         if include_random_words is None:
             logging.error("Invalid or missing include_random_words in /get_new_test")
             return jsonify({"error": "Invalid or missing include_random_words"}), 400
