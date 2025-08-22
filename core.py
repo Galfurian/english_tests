@@ -1,3 +1,4 @@
+import glob
 import random
 import logging
 import time
@@ -12,9 +13,7 @@ PUNCTUATION = ".!,?;:'\"()[]{}<>"
 
 
 # Load the exercises from the json.
-def _load_exercises_from_json(
-    json_file_path: str = "data/exercises.json",
-) -> list[dict]:
+def _load_exercises_from_json(json_file_path: str) -> list[dict]:
     """Load exercises from the JSON file."""
     try:
         # Get the absolute path relative to the script location
@@ -26,12 +25,7 @@ def _load_exercises_from_json(
             return []
 
         with open(full_path, "r", encoding="utf-8") as file:
-            data = json.load(file)
-            exercises = data.get("exercises", [])
-            logging.info(
-                f"Successfully loaded {len(exercises)} exercises from {json_file_path}"
-            )
-            return exercises
+            return json.load(file)
 
     except json.JSONDecodeError as e:
         logging.error(f"Error parsing JSON file {json_file_path}: {e}")
@@ -44,8 +38,31 @@ def _load_exercises_from_json(
         return []
 
 
-# Global variable to store loaded exercises
-EXERCISES = _load_exercises_from_json()
+# Global variable to store loaded exercises.
+_exercise_population: dict | None = None
+
+
+def _get_exercise_population() -> dict:
+    """Returns the current exercise population."""
+    global _exercise_population
+    if _exercise_population is None:
+        _exercise_population = {}
+        _exercise_population["beginner"] = _load_exercises_from_json(
+            "data/beginner.json"
+        )
+        _exercise_population["intermediate"] = _load_exercises_from_json(
+            "data/intermediate.json"
+        )
+        _exercise_population["advanced"] = _load_exercises_from_json(
+            "data/advanced.json"
+        )
+        logging.info(
+            "Loaded exercises: %d beginner, %d intermediate, %d advanced",
+            len(_exercise_population["beginner"]),
+            len(_exercise_population["intermediate"]),
+            len(_exercise_population["advanced"]),
+        )
+    return _exercise_population
 
 
 def _select_blanks(
@@ -706,65 +723,43 @@ def get_random_exercise(difficulty: str | None = None) -> dict:
             difficulty,
         )
 
-        # Check if exercises are available
-        if not EXERCISES:
-            logging.warning("No exercises loaded, using fallback")
-            return {
-                "text": "This is a fallback exercise text.",
-                "title": "Fallback Exercise",
-                "difficulty": "beginner",
-            }
+        # Get the current exercise population.
+        exercises = _get_exercise_population()
 
-        # Filter exercises by difficulty if specified
-        available_exercises = EXERCISES
-        if difficulty in ("beginner", "intermediate", "advanced"):
-            available_exercises = [
-                exercise
-                for exercise in EXERCISES
-                if exercise.get("difficulty", "beginner").lower() == difficulty.lower()
-            ]
+        # Check if exercises are available.
+        if not exercises:
+            raise ValueError("No exercises available in the population")
 
-            if not available_exercises:
-                logging.warning(
-                    f"No exercises found for difficulty '{difficulty}', using all exercises"
-                )
-                available_exercises = EXERCISES
+        # Make sure we have a valid difficulty level.
+        if difficulty not in ("beginner", "intermediate", "advanced"):
+            difficulty = random.choice(list(exercises.keys()))
 
-        # Select a random exercise
-        try:
-            selected_exercise = random.choice(available_exercises)
-            selected_text = selected_exercise.get("text", "")
-            exercise_title = selected_exercise.get("title", "Unknown")
-            exercise_difficulty = selected_exercise.get("difficulty", "beginner")
+        # Get the exercises for the specified difficulty.
+        exercise_list = exercises.get(difficulty, [])
+        if not exercise_list:
+            raise ValueError(f"No exercises found for difficulty: {difficulty}")
 
-            if not selected_text or not selected_text.strip():
-                logging.warning(
-                    f"Empty text in exercise '{exercise_title}', using fallback"
-                )
-                return {
-                    "text": "This is a fallback exercise text.",
-                    "title": "Fallback Exercise",
-                    "difficulty": "beginner",
-                }
+        # Select a random exercise based on difficulty.
+        selected_exercise = random.choice(exercise_list)
+        exercise_title = selected_exercise.get("title", "").strip()
+        selected_text = selected_exercise.get("text", "").strip()
 
-            logging.info(
-                f"Selected exercise: '{exercise_title}' (difficulty: {exercise_difficulty}, length: {len(selected_text)})"
-            )
-            return selected_exercise
+        if not exercise_title:
+            raise ValueError(f"Selected exercise has no title")
+        if not selected_text:
+            raise ValueError(f"Selected exercise '{exercise_title}' has empty text")
 
-        except (IndexError, TypeError, KeyError) as e:
-            logging.error(f"Error selecting exercise: {e}, using fallback")
-            return {
-                "text": "This is a fallback exercise text.",
-                "title": "Fallback Exercise",
-                "difficulty": "beginner",
-            }
+        return {
+            "title": exercise_title,
+            "text": selected_text,
+            "difficulty": difficulty,
+        }
 
     except Exception as e:
         logging.error("Unexpected error in get_random_exercise: %s, using fallback", e)
         return {
-            "text": "This is a fallback exercise text.",
             "title": "Fallback Exercise",
+            "text": "This is a fallback exercise text.",
             "difficulty": "beginner",
         }
 
