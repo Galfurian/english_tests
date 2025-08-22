@@ -701,7 +701,10 @@ def get_random_exercise(difficulty: str | None = None) -> dict:
         Returns a fallback exercise if no exercises are available or on error.
     """
     try:
-        logging.info("Selecting random exercise from loaded exercises (difficulty: %s)", difficulty)
+        logging.info(
+            "Selecting random exercise from loaded exercises (difficulty: %s)",
+            difficulty,
+        )
 
         # Check if exercises are available
         if not EXERCISES:
@@ -714,14 +717,17 @@ def get_random_exercise(difficulty: str | None = None) -> dict:
 
         # Filter exercises by difficulty if specified
         available_exercises = EXERCISES
-        if difficulty:
+        if difficulty in ("beginner", "intermediate", "advanced"):
             available_exercises = [
-                exercise for exercise in EXERCISES 
+                exercise
+                for exercise in EXERCISES
                 if exercise.get("difficulty", "beginner").lower() == difficulty.lower()
             ]
-            
+
             if not available_exercises:
-                logging.warning(f"No exercises found for difficulty '{difficulty}', using all exercises")
+                logging.warning(
+                    f"No exercises found for difficulty '{difficulty}', using all exercises"
+                )
                 available_exercises = EXERCISES
 
         # Select a random exercise
@@ -864,7 +870,9 @@ def create_exercise_with_blanks_percentage(
 
 
 def get_exercise_with_percentage_blanks(
-    difficulty_level: int, include_random_words: bool = False, exercise_difficulty: str | None = None
+    difficulty_level: int,
+    include_random_words: bool = False,
+    exercise_difficulty: str | None = None,
 ) -> tuple:
     """Selects a random exercise and generates blanks using percentage-based difficulty.
 
@@ -875,7 +883,7 @@ def get_exercise_with_percentage_blanks(
         exercise_difficulty: Optional difficulty level ("beginner", "intermediate", "advanced")
 
     Returns:
-        Tuple of (display_parts, blanks_data, word_bank, selected_text, exercise_title)
+        Tuple of (display_parts, blanks_data, word_bank, exercise_text, exercise_title)
     """
     try:
         # Get a random exercise with specified difficulty
@@ -884,8 +892,7 @@ def get_exercise_with_percentage_blanks(
         exercise_title = exercise.get("title", "Unknown Exercise")
 
         if not exercise_text:
-            logging.error("No text found in selected exercise")
-            return _get_fallback_exercise_data() + ("Fallback exercise text.", "Fallback Exercise")
+            raise ValueError("Selected exercise has no text")
 
         # Create the exercise with percentage-based blanks
         display_parts, blanks_data, word_bank = create_exercise_with_blanks_percentage(
@@ -899,4 +906,7 @@ def get_exercise_with_percentage_blanks(
             "Unexpected error in get_exercise_with_percentage_blanks: %s, using fallback",
             e,
         )
-        return _get_fallback_exercise_data() + ("Fallback exercise text.", "Fallback Exercise")
+        return _get_fallback_exercise_data() + (
+            "Fallback exercise text.",
+            "Fallback Exercise",
+        )

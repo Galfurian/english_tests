@@ -22,6 +22,77 @@ app.secret_key = os.environ.get(
 # --- IMPORTANT ---
 
 
+def _get_session_data_bool(data: dict, key: str) -> bool:
+    """
+    Safely retrieves a boolean from session data with proper type checking.
+
+    Args:
+        data: The JSON data from the request
+        key: The key to retrieve from the data
+
+    Returns:
+        bool: The value associated with the key, or False if not found or invalid
+    """
+    value = data.get(key, False)
+    if isinstance(value, bool):
+        return value
+    if isinstance(value, str):
+        value_lower = value.strip().lower()
+        if value_lower in {"true", "1", "yes"}:
+            return True
+        elif value_lower in {"false", "0", "no"}:
+            return False
+    return False
+
+
+def _get_session_data_str(data: dict, key: str) -> str | None:
+    """
+    Safely retrieves a string from session data with proper type checking.
+
+    Args:
+        data: The JSON data from the request
+        key: The key to retrieve from the data
+
+    Returns:
+        str: The value associated with the key, or None if not found or invalid
+    """
+    value = data.get(key, None)
+    if isinstance(value, str):
+        value = value.strip()
+        if value:
+            return value
+    return None
+
+
+def _get_session_data_slider(
+    data: dict,
+    key: str,
+    min_val: int = 1,
+    max_val: int = 10,
+) -> int:
+    """
+    Safely retrieves a slider value from session data with proper type checking.
+
+    Args:
+        data: The JSON data from the request
+        key: The key to retrieve from the data
+
+    Returns:
+        int: The slider value, clamped between 1 and 10, or default 5 if invalid
+    """
+    value = data.get(key, 5)
+    try:
+        value = int(value)
+        if value < min_val or value > max_val:
+            logging.warning("Slider value %d out of range, clamping", value)
+            value = max(min_val, min(max_val, value))
+    except (ValueError, TypeError):
+        logging.warning("Invalid value, using default: %s", value)
+        # Default to midpoint if invalid.
+        value = (min_val + max_val) // 2
+    return value
+
+
 # Global error handlers
 @app.errorhandler(404)
 def not_found_error(error):
@@ -382,41 +453,41 @@ def reblank():
             logging.error("Empty JSON data received at /reblank")
             return jsonify({"error": "No data provided"}), 400
 
-        # Get the original text.
-        original_text = data.get("original_text")
-        if (
-            not original_text
-            or not isinstance(original_text, str)
-            or not original_text.strip()
-        ):
-            logging.error("Invalid or missing original_text in request")
-            return jsonify({"error": "Invalid or missing original_text"}), 400
+        # Validate and extract original_full_text from session data.
+        original_full_text = _get_session_data_str(data, "original_full_text")
+        if not original_full_text:
+            logging.error("Invalid or missing original_full_text in /reblank")
+            return jsonify({"error": "Invalid or missing original_full_text"}), 400
 
-        # Get the slider value.
-        slider_value = data.get("slider_value", 5)
-        try:
-            slider_value = int(slider_value)
-            if slider_value < 1 or slider_value > 10:
-                logging.warning("Slider value %d out of range, clamping", slider_value)
-                slider_value = max(1, min(10, slider_value))
-        except (ValueError, TypeError):
-            logging.warning("Invalid slider_value, using default: %s", slider_value)
-            slider_value = 5
+        # Validate and extract exercise_title from session data.
+        exercise_title = _get_session_data_str(data, "exercise_title")
+        if not exercise_title:
+            logging.error("Invalid or missing exercise_title in /reblank")
+            return jsonify({"error": "Invalid or missing exercise_title"}), 400
 
-        # Get the include_random_words flag
-        include_random_words = data.get("include_random_words", False)
-        if not isinstance(include_random_words, bool):
-            logging.warning(
-                "Invalid include_random_words value: %s, using False",
-                include_random_words,
-            )
-            include_random_words = False
+        # Validate and extract exercise_difficulty from session data.
+        exercise_difficulty = _get_session_data_str(data, "exercise_difficulty")
+        if not exercise_difficulty:
+            logging.error("Invalid or missing exercise_difficulty in /reblank")
+            return jsonify({"error": "Invalid or missing exercise_difficulty"}), 400
+
+        # Validate and extract slider_value from session data.
+        slider_value = _get_session_data_slider(data, "slider_value")
+        if not slider_value:
+            logging.error("Invalid or missing slider_value in /reblank")
+            return jsonify({"error": "Invalid or missing slider_value"}), 400
+
+        # Validate and extract include_random_words from session data.
+        include_random_words = _get_session_data_bool(data, "include_random_words")
+        if include_random_words is None:
+            logging.error("Invalid or missing include_random_words in /reblank")
+            return jsonify({"error": "Invalid or missing include_random_words"}), 400
 
         # Generate exercise data using percentage-based approach.
         display_parts, blanks_data, word_bank = create_exercise_with_blanks_percentage(
-            original_text,
-            difficulty_level=slider_value,
-            include_random_words=include_random_words,
+            original_full_text,
+            slider_value,
+            include_random_words,
         )
 
         if not display_parts or not blanks_data or not word_bank:
@@ -428,9 +499,8 @@ def reblank():
             session["display_parts"] = display_parts
             session["blanks_data"] = blanks_data
             session["word_bank"] = word_bank
-            session["original_full_text"] = original_text
-            # Keep existing exercise_title if it exists
-            current_title = session.get("exercise_title", "")
+            session["exercise_title"] = exercise_title
+            session["original_full_text"] = original_full_text
         except Exception as e:
             logging.error("Error updating session in reblank: %s", e)
             return jsonify({"error": "Failed to save exercise data"}), 500
@@ -443,7 +513,8 @@ def reblank():
                 "display_parts": display_parts,
                 "blanks_data": blanks_data,
                 "word_bank": word_bank,
-                "exercise_title": current_title,
+                "exercise_title": exercise_title,
+                "original_full_text": original_full_text,
             }
         )
 
@@ -466,60 +537,40 @@ def get_new_test_route():
             logging.error("Empty JSON data received at /get_new_test")
             return jsonify({"error": "No data provided"}), 400
 
-        # Get the slider value.
-        slider_value = data.get("slider_value", 5)
-        try:
-            slider_value = int(slider_value)
-            if slider_value < 1 or slider_value > 10:
-                logging.warning("Slider value %d out of range, clamping", slider_value)
-                slider_value = max(1, min(10, slider_value))
-        except (ValueError, TypeError):
-            logging.warning("Invalid slider_value, using default: %s", slider_value)
-            slider_value = 5
+        # Validate and extract exercise_difficulty from session data.
+        exercise_difficulty = _get_session_data_str(data, "exercise_difficulty")
+        if not exercise_difficulty:
+            logging.error("Invalid or missing exercise_difficulty in /get_new_test")
+            return jsonify({"error": "Invalid or missing exercise_difficulty"}), 400
 
-        # Get the include_random_words flag
-        include_random_words = data.get("include_random_words", False)
-        if not isinstance(include_random_words, bool):
-            logging.warning(
-                "Invalid include_random_words value: %s, using False",
-                include_random_words,
-            )
-            include_random_words = False
+        # Validate and extract slider_value from session data.
+        slider_value = _get_session_data_slider(data, "slider_value")
+        if not slider_value:
+            logging.error("Invalid or missing slider_value in /get_new_test")
+            return jsonify({"error": "Invalid or missing slider_value"}), 400
 
-        # Get the exercise_difficulty parameter
-        exercise_difficulty = data.get("exercise_difficulty")
-        if exercise_difficulty and not isinstance(exercise_difficulty, str):
-            logging.warning(
-                "Invalid exercise_difficulty value: %s, ignoring",
-                exercise_difficulty,
-            )
-            exercise_difficulty = None
+        # Validate and extract include_random_words from session data.
+        include_random_words = _get_session_data_bool(data, "include_random_words")
+        if include_random_words is None:
+            logging.error("Invalid or missing include_random_words in /get_new_test")
+            return jsonify({"error": "Invalid or missing include_random_words"}), 400
 
         # Generate new text and blanks using percentage-based approach.
         display_parts, blanks_data, word_bank, original_full_text, exercise_title = (
             get_exercise_with_percentage_blanks(
-                difficulty_level=slider_value, 
-                include_random_words=include_random_words,
-                exercise_difficulty=exercise_difficulty
+                slider_value,
+                include_random_words,
+                exercise_difficulty,
             )
         )
-
-        if (
-            not display_parts
-            or not blanks_data
-            or not word_bank
-            or not original_full_text
-        ):
-            logging.error("Failed to generate new text and exercise data")
-            return jsonify({"error": "Failed to generate exercise"}), 500
 
         # Update session with new text and blank data.
         try:
             session["display_parts"] = display_parts
             session["blanks_data"] = blanks_data
             session["word_bank"] = word_bank
-            session["original_full_text"] = original_full_text
             session["exercise_title"] = exercise_title
+            session["original_full_text"] = original_full_text
         except Exception as e:
             logging.error("Error updating session in get_new_test: %s", e)
             return jsonify({"error": "Failed to save exercise data"}), 500
@@ -532,8 +583,8 @@ def get_new_test_route():
                 "display_parts": display_parts,
                 "blanks_data": blanks_data,
                 "word_bank": word_bank,
-                "original_full_text": original_full_text,
                 "exercise_title": exercise_title,
+                "original_full_text": original_full_text,
             }
         )
 
