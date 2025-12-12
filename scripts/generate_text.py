@@ -1,4 +1,5 @@
 import argparse
+import logging
 from pathlib import Path
 
 from loguru import logger
@@ -16,10 +17,19 @@ from horde_sdk.ai_horde_api.apimodels import (
 def check_callback(response: TextGenerateStatusResponse) -> None:
     """Callback function that can be passed to the text_generate_request method to get progress updates on the
     request."""
-    logger.info(f"Response: {response}")
+    if response.done:
+        logger.info("Text generation completed!")
+    elif response.waiting > 0:
+        logger.info(f"Waiting in queue... Position: {response.queue_position}")
+    else:
+        logger.info("Processing request...")
 
 
 def simple_generate_example(api_key: str = ANON_API_KEY) -> None:
+    # Configure logging to reduce horde_sdk noise
+    logging.getLogger("horde_sdk").setLevel(logging.WARNING)
+    logger.info("Starting text generation request...")
+
     simple_client = AIHordeAPISimpleClient()
 
     status_response: TextGenerateStatusResponse
@@ -73,11 +83,26 @@ def simple_generate_example(api_key: str = ANON_API_KEY) -> None:
 
     logger.debug(f"Generated Text: {text_generated}")
 
+    # Save the response to file
     example_path = Path("requested_text")
     example_path.mkdir(exist_ok=True, parents=True)
 
     with open(example_path / f"{job_id}_simple_sync_example.txt", "w") as f:
         f.write(status_response.model_dump_json(indent=4))
+
+    # Clear display of the generated text
+    print("\n" + "="*60)
+    print("GENERATED TEXT:")
+    print("="*60)
+    if text_generated:
+        print(text_generated.strip())
+    else:
+        print("No text generated")
+    print("="*60)
+    print(f"Job ID: {job_id}")
+    print(f"Model: {status_response.generations[0].model}")
+    print(f"Kudos used: {status_response.kudos:.2f}")
+    print("="*60 + "\n")
 
 
 if __name__ == "__main__":
