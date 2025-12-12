@@ -35,30 +35,41 @@ def simple_generate_example(api_key: str = ANON_API_KEY) -> None:
     status_response: TextGenerateStatusResponse
     job_id: JobID
 
+    prompt = """
+Write a short story or descriptive text at B1 English level (intermediate) about
+everyday life, family, work, or hobbies. Make it suitable for language learners
+to practice reading comprehension. Include natural vocabulary and grammar for
+intermediate learners. Do not mention language levels or testing.
+
+It must be 3 paragraphs long, with each paragraph containing 2 to 3 sentences.
+"""
+
     status_response, job_id = simple_client.text_generate_request(
         TextGenerateAsyncRequest(
             apikey=api_key,
-            prompt="Write a simple English text at B1 level (intermediate) about everyday life. Make it suitable for language learners.",
+            prompt=prompt,
             models=[
                 "aphrodite/ReadyArt/Broken-Tutu-24B",
             ],
+            allow_downgrade=True,
+            disable_batching=False,
             params=ModelGenerationInputKobold(
-                # dynatemp_exponent=1.0,
-                # dynatemp_range=0.0,
+                dynatemp_exponent=1.0,
+                dynatemp_range=0.0,
                 # frmtadsnsp=False,
                 # frmtrmblln=False,
                 # frmtrmspch=False,
                 # frmttriminc=False,
-                max_context_length=1024,
-                max_length=80,
-                # min_p=0.0,
+                max_context_length=4096,
+                max_length=512,
+                min_p=0.0,
                 # n=1,
                 # rep_pen=1.0,
                 # rep_pen_range=0,
                 # rep_pen_slope=0.0,
                 # sampler_order=[1, 2, 3],
                 # singleline=False,
-                # smoothing_factor=0.0,
+                smoothing_factor=0.0,
                 # stop_sequence=["stop1", "stop2"],
                 # temperature=0.0,
                 # tfs=0.0,
@@ -91,18 +102,18 @@ def simple_generate_example(api_key: str = ANON_API_KEY) -> None:
         f.write(status_response.model_dump_json(indent=4))
 
     # Clear display of the generated text
-    print("\n" + "="*60)
+    print("\n" + "=" * 60)
     print("GENERATED TEXT:")
-    print("="*60)
+    print("=" * 60)
     if text_generated:
         print(text_generated.strip())
     else:
         print("No text generated")
-    print("="*60)
+    print("=" * 60)
     print(f"Job ID: {job_id}")
     print(f"Model: {status_response.generations[0].model}")
     print(f"Kudos used: {status_response.kudos:.2f}")
-    print("="*60 + "\n")
+    print("=" * 60 + "\n")
 
 
 if __name__ == "__main__":
