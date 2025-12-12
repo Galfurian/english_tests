@@ -1,45 +1,36 @@
-# English Fill-in-the-Blanks Exercise
+# English Tests
 
-This is a simple web application that generates English fill-in-the-blanks exercises using the `DistilGPT2` language model. The application runs locally using Flask and provides a basic web interface.
+This is a web application for English language tests with multiple difficulty levels. The application provides fill-in-the-blanks exercises using pre-loaded data for beginner, intermediate, and advanced levels. It runs locally using Flask and provides a web interface.
 
 ## Features
 
-* Generates a unique paragraph for each exercise using `DistilGPT2`.
-* Randomly selects words to be removed, creating blanks.
+* Provides exercises at three difficulty levels: beginner, intermediate, and advanced.
+* Randomly selects words to be removed, creating blanks based on a configurable percentage.
 * Provides a word bank (shuffled) for the removed words.
 * Allows users to type answers into the blanks.
-* Checks answers and provides a score.
+* Checks answers and provides a score with corrections.
 
 ## Setup and Installation
 
-To run this application, you need Python 3.x installed on your system.
+To run this application, you need Python 3.8 or higher installed on your system.
 
 1. **Clone the repository (if you haven't already):**
 
     ```bash
-    git clone <repository_url>
+    git clone https://github.com/Galfurian/english_tests.git
     cd english_tests
     ```
 
     (Note: If you're already in the directory where these files were created, you can skip this step.)
 
-2. **Install core dependencies:**
+2. **Install dependencies:**
     It's recommended to use a virtual environment to manage dependencies.
 
     ```bash
     python -m venv venv
     source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
-    pip install -r requirements.txt
+    pip install -e .
     ```
-
-3. **Install PyTorch (CPU-only version):**
-    To avoid installing NVIDIA CUDA dependencies, install the CPU-only version of PyTorch:
-
-    ```bash
-    pip install torch --index-url https://download.pytorch.org/whl/cpu
-    ```
-
-    *Note: The first time you run the application, `DistilGPT2` will be downloaded by the `transformers` library. This might take some time depending on your internet connection.*
 
 ## Running the Application
 
@@ -52,7 +43,7 @@ To run this application, you need Python 3.x installed on your system.
 2. **Start the Flask development server:**
 
     ```bash
-    python app.py
+    python -m english_tests.app
     ```
 
 3. **Access the application:**
@@ -61,11 +52,11 @@ To run this application, you need Python 3.x installed on your system.
 ## How it Works
 
 * The `app.py` file contains the Flask application logic.
-* It uses the `transformers` library to load `DistilGPT2` and generate text.
-* Words are randomly selected from the generated text to create blanks.
+* Exercises are loaded from JSON files in the `data/` directory (`beginner.json`, `intermediate.json`, `advanced.json`).
+* Words are randomly selected from the exercise text to create blanks based on the configured percentage.
 * The `templates/index.html` file provides the user interface.
 * When you submit your answers, the application checks them against the original words and displays your score and corrections.
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.

@@ -6,7 +6,7 @@ import logging
 import os
 
 # Import functions and configurations from core.py
-from core import (
+from .core import (
     get_exercise_with_percentage_blanks,
     create_exercise_with_blanks_percentage,
 )

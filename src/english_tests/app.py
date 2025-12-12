@@ -1,5 +1,5 @@
 import logging
-from network import app
+from .network import app
 
 # Configure logging for the main application
 logging.basicConfig(
