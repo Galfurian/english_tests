@@ -18,6 +18,9 @@ eggs/
 lib/
 lib64/
 parts/
+
+# Generated content
+requested_text/
 sdist/
 var/
 wheels/

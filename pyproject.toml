@@ -33,6 +33,9 @@ dev = [
     "mypy>=1.0.0",
     "black",
 ]
+experimental = [
+    "horde_sdk",
+]
 
 [project.urls]
 Homepage = "https://github.com/Galfurian/english_tests"
