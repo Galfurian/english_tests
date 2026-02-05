@@ -185,6 +185,11 @@ hr {
     transition: all 0.3s ease;
 }
 
+.blank-input.partial {
+    width: 60px;
+    padding: 4px 8px;
+}
+
 .blank-input:focus {
     outline: none;
     border-color: #667eea;

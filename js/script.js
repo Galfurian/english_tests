@@ -16,7 +16,8 @@ let currentState = {
     originalFullText: '',
     displayParts: [],
     blanksData: {},
-    wordBank: []
+    wordBank: [],
+    exerciseType: 'full' // 'full' for whole words, 'partial' for letter removal
 };
 
 // =========================================================================
@@ -115,7 +116,7 @@ function createExerciseWithBlanksPercentage(exerciseText, difficultyLevel, inclu
     const displayParts = [];
     words.forEach((word, index) => {
         if (blanksData[index]) {
-            displayParts.push(`BLANK_${index}`);
+            displayParts.push(`<BLANK_${index}>`);
         } else {
             displayParts.push(word);
         }
@@ -128,6 +129,92 @@ function createExerciseWithBlanksPercentage(exerciseText, difficultyLevel, inclu
         const numRandomWords = Math.min(5, Math.ceil(wordBank.length / 2));
         const randomWords = shuffleArray(nonBlankWords).slice(0, numRandomWords);
         wordBank = wordBank.concat(randomWords);
+    }
+    wordBank = shuffleArray(wordBank);
+
+    return {
+        displayParts,
+        blanksData,
+        wordBank
+    };
+}
+
+function createExerciseWithPartialWords(exerciseText, difficultyLevel, includeRandomWords = false) {
+    const words = exerciseText.match(/\S+/g) || [];
+    
+    // Calculate blank percentages
+    const minBlanksPercent = 0.05 + (difficultyLevel - 1) * 0.02;
+    const maxBlanksPercent = 0.10 + (difficultyLevel - 1) * 0.015;
+
+    const minBlanks = Math.max(1, Math.floor(words.length * minBlanksPercent));
+    const maxBlanks = Math.max(minBlanks, Math.floor(words.length * maxBlanksPercent));
+
+    const population = getBlankSelectionPopulation(words);
+    const numBlanks = determineNumBlanks(population.length, minBlanks, maxBlanks);
+    
+    // Select random words from population to partially blank
+    const selectedItems = shuffleArray([...population]).slice(0, numBlanks);
+    const selectedIndicesSet = new Set(selectedItems.map(item => item.index));
+
+    const blanksData = {};
+    const displayParts = [];
+    
+    words.forEach((word, index) => {
+        if (selectedIndicesSet.has(index)) {
+            // Strip punctuation from the word
+            let cleanWord = word;
+            let leadingPunct = '';
+            let trailingPunct = '';
+            
+            // Extract leading punctuation
+            while (cleanWord.length > 0 && PUNCTUATION.includes(cleanWord[0])) {
+                leadingPunct += cleanWord[0];
+                cleanWord = cleanWord.substring(1);
+            }
+            
+            // Extract trailing punctuation
+            while (cleanWord.length > 0 && PUNCTUATION.includes(cleanWord[cleanWord.length - 1])) {
+                trailingPunct = cleanWord[cleanWord.length - 1] + trailingPunct;
+                cleanWord = cleanWord.substring(0, cleanWord.length - 1);
+            }
+            
+            // Only create partial blank if word is long enough
+            if (cleanWord.length > 4) {
+                // Remove 30-40% of the word, minimum 2 letters
+                const removePercent = 0.3 + Math.random() * 0.1; // 30-40%
+                const removeCount = Math.max(2, Math.floor(cleanWord.length * removePercent));
+                
+                // Choose random position to start removing (not at very beginning or end)
+                const maxStartPos = cleanWord.length - removeCount;
+                const startPos = Math.floor(Math.random() * maxStartPos);
+                
+                const prefix = cleanWord.substring(0, startPos);
+                const missing = cleanWord.substring(startPos, startPos + removeCount);
+                const suffix = cleanWord.substring(startPos + removeCount);
+                
+                blanksData[index] = missing.toLowerCase();
+                displayParts.push(`${leadingPunct}${prefix}<BLANK_${index}>${suffix}${trailingPunct}`);
+            } else {
+                // Word too short for partial blanking, just display it
+                displayParts.push(word);
+            }
+        } else {
+            displayParts.push(word);
+        }
+    });
+
+    // Create word bank
+    let wordBank = Object.values(blanksData);
+    if (includeRandomWords) {
+        // Add random partial words from non-blanked words
+        const nonBlankWords = words.filter((w, idx) => !blanksData[idx] && w.length > 4);
+        const numRandomWords = Math.min(3, Math.ceil(wordBank.length / 2));
+        const randomParts = nonBlankWords.slice(0, numRandomWords).map(w => {
+            const len = Math.max(1, Math.floor(w.length * 0.35));
+            const pos = Math.floor(Math.random() * (w.length - len));
+            return w.substring(pos, pos + len).toLowerCase();
+        });
+        wordBank = wordBank.concat(randomParts);
     }
     wordBank = shuffleArray(wordBank);
 
@@ -194,7 +281,43 @@ function generateNewTest() {
         originalFullText: exerciseText,
         displayParts,
         blanksData,
-        wordBank
+        wordBank,
+        exerciseType: 'full'
+    };
+
+    saveState();
+    updateExerciseDisplay();
+}
+
+function generatePartialTest() {
+    const difficulty = document.getElementById('difficultySelect').value;
+    const sliderValue = parseInt(document.getElementById('blankSlider').value);
+    const includeRandomWords = document.getElementById('includeRandomWords').checked;
+
+    console.log('Generating partial word test:', { difficulty, sliderValue, includeRandomWords });
+
+    const exercise = getRandomExercise(difficulty);
+    if (!exercise) {
+        alert('No exercises available for the selected difficulty.');
+        return;
+    }
+
+    const exerciseText = exercise.text || '';
+    const exerciseTitle = exercise.title || 'Untitled Exercise';
+
+    const { displayParts, blanksData, wordBank } = createExerciseWithPartialWords(
+        exerciseText,
+        sliderValue,
+        includeRandomWords
+    );
+
+    currentState = {
+        exerciseTitle,
+        originalFullText: exerciseText,
+        displayParts,
+        blanksData,
+        wordBank,
+        exerciseType: 'partial'
     };
 
     saveState();
@@ -203,14 +326,18 @@ function generateNewTest() {
 
 function reblankText() {
     if (!currentState.originalFullText) {
-        alert('No exercise loaded. Click "Get New Test" first.');
+        alert('No exercise loaded. Click "Remove Words" or "Remove Letters" first.');
         return;
     }
 
     const sliderValue = parseInt(document.getElementById('blankSlider').value);
     const includeRandomWords = document.getElementById('includeRandomWords').checked;
 
-    const { displayParts, blanksData, wordBank } = createExerciseWithBlanksPercentage(
+    const createFunc = currentState.exerciseType === 'partial' 
+        ? createExerciseWithPartialWords 
+        : createExerciseWithBlanksPercentage;
+
+    const { displayParts, blanksData, wordBank } = createFunc(
         currentState.originalFullText,
         sliderValue,
         includeRandomWords
@@ -241,14 +368,37 @@ function updateExerciseDisplay() {
     if (currentState.displayParts && currentState.displayParts.length > 0) {
         textContainer.innerHTML = '';
         currentState.displayParts.forEach(part => {
-            if (part.startsWith('BLANK_')) {
-                const index = part.split('_')[1];
-                const input = document.createElement('input');
-                input.type = 'text';
-                input.name = `BLANK_${index}`;
-                input.className = 'blank-input';
-                input.placeholder = '?';
-                textContainer.appendChild(input);
+            if (part.includes('<BLANK_')) {
+                // Parse parts with <BLANK_index> markers
+                const blankMatch = part.match(/(.*)<BLANK_(\d+)>(.*)/); 
+                if (blankMatch) {
+                    const [, prefix, index, suffix] = blankMatch;
+                    
+                    // Add prefix text if exists
+                    if (prefix) {
+                        textContainer.appendChild(document.createTextNode(prefix));
+                    }
+                    
+                    // Add input
+                    const input = document.createElement('input');
+                    input.type = 'text';
+                    input.name = `BLANK_${index}`;
+                    input.className = 'blank-input';
+                    // Add 'partial' class if this is a partial word blank
+                    if (prefix || suffix) {
+                        input.className += ' partial';
+                    }
+                    input.placeholder = '?';
+                    textContainer.appendChild(input);
+                    
+                    // Add suffix text if exists
+                    if (suffix) {
+                        textContainer.appendChild(document.createTextNode(suffix));
+                    }
+                    
+                    // Add space after the word
+                    textContainer.appendChild(document.createTextNode(' '));
+                }
             } else {
                 const text = document.createTextNode(part + ' ');
                 textContainer.appendChild(text);
@@ -333,18 +483,37 @@ function showResults(results, score, totalBlanks) {
     // Build results HTML
     resultsContent.innerHTML = '';
     currentState.displayParts.forEach(part => {
-        if (part.startsWith('BLANK_')) {
-            const index = parseInt(part.split('_')[1]);
-            const result = results[index];
-            const span = document.createElement('span');
-            if (result.isCorrect) {
-                span.className = 'correct';
-                span.textContent = result.user;
-            } else {
-                span.className = 'incorrect';
-                span.textContent = `${result.user} (Correct: ${result.correct})`;
+        if (part.includes('<BLANK_')) {
+            // Parse parts with <BLANK_index> markers
+            const blankMatch = part.match(/(.*)<BLANK_(\d+)>(.*)/); 
+            if (blankMatch) {
+                const [, prefix, index, suffix] = blankMatch;
+                const result = results[parseInt(index)];
+                
+                // Add prefix
+                if (prefix) {
+                    resultsContent.appendChild(document.createTextNode(prefix));
+                }
+                
+                // Add the answer (correct or incorrect)
+                const span = document.createElement('span');
+                if (result.isCorrect) {
+                    span.className = 'correct';
+                    span.textContent = result.user;
+                } else {
+                    span.className = 'incorrect';
+                    span.textContent = `${result.user} (Correct: ${result.correct})`;
+                }
+                resultsContent.appendChild(span);
+                
+                // Add suffix
+                if (suffix) {
+                    resultsContent.appendChild(document.createTextNode(suffix));
+                }
+                
+                // Add space
+                resultsContent.appendChild(document.createTextNode(' '));
             }
-            resultsContent.appendChild(span);
         } else {
             const text = document.createTextNode(part + ' ');
             resultsContent.appendChild(text);
@@ -360,6 +529,7 @@ function showResults(results, score, totalBlanks) {
 // =========================================================================
 
 document.getElementById('getNewTestBtn').addEventListener('click', generateNewTest);
+document.getElementById('getPartialTestBtn').addEventListener('click', generatePartialTest);
 document.getElementById('reblankTextBtn').addEventListener('click', reblankText);
 document.getElementById('exerciseForm').addEventListener('submit', checkAnswers);
 document.getElementById('backToExerciseBtn').addEventListener('click', () => {
