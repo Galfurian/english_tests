@@ -54,28 +54,32 @@ p {
     font-size: 1.2rem;
 }
 
-.controls button {
-    margin-right: 10px;
-    margin-bottom: 10px;
+button {
     padding: 10px 16px;
     cursor: pointer;
-    width: 160px;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: #ffffff;
     border: none;
     border-radius: 6px;
     font-weight: 500;
+    font-size: 1rem;
     transition: all 0.3s ease;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-.controls button:hover {
+button:hover {
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(102, 126, 234, 0.4);
 }
 
-.controls button:active {
+button:active {
     transform: translateY(0);
+}
+
+.controls button {
+    margin-right: 10px;
+    margin-bottom: 10px;
+    width: 160px;
 }
 
 hr {
@@ -306,17 +310,17 @@ form {
 }
 
 .button-group button {
-    margin: 0 !important;
-    width: auto !important;
-    padding: 12px 24px !important;
+    margin: 0;
+    width: auto;
+    padding: 12px 24px;
 }
 
-.button-group button[type="submit"] {
-    background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
+button[type="submit"] {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
 }
 
-.button-group button[type="submit"]:hover {
-    box-shadow: 0 4px 8px rgba(16, 185, 129, 0.4) !important;
+button[type="submit"]:hover {
+    box-shadow: 0 4px 8px rgba(16, 185, 129, 0.4);
 }
 
 .empty-state {
