@@ -4,6 +4,7 @@
 
 const PUNCTUATION = ".!,?;:'\"()[]{}<>";
 const STORAGE_KEY = 'englishTestsState';
+const THEME_KEY = 'englishTestsTheme';
 
 let exercisesData = {
     beginner: [],
@@ -19,6 +20,29 @@ let currentState = {
     wordBank: [],
     exerciseType: 'full' // 'full' for whole words, 'partial' for letter removal
 };
+
+// =========================================================================
+// THEME MANAGEMENT
+// =========================================================================
+
+function toggleTheme() {
+    const body = document.body;
+    const themeToggle = document.getElementById('themeToggle');
+    const isLight = body.classList.toggle('light-theme');
+    
+    themeToggle.textContent = isLight ? '🌞' : '🌙';
+    localStorage.setItem(THEME_KEY, isLight ? 'light' : 'dark');
+}
+
+function loadTheme() {
+    const savedTheme = localStorage.getItem(THEME_KEY);
+    const themeToggle = document.getElementById('themeToggle');
+    
+    if (savedTheme === 'light') {
+        document.body.classList.add('light-theme');
+        themeToggle.textContent = '🌞';
+    }
+}
 
 // =========================================================================
 // UTILITY FUNCTIONS
@@ -210,7 +234,7 @@ function createExerciseWithPartialWords(exerciseText, difficultyLevel, includeRa
         const nonBlankWords = words.filter((w, idx) => !blanksData[idx] && w.length > 4);
         const numRandomWords = Math.min(3, Math.ceil(wordBank.length / 2));
         const randomParts = nonBlankWords.slice(0, numRandomWords).map(w => {
-            const len = Math.max(1, Math.floor(w.length * 0.35));
+            const len = Math.max(1, Math.floor(w.length * 0.90));
             const pos = Math.floor(Math.random() * (w.length - len));
             return w.substring(pos, pos + len).toLowerCase();
         });
@@ -528,6 +552,7 @@ function showResults(results, score, totalBlanks) {
 // EVENT LISTENERS
 // =========================================================================
 
+document.getElementById('themeToggle').addEventListener('click', toggleTheme);
 document.getElementById('getNewTestBtn').addEventListener('click', generateNewTest);
 document.getElementById('getPartialTestBtn').addEventListener('click', generatePartialTest);
 document.getElementById('reblankTextBtn').addEventListener('click', reblankText);
@@ -546,6 +571,7 @@ document.getElementById('blankSlider').addEventListener('input', (e) => {
 // =========================================================================
 
 async function initialize() {
+    loadTheme();
     loadState();
     await loadExercises();
     updateExerciseDisplay();
