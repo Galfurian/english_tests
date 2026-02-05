@@ -10,6 +10,7 @@
     --text-primary: #e0e0e0;
     --text-secondary: #ffffff;
     --border-color: #444;
+    --track-bg: #4a4a4a;
     --input-bg: #3a3a3a;
     --input-focus: #4a4a4a;
     --shadow: rgba(0, 0, 0, 0.3);
@@ -21,6 +22,7 @@ body.light-theme {
     --text-primary: #2d2d2d;
     --text-secondary: #1a1a1a;
     --border-color: #ddd;
+    --track-bg: #cfcfcf;
     --input-bg: #ffffff;
     --input-focus: #f0f0f0;
     --shadow: rgba(0, 0, 0, 0.1);
@@ -141,7 +143,7 @@ hr {
 .slider-container input[type="range"] {
     flex-grow: 1;
     min-width: 200px;
-    background-color: var(--input-bg);
+    background-color: var(--track-bg);
     height: 6px;
     border-radius: 3px;
     outline: none;

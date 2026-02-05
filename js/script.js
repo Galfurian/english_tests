@@ -18,7 +18,8 @@ let currentState = {
     displayParts: [],
     blanksData: {},
     wordBank: [],
-    exerciseType: 'full' // 'full' for whole words, 'partial' for letter removal
+    exerciseType: 'full', // 'full' for whole words, 'partial' for letter removal
+    isLoadingExercises: false
 };
 
 // =========================================================================
@@ -47,6 +48,22 @@ function loadTheme() {
 // =========================================================================
 // UTILITY FUNCTIONS
 // =========================================================================
+
+function setControlsDisabled(disabled) {
+    const elements = [
+        document.getElementById('getNewTestBtn'),
+        document.getElementById('getPartialTestBtn'),
+        document.getElementById('reblankTextBtn'),
+        document.getElementById('difficultySelect'),
+        document.getElementById('blankSlider'),
+        document.getElementById('includeRandomWords'),
+        document.querySelector('#exerciseForm button[type="submit"]')
+    ];
+
+    elements.forEach(el => {
+        if (el) el.disabled = disabled;
+    });
+}
 
 function saveState() {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(currentState));
@@ -255,6 +272,9 @@ function createExerciseWithPartialWords(exerciseText, difficultyLevel, includeRa
 
 async function loadExercises() {
     try {
+        currentState.isLoadingExercises = true;
+        setControlsDisabled(true);
+
         const response = await fetch('data/beginner.json');
         const beginner = await response.json();
         exercisesData.beginner = beginner;
@@ -275,10 +295,14 @@ async function loadExercises() {
     } catch (error) {
         console.error('Error loading exercises:', error);
         alert('Failed to load exercises. Make sure data folder with JSON files exists.');
+    } finally {
+        currentState.isLoadingExercises = false;
+        setControlsDisabled(false);
     }
 }
 
 function generateNewTest() {
+    if (currentState.isLoadingExercises) return;
     const difficulty = document.getElementById('difficultySelect').value;
     const sliderValue = parseInt(document.getElementById('blankSlider').value);
     const includeRandomWords = document.getElementById('includeRandomWords').checked;
@@ -314,6 +338,7 @@ function generateNewTest() {
 }
 
 function generatePartialTest() {
+    if (currentState.isLoadingExercises) return;
     const difficulty = document.getElementById('difficultySelect').value;
     const sliderValue = parseInt(document.getElementById('blankSlider').value);
     const includeRandomWords = document.getElementById('includeRandomWords').checked;
@@ -349,6 +374,7 @@ function generatePartialTest() {
 }
 
 function reblankText() {
+    if (currentState.isLoadingExercises) return;
     if (!currentState.originalFullText) {
         alert('No exercise loaded. Click "Remove Words" or "Remove Letters" first.');
         return;

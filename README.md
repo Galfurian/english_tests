@@ -5,17 +5,20 @@ A beautiful, fully static English language exercise website that runs without a 
 ## Features
 
 ✨ **Stunning Dark Mode Design**
+
 - Modern gradient UI with smooth animations
 - Responsive design (works on all devices)
 - Beautiful purple gradient buttons and accents
 
 📚 **Interactive Exercises**
+
 - Three difficulty levels: Beginner, Intermediate, Advanced
 - Adjustable blank difficulty (1-10 slider)
 - Optional random words for extra challenge
 - Instant answer checking with detailed feedback
 
 💾 **Offline Support**
+
 - Works completely offline
 - Saves your exercise state in browser localStorage
 - No server required - pure client-side processing
@@ -46,7 +49,7 @@ cd /path/to/english_tests
 python -m http.server 8000
 ```
 
-Then open your browser to: **http://localhost:8000**
+Then open your browser to: **<http://localhost:8000>**
 
 ### Option 2: Using Node.js
 
@@ -72,7 +75,7 @@ git remote add origin https://github.com/yourusername/yourusername.github.io.git
 git push -u origin main
 ```
 
-Your site is now live at: **https://yourusername.github.io**
+Your site is now live at: **<https://yourusername.github.io>**
 
 ## How It Works
 
