@@ -76,10 +76,9 @@
 
     <form method="POST" id="exerciseForm">
         <div class="exercise-text">
-            {% if exercise_title %}
-            <h2 id="exerciseTitle">{{ exercise_title }}</h2>
-            <hr>
-            {% endif %}
+            <h2 id="exerciseTitle" style="{% if not exercise_title %}display: none;{% endif %}">{{ exercise_title or ''
+                }}</h2>
+            <hr id="exerciseTitleHr" style="{% if not exercise_title %}display: none;{% endif %}">
             <div id="exerciseTextContainer">
                 {% if display_parts %}
                 {% for part in display_parts %}
@@ -132,6 +131,7 @@
             });
 
             const exerciseTitle = document.getElementById('exerciseTitle');
+            const exerciseTitleHr = document.getElementById('exerciseTitleHr');
             const exerciseForm = document.getElementById('exerciseForm');
 
             const exerciseTextContainer = document.getElementById('exerciseTextContainer');
@@ -249,6 +249,8 @@
                     // Clear current content.
                     console.log('Clearing current content');
                     exerciseTitle.innerHTML = '';
+                    exerciseTitle.style.display = 'none';
+                    exerciseTitleHr.style.display = 'none';
                     exerciseTextContainer.innerHTML = '';
                     wordBankContainer.innerHTML = '';
 
@@ -256,10 +258,15 @@
                     if (data.exercise_title) {
                         console.log('Setting exercise title:', data.exercise_title);
                         exerciseTitle.innerHTML = data.exercise_title;
+                        exerciseTitle.style.display = 'block';
+                        exerciseTitleHr.style.display = 'block';
                         console.log('exerciseTitle element:', exerciseTitle);
                         console.log('exerciseTitle.innerHTML after setting:', exerciseTitle.innerHTML);
                     } else {
-                        console.log('No exercise_title in data');
+                        console.log('No exercise_title in data, hiding title and hr');
+                        exerciseTitle.innerHTML = '';
+                        exerciseTitle.style.display = 'none';
+                        exerciseTitleHr.style.display = 'none';
                     }
 
                     if (data.display_parts && data.display_parts.length > 0) {
