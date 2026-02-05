@@ -1,62 +1,96 @@
-# English Tests
+# English Fill-in-the-Blanks
 
-This is a web application for English language tests with multiple difficulty levels. The application provides fill-in-the-blanks exercises using pre-loaded data for beginner, intermediate, and advanced levels. It runs locally using Flask and provides a web interface.
+A beautiful, fully static English language exercise website that runs without a server. Perfect for GitHub Pages deployment!
 
 ## Features
 
-* Provides exercises at three difficulty levels: beginner, intermediate, and advanced.
-* Randomly selects words to be removed, creating blanks based on a configurable percentage.
-* Provides a word bank (shuffled) for the removed words.
-* Allows users to type answers into the blanks.
-* Checks answers and provides a score with corrections.
+✨ **Stunning Dark Mode Design**
+- Modern gradient UI with smooth animations
+- Responsive design (works on all devices)
+- Beautiful purple gradient buttons and accents
 
-## Setup and Installation
+📚 **Interactive Exercises**
+- Three difficulty levels: Beginner, Intermediate, Advanced
+- Adjustable blank difficulty (1-10 slider)
+- Optional random words for extra challenge
+- Instant answer checking with detailed feedback
 
-To run this application, you need Python 3.8 or higher installed on your system.
+💾 **Offline Support**
+- Works completely offline
+- Saves your exercise state in browser localStorage
+- No server required - pure client-side processing
 
-1. **Clone the repository (if you haven't already):**
+## Directory Structure
 
-    ```bash
-    git clone https://github.com/Galfurian/english_tests.git
-    cd english_tests
-    ```
+```
+english_tests/
+├── index.html              # Main HTML page
+├── css/
+│   └── style.css          # All styling
+├── js/
+│   └── script.js          # All JavaScript logic
+├── data/
+│   ├── beginner.json      # Beginner exercises
+│   ├── intermediate.json  # Intermediate exercises
+│   └── advanced.json      # Advanced exercises
+├── README.md              # This file
+└── .gitignore             # Git ignore rules
+```
 
-    (Note: If you're already in the directory where these files were created, you can skip this step.)
+## Testing Locally
 
-2. **Install dependencies:**
-    It's recommended to use a virtual environment to manage dependencies.
+### Option 1: Using Python (Recommended)
 
-    ```bash
-    python -m venv venv
-    source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
-    pip install -e .
-    ```
+```bash
+cd /path/to/english_tests
+python -m http.server 8000
+```
 
-## Running the Application
+Then open your browser to: **http://localhost:8000**
 
-1. **Activate your virtual environment (if not already active):**
+### Option 2: Using Node.js
 
-    ```bash
-    source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
-    ```
+```bash
+npx http-server
+```
 
-2. **Start the Flask development server:**
+### Option 3: Using VS Code Live Server
 
-    ```bash
-    python -m english_tests.app
-    ```
+1. Install the "Live Server" extension
+2. Right-click on `index.html` → "Open with Live Server"
 
-3. **Access the application:**
-    Open your web browser and navigate to the address displayed in your terminal (usually `http://127.0.0.1:5000/`).
+## Deploying to GitHub Pages
 
-## How it Works
+Push to GitHub and enable Pages in Settings:
 
-* The `app.py` file contains the Flask application logic.
-* Exercises are loaded from JSON files in the `data/` directory (`beginner.json`, `intermediate.json`, `advanced.json`).
-* Words are randomly selected from the exercise text to create blanks based on the configured percentage.
-* The `templates/index.html` file provides the user interface.
-* When you submit your answers, the application checks them against the original words and displays your score and corrections.
+```bash
+git init
+git add .
+git commit -m "Initial commit"
+git branch -M main
+git remote add origin https://github.com/yourusername/yourusername.github.io.git
+git push -u origin main
+```
 
-## License
+Your site is now live at: **https://yourusername.github.io**
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
+## How It Works
+
+- **Get New Test**: Loads random exercise with configurable difficulty
+- **Re-blank Text**: Creates new blanks for same text
+- **Check Answers**: Compares answers and shows score
+
+## Technical Details
+
+- Pure HTML/CSS/JavaScript
+- localStorage for state management
+- Fully responsive design
+- No dependencies required
+
+## Browser Support
+
+Chrome, Firefox, Safari, Edge (v90+)
+
+---
+
+Enjoy learning English! 📚✨

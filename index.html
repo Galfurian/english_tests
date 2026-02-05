@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English Fill-in-the-Blanks</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>📚 English Fill-in-the-Blanks</h1>
+
+        <div id="controlsPanel" class="controls">
+            <h3>Settings</h3>
+            <div class="dropdown-container">
+                <label for="difficultySelect">Exercise Difficulty:</label>
+                <select id="difficultySelect">
+                    <option value="all">Any Difficulty</option>
+                    <option value="beginner">Beginner</option>
+                    <option value="intermediate">Intermediate</option>
+                    <option value="advanced">Advanced</option>
+                </select>
+            </div>
+            <div class="slider-container">
+                <label for="blankSlider">Blank difficulty (1-10):</label>
+                <input type="range" id="blankSlider" min="1" max="10" value="5">
+                <span id="sliderValue">5</span>
+            </div>
+            <div class="checkbox-container">
+                <label for="includeRandomWords">
+                    <input type="checkbox" id="includeRandomWords">
+                    Include extra words for difficulty
+                </label>
+            </div>
+            <hr>
+            <button id="getNewTestBtn">Get New Test</button>
+            <button id="reblankTextBtn">Re-blank Text</button>
+        </div>
+
+        <div id="resultsPanel" style="display: none;" class="results">
+            <h2>Your Score: <span id="scoreDisplay">0</span> / <span id="totalDisplay">0</span></h2>
+            <p>Review your answers below:</p>
+            <div class="exercise-text">
+                <h2 id="resultsTitle"></h2>
+                <div id="resultsContent"></div>
+            </div>
+            <div class="original-text">
+                <h3>Original Text:</h3>
+                <p id="originalTextDisplay"></p>
+            </div>
+            <button id="backToExerciseBtn">Back to Exercise</button>
+        </div>
+
+        <div id="exercisePanel">
+            <form id="exerciseForm">
+                <div class="exercise-text">
+                    <h2 id="exerciseTitle" style="display: none;"></h2>
+                    <div id="exerciseTextContainer">
+                        <div class="empty-state">
+                            <p>Click "Get New Test" to start an exercise.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="word-bank">
+                    <h3>Word Bank:</h3>
+                    <div class="word-bank-items" id="wordBankContainer">
+                        <p style="color: #888;">Words will appear here after you get a test.</p>
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button type="submit">Check Answers</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+
+</html>
