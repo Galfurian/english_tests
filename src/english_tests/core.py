@@ -11,14 +11,47 @@ logging.basicConfig(level=logging.INFO, format="[%(levelname)-7s] %(message)s")
 # Punctuation characters to consider for blank selection.
 PUNCTUATION = ".!,?;:'\"()[]{}<>"
 
+# Global variable to store the data directory path
+_data_directory: str | None = None
+
+
+def set_data_directory(data_dir: str) -> None:
+    """
+    Set the directory where test data JSON files are located.
+
+    Args:
+        data_dir: Path to the directory containing test data files.
+                 Can be relative or absolute path.
+    """
+    global _data_directory
+    _data_directory = data_dir
+    # Reset the exercise population so it reloads from the new directory
+    global _exercise_population
+    _exercise_population = None
+    logging.info("Data directory set to: %s", os.path.abspath(data_dir))
+
+
+def _get_data_directory() -> str:
+    """Get the current data directory path."""
+    global _data_directory
+    if _data_directory is None:
+        return "data"  # Default fallback
+    return _data_directory
+
 
 # Load the exercises from the json.
 def _load_exercises_from_json(json_file_path: str) -> list[dict]:
     """Load exercises from the JSON file."""
     try:
-        # Get the absolute path relative to the script location
-        current_dir = os.path.dirname(os.path.abspath(__file__))
-        full_path = os.path.join(current_dir, json_file_path)
+        # If the path is relative, resolve it from the data directory
+        if not os.path.isabs(json_file_path):
+            data_dir = _get_data_directory()
+            # If data_dir is relative, make it absolute
+            if not os.path.isabs(data_dir):
+                data_dir = os.path.abspath(data_dir)
+            full_path = os.path.join(data_dir, os.path.basename(json_file_path))
+        else:
+            full_path = json_file_path
 
         if not os.path.exists(full_path):
             logging.error(f"Exercise file not found: {full_path}")
@@ -47,15 +80,11 @@ def _get_exercise_population() -> dict:
     global _exercise_population
     if _exercise_population is None:
         _exercise_population = {}
-        _exercise_population["beginner"] = _load_exercises_from_json(
-            "data/beginner.json"
-        )
+        _exercise_population["beginner"] = _load_exercises_from_json("beginner.json")
         _exercise_population["intermediate"] = _load_exercises_from_json(
-            "data/intermediate.json"
+            "intermediate.json"
         )
-        _exercise_population["advanced"] = _load_exercises_from_json(
-            "data/advanced.json"
-        )
+        _exercise_population["advanced"] = _load_exercises_from_json("advanced.json")
         logging.info(
             "Loaded exercises: %d beginner, %d intermediate, %d advanced",
             len(_exercise_population["beginner"]),
