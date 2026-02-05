@@ -507,29 +507,40 @@ def get_new_test_route():
 
         # Get the request data.
         data = request.get_json()
+        logging.info("Received /get_new_test request with data: %s", data)
+
         if not data:
             logging.error("Empty JSON data received at /get_new_test")
             return jsonify({"error": "No data provided"}), 400
 
         # Validate and extract exercise_difficulty from session data.
         exercise_difficulty = _get_data_str(data, "exercise_difficulty")
+        logging.info("Extracted exercise_difficulty: '%s'", exercise_difficulty)
+
         if not exercise_difficulty:
             logging.error("Invalid or missing exercise_difficulty in /get_new_test")
             return jsonify({"error": "Invalid or missing exercise_difficulty"}), 400
 
         # Validate and extract slider_value from session data.
         slider_value = _get_data_slider(data, "slider_value")
+        logging.info("Extracted slider_value: %d", slider_value)
+
         if not slider_value:
             logging.error("Invalid or missing slider_value in /get_new_test")
             return jsonify({"error": "Invalid or missing slider_value"}), 400
 
         # Validate and extract include_random_words from session data.
         include_random_words = _get_data_bool(data, "include_random_words")
+        logging.info("Extracted include_random_words: %s", include_random_words)
+
         if include_random_words is None:
             logging.error("Invalid or missing include_random_words in /get_new_test")
             return jsonify({"error": "Invalid or missing include_random_words"}), 400
 
         # Generate new text and blanks using percentage-based approach.
+        logging.info("Calling get_exercise_with_percentage_blanks with difficulty_level=%d, include_random_words=%s, exercise_difficulty='%s'",
+                    slider_value, include_random_words, exercise_difficulty)
+
         display_parts, blanks_data, word_bank, original_full_text, exercise_title = (
             get_exercise_with_percentage_blanks(
                 slider_value,
@@ -538,6 +549,9 @@ def get_new_test_route():
             )
         )
 
+        logging.info("Generated exercise: title='%s', display_parts=%d, blanks=%d, word_bank=%d",
+                    exercise_title, len(display_parts), len(blanks_data), len(word_bank))
+
         # Update session with new text and blank data.
         try:
             session["display_parts"] = display_parts
@@ -545,6 +559,7 @@ def get_new_test_route():
             session["word_bank"] = word_bank
             session["exercise_title"] = exercise_title
             session["original_full_text"] = original_full_text
+            logging.info("Session updated successfully")
         except Exception as e:
             logging.error("Error updating session in get_new_test: %s", e)
             return jsonify({"error": "Failed to save exercise data"}), 500
@@ -552,15 +567,17 @@ def get_new_test_route():
         logging.info(
             "Successfully generated new text exercise with %d blanks", len(blanks_data)
         )
-        return jsonify(
-            {
-                "display_parts": display_parts,
-                "blanks_data": blanks_data,
-                "word_bank": word_bank,
-                "exercise_title": exercise_title,
-                "original_full_text": original_full_text,
-            }
-        )
+
+        response_data = {
+            "display_parts": display_parts,
+            "blanks_data": blanks_data,
+            "word_bank": word_bank,
+            "exercise_title": exercise_title,
+            "original_full_text": original_full_text,
+        }
+        logging.info("Returning response with keys: %s", list(response_data.keys()))
+
+        return jsonify(response_data)
 
     except Exception as e:
         logging.error("Unexpected error in get_new_test endpoint: %s", e)

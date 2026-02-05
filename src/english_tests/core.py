@@ -754,6 +754,7 @@ def get_random_exercise(difficulty: str | None = None) -> dict:
 
         # Get the current exercise population.
         exercises = _get_exercise_population()
+        logging.info("Available exercise difficulties: %s", list(exercises.keys()))
 
         # Check if exercises are available.
         if not exercises:
@@ -761,10 +762,15 @@ def get_random_exercise(difficulty: str | None = None) -> dict:
 
         # Make sure we have a valid difficulty level.
         if difficulty not in ("beginner", "intermediate", "advanced"):
+            logging.warning("Invalid difficulty '%s', selecting random from available: %s", difficulty, list(exercises.keys()))
             difficulty = random.choice(list(exercises.keys()))
+
+        logging.info("Using difficulty: %s", difficulty)
 
         # Get the exercises for the specified difficulty.
         exercise_list = exercises.get(difficulty, [])
+        logging.info("Exercises available for %s: %d", difficulty, len(exercise_list))
+
         if not exercise_list:
             raise ValueError(f"No exercises found for difficulty: {difficulty}")
 
@@ -772,6 +778,8 @@ def get_random_exercise(difficulty: str | None = None) -> dict:
         selected_exercise = random.choice(exercise_list)
         exercise_title = selected_exercise.get("title", "").strip()
         selected_text = selected_exercise.get("text", "").strip()
+
+        logging.info("Selected exercise: '%s' (%d characters)", exercise_title, len(selected_text))
 
         if not exercise_title:
             raise ValueError(f"Selected exercise has no title")
@@ -910,18 +918,28 @@ def get_exercise_with_percentage_blanks(
         Tuple of (display_parts, blanks_data, word_bank, exercise_text, exercise_title)
     """
     try:
+        logging.info("get_exercise_with_percentage_blanks called with difficulty_level=%d, include_random_words=%s, exercise_difficulty='%s'",
+                    difficulty_level, include_random_words, exercise_difficulty)
+
         # Get a random exercise with specified difficulty
         exercise = get_random_exercise(exercise_difficulty)
         exercise_text = exercise.get("text", "")
         exercise_title = exercise.get("title", "Unknown Exercise")
 
+        logging.info("Selected exercise: '%s' (%d chars)", exercise_title, len(exercise_text))
+
         if not exercise_text:
             raise ValueError("Selected exercise has no text")
 
         # Create the exercise with percentage-based blanks
+        logging.info("Calling create_exercise_with_blanks_percentage with text length %d", len(exercise_text))
+
         display_parts, blanks_data, word_bank = create_exercise_with_blanks_percentage(
             exercise_text, difficulty_level, include_random_words
         )
+
+        logging.info("Exercise created: display_parts=%d, blanks=%d, word_bank=%d",
+                    len(display_parts), len(blanks_data), len(word_bank))
 
         return display_parts, blanks_data, word_bank, exercise_text, exercise_title
 

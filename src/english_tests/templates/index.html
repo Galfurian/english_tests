@@ -112,40 +112,94 @@
     {% endif %}
 
     <script>
+        console.log('JavaScript loaded and DOMContentLoaded event fired');
+
         document.addEventListener('DOMContentLoaded', function () {
+            console.log('DOM fully loaded, initializing event listeners');
+
             const getNewTestBtn = document.getElementById('getNewTestBtn');
             const reblankTextBtn = document.getElementById('reblankTextBtn');
             const blankSlider = document.getElementById('blankSlider');
             const difficultySelect = document.getElementById('difficultySelect');
             const includeRandomWordsCheckbox = document.getElementById('includeRandomWords');
+
+            console.log('Elements found:', {
+                getNewTestBtn: !!getNewTestBtn,
+                reblankTextBtn: !!reblankTextBtn,
+                blankSlider: !!blankSlider,
+                difficultySelect: !!difficultySelect,
+                includeRandomWordsCheckbox: !!includeRandomWordsCheckbox
+            });
+
             const exerciseTitle = document.getElementById('exerciseTitle');
             const exerciseForm = document.getElementById('exerciseForm');
-            
+
             const exerciseTextContainer = document.getElementById('exerciseTextContainer');
             const wordBankContainer = document.getElementById('wordBankContainer');
 
+            console.log('Display elements found:', {
+                exerciseTitle: !!exerciseTitle,
+                exerciseForm: !!exerciseForm,
+                exerciseTextContainer: !!exerciseTextContainer,
+                wordBankContainer: !!wordBankContainer
+            });
+
             getNewTestBtn.addEventListener('click', async function () {
+                console.log('Get New Test button clicked');
+                console.log('Difficulty:', difficultySelect.value);
+                console.log('Slider value:', blankSlider.value);
+                console.log('Include random words:', includeRandomWordsCheckbox.checked);
+
                 try {
+                    console.log('Making fetch request to /get_new_test');
                     const response = await fetch('/get_new_test', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
                         },
                         body: JSON.stringify({
-                            slider_value: blankSlider.value,
+                            slider_value: parseInt(blankSlider.value),
                             include_random_words: includeRandomWordsCheckbox.checked,
                             exercise_difficulty: difficultySelect.value,
                         }),
                     });
+
+                    console.log('Response status:', response.status);
+                    console.log('Response ok:', response.ok);
+                    console.log('Response headers:', Object.fromEntries(response.headers.entries()));
+
+                    if (!response.ok) {
+                        const errorText = await response.text();
+                        console.error('Response error text:', errorText);
+                        alert('Failed to generate new text. Server error: ' + response.status + '\n' + errorText);
+                        return;
+                    }
+
                     const data = await response.json();
+                    console.log('Parsed response data:', data);
+                    console.log('Data keys:', Object.keys(data));
+
+                    if (data.error) {
+                        console.error('Server returned error:', data.error);
+                        alert('Error: ' + data.error);
+                        return;
+                    }
+
+                    console.log('Calling updateExerciseDisplay');
                     updateExerciseDisplay(data);
+                    console.log('updateExerciseDisplay completed successfully');
                 } catch (error) {
-                    console.error('Error generating new text:', error);
-                    alert('Failed to generate new text. Please try again.');
+                    console.error('Error in getNewTestBtn click handler:', error);
+                    alert('Failed to generate new text. Error: ' + error.message);
                 }
             });
 
             reblankTextBtn.addEventListener('click', async function () {
+                console.log('Re-blank Text button clicked');
+                console.log('Difficulty:', difficultySelect.value);
+                console.log('Slider value:', blankSlider.value);
+                console.log('Include random words:', includeRandomWordsCheckbox.checked);
+
                 try {
                     const response = await fetch('/reblank', {
                         method: 'POST',
@@ -158,7 +212,26 @@
                             exercise_difficulty: difficultySelect.value,
                         }),
                     });
+
+                    console.log('Reblank response status:', response.status);
+                    console.log('Reblank response ok:', response.ok);
+
+                    if (!response.ok) {
+                        const errorText = await response.text();
+                        console.error('Reblank response error:', errorText);
+                        alert('Failed to re-blank text. Server error: ' + response.status);
+                        return;
+                    }
+
                     const data = await response.json();
+                    console.log('Reblank received data:', data);
+
+                    if (data.error) {
+                        console.error('Reblank server returned error:', data.error);
+                        alert('Error: ' + data.error);
+                        return;
+                    }
+
                     updateExerciseDisplay(data);
                 } catch (error) {
                     console.error('Error re-blanking text:', error);
@@ -168,45 +241,84 @@
 
 
             async function updateExerciseDisplay(data) {
-                // Clear current content.
-                exerciseTitle.innerHTML = '';
-                exerciseTextContainer.innerHTML = '';
-                wordBankContainer.innerHTML = '';
+                console.log('updateExerciseDisplay called with data keys:', Object.keys(data));
+                console.log('data.display_parts length:', data.display_parts ? data.display_parts.length : 'undefined');
+                console.log('data.word_bank length:', data.word_bank ? data.word_bank.length : 'undefined');
 
-                // Add exercise title if available
-                if (data.exercise_title) {
-                    exerciseTitle.innerHTML = data.exercise_title;
-                }
+                try {
+                    // Clear current content.
+                    console.log('Clearing current content');
+                    exerciseTitle.innerHTML = '';
+                    exerciseTextContainer.innerHTML = '';
+                    wordBankContainer.innerHTML = '';
 
-                if (data.display_parts && data.display_parts.length > 0) {
-                    data.display_parts.forEach(part => {
-                        if (part.startsWith('BLANK_')) {
-                            const originalIndex = part.split('_')[1];
-                            const input = document.createElement('input');
-                            input.type = 'text';
-                            input.name = `BLANK_${originalIndex}`;
-                            input.className = 'blank-input';
-                            input.autocomplete = 'off';
-                            exerciseTextContainer.appendChild(input);
-                        } else {
-                            exerciseTextContainer.appendChild(document.createTextNode(part));
-                        }
-                        exerciseTextContainer.appendChild(document.createTextNode(' '));
-                    });
-                } else {
-                    const fallbackElement = document.createElement('p');
-                    fallbackElement.textContent = 'Click "Get New Test" to start an exercise.';
-                    exerciseTextContainer.appendChild(fallbackElement);
-                }
+                    // Add exercise title if available
+                    if (data.exercise_title) {
+                        console.log('Setting exercise title:', data.exercise_title);
+                        exerciseTitle.innerHTML = data.exercise_title;
+                        console.log('exerciseTitle element:', exerciseTitle);
+                        console.log('exerciseTitle.innerHTML after setting:', exerciseTitle.innerHTML);
+                    } else {
+                        console.log('No exercise_title in data');
+                    }
 
-                if (data.word_bank && data.word_bank.length > 0) {
-                    data.word_bank.forEach(word => {
-                        const span = document.createElement('span');
-                        span.textContent = word;
-                        wordBankContainer.appendChild(span);
-                    });
-                } else {
-                    wordBankContainer.innerHTML = '<p>Word bank will appear here after text generation.</p>';
+                    if (data.display_parts && data.display_parts.length > 0) {
+                        console.log('Processing display_parts:', data.display_parts.length, 'parts');
+
+                        data.display_parts.forEach((part, index) => {
+                            console.log(`Processing part ${index}:`, part);
+
+                            if (part.startsWith('BLANK_')) {
+                                const originalIndex = part.split('_')[1];
+                                console.log('Creating input for blank index:', originalIndex);
+
+                                const input = document.createElement('input');
+                                input.type = 'text';
+                                input.name = `BLANK_${originalIndex}`;
+                                input.className = 'blank-input';
+                                input.autocomplete = 'off';
+                                exerciseTextContainer.appendChild(input);
+                                console.log('Added input element to exerciseTextContainer');
+                            } else {
+                                console.log('Adding text node:', part);
+                                const textNode = document.createTextNode(part);
+                                exerciseTextContainer.appendChild(textNode);
+                                console.log('Added text node to exerciseTextContainer');
+                            }
+                            exerciseTextContainer.appendChild(document.createTextNode(' '));
+                        });
+                        console.log('Finished processing display_parts');
+                    } else {
+                        console.log('No display_parts found, showing fallback message');
+                        const fallbackElement = document.createElement('p');
+                        fallbackElement.textContent = 'Click "Get New Test" to start an exercise.';
+                        exerciseTextContainer.appendChild(fallbackElement);
+                    }
+
+                    if (data.word_bank && data.word_bank.length > 0) {
+                        console.log('Processing word_bank:', data.word_bank.length, 'words');
+
+                        data.word_bank.forEach((word, index) => {
+                            console.log(`Adding word ${index}:`, word);
+                            const span = document.createElement('span');
+                            span.textContent = word;
+                            wordBankContainer.appendChild(span);
+                            console.log('Added word span to wordBankContainer');
+                        });
+                        console.log('Finished processing word_bank');
+                    } else {
+                        console.log('No word_bank found, showing fallback message');
+                        wordBankContainer.innerHTML = '<p>Word bank will appear here after text generation.</p>';
+                    }
+
+                    console.log('updateExerciseDisplay completed successfully');
+                    console.log('Final DOM state:');
+                    console.log('- exerciseTitle.innerHTML:', exerciseTitle.innerHTML);
+                    console.log('- exerciseTextContainer.children.length:', exerciseTextContainer.children.length);
+                    console.log('- wordBankContainer.children.length:', wordBankContainer.children.length);
+                } catch (error) {
+                    console.error('Error in updateExerciseDisplay:', error);
+                    alert('Error updating display: ' + error.message);
                 }
             }
         });
