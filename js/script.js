@@ -54,6 +54,7 @@ function setControlsDisabled(disabled) {
         document.getElementById('getNewTestBtn'),
         document.getElementById('getPartialTestBtn'),
         document.getElementById('reblankTextBtn'),
+        document.getElementById('clearBlanksBtn'),
         document.getElementById('difficultySelect'),
         document.getElementById('blankSlider'),
         document.getElementById('includeRandomWords'),
@@ -411,9 +412,19 @@ function reblankText() {
     currentState.displayParts = displayParts;
     currentState.blanksData = blanksData;
     currentState.wordBank = wordBank;
-
     saveState();
     updateExerciseDisplay();
+}
+
+function clearBlanks() {
+    if (!currentState.originalFullText) {
+        return;
+    }
+
+    const inputs = document.querySelectorAll('.blank-input');
+    inputs.forEach(input => {
+        input.value = '';
+    });
 }
 
 function updateExerciseDisplay() {
@@ -454,6 +465,15 @@ function updateExerciseDisplay() {
                         input.className += ' partial';
                     }
                     input.placeholder = '?';
+                    
+                    // Set width based on expected word length
+                    if (currentState.blanksData && currentState.blanksData[index]) {
+                        const expectedWord = currentState.blanksData[index];
+                        const baseWidth = prefix || suffix ? 60 : 90;
+                        const calculatedWidth = Math.max(baseWidth, expectedWord.length * 12 + 16);
+                        input.style.width = calculatedWidth + 'px';
+                    }
+                    
                     textContainer.appendChild(input);
                     
                     // Add suffix text if exists
@@ -597,6 +617,7 @@ document.getElementById('themeToggle').addEventListener('click', toggleTheme);
 document.getElementById('getNewTestBtn').addEventListener('click', generateNewTest);
 document.getElementById('getPartialTestBtn').addEventListener('click', generatePartialTest);
 document.getElementById('reblankTextBtn').addEventListener('click', reblankText);
+document.getElementById('clearBlanksBtn').addEventListener('click', clearBlanks);
 document.getElementById('exerciseForm').addEventListener('submit', checkAnswers);
 document.getElementById('backToExerciseBtn').addEventListener('click', () => {
     document.getElementById('exercisePanel').style.display = 'block';

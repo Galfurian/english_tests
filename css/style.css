@@ -87,7 +87,7 @@ p {
 }
 
 button {
-    padding: 10px 16px;
+    padding: 4px 8px;
     cursor: pointer;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: #ffffff;
@@ -108,10 +108,20 @@ button:active {
     transform: translateY(0);
 }
 
-.controls button {
-    margin-right: 10px;
-    margin-bottom: 10px;
-    width: 160px;
+#getNewTestBtn {
+    background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+}
+
+#getNewTestBtn:hover {
+    box-shadow: 0 4px 8px rgba(255, 107, 107, 0.4);
+}
+
+#getPartialTestBtn {
+    background: linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%);
+}
+
+#getPartialTestBtn:hover {
+    box-shadow: 0 4px 8px rgba(78, 205, 196, 0.4);
 }
 
 hr {
@@ -137,7 +147,6 @@ hr {
 .checkbox-container label,
 .dropdown-container label {
     color: var(--text-primary);
-    min-width: 150px;
 }
 
 .slider-container input[type="range"] {
@@ -172,7 +181,7 @@ hr {
 }
 
 .dropdown-container select {
-    padding: 8px 12px;
+    padding: 4px;
     border: 1px solid #666;
     border-radius: 6px;
     background-color: #3a3a3a;
@@ -206,9 +215,10 @@ hr {
 
 .blank-input {
     width: 90px;
+    height: 32px;
     text-align: center;
     border: 2px solid var(--border-color);
-    padding: 8px;
+    padding: 4px;
     margin: 2px;
     background-color: var(--input-bg);
     color: var(--text-primary);
@@ -219,7 +229,8 @@ hr {
 
 .blank-input.partial {
     width: 60px;
-    padding: 4px 8px;
+    height: 26px;
+    padding: 4px;
 }
 
 .blank-input:focus {
@@ -343,7 +354,6 @@ form {
     gap: 10px;
     flex-wrap: wrap;
     justify-content: center;
-    margin-top: 20px;
 }
 
 .button-group button {
