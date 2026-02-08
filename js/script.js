@@ -6,6 +6,10 @@ const PUNCTUATION = ".!,?;:'\"()[]{}<>";
 const STORAGE_KEY = 'englishTestsState';
 const THEME_KEY = 'englishTestsTheme';
 
+// Slider configuration
+const SLIDER_MIN_DIFFICULTY = 2;  // 20% difficulty
+const SLIDER_MAX_DIFFICULTY = 8;  // 80% difficulty
+
 let exercisesData = {
     beginner: [],
     intermediate: [],
@@ -165,7 +169,6 @@ function selectRandomBlanks(population, numBlanks) {
 
 function createExerciseWithBlanksPercentage(exerciseText, difficultyLevel, includeRandomWords = false) {
     const words = exerciseText.match(/\S+/g) || [];
-    const textLength = exerciseText.length;
 
     // Calculate blank percentages
     const minBlanksPercent = 0.05 + (difficultyLevel - 1) * 0.02;
@@ -647,8 +650,47 @@ document.getElementById('backToExerciseBtn').addEventListener('click', () => {
     document.getElementById('resultsPanel').style.display = 'none';
 });
 
+function updateSliderTooltip(slider, show = false) {
+    const value = parseInt(slider.value);
+    const percentage = value * 10;
+    const tooltip = slider.parentElement.querySelector('.slider-tooltip');
+    
+    // Update tooltip content
+    tooltip.textContent = percentage + '%';
+    
+    // Simple positioning: place tooltip at percentage position across slider
+    const min = slider.min;
+    const max = slider.max;
+    const percentagePosition = (value - min) / (max - min);
+    const sliderWidth = slider.offsetWidth;
+    
+    // Position tooltip centered at the percentage position
+    const tooltipLeft = percentagePosition * sliderWidth;
+    
+    tooltip.style.left = tooltipLeft + 'px';
+    
+    // Show/hide tooltip
+    tooltip.style.opacity = show ? '1' : '0';
+}
+
 document.getElementById('blankSlider').addEventListener('input', (e) => {
-    document.getElementById('sliderValue').textContent = e.target.value;
+    updateSliderTooltip(e.target, true);
+});
+
+document.getElementById('blankSlider').addEventListener('touchstart', (e) => {
+    updateSliderTooltip(e.target, true);
+});
+
+document.getElementById('blankSlider').addEventListener('touchend', (e) => {
+    setTimeout(() => updateSliderTooltip(e.target, false), 1000);
+});
+
+document.getElementById('blankSlider').addEventListener('mouseenter', (e) => {
+    updateSliderTooltip(e.target, true);
+});
+
+document.getElementById('blankSlider').addEventListener('mouseleave', (e) => {
+    updateSliderTooltip(e.target, false);
 });
 
 // =========================================================================
@@ -660,6 +702,17 @@ async function initialize() {
     loadState();
     await loadExercises();
     updateExerciseDisplay();
+    
+    // Initialize slider tooltip after a short delay to ensure DOM is ready
+    setTimeout(() => {
+        const slider = document.getElementById('blankSlider');
+        // Ensure slider value is within new range
+        const currentValue = parseInt(slider.value);
+        if (currentValue < SLIDER_MIN_DIFFICULTY || currentValue > SLIDER_MAX_DIFFICULTY) {
+            slider.value = 5; // Reset to middle value if out of range
+        }
+        updateSliderTooltip(slider, false);
+    }, 100);
 }
 
 document.addEventListener('DOMContentLoaded', initialize);
