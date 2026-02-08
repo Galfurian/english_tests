@@ -109,11 +109,19 @@ button:active {
 }
 
 #getNewTestBtn {
-    background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+    background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
 }
 
 #getNewTestBtn:hover {
-    box-shadow: 0 4px 8px rgba(255, 107, 107, 0.4);
+    box-shadow: 0 4px 8px rgba(59, 130, 246, 0.4);
+}
+
+#reblankTextBtn {
+    background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+}
+
+#reblankTextBtn:hover {
+    box-shadow: 0 4px 8px rgba(59, 130, 246, 0.4);
 }
 
 #getPartialTestBtn {
@@ -237,28 +245,31 @@ hr {
 
 .dropdown-container select {
     padding: 4px;
-    border: 1px solid #666;
+    border: none;
     border-radius: 6px;
-    background-color: #3a3a3a;
-    color: #e0e0e0;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #ffffff;
     font-size: 1rem;
     cursor: pointer;
     transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    font-weight: 500;
 }
 
 .dropdown-container select:hover {
-    border-color: #888;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(102, 126, 234, 0.4);
 }
 
 .dropdown-container select:focus {
     outline: none;
-    border-color: #667eea;
-    box-shadow: 0 0 5px rgba(102, 126, 234, 0.5);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(102, 126, 234, 0.4);
 }
 
 .dropdown-container select option {
-    background-color: #2d2d2d;
-    color: #e0e0e0;
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
 }
 
 .checkbox-container input[type="checkbox"] {
