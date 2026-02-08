@@ -90,6 +90,26 @@ function getRandomItem(arr) {
     return arr[Math.floor(Math.random() * arr.length)];
 }
 
+function parseToken(token) {
+    let leadingPunct = '';
+    let trailingPunct = '';
+    let coreWord = token;
+    
+    // Extract leading punctuation
+    while (coreWord.length > 0 && PUNCTUATION.includes(coreWord[0])) {
+        leadingPunct += coreWord[0];
+        coreWord = coreWord.substring(1);
+    }
+    
+    // Extract trailing punctuation
+    while (coreWord.length > 0 && PUNCTUATION.includes(coreWord[coreWord.length - 1])) {
+        trailingPunct = coreWord[coreWord.length - 1] + trailingPunct;
+        coreWord = coreWord.substring(0, coreWord.length - 1);
+    }
+    
+    return { leadingPunct, coreWord, trailingPunct };
+}
+
 // =========================================================================
 // EXERCISE LOGIC
 // =========================================================================
@@ -110,9 +130,12 @@ function getRandomExercise(difficulty = null) {
 
 function getBlankSelectionPopulation(words) {
     return words
-        .map((word, index) => ({ word, index }))
-        .filter(({ word }) => {
-            return word && word.length > 3 && !PUNCTUATION.includes(word[0]);
+        .map((word, index) => {
+            const { coreWord } = parseToken(word);
+            return { word, coreWord, index };
+        })
+        .filter(({ coreWord }) => {
+            return coreWord && coreWord.length > 3;
         });
 }
 
@@ -130,8 +153,8 @@ function selectRandomBlanks(population, numBlanks) {
         const randomIdx = Math.floor(Math.random() * population.length);
         if (!indices.has(randomIdx)) {
             indices.add(randomIdx);
-            const { word, index } = population[randomIdx];
-            selected[index] = word;
+            const { coreWord, index } = population[randomIdx];
+            selected[index] = coreWord;
         }
     }
 
@@ -157,7 +180,8 @@ function createExerciseWithBlanksPercentage(exerciseText, difficultyLevel, inclu
     const displayParts = [];
     words.forEach((word, index) => {
         if (blanksData[index]) {
-            displayParts.push(`<BLANK_${index}>`);
+            const { leadingPunct, trailingPunct } = parseToken(word);
+            displayParts.push(`${leadingPunct}<BLANK_${index}>${trailingPunct}`);
         } else {
             displayParts.push(word);
         }
@@ -166,7 +190,10 @@ function createExerciseWithBlanksPercentage(exerciseText, difficultyLevel, inclu
     // Create word bank
     let wordBank = Object.values(blanksData);
     if (includeRandomWords) {
-        const nonBlankWords = words.filter((_, idx) => !blanksData[idx]);
+        const nonBlankWords = words
+            .filter((_, idx) => !blanksData[idx])
+            .map(w => parseToken(w).coreWord)
+            .filter(w => w && w.length > 0);
         const numRandomWords = Math.min(5, Math.ceil(wordBank.length / 2));
         const randomWords = shuffleArray(nonBlankWords).slice(0, numRandomWords);
         wordBank = wordBank.concat(randomWords);
@@ -202,36 +229,21 @@ function createExerciseWithPartialWords(exerciseText, difficultyLevel, includeRa
     
     words.forEach((word, index) => {
         if (selectedIndicesSet.has(index)) {
-            // Strip punctuation from the word
-            let cleanWord = word;
-            let leadingPunct = '';
-            let trailingPunct = '';
-            
-            // Extract leading punctuation
-            while (cleanWord.length > 0 && PUNCTUATION.includes(cleanWord[0])) {
-                leadingPunct += cleanWord[0];
-                cleanWord = cleanWord.substring(1);
-            }
-            
-            // Extract trailing punctuation
-            while (cleanWord.length > 0 && PUNCTUATION.includes(cleanWord[cleanWord.length - 1])) {
-                trailingPunct = cleanWord[cleanWord.length - 1] + trailingPunct;
-                cleanWord = cleanWord.substring(0, cleanWord.length - 1);
-            }
+            const { leadingPunct, coreWord, trailingPunct } = parseToken(word);
             
             // Only create partial blank if word is long enough
-            if (cleanWord.length > 4) {
+            if (coreWord.length > 4) {
                 // Remove 30-40% of the word, minimum 2 letters
                 const removePercent = 0.3 + Math.random() * 0.1; // 30-40%
-                const removeCount = Math.max(2, Math.floor(cleanWord.length * removePercent));
+                const removeCount = Math.max(2, Math.floor(coreWord.length * removePercent));
                 
                 // Choose random position to start removing (not at very beginning or end)
-                const maxStartPos = cleanWord.length - removeCount;
+                const maxStartPos = coreWord.length - removeCount;
                 const startPos = Math.floor(Math.random() * maxStartPos);
                 
-                const prefix = cleanWord.substring(0, startPos);
-                const missing = cleanWord.substring(startPos, startPos + removeCount);
-                const suffix = cleanWord.substring(startPos + removeCount);
+                const prefix = coreWord.substring(0, startPos);
+                const missing = coreWord.substring(startPos, startPos + removeCount);
+                const suffix = coreWord.substring(startPos + removeCount);
                 
                 blanksData[index] = missing.toLowerCase();
                 displayParts.push(`${leadingPunct}${prefix}<BLANK_${index}>${suffix}${trailingPunct}`);
@@ -248,7 +260,10 @@ function createExerciseWithPartialWords(exerciseText, difficultyLevel, includeRa
     let wordBank = Object.values(blanksData);
     if (includeRandomWords) {
         // Add random partial words from non-blanked words
-        const nonBlankWords = words.filter((w, idx) => !blanksData[idx] && w.length > 4);
+        const nonBlankWords = words
+            .filter((w, idx) => !blanksData[idx])
+            .map(w => parseToken(w).coreWord)
+            .filter(w => w && w.length > 4);
         const numRandomWords = Math.min(3, Math.ceil(wordBank.length / 2));
         const randomParts = nonBlankWords.slice(0, numRandomWords).map(w => {
             const len = Math.max(1, Math.floor(w.length * 0.90));
