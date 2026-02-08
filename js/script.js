@@ -8,7 +8,7 @@ const THEME_KEY = 'englishTestsTheme';
 
 // Blank percentage slider configuration.
 const MIN_BLANK_PERCENTAGE = 10;
-const MAX_BLANK_PERCENTAGE = 70;
+const MAX_BLANK_PERCENTAGE = 50;
 const DEFAULT_BLANK_PERCENTAGE = MIN_BLANK_PERCENTAGE + Math.floor((MAX_BLANK_PERCENTAGE - MIN_BLANK_PERCENTAGE) / 2);
 
 let exercisesData = {
