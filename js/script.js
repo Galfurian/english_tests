@@ -6,9 +6,10 @@ const PUNCTUATION = ".!,?;:'\"()[]{}<>";
 const STORAGE_KEY = 'englishTestsState';
 const THEME_KEY = 'englishTestsTheme';
 
-// Slider configuration
-const SLIDER_MIN_DIFFICULTY = 2;  // 20% difficulty
-const SLIDER_MAX_DIFFICULTY = 8;  // 80% difficulty
+// Blank percentage slider configuration.
+const MIN_BLANK_PERCENTAGE = 10;
+const MAX_BLANK_PERCENTAGE = 70;
+const DEFAULT_BLANK_PERCENTAGE = MIN_BLANK_PERCENTAGE + Math.floor((MAX_BLANK_PERCENTAGE - MIN_BLANK_PERCENTAGE) / 2);
 
 let exercisesData = {
     beginner: [],
@@ -167,18 +168,16 @@ function selectRandomBlanks(population, numBlanks) {
     return selected;
 }
 
-function createExerciseWithBlanksPercentage(exerciseText, difficultyLevel, includeRandomWords = false) {
+function createExerciseWithBlanksPercentage(exerciseText, percentageBlanks, includeRandomWords = false) {
     const words = exerciseText.match(/\S+/g) || [];
 
-    // Calculate blank percentages
-    const minBlanksPercent = 0.05 + (difficultyLevel - 1) * 0.02;
-    const maxBlanksPercent = 0.10 + (difficultyLevel - 1) * 0.015;
+    // Use percentageBlanks directly as the target percentage of words to blank
+    const targetBlanksPercent = percentageBlanks / 100;
+    const numBlanks = Math.max(1, Math.floor(words.length * targetBlanksPercent));
 
-    const minBlanks = Math.max(1, Math.floor(words.length * minBlanksPercent));
-    const maxBlanks = Math.max(minBlanks, Math.floor(words.length * maxBlanksPercent));
+    console.log(`Total words: ${words.length}, Percentage to blank: ${percentageBlanks}%, Number of blanks to create: ${numBlanks}`);
 
     const population = getBlankSelectionPopulation(words);
-    const numBlanks = determineNumBlanks(population.length, minBlanks, maxBlanks);
     const blanksData = selectRandomBlanks(population, numBlanks);
 
     // Create display parts
@@ -212,20 +211,14 @@ function createExerciseWithBlanksPercentage(exerciseText, difficultyLevel, inclu
     };
 }
 
-function createExerciseWithPartialWords(exerciseText, difficultyLevel, includeRandomWords = false) {
+function createExerciseWithPartialWords(exerciseText, percentageBlanks, includeRandomWords = false) {
     const words = exerciseText.match(/\S+/g) || [];
     
-    // Calculate blank percentages
-    const minBlanksPercent = 0.05 + (difficultyLevel - 1) * 0.02;
-    const maxBlanksPercent = 0.10 + (difficultyLevel - 1) * 0.015;
-
-    const minBlanks = Math.max(1, Math.floor(words.length * minBlanksPercent));
-    const maxBlanks = Math.max(minBlanks, Math.floor(words.length * maxBlanksPercent));
+    // Use percentageBlanks directly as the target percentage of words to blank
+    const targetBlanksPercent = percentageBlanks / 100;
+    const numBlanks = Math.max(1, Math.floor(words.length * targetBlanksPercent));
 
     const population = getBlankSelectionPopulation(words);
-    const numBlanks = determineNumBlanks(population.length, minBlanks, maxBlanks);
-    
-    // Select random words from population to partially blank
     const selectedItems = shuffleArray([...population]).slice(0, numBlanks);
     const selectedIndicesSet = new Set(selectedItems.map(item => item.index));
 
@@ -340,7 +333,7 @@ function generateNewTest() {
 
     const { displayParts, blanksData, wordBank } = createExerciseWithBlanksPercentage(
         exerciseText,
-        sliderValue,
+        sliderValue,  // sliderValue is now the actual percentage (20-80)
         includeRandomWords
     );
 
@@ -376,7 +369,7 @@ function generatePartialTest() {
 
     const { displayParts, blanksData, wordBank } = createExerciseWithPartialWords(
         exerciseText,
-        sliderValue,
+        sliderValue,  // sliderValue is now the actual percentage (20-80)
         includeRandomWords
     );
 
@@ -405,7 +398,7 @@ function reblankText() {
 
     const { displayParts, blanksData, wordBank } = createExerciseWithBlanksPercentage(
         currentState.originalFullText,
-        sliderValue,
+        sliderValue,  // sliderValue is now the actual percentage (20-80)
         includeRandomWords
     );
 
@@ -429,7 +422,7 @@ function reblankPartialText() {
 
     const { displayParts, blanksData, wordBank } = createExerciseWithPartialWords(
         currentState.originalFullText,
-        sliderValue,
+        sliderValue,  // sliderValue is now the actual percentage (20-80)
         includeRandomWords
     );
 
@@ -652,7 +645,7 @@ document.getElementById('backToExerciseBtn').addEventListener('click', () => {
 
 function updateSliderTooltip(slider, show = false) {
     const value = parseInt(slider.value);
-    const percentage = value * 10;
+    const percentage = value;
     const tooltip = slider.parentElement.querySelector('.slider-tooltip');
     
     // Update tooltip content
@@ -703,13 +696,22 @@ async function initialize() {
     await loadExercises();
     updateExerciseDisplay();
     
+    // Configure blank percentage slider dynamically
+    const slider = document.getElementById('blankSlider');
+    slider.min = MIN_BLANK_PERCENTAGE;
+    slider.max = MAX_BLANK_PERCENTAGE;
+    slider.value = DEFAULT_BLANK_PERCENTAGE;
+    
+    // Set initial tooltip text
+    const tooltip = slider.parentElement.querySelector('.slider-tooltip');
+    tooltip.textContent = DEFAULT_BLANK_PERCENTAGE + '%';
+    
     // Initialize slider tooltip after a short delay to ensure DOM is ready
     setTimeout(() => {
-        const slider = document.getElementById('blankSlider');
         // Ensure slider value is within new range
         const currentValue = parseInt(slider.value);
-        if (currentValue < SLIDER_MIN_DIFFICULTY || currentValue > SLIDER_MAX_DIFFICULTY) {
-            slider.value = 5; // Reset to middle value if out of range
+        if (currentValue < MIN_BLANK_PERCENTAGE || currentValue > MAX_BLANK_PERCENTAGE) {
+            slider.value = DEFAULT_BLANK_PERCENTAGE; // Reset to middle value if out of range
         }
         updateSliderTooltip(slider, false);
     }, 100);
