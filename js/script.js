@@ -154,7 +154,7 @@ function selectRandomBlanks(population, numBlanks) {
         if (!indices.has(randomIdx)) {
             indices.add(randomIdx);
             const { coreWord, index } = population[randomIdx];
-            selected[index] = coreWord;
+            selected[index] = coreWord.toLowerCase();
         }
     }
 
@@ -192,7 +192,7 @@ function createExerciseWithBlanksPercentage(exerciseText, difficultyLevel, inclu
     if (includeRandomWords) {
         const nonBlankWords = words
             .filter((_, idx) => !blanksData[idx])
-            .map(w => parseToken(w).coreWord)
+            .map(w => parseToken(w).coreWord.toLowerCase())
             .filter(w => w && w.length > 0);
         const numRandomWords = Math.min(5, Math.ceil(wordBank.length / 2));
         const randomWords = shuffleArray(nonBlankWords).slice(0, numRandomWords);
