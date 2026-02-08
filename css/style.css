@@ -259,9 +259,9 @@ hr {
     border-radius: 20px;
     color: #ffffff;
     font-weight: 500;
-    user-select: none;
+    user-select: text;
     transition: all 0.3s ease;
-    cursor: default;
+    cursor: text;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
