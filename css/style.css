@@ -124,6 +124,14 @@ button:active {
     box-shadow: 0 4px 8px rgba(78, 205, 196, 0.4);
 }
 
+#reblankPartialBtn {
+    background: linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%);
+}
+
+#reblankPartialBtn:hover {
+    box-shadow: 0 4px 8px rgba(78, 205, 196, 0.4);
+}
+
 hr {
     border: 0;
     height: 1px;

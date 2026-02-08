@@ -54,6 +54,7 @@ function setControlsDisabled(disabled) {
         document.getElementById('getNewTestBtn'),
         document.getElementById('getPartialTestBtn'),
         document.getElementById('reblankTextBtn'),
+        document.getElementById('reblankPartialBtn'),
         document.getElementById('clearBlanksBtn'),
         document.getElementById('difficultySelect'),
         document.getElementById('blankSlider'),
@@ -399,11 +400,7 @@ function reblankText() {
     const sliderValue = parseInt(document.getElementById('blankSlider').value);
     const includeRandomWords = document.getElementById('includeRandomWords').checked;
 
-    const createFunc = currentState.exerciseType === 'partial' 
-        ? createExerciseWithPartialWords 
-        : createExerciseWithBlanksPercentage;
-
-    const { displayParts, blanksData, wordBank } = createFunc(
+    const { displayParts, blanksData, wordBank } = createExerciseWithBlanksPercentage(
         currentState.originalFullText,
         sliderValue,
         includeRandomWords
@@ -412,6 +409,31 @@ function reblankText() {
     currentState.displayParts = displayParts;
     currentState.blanksData = blanksData;
     currentState.wordBank = wordBank;
+    currentState.exerciseType = 'full';
+    saveState();
+    updateExerciseDisplay();
+}
+
+function reblankPartialText() {
+    if (currentState.isLoadingExercises) return;
+    if (!currentState.originalFullText) {
+        alert('No exercise loaded. Click "Remove Words" or "Remove Letters" first.');
+        return;
+    }
+
+    const sliderValue = parseInt(document.getElementById('blankSlider').value);
+    const includeRandomWords = document.getElementById('includeRandomWords').checked;
+
+    const { displayParts, blanksData, wordBank } = createExerciseWithPartialWords(
+        currentState.originalFullText,
+        sliderValue,
+        includeRandomWords
+    );
+
+    currentState.displayParts = displayParts;
+    currentState.blanksData = blanksData;
+    currentState.wordBank = wordBank;
+    currentState.exerciseType = 'partial';
     saveState();
     updateExerciseDisplay();
 }
@@ -617,6 +639,7 @@ document.getElementById('themeToggle').addEventListener('click', toggleTheme);
 document.getElementById('getNewTestBtn').addEventListener('click', generateNewTest);
 document.getElementById('getPartialTestBtn').addEventListener('click', generatePartialTest);
 document.getElementById('reblankTextBtn').addEventListener('click', reblankText);
+document.getElementById('reblankPartialBtn').addEventListener('click', reblankPartialText);
 document.getElementById('clearBlanksBtn').addEventListener('click', clearBlanks);
 document.getElementById('exerciseForm').addEventListener('submit', checkAnswers);
 document.getElementById('backToExerciseBtn').addEventListener('click', () => {
