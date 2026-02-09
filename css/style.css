@@ -38,7 +38,9 @@ body {
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-h1, h2, h3 {
+h1,
+h2,
+h3 {
     margin-top: 5px;
     margin-bottom: 5px;
     color: var(--text-secondary);
@@ -325,12 +327,12 @@ hr {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-.toggle-switch input:checked + .toggle-slider {
+.toggle-switch input:checked+.toggle-slider {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     border-color: #667eea;
 }
 
-.toggle-switch input:checked + .toggle-slider:before {
+.toggle-switch input:checked+.toggle-slider:before {
     transform: translateX(26px);
     background: #ffffff;
 }
@@ -643,7 +645,6 @@ button[type="submit"]:hover {
     position: fixed;
     top: 200px;
     right: 20px;
-    width: 250px;
     background: var(--bg-secondary);
     border: 1px solid var(--border-color);
     border-radius: 8px;
@@ -701,7 +702,7 @@ button[type="submit"]:hover {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 8px 15px;
+    padding: 4px 12px;
     border-bottom: 1px solid var(--border-color);
 }
 
@@ -710,7 +711,8 @@ button[type="submit"]:hover {
 }
 
 .stat-label {
-    font-size: 0.9rem;
+    padding-right: 20px;
+    font-family: monospace;
     color: var(--text-primary);
 }
 
@@ -718,6 +720,18 @@ button[type="submit"]:hover {
     font-weight: bold;
     color: var(--text-secondary);
     font-family: monospace;
+}
+
+.correct-value {
+    color: #4CAF50 !important;
+}
+
+.incorrect-value {
+    color: #f44336 !important;
+}
+
+.accuracy-value {
+    font-weight: bold;
 }
 
 .stats-actions {
@@ -750,15 +764,15 @@ button[type="submit"]:hover {
         margin: 20px 0;
         order: 2;
     }
-    
+
     .stats-header {
         padding: 10px 15px;
     }
-    
+
     .stat-item {
         padding: 6px 15px;
     }
-    
+
     .stats-actions {
         padding: 12px 15px;
     }

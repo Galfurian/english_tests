@@ -68,7 +68,17 @@ function updateStatsDisplay() {
     document.getElementById('totalExercises').textContent = userStats.totalExercises;
     document.getElementById('totalCorrect').textContent = userStats.totalCorrect;
     document.getElementById('totalIncorrect').textContent = userStats.totalIncorrect;
-    document.getElementById('accuracyRate').textContent = accuracy + '%';
+    
+    // Set accuracy with dynamic gradient color
+    const accuracyElement = document.getElementById('accuracyRate');
+    accuracyElement.textContent = accuracy + '%';
+    
+    // Calculate gradient color from red (0%) to green (100%)
+    const red = Math.round(244 - (244 - 76) * (accuracy / 100));   // 244 (red) to 76 (green)
+    const green = Math.round(67 + (175 - 67) * (accuracy / 100));  // 67 (red) to 175 (green) 
+    const blue = Math.round(54 - (54 - 80) * (accuracy / 100));    // 54 (red) to 80 (green)
+    
+    accuracyElement.style.color = `rgb(${red}, ${green}, ${blue})`;
 }
 
 function resetStats() {
