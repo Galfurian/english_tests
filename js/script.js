@@ -6,6 +6,9 @@ const PUNCTUATION = ".!,?;:'\"()[]{}<>";
 const STORAGE_KEY = 'englishTestsState';
 const THEME_KEY = 'englishTestsTheme';
 
+// Timer constants
+const TIMER_INCREMENT = 30; // seconds to add/subtract
+
 // Blank percentage slider configuration.
 const MIN_BLANK_PERCENTAGE = 10;
 const MAX_BLANK_PERCENTAGE = 50;
@@ -26,6 +29,122 @@ let currentState = {
     exerciseType: 'full', // 'full' for whole words, 'partial' for letter removal
     isLoadingExercises: false
 };
+
+// =========================================================================
+// TIMER FUNCTIONALITY
+// =========================================================================
+
+let timerState = {
+    timeRemaining: 0, // in seconds
+    isRunning: false,
+    intervalId: null,
+    hasFinished: false // Track if timer reached 0 naturally
+};
+
+function formatTime(seconds) {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+}
+
+function updateTimerDisplay() {
+    const display = document.getElementById('countdownDisplay');
+    display.textContent = formatTime(timerState.timeRemaining);
+}
+
+function updateTimerButtonStates() {
+    const increaseBtn = document.getElementById('increaseTimeBtn');
+    const decreaseBtn = document.getElementById('decreaseTimeBtn');
+    const startStopBtn = document.getElementById('startStopBtn');
+    const resetBtn = document.getElementById('resetBtn');
+    
+    const isReset = timerState.timeRemaining === 0 && !timerState.isRunning && !timerState.hasFinished;
+    const isSet = timerState.timeRemaining > 0 && !timerState.isRunning && !timerState.hasFinished;
+    const isRunning = timerState.isRunning;
+    const isPaused = timerState.timeRemaining > 0 && !timerState.isRunning && !timerState.hasFinished;
+    const isFinished = timerState.hasFinished;
+    
+    // + button: enabled when not running
+    increaseBtn.disabled = isRunning;
+    increaseBtn.style.opacity = isRunning ? 0.5 : 1;
+    
+    // - button: enabled when not running and time > 0
+    decreaseBtn.disabled = isRunning || timerState.timeRemaining === 0;
+    decreaseBtn.style.opacity = (isRunning || timerState.timeRemaining === 0) ? 0.5 : 1;
+    
+    // Start/Pause button: enabled when there's time to run or when paused
+    startStopBtn.disabled = timerState.timeRemaining === 0 || isFinished;
+    startStopBtn.style.opacity = (timerState.timeRemaining === 0 || isFinished) ? 0.5 : 1;
+    
+    // Update start/pause icon
+    if (isRunning) {
+        startStopBtn.textContent = '◼';
+    } else {
+        startStopBtn.textContent = '▶';
+    }
+    
+    // Reset button: enabled when not in reset state
+    resetBtn.disabled = isReset;
+    resetBtn.style.opacity = isReset ? 0.5 : 1;
+}
+
+function startTimer() {
+    if (timerState.isRunning || timerState.timeRemaining <= 0 || timerState.hasFinished) return;
+    
+    timerState.isRunning = true;
+    timerState.hasFinished = false; // Clear finished flag when starting
+    const startStopBtn = document.getElementById('startStopBtn');
+    startStopBtn.classList.add('running');
+    
+    timerState.intervalId = setInterval(() => {
+        timerState.timeRemaining--;
+        updateTimerDisplay();
+        
+        if (timerState.timeRemaining <= 0) {
+            // Mark as finished when it reaches 0.
+            timerState.hasFinished = true; 
+            stopTimer();
+            // Update buttons for finished state.
+            updateTimerButtonStates(); 
+            alert('Time\'s up!');
+        }
+    }, 1000);
+    
+    updateTimerButtonStates();
+}
+
+function stopTimer() {
+    timerState.isRunning = false;
+    clearInterval(timerState.intervalId);
+    timerState.intervalId = null;
+    
+    const startStopBtn = document.getElementById('startStopBtn');
+    startStopBtn.classList.remove('running');
+    
+    updateTimerButtonStates();
+}
+
+function resetTimer() {
+    stopTimer();
+    timerState.timeRemaining = 0;
+    timerState.hasFinished = false; // Clear finished flag on reset
+    updateTimerDisplay();
+    updateTimerButtonStates();
+}
+
+function increaseTime() {
+    if (timerState.isRunning) return;
+    timerState.timeRemaining += TIMER_INCREMENT;
+    updateTimerDisplay();
+    updateTimerButtonStates();
+}
+
+function decreaseTime() {
+    if (timerState.isRunning || timerState.timeRemaining <= 0) return;
+    timerState.timeRemaining = Math.max(0, timerState.timeRemaining - TIMER_INCREMENT);
+    updateTimerDisplay();
+    updateTimerButtonStates();
+}
 
 // =========================================================================
 // THEME MANAGEMENT
@@ -632,6 +751,20 @@ function showResults(results, score, totalBlanks) {
 // =========================================================================
 
 document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+
+// Timer event listeners
+document.getElementById('startStopBtn').addEventListener('click', () => {
+    if (timerState.isRunning) {
+        stopTimer();
+    } else {
+        startTimer();
+    }
+});
+
+document.getElementById('increaseTimeBtn').addEventListener('click', increaseTime);
+document.getElementById('decreaseTimeBtn').addEventListener('click', decreaseTime);
+document.getElementById('resetBtn').addEventListener('click', resetTimer);
+
 document.getElementById('getNewTestBtn').addEventListener('click', generateNewTest);
 document.getElementById('getPartialTestBtn').addEventListener('click', generatePartialTest);
 document.getElementById('reblankTextBtn').addEventListener('click', reblankText);
@@ -695,6 +828,10 @@ async function initialize() {
     loadState();
     await loadExercises();
     updateExerciseDisplay();
+    
+    // Initialize timer display
+    updateTimerDisplay();
+    updateTimerButtonStates();
     
     // Configure blank percentage slider dynamically
     const slider = document.getElementById('blankSlider');
