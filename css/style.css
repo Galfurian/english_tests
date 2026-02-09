@@ -395,7 +395,7 @@ hr {
     display: inline-block;
     padding: 8px 14px;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    border-radius: 20px;
+    border-radius: 8px;
     color: #ffffff;
     font-weight: 500;
     user-select: text;

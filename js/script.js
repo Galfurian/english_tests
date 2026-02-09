@@ -598,7 +598,7 @@ function updateExerciseDisplay() {
                     input.name = `BLANK_${index}`;
                     input.className = 'blank-input';
                     // Add 'partial' class if this is a partial word blank
-                    if (prefix || suffix) {
+                    if (currentState.exerciseType === 'partial') {
                         input.className += ' partial';
                     }
                     input.placeholder = '?';
@@ -606,7 +606,7 @@ function updateExerciseDisplay() {
                     // Set width based on expected word length
                     if (currentState.blanksData && currentState.blanksData[index]) {
                         const expectedWord = currentState.blanksData[index];
-                        const baseWidth = prefix || suffix ? 60 : 90;
+                        const baseWidth = currentState.exerciseType === 'partial' ? 60 : 90;
                         const calculatedWidth = Math.max(baseWidth, expectedWord.length * 12 + 16);
                         input.style.width = calculatedWidth + 'px';
                     }
