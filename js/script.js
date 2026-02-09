@@ -31,6 +31,90 @@ let currentState = {
 };
 
 // =========================================================================
+// STATISTICS SYSTEM
+// =========================================================================
+
+let userStats = {
+    totalExercises: 0,
+    totalCorrect: 0,
+    totalIncorrect: 0,
+    exercisesByDifficulty: {
+        beginner: 0,
+        intermediate: 0,
+        advanced: 0
+    }
+};
+
+const STATS_KEY = 'englishTestsStats';
+
+function loadStats() {
+    const saved = localStorage.getItem(STATS_KEY);
+    if (saved) {
+        userStats = { ...userStats, ...JSON.parse(saved) };
+    }
+    updateStatsDisplay();
+}
+
+function saveStats() {
+    localStorage.setItem(STATS_KEY, JSON.stringify(userStats));
+}
+
+function updateStatsDisplay() {
+    const accuracy = userStats.totalExercises > 0 
+        ? Math.round((userStats.totalCorrect / (userStats.totalCorrect + userStats.totalIncorrect)) * 100) 
+        : 0;
+    
+    
+    document.getElementById('totalExercises').textContent = userStats.totalExercises;
+    document.getElementById('totalCorrect').textContent = userStats.totalCorrect;
+    document.getElementById('totalIncorrect').textContent = userStats.totalIncorrect;
+    document.getElementById('accuracyRate').textContent = accuracy + '%';
+}
+
+function resetStats() {
+    if (confirm('Are you sure you want to reset all statistics? This cannot be undone.')) {
+        userStats = {
+            totalExercises: 0,
+            totalCorrect: 0,
+            totalIncorrect: 0,
+            lastExerciseDate: null,
+            exercisesByDifficulty: {
+                beginner: 0,
+                intermediate: 0,
+                advanced: 0
+            }
+        };
+        saveStats();
+        updateStatsDisplay();
+    }
+}
+
+function updateStatsAfterExercise(score, totalBlanks) {
+    // Update basic stats
+    userStats.totalExercises++;
+    userStats.totalCorrect += score;
+    userStats.totalIncorrect += (totalBlanks - score);
+    // Update difficulty stats
+    const difficulty = document.getElementById('difficultySelect').value;
+    if (difficulty !== 'all' && userStats.exercisesByDifficulty[difficulty] !== undefined) {
+        userStats.exercisesByDifficulty[difficulty]++;
+    }
+    saveStats();
+    updateStatsDisplay();
+}
+
+function toggleStatsPanel() {
+    const panel = document.getElementById('statsPanel');
+    const isCollapsed = panel.classList.contains('collapsed');
+    
+    if (isCollapsed) {
+        panel.classList.remove('collapsed');
+    } else {
+        panel.classList.add('collapsed');
+    }
+}
+
+// =========================================================================
 // TIMER FUNCTIONALITY
 // =========================================================================
 
@@ -685,6 +769,9 @@ function checkAnswers(e) {
         if (isCorrect) score++;
     }
 
+    // Update statistics
+    updateStatsAfterExercise(score, totalBlanks);
+
     // Show results
     showResults(results, score, totalBlanks);
 }
@@ -765,6 +852,10 @@ document.getElementById('increaseTimeBtn').addEventListener('click', increaseTim
 document.getElementById('decreaseTimeBtn').addEventListener('click', decreaseTime);
 document.getElementById('resetBtn').addEventListener('click', resetTimer);
 
+// Statistics event listeners
+document.getElementById('statsToggle').addEventListener('click', toggleStatsPanel);
+document.getElementById('resetStatsBtn').addEventListener('click', resetStats);
+
 document.getElementById('getNewTestBtn').addEventListener('click', generateNewTest);
 document.getElementById('getPartialTestBtn').addEventListener('click', generatePartialTest);
 document.getElementById('reblankTextBtn').addEventListener('click', reblankText);
@@ -832,6 +923,9 @@ async function initialize() {
     // Initialize timer display
     updateTimerDisplay();
     updateTimerButtonStates();
+    
+    // Initialize statistics
+    loadStats();
     
     // Configure blank percentage slider dynamically
     const slider = document.getElementById('blankSlider');

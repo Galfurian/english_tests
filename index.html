@@ -27,6 +27,35 @@
         </div>
     </div>
 
+    <!-- Statistics Panel -->
+    <div id="statsPanel" class="stats-panel">
+        <div class="stats-header">
+            <h3>📊 Statistics</h3>
+            <button id="statsToggle" class="stats-toggle">▼</button>
+        </div>
+        <div id="statsContent" class="stats-content">
+            <div class="stat-item">
+                <span class="stat-label">Exercises Completed:</span>
+                <span class="stat-value" id="totalExercises">0</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Total Correct:</span>
+                <span class="stat-value" id="totalCorrect">0</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Total Incorrect:</span>
+                <span class="stat-value" id="totalIncorrect">0</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Accuracy:</span>
+                <span class="stat-value" id="accuracyRate">0%</span>
+            </div>
+            <div class="stats-actions">
+                <button id="resetStatsBtn" class="reset-stats-btn">Reset Statistics</button>
+            </div>
+        </div>
+    </div>
+
     <div class="container">
         <h1><span class="title-emoji">📚</span> English Fill-in-the-Blanks</h1>
 
@@ -87,7 +116,7 @@
                         <p style="color: #888;">Words will appear here after you get a test.</p>
                     </div>
                 </div>
-                
+
                 <div class="exercise-text">
                     <h3 id="exerciseTitle" style="display: none;"></h3>
                     <div id="exerciseTextContainer">
