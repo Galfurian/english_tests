@@ -83,16 +83,16 @@ function updateTimerButtonStates() {
         startStopBtn.textContent = '▶';
     }
     
-    // Reset button: enabled when not in reset state
-    resetBtn.disabled = isReset;
-    resetBtn.style.opacity = isReset ? 0.5 : 1;
+    // Reset button: enabled when not in reset state and not finished
+    resetBtn.disabled = isReset || isFinished;
+    resetBtn.style.opacity = (isReset || isFinished) ? 0.5 : 1;
 }
 
 function startTimer() {
     if (timerState.isRunning || timerState.timeRemaining <= 0 || timerState.hasFinished) return;
     
     timerState.isRunning = true;
-    timerState.hasFinished = false; // Clear finished flag when starting
+    timerState.hasFinished = false;
     const startStopBtn = document.getElementById('startStopBtn');
     startStopBtn.classList.add('running');
     
