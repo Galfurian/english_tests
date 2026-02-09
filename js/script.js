@@ -6,8 +6,8 @@ const PUNCTUATION = ".!,?;:'\"()[]{}<>";
 const STORAGE_KEY = 'englishTestsState';
 const THEME_KEY = 'englishTestsTheme';
 
-// Timer constants
-const TIMER_INCREMENT = 30; // seconds to add/subtract
+// Timer constants.
+const TIMER_INCREMENT = 60;
 
 // Blank percentage slider configuration.
 const MIN_BLANK_PERCENTAGE = 10;
