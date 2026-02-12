@@ -7,7 +7,7 @@ const STORAGE_KEY = 'englishTestsState';
 const THEME_KEY = 'englishTestsTheme';
 
 // Timer constants.
-const TIMER_INCREMENT = 60;
+const TIMER_INCREMENT = 1;
 
 // Blank percentage slider configuration.
 const MIN_BLANK_PERCENTAGE = 10;
@@ -131,8 +131,7 @@ function toggleStatsPanel() {
 let timerState = {
     timeRemaining: 0, // in seconds
     isRunning: false,
-    intervalId: null,
-    hasFinished: false // Track if timer reached 0 naturally
+    intervalId: null
 };
 
 function formatTime(seconds) {
@@ -146,47 +145,37 @@ function updateTimerDisplay() {
     display.textContent = formatTime(timerState.timeRemaining);
 }
 
-function updateTimerButtonStates() {
+function updateTimerButtons() {
     const increaseBtn = document.getElementById('increaseTimeBtn');
     const decreaseBtn = document.getElementById('decreaseTimeBtn');
     const startStopBtn = document.getElementById('startStopBtn');
     const resetBtn = document.getElementById('resetBtn');
     
-    const isReset = timerState.timeRemaining === 0 && !timerState.isRunning && !timerState.hasFinished;
-    const isSet = timerState.timeRemaining > 0 && !timerState.isRunning && !timerState.hasFinished;
-    const isRunning = timerState.isRunning;
-    const isPaused = timerState.timeRemaining > 0 && !timerState.isRunning && !timerState.hasFinished;
-    const isFinished = timerState.hasFinished;
-    
     // + button: enabled when not running
-    increaseBtn.disabled = isRunning;
-    increaseBtn.style.opacity = isRunning ? 0.5 : 1;
+    const canIncrease = !timerState.isRunning;
+    increaseBtn.disabled = !canIncrease;
+    increaseBtn.style.opacity = canIncrease ? 1 : 0.5;
     
     // - button: enabled when not running and time > 0
-    decreaseBtn.disabled = isRunning || timerState.timeRemaining === 0;
-    decreaseBtn.style.opacity = (isRunning || timerState.timeRemaining === 0) ? 0.5 : 1;
+    const canDecrease = !timerState.isRunning && timerState.timeRemaining > 0;
+    decreaseBtn.disabled = !canDecrease;
+    decreaseBtn.style.opacity = canDecrease ? 1 : 0.5;
     
-    // Start/Pause button: enabled when there's time to run or when paused
-    startStopBtn.disabled = timerState.timeRemaining === 0 || isFinished;
-    startStopBtn.style.opacity = (timerState.timeRemaining === 0 || isFinished) ? 0.5 : 1;
+    // Start/Pause button: enabled when time > 0
+    const canStart = timerState.timeRemaining > 0;
+    startStopBtn.disabled = !canStart;
+    startStopBtn.style.opacity = canStart ? 1 : 0.5;
+    startStopBtn.textContent = timerState.isRunning ? '⏸️' : '▶️';
     
-    // Update start/pause icon
-    if (isRunning) {
-        startStopBtn.textContent = '◼';
-    } else {
-        startStopBtn.textContent = '▶';
-    }
-    
-    // Reset button: enabled when not in reset state and not finished
-    resetBtn.disabled = isReset || isFinished;
-    resetBtn.style.opacity = (isReset || isFinished) ? 0.5 : 1;
+    // Reset button: always enabled
+    resetBtn.disabled = false;
+    resetBtn.style.opacity = 1;
 }
 
 function startTimer() {
-    if (timerState.isRunning || timerState.timeRemaining <= 0 || timerState.hasFinished) return;
+    if (timerState.isRunning || timerState.timeRemaining <= 0) return;
     
     timerState.isRunning = true;
-    timerState.hasFinished = false;
     const startStopBtn = document.getElementById('startStopBtn');
     startStopBtn.classList.add('running');
     
@@ -195,16 +184,12 @@ function startTimer() {
         updateTimerDisplay();
         
         if (timerState.timeRemaining <= 0) {
-            // Mark as finished when it reaches 0.
-            timerState.hasFinished = true; 
             stopTimer();
-            // Update buttons for finished state.
-            updateTimerButtonStates(); 
             alert('Time\'s up!');
         }
     }, 1000);
     
-    updateTimerButtonStates();
+    updateTimerButtons();
 }
 
 function stopTimer() {
@@ -215,29 +200,28 @@ function stopTimer() {
     const startStopBtn = document.getElementById('startStopBtn');
     startStopBtn.classList.remove('running');
     
-    updateTimerButtonStates();
+    updateTimerButtons();
 }
 
 function resetTimer() {
     stopTimer();
     timerState.timeRemaining = 0;
-    timerState.hasFinished = false; // Clear finished flag on reset
     updateTimerDisplay();
-    updateTimerButtonStates();
+    updateTimerButtons();
 }
 
 function increaseTime() {
     if (timerState.isRunning) return;
     timerState.timeRemaining += TIMER_INCREMENT;
     updateTimerDisplay();
-    updateTimerButtonStates();
+    updateTimerButtons();
 }
 
 function decreaseTime() {
     if (timerState.isRunning || timerState.timeRemaining <= 0) return;
     timerState.timeRemaining = Math.max(0, timerState.timeRemaining - TIMER_INCREMENT);
     updateTimerDisplay();
-    updateTimerButtonStates();
+    updateTimerButtons();
 }
 
 // =========================================================================
@@ -933,7 +917,7 @@ async function initialize() {
     
     // Initialize timer display
     updateTimerDisplay();
-    updateTimerButtonStates();
+    updateTimerButtons();
     
     // Initialize statistics
     loadStats();
