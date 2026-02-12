@@ -696,6 +696,7 @@ function updateExerciseDisplay() {
                         input.className += ' partial';
                     }
                     input.placeholder = '?';
+                    input.autocomplete = 'off'; // Disable browser autocomplete suggestions
                     
                     // Set width based on expected word length
                     if (currentState.blanksData && currentState.blanksData[index]) {
