@@ -7,7 +7,7 @@ const STORAGE_KEY = 'englishTestsState';
 const THEME_KEY = 'englishTestsTheme';
 
 // Timer constants.
-const TIMER_INCREMENT = 1;
+const TIMER_INCREMENT = 60;
 
 // Blank percentage slider configuration.
 const MIN_BLANK_PERCENTAGE = 10;
@@ -130,6 +130,7 @@ function toggleStatsPanel() {
 
 let timerState = {
     timeRemaining: 0, // in seconds
+    presetDuration: 0, // remember the last set duration for reset
     isRunning: false,
     intervalId: null
 };
@@ -205,7 +206,7 @@ function stopTimer() {
 
 function resetTimer() {
     stopTimer();
-    timerState.timeRemaining = 0;
+    timerState.timeRemaining = timerState.presetDuration; // Reset to preset duration
     updateTimerDisplay();
     updateTimerButtons();
 }
@@ -213,6 +214,7 @@ function resetTimer() {
 function increaseTime() {
     if (timerState.isRunning) return;
     timerState.timeRemaining += TIMER_INCREMENT;
+    timerState.presetDuration = timerState.timeRemaining; // Update preset when adjusting
     updateTimerDisplay();
     updateTimerButtons();
 }
@@ -220,6 +222,7 @@ function increaseTime() {
 function decreaseTime() {
     if (timerState.isRunning || timerState.timeRemaining <= 0) return;
     timerState.timeRemaining = Math.max(0, timerState.timeRemaining - TIMER_INCREMENT);
+    timerState.presetDuration = timerState.timeRemaining; // Update preset when adjusting
     updateTimerDisplay();
     updateTimerButtons();
 }
@@ -512,6 +515,7 @@ async function loadExercises() {
 }
 
 function generateNewTest() {
+    resetTimer(); // Reset timer when starting new exercise
     if (currentState.isLoadingExercises) return;
     const difficulty = document.getElementById('difficultySelect').value;
     const sliderValue = parseInt(document.getElementById('blankSlider').value);
@@ -548,6 +552,7 @@ function generateNewTest() {
 }
 
 function generatePartialTest() {
+    resetTimer(); // Reset timer when starting new exercise
     if (currentState.isLoadingExercises) return;
     const difficulty = document.getElementById('difficultySelect').value;
     const sliderValue = parseInt(document.getElementById('blankSlider').value);
@@ -584,6 +589,7 @@ function generatePartialTest() {
 }
 
 function reblankText() {
+    resetTimer(); // Reset timer when re-blanking exercise
     if (currentState.isLoadingExercises) return;
     if (!currentState.originalFullText) {
         alert('No exercise loaded. Click "Remove Words" or "Remove Letters" first.');
@@ -608,6 +614,7 @@ function reblankText() {
 }
 
 function reblankPartialText() {
+    resetTimer(); // Reset timer when re-blanking partial exercise
     if (currentState.isLoadingExercises) return;
     if (!currentState.originalFullText) {
         alert('No exercise loaded. Click "Remove Words" or "Remove Letters" first.');
