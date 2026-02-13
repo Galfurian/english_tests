@@ -671,7 +671,7 @@ function updateExerciseDisplay() {
         currentState.displayParts.forEach(part => {
             if (part.includes('<BLANK_')) {
                 // Parse parts with <BLANK_index> markers
-                const blankMatch = part.match(/(.*)<BLANK_(\d+)>(.*)/); 
+                const blankMatch = part.match(/(.*)<BLANK_(\d+)>(.*)/);
                 if (blankMatch) {
                     const [, prefix, index, suffix] = blankMatch;
                     
@@ -718,8 +718,19 @@ function updateExerciseDisplay() {
             span.textContent = word;
             wordBankContainer.appendChild(span);
         });
+        // Update the title with number of blanks and words
+        const wordBankTitle = document.querySelector('.word-bank h3');
+        const numBlanks = Object.keys(currentState.blanksData).length;
+        wordBankTitle.textContent = `Word Bank (${numBlanks} blanks)`;
+
+        const exerciseTitle = document.getElementById('exerciseTitle');
+        const textLength = currentState.originalFullText.split(/\s+/).length;
+        exerciseTitle.textContent = `${currentState.exerciseTitle} (${textLength} words)`;
     } else {
         wordBankContainer.innerHTML = '<p style="color: #888;">Words will appear here after you get a test.</p>';
+        // Reset title when no word bank
+        const wordBankTitle = document.querySelector('.word-bank h3');
+        wordBankTitle.textContent = 'Word Bank';
     }
 
     document.getElementById('exercisePanel').style.display = 'block';
