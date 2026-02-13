@@ -2,7 +2,7 @@
 // GLOBAL STATE AND CONSTANTS
 // =========================================================================
 
-const PUNCTUATION = ".!,?;:'\"()[]{}<>";
+const PUNCTUATION = ".!,?;:'\"()[]{}<>—";
 const STORAGE_KEY = 'englishTestsState';
 const THEME_KEY = 'englishTestsTheme';
 
@@ -662,6 +662,9 @@ function updateExerciseDisplay() {
         titleEl.style.display = 'none';
     }
 
+    // Define the className postfix if the exercise type is 'partial' to indicate partial blanks in CSS.
+    const inputClassNamePostfix = currentState.exerciseType === 'partial' ? ' partial' : '';
+
     // Exercise text with blanks
     if (currentState.displayParts && currentState.displayParts.length > 0) {
         textContainer.innerHTML = '';
@@ -676,34 +679,25 @@ function updateExerciseDisplay() {
                     if (prefix) {
                         textContainer.appendChild(document.createTextNode(prefix));
                     }
-                    
-                    // Add input
+                    // Create input element for the blank.
                     const input = document.createElement('input');
                     input.type = 'text';
                     input.name = `BLANK_${index}`;
-                    input.className = 'blank-input';
-                    // Add 'partial' class if this is a partial word blank
-                    if (currentState.exerciseType === 'partial') {
-                        input.className += ' partial';
-                    }
+                    input.className = 'blank-input' + inputClassNamePostfix;
                     input.placeholder = '?';
-                    input.autocomplete = 'off'; // Disable browser autocomplete suggestions
-                    
-                    // Set width based on expected word length
-                    if (currentState.blanksData && currentState.blanksData[index]) {
-                        const expectedWord = currentState.blanksData[index];
-                        const baseWidth = currentState.exerciseType === 'partial' ? 60 : 90;
-                        const calculatedWidth = Math.max(baseWidth, expectedWord.length * 12 + 16);
-                        input.style.width = calculatedWidth + 'px';
-                    }
-                    
+                    input.autocomplete = 'off';
+                    // Set the input width as the length of the correct answer + some randomized extra space to avoid
+                    // giving away the answer length too precisely.
+                    const correctAnswer = currentState.blanksData[index] || '';
+                    const randomExtra = Math.floor(Math.random() * 3) + 1;
+                    const calculatedInputWidth = (Math.max(9, correctAnswer.length) + randomExtra) * 10;
+                    input.style.width = calculatedInputWidth + 'px';
+                    // Add the input to the text container.
                     textContainer.appendChild(input);
-                    
-                    // Add suffix text if exists
+                    // Add suffix text if exists.
                     if (suffix) {
                         textContainer.appendChild(document.createTextNode(suffix));
                     }
-                    
                     // Add space after the word
                     textContainer.appendChild(document.createTextNode(' '));
                 }
