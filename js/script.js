@@ -300,6 +300,14 @@ function getRandomItem(arr) {
     return arr[Math.floor(Math.random() * arr.length)];
 }
 
+function getLongestBlankLength(blanksData) {
+    let maxLength = 0;
+    for (const blank of Object.values(blanksData)) {
+        maxLength = Math.max(maxLength, blank.length);
+    }
+    return maxLength;
+}
+
 function parseToken(token) {
     let leadingPunct = '';
     let trailingPunct = '';
@@ -674,6 +682,8 @@ function updateExerciseDisplay() {
 
     // Define the className postfix if the exercise type is 'partial' to indicate partial blanks in CSS.
     const inputClassNamePostfix = currentState.exerciseType === 'partial' ? ' partial' : '';
+    // For partial exercises, use the longest blank length for all inputs
+    const longestBlankLength = getLongestBlankLength(currentState.blanksData);
 
     // Exercise text with blanks
     if (currentState.displayParts && currentState.displayParts.length > 0) {
@@ -696,11 +706,17 @@ function updateExerciseDisplay() {
                     input.className = 'blank-input' + inputClassNamePostfix;
                     input.placeholder = '?';
                     input.autocomplete = 'off';
-                    // Set the input width as the length of the correct answer + some randomized extra space to avoid
-                    // giving away the answer length too precisely.
-                    const correctAnswer = currentState.blanksData[index] || '';
-                    const randomExtra = Math.floor(Math.random() * 3) + 1;
-                    const calculatedInputWidth = (Math.max(9, correctAnswer.length) + randomExtra) * 10;
+                    // Set the input width based on exercise type
+                    let calculatedInputWidth;
+                    if (currentState.exerciseType === 'partial') {
+                        const randomExtra = Math.floor(Math.random() * 3) + 1;
+                        calculatedInputWidth = (Math.max(9, longestBlankLength) + randomExtra) * 5;
+                    } else {
+                        // For full exercises, use the individual answer length
+                        const correctAnswer = currentState.blanksData[index] || '';
+                        const randomExtra = Math.floor(Math.random() * 3) + 1;
+                        calculatedInputWidth = (Math.max(9, correctAnswer.length) + randomExtra) * 8;
+                    }
                     input.style.width = calculatedInputWidth + 'px';
                     // Add the input to the text container.
                     textContainer.appendChild(input);
