@@ -14,6 +14,9 @@ const MIN_BLANK_PERCENTAGE = 10;
 const MAX_BLANK_PERCENTAGE = 50;
 const DEFAULT_BLANK_PERCENTAGE = MIN_BLANK_PERCENTAGE + Math.floor((MAX_BLANK_PERCENTAGE - MIN_BLANK_PERCENTAGE) / 2);
 
+// Partial blank mode: 'random' for current behavior, 'begin_end' for beginning or end only
+const PARTIAL_BLANK_MODE = 'begin_end';
+
 let exercisesData = {
     beginner: [],
     intermediate: [],
@@ -435,9 +438,16 @@ function createExerciseWithPartialWords(exerciseText, percentageBlanks, includeR
                 const removePercent = 0.3 + Math.random() * 0.1; // 30-40%
                 const removeCount = Math.max(2, Math.floor(coreWord.length * removePercent));
                 
-                // Choose random position to start removing (not at very beginning or end)
+                // Choose position to start removing based on mode
                 const maxStartPos = coreWord.length - removeCount;
-                const startPos = Math.floor(Math.random() * maxStartPos);
+                let startPos;
+                if (PARTIAL_BLANK_MODE === 'begin_end') {
+                    // Choose either beginning or end
+                    startPos = Math.random() < 0.5 ? 0 : maxStartPos;
+                } else {
+                    // Current random behavior
+                    startPos = Math.floor(Math.random() * maxStartPos);
+                }
                 
                 const prefix = coreWord.substring(0, startPos);
                 const missing = coreWord.substring(startPos, startPos + removeCount);
