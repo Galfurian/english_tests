@@ -24,6 +24,9 @@ const MAX_REMOVE_COUNT = 6;
 // Maximum length for partial words added to word bank in partial blanks.
 const MAX_PARTIAL_WORD_LENGTH = 6;
 
+// Minimum distance between blanks (in words), when possible.
+const MIN_BLANK_DISTANCE = 3;
+
 let exercisesData = {
     beginner: [],
     intermediate: [],
@@ -370,17 +373,33 @@ function determineNumBlanks(populationSize, minBlanks, maxBlanks) {
     return Math.max(minBlanks, Math.min(maxBlanks, numBlanks));
 }
 
-function selectRandomBlanks(population, numBlanks) {
+function selectRandomBlanks(population, numBlanks, minDistance = 0) {
     const selected = {};
     const indices = new Set();
 
-    while (indices.size < Math.min(numBlanks, population.length)) {
+    let attempts = 0;
+    const maxAttempts = population.length * 10; // prevent infinite loop
+
+    while (indices.size < Math.min(numBlanks, population.length) && attempts < maxAttempts) {
         const randomIdx = Math.floor(Math.random() * population.length);
-        if (!indices.has(randomIdx)) {
+        const { index } = population[randomIdx];
+
+        // Check if this word index is at least minDistance away from all selected word indices
+        let tooClose = false;
+        for (const selWordIdx of Object.keys(selected)) {
+            if (Math.abs(index - parseInt(selWordIdx)) < minDistance) {
+                tooClose = true;
+                break;
+            }
+        }
+
+        if (!tooClose && !indices.has(randomIdx)) {
             indices.add(randomIdx);
-            const { coreWord, index } = population[randomIdx];
+            const { coreWord } = population[randomIdx];
             selected[index] = coreWord.toLowerCase();
         }
+
+        attempts++;
     }
 
     return selected;
@@ -396,7 +415,7 @@ function createExerciseWithBlanksPercentage(exerciseText, percentageBlanks, incl
     console.log(`Total words: ${words.length}, Percentage to blank: ${percentageBlanks}%, Number of blanks to create: ${numBlanks}`);
 
     const population = getBlankSelectionPopulation(words);
-    const blanksData = selectRandomBlanks(population, numBlanks);
+    const blanksData = selectRandomBlanks(population, numBlanks, MIN_BLANK_DISTANCE);
 
     // Create display parts
     const displayParts = [];
@@ -438,47 +457,51 @@ function createExerciseWithPartialWords(exerciseText, percentageBlanks, includeR
     const numBlanks = Math.max(1, Math.floor(words.length * targetBlanksPercent));
 
     const population = getBlankSelectionPopulation(words);
-    const selectedItems = shuffleArray([...population]).slice(0, numBlanks);
-    const selectedIndicesSet = new Set(selectedItems.map(item => item.index));
+    const blanksDataTemp = selectRandomBlanks(population, numBlanks, MIN_BLANK_DISTANCE);
 
     const blanksData = {};
-    const displayParts = [];
+    const displayParts = new Array(words.length);
     
-    words.forEach((word, index) => {
-        if (selectedIndicesSet.has(index)) {
-            const { leadingPunct, coreWord, trailingPunct } = parseToken(word);
+    for (const [idx, _] of Object.entries(blanksDataTemp)) {
+        const index = parseInt(idx);
+        const word = words[index];
+        const { leadingPunct, coreWord, trailingPunct } = parseToken(word);
+        
+        // Only create partial blank if word is long enough
+        if (coreWord.length > 4) {
+            // Remove 30-40% of the word, minimum 2 letters
+            const removePercent = 0.3 + Math.random() * 0.1; // 30-40%
+            const removeCount = Math.max(MIN_REMOVE_COUNT, Math.min(MAX_REMOVE_COUNT, Math.floor(coreWord.length * removePercent)));
             
-            // Only create partial blank if word is long enough
-            if (coreWord.length > 4) {
-                // Remove 30-40% of the word, minimum 2 letters
-                const removePercent = 0.3 + Math.random() * 0.1; // 30-40%
-                const removeCount = Math.max(MIN_REMOVE_COUNT, Math.min(MAX_REMOVE_COUNT, Math.floor(coreWord.length * removePercent)));
-                
-                // Choose position to start removing based on mode
-                const maxStartPos = coreWord.length - removeCount;
-                let startPos;
-                if (PARTIAL_BLANK_MODE === 'begin_end') {
-                    // Choose either beginning or end
-                    startPos = Math.random() < 0.5 ? 0 : maxStartPos;
-                } else {
-                    // Current random behavior
-                    startPos = Math.floor(Math.random() * maxStartPos);
-                }
-                
-                const prefix = coreWord.substring(0, startPos);
-                const missing = coreWord.substring(startPos, startPos + removeCount);
-                const suffix = coreWord.substring(startPos + removeCount);
-                
-                blanksData[index] = missing.toLowerCase();
-                displayParts.push(`${leadingPunct}${prefix}<BLANK_${index}>${suffix}${trailingPunct}`);
+            // Choose position to start removing based on mode
+            const maxStartPos = coreWord.length - removeCount;
+            let startPos;
+            if (PARTIAL_BLANK_MODE === 'begin_end') {
+                // Choose either beginning or end
+                startPos = Math.random() < 0.5 ? 0 : maxStartPos;
             } else {
-                // Word too short for partial blanking, just display it
-                displayParts.push(word);
+                // Current random behavior
+                startPos = Math.floor(Math.random() * maxStartPos);
             }
+            
+            const prefix = coreWord.substring(0, startPos);
+            const missing = coreWord.substring(startPos, startPos + removeCount);
+            const suffix = coreWord.substring(startPos + removeCount);
+            
+            blanksData[index] = missing.toLowerCase();
+            displayParts[index] = `${leadingPunct}${prefix}<BLANK_${index}>${suffix}${trailingPunct}`;
         } else {
-            displayParts.push(word);
+            // Word too short for partial blanking, just display it
+            displayParts[index] = word;
         }
-    });
+    }
+
+    // Fill in non-blanked words
+    for (let i = 0; i < words.length; i++) {
+        if (!blanksData[i]) {
+            displayParts[i] = words[i];
+        }
+    }
 
     // Create word bank
     let wordBank = Object.values(blanksData);
