@@ -836,7 +836,27 @@ function showResults(results, score, totalBlanks) {
     scoreDisplay.textContent = score;
     totalDisplay.textContent = totalBlanks;
     resultsTitle.textContent = currentState.exerciseTitle;
-    originalTextDisplay.textContent = currentState.originalFullText;
+    
+    // Build highlighted original text
+    const words = currentState.originalFullText.match(/\S+/g) || [];
+    let html = '';
+    let wordIndex = 0;
+    const textParts = currentState.originalFullText.split(/(\s+)/);
+    textParts.forEach(part => {
+        if (/\S/.test(part)) {
+            // It's a word
+            if (currentState.blanksData[wordIndex]) {
+                html += `<span class="highlighted-word">${part}</span>`;
+            } else {
+                html += part;
+            }
+            wordIndex++;
+        } else {
+            // Space or punctuation
+            html += part;
+        }
+    });
+    originalTextDisplay.innerHTML = html;
 
     // Build results HTML
     resultsContent.innerHTML = '';

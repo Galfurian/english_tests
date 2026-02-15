@@ -14,6 +14,7 @@
     --input-bg: #3a3a3a;
     --input-focus: #4a4a4a;
     --shadow: rgba(0, 0, 0, 0.3);
+    --highlight-color: #667eea;
 }
 
 body.light-theme {
@@ -26,6 +27,7 @@ body.light-theme {
     --input-bg: #ffffff;
     --input-focus: #f0f0f0;
     --shadow: rgba(0, 0, 0, 0.1);
+    --highlight-color: #667eea;
 }
 
 body {
@@ -728,6 +730,11 @@ button[type="submit"]:hover {
 
 .incorrect-value {
     color: #f44336 !important;
+}
+
+.highlighted-word {
+    color: var(--highlight-color);
+    font-weight: bold;
 }
 
 .accuracy-value {
