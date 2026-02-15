@@ -379,7 +379,7 @@ function selectRandomBlanks(population, numBlanks) {
     return selected;
 }
 
-function createExerciseWithBlanksPercentage(exerciseText, percentageBlanks, includeRandomWords = false) {
+function createExerciseWithBlanksPercentage(exerciseText, percentageBlanks, includeRandomWords = false, extraWordsMultiplier = 0.5) {
     const words = exerciseText.match(/\S+/g) || [];
 
     // Use percentageBlanks directly as the target percentage of words to blank
@@ -405,13 +405,14 @@ function createExerciseWithBlanksPercentage(exerciseText, percentageBlanks, incl
     // Create word bank
     let wordBank = Object.values(blanksData);
     if (includeRandomWords) {
+        // Add random partial words from non-blanked words
         const nonBlankWords = words
-            .filter((_, idx) => !blanksData[idx])
-            .map(w => parseToken(w).coreWord.toLowerCase())
-            .filter(w => w && w.length > 0);
-        const numRandomWords = Math.min(5, Math.ceil(wordBank.length / 2));
-        const randomWords = shuffleArray(nonBlankWords).slice(0, numRandomWords);
-        wordBank = wordBank.concat(randomWords);
+            .filter((w, idx) => !blanksData[idx])
+            .map(w => parseToken(w).coreWord)
+            .filter(w => w && w.length > 4);
+        const numRandomWords = Math.ceil(wordBank.length * extraWordsMultiplier);
+        const randomParts = nonBlankWords.slice(0, numRandomWords).map(w => w.toLowerCase());
+        wordBank = wordBank.concat(randomParts);
     }
     wordBank = shuffleArray(wordBank);
 
@@ -422,7 +423,7 @@ function createExerciseWithBlanksPercentage(exerciseText, percentageBlanks, incl
     };
 }
 
-function createExerciseWithPartialWords(exerciseText, percentageBlanks, includeRandomWords = false) {
+function createExerciseWithPartialWords(exerciseText, percentageBlanks, includeRandomWords = false, extraWordsMultiplier = 0.5) {
     const words = exerciseText.match(/\S+/g) || [];
     
     // Use percentageBlanks directly as the target percentage of words to blank
@@ -480,12 +481,8 @@ function createExerciseWithPartialWords(exerciseText, percentageBlanks, includeR
             .filter((w, idx) => !blanksData[idx])
             .map(w => parseToken(w).coreWord)
             .filter(w => w && w.length > 4);
-        const numRandomWords = Math.min(3, Math.ceil(wordBank.length / 2));
-        const randomParts = nonBlankWords.slice(0, numRandomWords).map(w => {
-            const len = Math.max(1, Math.floor(w.length * 0.90));
-            const pos = Math.floor(Math.random() * (w.length - len));
-            return w.substring(pos, pos + len).toLowerCase();
-        });
+        const numRandomWords = Math.ceil(wordBank.length * extraWordsMultiplier);
+        const randomParts = nonBlankWords.slice(0, numRandomWords).map(w => w.toLowerCase());
         wordBank = wordBank.concat(randomParts);
     }
     wordBank = shuffleArray(wordBank);
@@ -538,6 +535,7 @@ function generateNewTest() {
     const difficulty = document.getElementById('difficultySelect').value;
     const sliderValue = parseInt(document.getElementById('blankSlider').value);
     const includeRandomWords = document.getElementById('includeRandomWords').checked;
+    const extraWordsMultiplier = includeRandomWords ? parseFloat(document.getElementById('extraWordsSlider').value) : 0;
 
     console.log('Generating new test:', { difficulty, sliderValue, includeRandomWords });
 
@@ -553,7 +551,8 @@ function generateNewTest() {
     const { displayParts, blanksData, wordBank } = createExerciseWithBlanksPercentage(
         exerciseText,
         sliderValue,  // sliderValue is now the actual percentage (20-80)
-        includeRandomWords
+        includeRandomWords,
+        extraWordsMultiplier
     );
 
     currentState = {
@@ -575,6 +574,7 @@ function generatePartialTest() {
     const difficulty = document.getElementById('difficultySelect').value;
     const sliderValue = parseInt(document.getElementById('blankSlider').value);
     const includeRandomWords = document.getElementById('includeRandomWords').checked;
+    const extraWordsMultiplier = includeRandomWords ? parseFloat(document.getElementById('extraWordsSlider').value) : 0;
 
     console.log('Generating partial word test:', { difficulty, sliderValue, includeRandomWords });
 
@@ -590,7 +590,8 @@ function generatePartialTest() {
     const { displayParts, blanksData, wordBank } = createExerciseWithPartialWords(
         exerciseText,
         sliderValue,  // sliderValue is now the actual percentage (20-80)
-        includeRandomWords
+        includeRandomWords,
+        extraWordsMultiplier
     );
 
     currentState = {
@@ -616,11 +617,13 @@ function reblankText() {
 
     const sliderValue = parseInt(document.getElementById('blankSlider').value);
     const includeRandomWords = document.getElementById('includeRandomWords').checked;
+    const extraWordsMultiplier = includeRandomWords ? parseFloat(document.getElementById('extraWordsSlider').value) : 0;
 
     const { displayParts, blanksData, wordBank } = createExerciseWithBlanksPercentage(
         currentState.originalFullText,
         sliderValue,  // sliderValue is now the actual percentage (20-80)
-        includeRandomWords
+        includeRandomWords,
+        extraWordsMultiplier
     );
 
     currentState.displayParts = displayParts;
@@ -641,11 +644,13 @@ function reblankPartialText() {
 
     const sliderValue = parseInt(document.getElementById('blankSlider').value);
     const includeRandomWords = document.getElementById('includeRandomWords').checked;
+    const extraWordsMultiplier = includeRandomWords ? parseFloat(document.getElementById('extraWordsSlider').value) : 0;
 
     const { displayParts, blanksData, wordBank } = createExerciseWithPartialWords(
         currentState.originalFullText,
-        sliderValue,  // sliderValue is now the actual percentage (20-80)
-        includeRandomWords
+        sliderValue,
+        includeRandomWords,
+        extraWordsMultiplier
     );
 
     currentState.displayParts = displayParts;
@@ -901,16 +906,25 @@ document.getElementById('backToExerciseBtn').addEventListener('click', () => {
 });
 
 function updateSliderTooltip(slider, show = false) {
-    const value = parseInt(slider.value);
-    const percentage = value;
+    const value = parseFloat(slider.value);
+    let displayValue;
+    
+    if (slider.id === 'extraWordsSlider') {
+        // For extra words slider, show as percentage of blanks count
+        displayValue = Math.round(value * 100) + '%';
+    } else {
+        // For blank percentage slider, show as percentage
+        displayValue = Math.round(value) + '%';
+    }
+    
     const tooltip = slider.parentElement.querySelector('.slider-tooltip');
     
     // Update tooltip content
-    tooltip.textContent = percentage + '%';
+    tooltip.textContent = displayValue;
     
     // Simple positioning: place tooltip at percentage position across slider
-    const min = slider.min;
-    const max = slider.max;
+    const min = parseFloat(slider.min);
+    const max = parseFloat(slider.max);
     const percentagePosition = (value - min) / (max - min);
     const sliderWidth = slider.offsetWidth;
     
@@ -943,6 +957,36 @@ document.getElementById('blankSlider').addEventListener('mouseleave', (e) => {
     updateSliderTooltip(e.target, false);
 });
 
+// Extra words toggle and slider event listeners
+document.getElementById('includeRandomWords').addEventListener('change', (e) => {
+    const sliderContainer = document.getElementById('extraWordsSliderContainer');
+    if (e.target.checked) {
+        sliderContainer.style.display = 'flex';
+    } else {
+        sliderContainer.style.display = 'none';
+    }
+});
+
+document.getElementById('extraWordsSlider').addEventListener('input', (e) => {
+    updateSliderTooltip(e.target, true);
+});
+
+document.getElementById('extraWordsSlider').addEventListener('touchstart', (e) => {
+    updateSliderTooltip(e.target, true);
+});
+
+document.getElementById('extraWordsSlider').addEventListener('touchend', (e) => {
+    updateSliderTooltip(e.target, false);
+});
+
+document.getElementById('extraWordsSlider').addEventListener('mouseenter', (e) => {
+    updateSliderTooltip(e.target, true);
+});
+
+document.getElementById('extraWordsSlider').addEventListener('mouseleave', (e) => {
+    updateSliderTooltip(e.target, false);
+});
+
 // =========================================================================
 // INITIALIZATION
 // =========================================================================
@@ -970,6 +1014,19 @@ async function initialize() {
     const tooltip = slider.parentElement.querySelector('.slider-tooltip');
     tooltip.textContent = DEFAULT_BLANK_PERCENTAGE + '%';
     
+    // Configure extra words slider
+    const extraWordsSlider = document.getElementById('extraWordsSlider');
+    const extraWordsTooltip = extraWordsSlider.parentElement.querySelector('.slider-tooltip');
+    extraWordsTooltip.textContent = (extraWordsSlider.value * 100) + '%';
+    
+    // Check if extra words toggle is initially checked and show/hide slider accordingly
+    const includeRandomWordsToggle = document.getElementById('includeRandomWords');
+    const sliderContainer = document.getElementById('extraWordsSliderContainer');
+    if (includeRandomWordsToggle.checked) {
+        sliderContainer.style.display = 'flex';
+    } else {
+        sliderContainer.style.display = 'none';
+    }
     // Initialize slider tooltip after a short delay to ensure DOM is ready
     setTimeout(() => {
         // Ensure slider value is within new range

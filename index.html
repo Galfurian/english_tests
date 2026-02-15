@@ -87,6 +87,13 @@
                 </label>
                 <span class="toggle-label">Include extra words for difficulty</span>
             </div>
+            <div class="slider-container extra-words-slider" id="extraWordsSliderContainer" style="display: none;">
+                <label for="extraWordsSlider">Number of Extra Words:</label>
+                <div class="slider-wrapper">
+                    <input type="range" id="extraWordsSlider" min="0" max="2" step="0.1" value="0.5">
+                    <div class="slider-tooltip"></div>
+                </div>
+            </div>
             <hr>
             <button id="reblankTextBtn">Re-blank Same Text (Remove Words)</button>
             <button id="reblankPartialBtn">Re-blank Same Text (Remove Letters)</button>
