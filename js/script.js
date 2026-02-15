@@ -17,6 +17,10 @@ const DEFAULT_BLANK_PERCENTAGE = MIN_BLANK_PERCENTAGE + Math.floor((MAX_BLANK_PE
 // Partial blank mode: 'random' for current behavior, 'begin_end' for beginning or end only
 const PARTIAL_BLANK_MODE = 'begin_end';
 
+// Partial blank removal count configuration.
+const MIN_REMOVE_COUNT = 2;
+const MAX_REMOVE_COUNT = 6;
+
 let exercisesData = {
     beginner: [],
     intermediate: [],
@@ -445,7 +449,7 @@ function createExerciseWithPartialWords(exerciseText, percentageBlanks, includeR
             if (coreWord.length > 4) {
                 // Remove 30-40% of the word, minimum 2 letters
                 const removePercent = 0.3 + Math.random() * 0.1; // 30-40%
-                const removeCount = Math.max(2, Math.floor(coreWord.length * removePercent));
+                const removeCount = Math.max(MIN_REMOVE_COUNT, Math.min(MAX_REMOVE_COUNT, Math.floor(coreWord.length * removePercent)));
                 
                 // Choose position to start removing based on mode
                 const maxStartPos = coreWord.length - removeCount;
@@ -482,7 +486,11 @@ function createExerciseWithPartialWords(exerciseText, percentageBlanks, includeR
             .map(w => parseToken(w).coreWord)
             .filter(w => w && w.length > 4);
         const numRandomWords = Math.ceil(wordBank.length * extraWordsMultiplier);
-        const randomParts = nonBlankWords.slice(0, numRandomWords).map(w => w.toLowerCase());
+        const randomParts = nonBlankWords.slice(0, numRandomWords).map(w => {
+            const len = Math.max(1, Math.floor(w.length * 0.90));
+            const pos = Math.floor(Math.random() * (w.length - len));
+            return w.substring(pos, pos + len).toLowerCase();
+        });
         wordBank = wordBank.concat(randomParts);
     }
     wordBank = shuffleArray(wordBank);
