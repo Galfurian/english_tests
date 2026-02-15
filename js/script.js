@@ -21,6 +21,9 @@ const PARTIAL_BLANK_MODE = 'begin_end';
 const MIN_REMOVE_COUNT = 2;
 const MAX_REMOVE_COUNT = 6;
 
+// Maximum length for partial words added to word bank in partial blanks.
+const MAX_PARTIAL_WORD_LENGTH = 6;
+
 let exercisesData = {
     beginner: [],
     intermediate: [],
@@ -487,7 +490,7 @@ function createExerciseWithPartialWords(exerciseText, percentageBlanks, includeR
             .filter(w => w && w.length > 4);
         const numRandomWords = Math.ceil(wordBank.length * extraWordsMultiplier);
         const randomParts = nonBlankWords.slice(0, numRandomWords).map(w => {
-            const len = Math.max(1, Math.floor(w.length * 0.90));
+            const len = Math.max(1, Math.min(MAX_PARTIAL_WORD_LENGTH, Math.floor(w.length * 0.90)));
             const pos = Math.floor(Math.random() * (w.length - len));
             return w.substring(pos, pos + len).toLowerCase();
         });
