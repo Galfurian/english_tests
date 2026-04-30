@@ -154,12 +154,24 @@ async function loadExercises() {
         currentState.isLoadingExercises = true;
         document.getElementById('getNewTestBtn').disabled = true;
 
+        console.log('[DEBUG] Inizio caricamento esercizi...');
+
         // Fetchs a single JSON file containing an array of exercises
         const res = await fetch('data/exercises.json');
+        console.log('[DEBUG] Risposta fetch:', res.status, res.statusText);
+        console.log('[DEBUG] URL caricato:', res.url);
+
+        if (!res.ok) {
+            throw new Error(`HTTP error! status: ${res.status}`);
+        }
+
         exercisesData = await res.json();
+        console.log('[DEBUG] Esercizi caricati:', exercisesData.length, 'esercizi');
+        console.log('[DEBUG] Primo esercizio:', exercisesData[0]);
 
     } catch (error) {
-        console.error('Error loading exercises:', error);
+        console.error('[ERROR] Errore nel caricamento degli esercizi:', error);
+        console.error('[ERROR] Stack:', error.stack);
         alert('Errore nel caricamento dei test. Assicurati che il file data/exercises.json esista e sia formattato correttamente.');
     } finally {
         currentState.isLoadingExercises = false;
@@ -168,21 +180,29 @@ async function loadExercises() {
 }
 
 function getRandomExercise() {
+    console.log('[DEBUG] getRandomExercise() - Totale esercizi disponibili:', exercisesData.length);
     return exercisesData.length > 0 ? exercisesData[Math.floor(Math.random() * exercisesData.length)] : null;
 }
 
 function generateNewTest() {
+    console.log('[DEBUG] generateNewTest() - Inizio generazione nuovo test');
     resetTimer();
-    if (currentState.isLoadingExercises) return;
+    if (currentState.isLoadingExercises) {
+        console.log('[DEBUG] Esercizi ancora in caricamento, uscita');
+        return;
+    }
 
     const exercise = getRandomExercise();
+    console.log('[DEBUG] Esercizio selezionato:', exercise);
 
     if (!exercise) {
+        console.warn('[WARN] Nessun esercizio disponibile');
         alert('Nessun esercizio disponibile nel file JSON.');
         return;
     }
 
     currentState.exercise = exercise;
+    console.log('[DEBUG] Esercizio impostato nello stato, rendering...');
     renderExercise();
 }
 
@@ -321,11 +341,15 @@ document.getElementById('backToExerciseBtn').addEventListener('click', () => {
 });
 
 async function initialize() {
+    console.log('[DEBUG] ========== INIZIALIZZAZIONE APPLICAZIONE ==========');
+    console.log('[DEBUG] URL della pagina:', window.location.href);
     loadTheme();
     loadStats();
     updateTimerDisplay();
     updateTimerButtons();
+    console.log('[DEBUG] Avvio caricamento esercizi...');
     await loadExercises();
+    console.log('[DEBUG] Esercizi caricati, pronto per usare l\'applicazione');
 }
 
 document.addEventListener('DOMContentLoaded', initialize);
