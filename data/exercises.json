@@ -1,5 +1,6 @@
 [
     {
+        "exerciseId": 1,
         "title": "A Job Interview",
         "text": "Preparing for a job interview requires careful research and a lot of practice. Recently, I [GAP_1] for a new position in marketing, which has been quite a demanding process. Before my last interview, I made sure I [GAP_2] the company's background thoroughly. Experts say that candidates [GAP_3] to know the company's core values. During the interview, the manager asked me what my greatest strengths [GAP_4], which made me a bit nervous at first. I answered confidently because I had practiced my responses. If I hadn't prepared so well, I [GAP_5] when they asked about my weaknesses. Another important aspect is body language; you [GAP_6] maintain eye contact to show confidence. The interviewer also asked if I [GAP_7] under pressure. I explained that in my previous job, dealing with tight deadlines was normal. Towards the end, they asked if I had any questions. Asking thoughtful questions demonstrates genuine interest in the role. Finally, they told me that they [GAP_8] their decision by Friday. I am really looking forward to [GAP_9] from them. Even if I don't get the job, by the end of this week, the experience [GAP_10] me valuable practice for future opportunities.",
         "gaps": [
@@ -123,10 +124,10 @@
                 "focus": "Future Perfect",
                 "explanation": "Il Future Perfect ('will have' + participio passato) si usa per descrivere un'azione o una situazione che sarà sicuramente completata o raggiunta entro un preciso momento futuro ('by the end of this week')."
             }
-        ],
-        "exerciseId": 1
+        ]
     },
     {
+        "exerciseId": 2,
         "title": "A Disastrous Holiday",
         "text": "Last summer, my partner and I decided to visit a remote island in Greece. By the time we [GAP_1] at the airport, our flight had already been delayed. If we had checked the app earlier, we [GAP_2] hours waiting at the terminal. While we [GAP_3] our coffees, we heard an announcement about our gate. Apparently, our luggage [GAP_4] to the wrong destination. The airline staff apologized and promised they [GAP_5] our bags within 24 hours. I asked the receptionist if she [GAP_6] us a discount for the inconvenience, but she refused. Since then, I [GAP_7] only a carry-on bag for short trips. I am still not used to [GAP_8] so lightly, but it saves a lot of stress. I think everyone [GAP_9] travel with less baggage to avoid these situations. By the time we go on our next holiday, I [GAP_10] the art of minimalist packing perfectly.",
         "gaps": [
@@ -250,10 +251,10 @@
                 "focus": "Future Perfect",
                 "explanation": "L'espressione 'By the time...' riferita al futuro richiede il Future Perfect ('will have' + participio) per indicare un'azione che sarà completata entro un certo momento."
             }
-        ],
-        "exerciseId": 2
+        ]
     },
     {
+        "exerciseId": 3,
         "title": "The Final Thesis",
         "text": "Writing a university thesis is a challenging journey. For the past three months, I [GAP_1] most of my weekends in the library. Last week, my supervisor asked me why I [GAP_2] the first chapter yet. I explained that I had been struggling with the methodology. He suggested [GAP_3] more recent academic articles. If I had known how difficult this topic was, I [GAP_4] a different one. However, it is too late to change now. Currently, my draft [GAP_5] by a peer reviewer, which makes me a bit anxious. I [GAP_6] receiving feedback, even if it is constructive criticism. My professor warned me that I [GAP_7] submit the final version by the 15th of May, otherwise I won't graduate. I promised him that the work [GAP_8] completed on time. By the end of next month, I [GAP_9] writing all the chapters. I am really looking forward to [GAP_10] this massive project finally behind me!",
         "gaps": [
@@ -377,10 +378,10 @@
                 "focus": "'Look forward to' + gerund",
                 "explanation": "Il phrasal verb 'look forward to' richiede sempre un sostantivo o un verbo alla forma in -ing, poiché 'to' funziona da preposizione e non come infinito."
             }
-        ],
-        "exerciseId": 3
+        ]
     },
     {
+        "exerciseId": 4,
         "title": "The New Office",
         "text": "Our company recently moved to a new building downtown. Before we [GAP_1] there, the management had promised us a modern and spacious environment. However, when we first arrived, the renovations [GAP_2] completely. While I [GAP_3] to set up my computer, the internet connection dropped multiple times. If they had hired a better IT team, we [GAP_4] these technical issues on the first day. The HR manager asked if I [GAP_5] comfortable at my new desk. I told her that I [GAP_6] in an open-space office, so the noise was a bit distracting. She recommended [GAP_7] noise-cancelling headphones. Now, a month later, things are much better. All the new desks [GAP_8] with ergonomic chairs last week. By the end of this year, the company [GAP_9] a new gym on the ground floor. We are all excited and looking forward [GAP_10] out during our lunch breaks.",
         "gaps": [
@@ -504,10 +505,10 @@
                 "focus": "'Look forward to' + gerund",
                 "explanation": "Come sempre, l'espressione 'look forward to' richiede la forma in -ing. Il verbo 'work out' (allenarsi) diventa 'to working out'."
             }
-        ],
-        "exerciseId": 4
+        ]
     },
     {
+        "exerciseId": 5,
         "title": "Marathon Training",
         "text": "Running a marathon requires incredible dedication and discipline. Recently, I [GAP_1] a strict training schedule to prepare for the city race. Before I started this program, I [GAP_2] more than five kilometers. At first, my coach suggested [GAP_3] only three times a week to avoid injuries. If I had ignored his advice, I [GAP_4] my knee again. During my last long run, I realized that my old shoes [GAP_5] to be replaced immediately. Proper equipment is essential; runners [GAP_6] wear worn-out shoes. My doctor asked me how I [GAP_7] after the longer distances. I explained that I [GAP_8] waking up early, but my muscles were still sore. To speed up recovery, massages [GAP_9] highly by sports therapists. By the time the race day arrives next month, I [GAP_10] over 300 kilometers in total. I am definitely looking forward to crossing that finish line.",
         "gaps": [
@@ -631,10 +632,10 @@
                 "focus": "Future Perfect",
                 "explanation": "'By the time...' introduce un momento futuro entro il quale l'azione della corsa sarà un traguardo completato, richiedendo il Future Perfect."
             }
-        ],
-        "exerciseId": 5
+        ]
     },
     {
+        "exerciseId": 6,
         "title": "Adopting a Rescue Dog",
         "text": "Bringing a pet into your home completely changes your daily routine. Last month, I decided that it was time I [GAP_1] a dog from the local shelter. When I arrived, a small terrier [GAP_2] by a volunteer in the yard. As soon as I saw him, I knew I [GAP_3] the perfect companion. The shelter staff asked me if I [GAP_4] any previous experience with dogs. I admitted that I hadn't, but I promised I [GAP_5] everything necessary. The volunteer recommended [GAP_6] a lot of patience during the first few weeks. If I hadn't taken some days off work, the dog [GAP_7] very stressed alone in the house. Now, I [GAP_8] walking him twice a day, rain or shine. In my opinion, animal adoption [GAP_9] strongly supported by the government. By the end of this year, we [GAP_10] a basic obedience training course together. I am really looking forward to seeing his progress.",
         "gaps": [
@@ -758,10 +759,10 @@
                 "focus": "Future Perfect",
                 "explanation": "L'espressione 'By the end of this year' traccia un limite nel futuro. Il Future Perfect indica che l'azione terminerà entro quella data certa."
             }
-        ],
-        "exerciseId": 6
+        ]
     },
     {
+        "exerciseId": 7,
         "title": "A New Diet",
         "text": "Last year, I decided to change my lifestyle completely. Before I [GAP_1] this new diet, I had eaten fast food almost every day. My doctor warned me that I [GAP_2] serious health issues if I didn't change my habits immediately. She strongly suggested [GAP_3] meals at home using fresh ingredients. At first, I [GAP_4] so many vegetables, and I really missed my old routine. If I hadn't found some delicious recipes online, I [GAP_5] immediately. Now, healthy and organic food [GAP_6] in many local supermarkets, which makes things much easier for me. The nutritionist asked me how I [GAP_7] after the first month. I told her I had much more energy. By the end of this year, I [GAP_8] over ten kilograms. My friends [GAP_9] me on my progress lately, which is very motivating. I am really looking forward to [GAP_10] new clothes soon to celebrate my hard work.",
         "gaps": [
@@ -885,10 +886,10 @@
                 "focus": "'Look forward to' + gerund",
                 "explanation": "Dopo il phrasal verb 'look forward to' il verbo successivo deve essere sempre coniugato al gerundio (-ing)."
             }
-        ],
-        "exerciseId": 7
+        ]
     },
     {
+        "exerciseId": 8,
         "title": "The Business Trip",
         "text": "My boss recently informed me that I [GAP_1] for an important conference in London. While I [GAP_2] my suitcase the night before the flight, I realized my passport was missing. I vividly remembered [GAP_3] it in my office drawer the previous week. If I hadn't found it just in time, I [GAP_4] to travel. At the airport, we were told that the flight [GAP_5] due to heavy rain. An angry passenger asked the staff if they [GAP_6] food vouchers. The staff apologized and said we [GAP_7] wait patiently for further announcements. By the time we finally arrived at the conference center, the first presentation [GAP_8]. Next time, I [GAP_9] my trip a day earlier to avoid this level of stress. Honestly, I am not used to [GAP_10] with such disorganized and chaotic situations.",
         "gaps": [
@@ -1012,10 +1013,10 @@
                 "focus": "'Be used to' + gerund",
                 "explanation": "L'espressione 'be used to' richiede sempre un sostantivo o un verbo al gerundio (-ing) poiché il 'to' funge da preposizione."
             }
-        ],
-        "exerciseId": 8
+        ]
     },
     {
+        "exerciseId": 9,
         "title": "The Group Assignment",
         "text": "University life often involves challenging teamwork. For the past month, my classmates and I [GAP_1] on a complex marketing project. Our professor told us that the final presentation [GAP_2] by Friday afternoon. Yesterday, my partner asked why I [GAP_3] my section yet. I explained to him that I [GAP_4] trouble finding reliable academic sources. He recommended [GAP_5] the university's online library instead of Google. If he hadn't helped me, I [GAP_6] the assignment. Currently, the final draft [GAP_7] by the whole team to check for errors. We [GAP_8] check all the references carefully before printing the final document. By tomorrow evening, we [GAP_9] everything completely. I am really looking forward to [GAP_10] this weekend after so much hard work and sleepless nights.",
         "gaps": [
@@ -1139,10 +1140,10 @@
                 "focus": "'Look forward to' + gerund",
                 "explanation": "La struttura 'look forward to' (non vedere l'ora di) prevede sempre che il verbo successivo termini in -ing."
             }
-        ],
-        "exerciseId": 9
+        ]
     },
     {
+        "exerciseId": 10,
         "title": "The Stolen Bicycle",
         "text": "Cycling is a great way to commute, but you have to be careful. Last week, I parked my bike outside the local supermarket. When I came back, I realized it [GAP_1]. I was completely shocked because I [GAP_2] it properly to a metal pole. While I [GAP_3] back home in the rain, I decided to call the police. The officer asked me what color the bicycle [GAP_4] and if it had any specific marks. He told me that many bikes [GAP_5] in that specific area every single day. He strongly advised me [GAP_6] a much stronger lock next time. If I had parked it in a busier street, the thief [GAP_7] it so easily. Since that day, I [GAP_8] the bus to work instead. I am honestly not used to [GAP_9] up so early for public transport. However, by the end of this month, I [GAP_10] enough money to buy a brand new one.",
         "gaps": [
@@ -1266,10 +1267,10 @@
                 "focus": "Future Perfect",
                 "explanation": "L'orizzonte temporale 'by the end of this month' indica che entro quel momento futuro l'azione di risparmiare sarà stata completata."
             }
-        ],
-        "exerciseId": 10
+        ]
     },
     {
+        "exerciseId": 11,
         "title": "Working from Home",
         "text": "Remote work has become incredibly popular lately. Two years ago, my company [GAP_1] us the option to work from home permanently. Before that decision, I [GAP_2] two hours commuting to the office every single day. At first, I really missed [GAP_3] my colleagues in person and chatting during coffee breaks. Last month, my manager asked if I [GAP_4] healthy boundaries between my work and personal life. He suggested [GAP_5] a dedicated workspace in a quiet corner of my apartment. If I hadn't followed his advice, I [GAP_6] out months ago. Now, all our weekly meetings [GAP_7] online via video call, which is very efficient. Sometimes, however, I wish we [GAP_8] at the office occasionally for creative brainstorming sessions. By next December, I [GAP_9] remotely for exactly three years. Despite some minor challenges, I look forward to [GAP_10] this flexible and productive lifestyle.",
         "gaps": [
@@ -1393,10 +1394,10 @@
                 "focus": "'Look forward to' + gerund",
                 "explanation": "Il phrasal verb 'look forward to' richiede che il verbo che lo segue termini in -ing."
             }
-        ],
-        "exerciseId": 11
+        ]
     },
     {
+        "exerciseId": 12,
         "title": "A Trip to Japan",
         "text": "Last year, I decided it was time to visit Japan, a country I [GAP_1] to explore. Before booking my flight, I [GAP_2] by a travel agent to travel in spring. She told me that the cherry blossoms [GAP_3] blooming at that time. If I had gone in summer, I [GAP_4] from the intense humidity. On my first day in Tokyo, I wasn't used to [GAP_5] such a massive subway system. Fortunately, a kind local offered [GAP_6] me find the right platform. By the time I reached my hotel, I [GAP_7] for over twenty hours. Despite the exhaustion, I couldn't stop [GAP_8]. Tomorrow, I am going to Kyoto. My train leaves at 8 AM, so I [GAP_9] wake up very early. I am really looking forward to [GAP_10] the traditional tea ceremonies. I know that understanding Japanese customs requires a lot of patience. However, unless you try to immerse yourself fully, you won't appreciate the beautiful culture.",
         "gaps": [
@@ -1520,10 +1521,10 @@
                 "focus": "'Look forward to' + gerund",
                 "explanation": "Nel phrasal verb 'look forward to', la parola 'to' è una preposizione, pertanto il verbo che la segue deve essere al gerundio (-ing)."
             }
-        ],
-        "exerciseId": 12
+        ]
     },
     {
+        "exerciseId": 13,
         "title": "The Final Thesis",
         "text": "Writing a university thesis is one of the most challenging tasks a student [GAP_1]. When I first started my research, I felt completely overwhelmed. My professor suggested [GAP_2] the project down into smaller, manageable parts. He reminded me that the deadline [GAP_3] quickly. I wish I [GAP_4] gathering materials sooner! If I had organized my notes better from the beginning, I [GAP_5] so much right now. Currently, the main university library [GAP_6], which makes finding a quiet place to study quite difficult. I am considering [GAP_7] a local study group to stay motivated. By the end of this month, I [GAP_8] the first draft of my thesis. After that, it will need [GAP_9] carefully before the final submission. Despite the stress, I know that [GAP_10] this degree will open up many excellent career opportunities. My parents always encourage me to keep pushing forward.",
         "gaps": [
@@ -1647,10 +1648,10 @@
                 "focus": "Gerund as subject",
                 "explanation": "Quando un verbo funge da soggetto di una frase (in questo caso la subordinata oggettiva), si usa la forma in -ing."
             }
-        ],
-        "exerciseId": 13
+        ]
     },
     {
+        "exerciseId": 14,
         "title": "A New Fitness Routine",
         "text": "Maintaining a healthy lifestyle [GAP_1] increasingly difficult in our fast-paced modern world. A few years ago, I realized I [GAP_2] enough exercise. I used to spend my evenings [GAP_3] on the couch and watching television. My doctor warned me that unless I changed my habits, I [GAP_4] serious health issues later in life. Consequently, I decided [GAP_5] a local gym. At first, waking up early for a workout was terrible, but now I am used to [GAP_6] up at 6 AM. If I hadn't made that decision, I [GAP_7] sluggish every day. Recently, my trainer advised me [GAP_8] more protein and fewer processed carbohydrates. A balanced diet [GAP_9] to be just as important as physical activity. By next summer, I [GAP_10] my target weight, and I feel more energetic than ever before. I highly recommend finding a sport you actually enjoy, because it makes consistency much easier.",
         "gaps": [
@@ -1774,10 +1775,10 @@
                 "focus": "Future Perfect",
                 "explanation": "Usato per dichiarare che un'azione sarà completata definitivamente prima di un certo termine futuro ('By next summer')."
             }
-        ],
-        "exerciseId": 14
+        ]
     },
     {
+        "exerciseId": 15,
         "title": "A Difficult Project",
         "text": "Last week, our department experienced a major crisis right before an important product launch. The software, which [GAP_1] thoroughly, suddenly crashed. My boss asked me if I [GAP_2] how to fix the bug quickly. I admitted that I [GAP_3] that specific error before. He demanded that the issue [GAP_4] resolved immediately. The entire team ended up [GAP_5] late into the night. If the lead developer hadn't found the solution, we [GAP_6] our biggest client. Currently, new security measures [GAP_7] to prevent this from happening again. I really wish we [GAP_8] more time for quality assurance testing before releasing updates. Next Monday, a meeting [GAP_9] to discuss our future strategies. By the end of the year, the company [GAP_10] all our computer systems to ensure better stability. Everyone agrees that better communication between teams is absolutely essential.",
         "gaps": [
@@ -1901,10 +1902,10 @@
                 "focus": "Future Perfect",
                 "explanation": "L'espressione 'By the end of...' segnala che l'azione sarà conclusa entro quel limite temporale futuro."
             }
-        ],
-        "exerciseId": 15
+        ]
     },
     {
+        "exerciseId": 16,
         "title": "Moving to a New Apartment",
         "text": "Moving to a new city can be an exciting but stressful experience. Two months ago, I [GAP_1] a great job in Rome, so I had to relocate. When I first arrived, I [GAP_2] alone before, which made me quite nervous. I spent weeks looking for a suitable apartment. I finally found one, but the bedroom walls needed [GAP_3]. The landlord promised that the heating system [GAP_4] before winter. If I had known how expensive the city was, I [GAP_5] more money beforehand. Now, I am trying [GAP_6] used to the noisy traffic outside my window. Despite the noise, I don't regret [GAP_7] here at all. The neighborhood is vibrant, and new restaurants [GAP_8] almost every week. Tomorrow, I [GAP_9] some friends over for a housewarming dinner. By the time they arrive, I [GAP_10] a traditional Italian meal. It has been a huge learning curve, but managing my own household is teaching me a lot of responsibility.",
         "gaps": [
@@ -2028,10 +2029,10 @@
                 "focus": "Future Perfect",
                 "explanation": "Indica un'azione che sarà completata prima dell'arrivo di un altro evento nel futuro ('By the time they arrive')."
             }
-        ],
-        "exerciseId": 16
+        ]
     },
     {
+        "exerciseId": 17,
         "title": "The Lost Suitcase",
         "text": "My trip to London last winter was unforgettable, but not for the right reasons. When I arrived at Heathrow Airport, I realized my luggage [GAP_1] in transit. I went to the customer service desk, where a clerk asked me what my suitcase [GAP_2] like. I described it in detail and asked when it [GAP_3] to my hotel. They told me they [GAP_4] their best to locate it. I couldn't help [GAP_5] incredibly frustrated. If I had packed some spare clothes in my carry-on bag, I [GAP_6] to buy new ones immediately. The airline promised [GAP_7] me for the inconvenience. The suitcase [GAP_8] three days later in Paris! Looking back, I wish I [GAP_9] travel insurance. Next time I travel abroad, I [GAP_10] an electronic tracker inside my luggage to avoid this stress. Dealing with airport mishaps requires patience, but it certainly teaches you how to handle unexpected emergencies.",
         "gaps": [
@@ -2155,10 +2156,10 @@
                 "focus": "Future Simple (Decisions/Promises)",
                 "explanation": "Si usa 'will' per indicare una decisione o una promessa presa in reazione a qualcosa appena pensato o accaduto."
             }
-        ],
-        "exerciseId": 17
+        ]
     },
     {
+        "exerciseId": 18,
         "title": "Recovering from Burnout",
         "text": "Nowadays, many people suffer from chronic stress due to demanding jobs and busy schedules. If you [GAP_1] time to relax, your physical and mental health will deteriorate quickly. Last year, I was working so hard that I [GAP_2] in the hospital with severe exhaustion. The doctor strongly advised me [GAP_3] my daily routine. He suggested [GAP_4] up yoga or meditation to calm my mind. I am not used to [GAP_5] still, so meditating was extremely difficult at first. However, I persevered, and now I [GAP_6] much better during the day. Furthermore, I try to avoid [GAP_7] coffee after 4 PM to improve my sleep quality. New studies show that sufficient sleep [GAP_8] for the brain to function properly. By next month, I [GAP_9] yoga for exactly a year. I highly recommend [GAP_10] self-care before stress takes over your life. Remember that health is your most valuable asset, and ignoring your body's warning signs is always a terrible mistake.",
         "gaps": [
@@ -2282,10 +2283,10 @@
                 "focus": "Verb + gerund",
                 "explanation": "Proprio come 'suggest', anche 'recommend' richiede il gerundio se non esplicita il pronome personale/soggetto."
             }
-        ],
-        "exerciseId": 18
+        ]
     },
     {
+        "exerciseId": 19,
         "title": "Studying Abroad",
         "text": "Collaborating on a university group project is often a test of patience and communication. Last semester, our sociology professor asked us [GAP_1] a comprehensive survey. He divided the class into groups of four and stated that the final report [GAP_2] by Friday. Unfortunately, one of our team members, Mark, avoided [GAP_3] his share of the work. If he had helped us from the beginning, we [GAP_4] to stay up all night finishing it. We reminded him that everyone [GAP_5] to contribute equally. I wish he [GAP_6] the assignment more seriously. Despite the difficulties, our presentation [GAP_7] by the professor for its thorough analysis. Next time I have a group project, I [GAP_8] clear rules during the first meeting. By the time I graduate, I [GAP_9] how to handle difficult colleagues effectively. Effective teamwork [GAP_10] an essential skill for any future career. It's crucial to address problems early rather than waiting until the deadline.",
         "gaps": [
@@ -2409,10 +2410,10 @@
                 "focus": "Present Simple Passive",
                 "explanation": "Un dato di fatto generico e attuale: il lavoro di squadra 'è considerato' un'abilità essenziale."
             }
-        ],
-        "exerciseId": 19
+        ]
     },
     {
+        "exerciseId": 20,
         "title": "The Office Promotion",
         "text": "Getting promoted in a competitive corporate environment requires both dedication and strategic thinking. For the past three years, I [GAP_1] as a junior financial analyst. Recently, my manager told me that I [GAP_2] for a senior position. She asked if I [GAP_3] to take on more leadership responsibilities. I replied that I [GAP_4] to manage my own team. However, the new role means [GAP_5] abroad twice a month. If I accept the offer, I [GAP_6] to move to a different city temporarily. My colleagues congratulated me, but I can't help [GAP_7] slightly anxious about the increased workload. The HR director wants [GAP_8] the new contract by Monday. By the end of this year, I [GAP_9] my primary career goal. I look forward to [GAP_10] this exciting new chapter in my professional life. Professional growth often requires stepping out of your comfort zone and taking calculated risks.",
         "gaps": [
@@ -2536,10 +2537,10 @@
                 "focus": "'Look forward to' + gerund",
                 "explanation": "La preposizione 'to' nel verbo frasale 'look forward to' richiede la forma in -ing."
             }
-        ],
-        "exerciseId": 20
+        ]
     },
     {
+        "exerciseId": 21,
         "title": "A Digital Detox",
         "text": "Smartphones have completely transformed the way we navigate our daily lives. Just a decade ago, people [GAP_1] phone numbers and carry paper maps. Yesterday, while I was walking to the station, my phone [GAP_2] because I had forgotten to charge it. I realized I didn't know how [GAP_3] to my destination without GPS. If I had brought my portable charger, I [GAP_4] lost in the city center. I had to ask a stranger where the nearest subway station [GAP_5]. It is often argued that society [GAP_6] too dependent on technology. Experts suggest [GAP_7] at least one day a week disconnected from screens. I am considering [GAP_8] a digital detox this weekend. By Sunday evening, I [GAP_9] forty-eight hours without social media. This experiment will hopefully stop me from [GAP_10] my notifications compulsively every five minutes. Rediscovering the world without a digital lens can be a remarkably refreshing experience.",
         "gaps": [
@@ -2663,10 +2664,10 @@
                 "focus": "Preposition + gerund",
                 "explanation": "Dopo una preposizione ('from') il verbo che segue deve essere obbligatoriamente un gerundio."
             }
-        ],
-        "exerciseId": 21
+        ]
     },
     {
+        "exerciseId": 22,
         "title": "The Terrible Hotel",
         "text": "Booking a hotel online can sometimes be risky. Last weekend, we traveled to a coastal town. By the time we [GAP_1] at the hotel, it was already midnight. The receptionist informed us that our reservation [GAP_2] by mistake. We were furious! If we had read the recent reviews, we [GAP_3] this place altogether. The manager apologized and suggested [GAP_4] a room in their partner hotel across the street. I asked him if he [GAP_5] a free taxi for us, but he said no. Currently, the original hotel [GAP_6] by new owners, which explains the chaos. We [GAP_7] file a formal complaint as soon as possible. Honestly, I [GAP_8] in such terrible conditions. By next week, I hope the customer service [GAP_9] my money. I am definitely looking forward to [GAP_10] this awful experience.",
         "gaps": [
@@ -2790,10 +2791,10 @@
                 "focus": "'Look forward to' + gerund",
                 "explanation": "Il phrasal verb 'look forward to' utilizza 'to' come preposizione, pertanto il verbo che lo segue deve terminare in -ing."
             }
-        ],
-        "exerciseId": 22
+        ]
     },
     {
+        "exerciseId": 23,
         "title": "Learning a Language",
         "text": "Mastering a foreign language takes years of practice. For the past two years, I [GAP_1] Japanese at a local school. Before I started the course, I [GAP_2] how difficult the writing system was. My teacher recommended [GAP_3] anime without subtitles to improve my listening skills. If I hadn't followed her advice, I [GAP_4] the listening test last month. During the last lesson, she asked me why I [GAP_5] so quiet. I explained that I [GAP_6] trouble with the new vocabulary. In my class, only Japanese [GAP_7] by the students to force immersion. I [GAP_8] making mistakes in front of others now, which helps me learn faster. By the end of this semester, we [GAP_9] all the basic grammar rules. I am really looking forward to [GAP_10] Tokyo next spring!",
         "gaps": [
@@ -2917,10 +2918,10 @@
                 "focus": "'Look forward to' + gerund",
                 "explanation": "Dopo l'espressione 'look forward to' il verbo deve terminare in -ing."
             }
-        ],
-        "exerciseId": 23
+        ]
     },
     {
+        "exerciseId": 24,
         "title": "The Surprise Party",
         "text": "Organizing a surprise party is harder than it looks. Last month, my siblings and I decided to throw a party for our parents' anniversary. While I [GAP_1] the venue, my brother was supposed to buy the cake. I explicitly told him that the cake [GAP_2] by a professional bakery. When I called him, I asked if he [GAP_3] the invitations yet. He admitted he had forgotten! If he had set a reminder, he [GAP_4] such an important task. I advised him [GAP_5] them digitally to save time. Currently, the decorations [GAP_6] by my sister in the main hall. We [GAP_7] make sure our parents don't suspect anything. I [GAP_8] such big events, so I am feeling quite stressed. By the time they arrive at 8 PM, we [GAP_9] everything perfectly. I am really looking forward to [GAP_10] their faces!",
         "gaps": [
@@ -3044,10 +3045,10 @@
                 "focus": "'Look forward to' + gerund",
                 "explanation": "L'espressione 'look forward to' richiede sempre un sostantivo o un gerundio (-ing) subito dopo."
             }
-        ],
-        "exerciseId": 24
+        ]
     },
     {
+        "exerciseId": 25,
         "title": "A Car Breakdown",
         "text": "A road trip can easily turn into a nightmare if you aren't prepared. Yesterday, while we [GAP_1] through the mountains, the engine suddenly stopped. I realized immediately that I [GAP_2] the oil level before leaving. If I had done a quick maintenance check, we [GAP_3] stuck in the middle of nowhere. My friend suggested [GAP_4] a local towing service. The mechanic on the phone asked exactly where we [GAP_5] at that moment. He informed us that our car [GAP_6] to the nearest garage. He also warned us that the repairs [GAP_7] a few days. Now we are staying in a small motel. I [GAP_8] public transport, but it seems we have no choice here. By tomorrow evening, the mechanic [GAP_9] the engine. Despite the bad luck, I am looking forward to [GAP_10] our journey soon.",
         "gaps": [
@@ -3171,10 +3172,10 @@
                 "focus": "'Look forward to' + gerund",
                 "explanation": "Il costrutto 'look forward to' esige che il verbo successivo sia al gerundio (-ing)."
             }
-        ],
-        "exerciseId": 25
+        ]
     },
     {
+        "exerciseId": 26,
         "title": "The House Move",
         "text": "Moving to a new house is often considered one of life's most stressful events. For the past two weeks, we [GAP_1] our belongings into hundreds of boxes. Before we hired the movers, we [GAP_2] to do everything ourselves to save money. If we had tried to move the heavy furniture alone, we [GAP_3] our backs. The moving company recommended [GAP_4] all fragile items with bubble wrap. Yesterday, the foreman asked me where he [GAP_5] the kitchen appliances. I told him that the kitchen [GAP_6] yet, so he had to leave them in the hallway. We [GAP_7] unpack the essentials tonight, or we won't have anything for breakfast. I [GAP_8] out of suitcases, and I hate it. Hopefully, by the end of next week, we [GAP_9] every single room. I am really looking forward to [GAP_10] a housewarming party!",
         "gaps": [
@@ -3298,7 +3299,514 @@
                 "focus": "'Look forward to' + gerund",
                 "explanation": "Dopo 'look forward to' bisogna obbligatoriamente utilizzare il gerundio (-ing)."
             }
-        ],
-        "exerciseId": 26
+        ]
+    },
+    {
+        "exerciseId": 27,
+        "title": "The Indie Game",
+        "text": "Developing an indie video game requires a lot of technical skills. For the past six months, I [GAP_1] a new mecha-themed game using GDScript. Last week, I realized that the combat system [GAP_2] completely before I started working on the UI. If I hadn't switched to dictionary-backed stats, the code [GAP_3] a mess. A colleague of mine suggested [GAP_4] the weapon icons to make them clearly designed for mechanical mounting. A tester asked me why the icons [GAP_5] square instead of rectangular. I explained that they had to function correctly as UI tiles. Currently, the new sprite sheets [GAP_6] by a small group of players. Developers [GAP_7] always test their games extensively before launch. Honestly, I [GAP_8] such complex logic, but it is rewarding. By next month, I [GAP_9] the core gameplay loop. I am really looking forward to [GAP_10] the first demo!",
+        "gaps": [
+            {
+                "id": 1,
+                "options": [
+                    "programmed",
+                    "am programming",
+                    "have been programming",
+                    "had programmed"
+                ],
+                "correctIndex": 2,
+                "focus": "Present Perfect Continuous",
+                "explanation": "L'espressione 'For the past six months' indica un'azione iniziata nel passato e tuttora in corso ininterrottamente. Richiede il Present Perfect Continuous."
+            },
+            {
+                "id": 2,
+                "options": [
+                    "wasn't finalized",
+                    "hasn't been finalized",
+                    "hadn't been finalized",
+                    "didn't finalize"
+                ],
+                "correctIndex": 2,
+                "focus": "Past Perfect Passive",
+                "explanation": "Il sistema di combattimento subisce l'azione (forma passiva). Poiché l'azione non era stata completata prima di un'altra azione passata ('before I started'), serve il Past Perfect Passive."
+            },
+            {
+                "id": 3,
+                "options": [
+                    "will be",
+                    "was",
+                    "would be",
+                    "would have been"
+                ],
+                "correctIndex": 3,
+                "focus": "Third Conditional",
+                "explanation": "Periodo ipotetico del terzo tipo per una situazione irrealizzata nel passato ('If I hadn't switched'). La conseguenza richiede il condizionale passato: 'would have' + participio."
+            },
+            {
+                "id": 4,
+                "options": [
+                    "to redesign",
+                    "redesigning",
+                    "redesign",
+                    "for redesigning"
+                ],
+                "correctIndex": 1,
+                "focus": "Verb + gerund (suggest)",
+                "explanation": "Il verbo 'suggest', se seguito direttamente da un verbo che esprime l'azione suggerita, richiede la forma al gerundio (-ing)."
+            },
+            {
+                "id": 5,
+                "options": [
+                    "are",
+                    "have been",
+                    "were",
+                    "will be"
+                ],
+                "correctIndex": 2,
+                "focus": "Reported Speech (Tense backshift)",
+                "explanation": "Nel discorso indiretto introdotto da un verbo al passato ('asked'), il presente della domanda originale ('Why are they square?') fa un passo indietro e diventa 'were'."
+            },
+            {
+                "id": 6,
+                "options": [
+                    "test",
+                    "are tested",
+                    "are being tested",
+                    "have tested"
+                ],
+                "correctIndex": 2,
+                "focus": "Present Continuous Passive",
+                "explanation": "'Currently' indica un'azione in corso adesso. Gli sprite sheet subiscono il test dei giocatori, quindi si usa la forma passiva del Present Continuous."
+            },
+            {
+                "id": 7,
+                "options": [
+                    "ought to",
+                    "must to",
+                    "should to",
+                    "had better to"
+                ],
+                "correctIndex": 0,
+                "focus": "Modals of advice",
+                "explanation": "Tra le opzioni, 'ought to' è l'unico modale corretto. 'Must' e 'should' non sono mai seguiti dal 'to', così come 'had better'."
+            },
+            {
+                "id": 8,
+                "options": [
+                    "didn't use to script",
+                    "am not used to scripting",
+                    "am not used to script",
+                    "don't use to script"
+                ],
+                "correctIndex": 1,
+                "focus": "'Be used to' + gerund",
+                "explanation": "Per esprimere la mancanza di un'abitudine nel presente si usa 'be used to' seguito rigorosamente dalla forma in -ing (gerundio)."
+            },
+            {
+                "id": 9,
+                "options": [
+                    "will complete",
+                    "would complete",
+                    "are completing",
+                    "will have completed"
+                ],
+                "correctIndex": 3,
+                "focus": "Future Perfect",
+                "explanation": "L'espressione 'By next month' definisce un momento futuro entro il quale un'azione sarà portata a termine. Si usa quindi il Future Perfect."
+            },
+            {
+                "id": 10,
+                "options": [
+                    "release",
+                    "releasing",
+                    "to release",
+                    "released"
+                ],
+                "correctIndex": 1,
+                "focus": "'Look forward to' + gerund",
+                "explanation": "La preposizione 'to' nel costrutto 'look forward to' richiede che il verbo successivo termini obbligatoriamente in -ing."
+            }
+        ]
+    },
+    {
+        "exerciseId": 28,
+        "title": "The Prototyping Lab",
+        "text": "Teaching a university prototyping course is incredibly engaging. Yesterday, when I entered the lab, some students [GAP_1] their ESP32 boards for a Battleship project. One group complained that their servo controllers weren't working. I explicitly told them that direct commands [GAP_2] in favor of a centralized 'set' command. If they had read my instructions carefully, they [GAP_3] their hardware. I strongly recommended [GAP_4] the wiring before turning on the power. Another student asked me if I [GAP_5] him debug an LCD screen issue. At the moment, all final projects [GAP_6] to ensure they meet the minimum requirements. Students [GAP_7] forget to submit their source code on time, otherwise they will fail. As a professor, I [GAP_8] systemic anomalies in student code. By tomorrow afternoon, I [GAP_9] all the prototypes. I am definitely looking forward to [GAP_10] a well-deserved weekend.",
+        "gaps": [
+            {
+                "id": 1,
+                "options": [
+                    "programmed",
+                    "were programming",
+                    "had programmed",
+                    "have programmed"
+                ],
+                "correctIndex": 1,
+                "focus": "Past Continuous",
+                "explanation": "Un'azione prolungata in corso di svolgimento nel passato ('were programming') fa da sfondo a un'azione più breve che la interrompe ('entered the lab')."
+            },
+            {
+                "id": 2,
+                "options": [
+                    "must be removed",
+                    "have to remove",
+                    "had to be removed",
+                    "had to remove"
+                ],
+                "correctIndex": 2,
+                "focus": "Reported Speech (Passive Obligation)",
+                "explanation": "Nel discorso indiretto al passato ('told'), l'obbligo 'must/have to' diventa 'had to'. Poiché i comandi subiscono l'azione della rimozione, si usa la forma passiva."
+            },
+            {
+                "id": 3,
+                "options": [
+                    "won't break",
+                    "wouldn't break",
+                    "didn't break",
+                    "wouldn't have broken"
+                ],
+                "correctIndex": 3,
+                "focus": "Third Conditional",
+                "explanation": "Ipotesi irreale nel passato ('If they had read'). La conseguenza evitata richiede 'would have' + participio passato."
+            },
+            {
+                "id": 4,
+                "options": [
+                    "to double-check",
+                    "double-checking",
+                    "double-check",
+                    "for double-checking"
+                ],
+                "correctIndex": 1,
+                "focus": "Verb + gerund (recommend)",
+                "explanation": "Analogamente a 'suggest', il verbo 'recommend' senza complemento oggetto richiede la forma in -ing."
+            },
+            {
+                "id": 5,
+                "options": [
+                    "could help",
+                    "can help",
+                    "will help",
+                    "helps"
+                ],
+                "correctIndex": 0,
+                "focus": "Reported Speech (Modals)",
+                "explanation": "Nel discorso indiretto introdotto da 'asked', il modale della domanda originale ('Can you help me?') scala al passato diventando 'could'."
+            },
+            {
+                "id": 6,
+                "options": [
+                    "are evaluated",
+                    "evaluate",
+                    "are being evaluated",
+                    "have evaluated"
+                ],
+                "correctIndex": 2,
+                "focus": "Present Continuous Passive",
+                "explanation": "'At the moment' posiziona l'azione nel presente continuo. I progetti subiscono la valutazione, perciò occorre il passivo ('are being evaluated')."
+            },
+            {
+                "id": 7,
+                "options": [
+                    "must not",
+                    "don't have to",
+                    "needn't",
+                    "ought not"
+                ],
+                "correctIndex": 0,
+                "focus": "Modals (Negative obligation)",
+                "explanation": "'Must not' esprime un divieto o una raccomandazione categorica in negativo. 'Don't have to' significherebbe 'non è necessario', cambiando completamente il senso."
+            },
+            {
+                "id": 8,
+                "options": [
+                    "used to fix",
+                    "am used to fixing",
+                    "am used to fix",
+                    "use to fixing"
+                ],
+                "correctIndex": 1,
+                "focus": "'Be used to' + gerund",
+                "explanation": "Essere abituati a fare qualcosa nel presente si traduce con 'am used to' seguito obbligatoriamente dal verbo in -ing."
+            },
+            {
+                "id": 9,
+                "options": [
+                    "will grade",
+                    "would grade",
+                    "will have graded",
+                    "are grading"
+                ],
+                "correctIndex": 2,
+                "focus": "Future Perfect",
+                "explanation": "L'espressione 'By tomorrow afternoon' indica un termine nel futuro entro il quale l'azione della correzione (grading) sarà completata."
+            },
+            {
+                "id": 10,
+                "options": [
+                    "enjoy",
+                    "enjoying",
+                    "to enjoy",
+                    "enjoyed"
+                ],
+                "correctIndex": 1,
+                "focus": "'Look forward to' + gerund",
+                "explanation": "Come sempre, il phrasal verb 'look forward to' esige il gerundio (-ing) poiché il 'to' è preposizione."
+            }
+        ]
+    },
+    {
+        "exerciseId": 29,
+        "title": "The Open Source OS",
+        "text": "Managing an open-source operating system on GitHub is a huge responsibility. Since 2024, I [GAP_1] a complex project to help others learn about systems programming. Before I pushed the latest update, the source code [GAP_2] multiple times to ensure it was bootable. If a contributor hadn't reported a critical bug, the entire system [GAP_3] during the final test. I advised the community [GAP_4] the technical documentation carefully before submitting new pull requests. A new user asked how long it [GAP_5] to compile the kernel. Currently, the main branch [GAP_6] by several senior developers to optimize memory management. Anyone working on this [GAP_7] understand the basics of distributed systems. Honestly, I [GAP_8] so many questions from beginners, but I am happy to guide them. By the end of this year, we [GAP_9] version 2.0. I am really looking forward to [GAP_10] the new features in action.",
+        "gaps": [
+            {
+                "id": 1,
+                "options": [
+                    "maintain",
+                    "maintained",
+                    "have been maintaining",
+                    "am maintaining"
+                ],
+                "correctIndex": 2,
+                "focus": "Present Perfect Continuous",
+                "explanation": "L'uso di 'Since 2024' indica un'attività iniziata nel passato che continua fino al presente, richiedendo il Present Perfect Continuous."
+            },
+            {
+                "id": 2,
+                "options": [
+                    "was compiled",
+                    "had been compiled",
+                    "has been compiled",
+                    "is compiled"
+                ],
+                "correctIndex": 1,
+                "focus": "Past Perfect Passive",
+                "explanation": "Il codice subisce la compilazione (passivo) e l'azione è avvenuta prima dell'aggiornamento ('Before I pushed'). Serve il Past Perfect Passive."
+            },
+            {
+                "id": 3,
+                "options": [
+                    "will crash",
+                    "would crash",
+                    "crashed",
+                    "would have crashed"
+                ],
+                "correctIndex": 3,
+                "focus": "Third Conditional",
+                "explanation": "Condizione irrealizzata passata: il sistema non è andato in crash perché il bug è stato segnalato. La conseguenza immaginaria richiede 'would have' + participio."
+            },
+            {
+                "id": 4,
+                "options": [
+                    "to read",
+                    "reading",
+                    "read",
+                    "for reading"
+                ],
+                "correctIndex": 0,
+                "focus": "Verb + object + infinitive (advise)",
+                "explanation": "Il verbo 'advise' seguito da un complemento oggetto ('the community') richiede sempre l'uso dell'infinito introdotto da 'to'."
+            },
+            {
+                "id": 5,
+                "options": [
+                    "takes",
+                    "has taken",
+                    "took",
+                    "was taking"
+                ],
+                "correctIndex": 2,
+                "focus": "Reported Speech (Tense backshift)",
+                "explanation": "La domanda diretta al presente ('How long does it take?') fa un passo indietro nel discorso indiretto ('asked'), diventando Past Simple ('took')."
+            },
+            {
+                "id": 6,
+                "options": [
+                    "is reviewing",
+                    "reviews",
+                    "is being reviewed",
+                    "has reviewed"
+                ],
+                "correctIndex": 2,
+                "focus": "Present Continuous Passive",
+                "explanation": "'Currently' si riferisce a un'azione in atto. La branch principale è l'oggetto dell'azione di revisione, quindi si usa il passivo al presente continuo."
+            },
+            {
+                "id": 7,
+                "options": [
+                    "had better",
+                    "ought",
+                    "must to",
+                    "should to"
+                ],
+                "correctIndex": 0,
+                "focus": "Modals of advice",
+                "explanation": "Per esprimere un consiglio molto forte si usa 'had better' senza il 'to'. 'Ought', 'must' e 'should' tra le opzioni presentano errori strutturali legati alla preposizione."
+            },
+            {
+                "id": 8,
+                "options": [
+                    "didn't use to answer",
+                    "am not used to answering",
+                    "am not used to answer",
+                    "don't use to answer"
+                ],
+                "correctIndex": 1,
+                "focus": "'Be used to' + gerund",
+                "explanation": "Il narratore descrive la propria mancanza di abitudine nel presente. Si usa 'am not used to' + forma -ing."
+            },
+            {
+                "id": 9,
+                "options": [
+                    "will launch",
+                    "are launching",
+                    "would launch",
+                    "will have launched"
+                ],
+                "correctIndex": 3,
+                "focus": "Future Perfect",
+                "explanation": "L'espressione 'By the end of this year' traccia un limite futuro in cui l'azione sarà già conclusa. Questo richiede il Future Perfect."
+            },
+            {
+                "id": 10,
+                "options": [
+                    "see",
+                    "seeing",
+                    "to see",
+                    "saw"
+                ],
+                "correctIndex": 1,
+                "focus": "'Look forward to' + gerund",
+                "explanation": "Il phrasal verb 'look forward to' richiede un sostantivo o un verbo al gerundio (-ing) subito dopo."
+            }
+        ]
+    },
+    {
+        "exerciseId": 30,
+        "title": "The Lab Barbecue",
+        "text": "Combining social events with technology is always a fun idea. Last month, we organized a special barbecue and LAN party at our laboratory. While we [GAP_1] up the gaming servers, the internet connection suddenly went down. I immediately checked the router, but the main cables [GAP_2] by mistake. If we had tested the network the day before, we [GAP_3] this embarrassing situation. My colleague suggested [GAP_4] a temporary hotspot using a smartphone. One of the guests asked me if the meat [GAP_5] ready soon. Right now, the video recordings of that amazing day [GAP_6] by our media team to create a short clip. Next time, we [GAP_7] make sure all the technical infrastructure is perfectly stable. After all these years, I [GAP_8] both hardware issues and hungry guests simultaneously. By next Friday, the editors [GAP_9] the final video. I am looking forward to [GAP_10] it with all the participants.",
+        "gaps": [
+            {
+                "id": 1,
+                "options": [
+                    "set",
+                    "were setting",
+                    "had set",
+                    "have set"
+                ],
+                "correctIndex": 1,
+                "focus": "Past Continuous",
+                "explanation": "'While' introduce l'azione di sfondo (configurare i server) che era in corso quando si è verificato l'evento puntuale (la connessione che cade)."
+            },
+            {
+                "id": 2,
+                "options": [
+                    "were unplugged",
+                    "have been unplugged",
+                    "had been unplugged",
+                    "unplugged"
+                ],
+                "correctIndex": 2,
+                "focus": "Past Perfect Passive",
+                "explanation": "I cavi subiscono l'azione (sono stati staccati). Poiché l'errore è avvenuto prima del controllo del router nel passato, serve il Past Perfect Passive."
+            },
+            {
+                "id": 3,
+                "options": [
+                    "will avoid",
+                    "avoided",
+                    "would avoid",
+                    "would have avoided"
+                ],
+                "correctIndex": 3,
+                "focus": "Third Conditional",
+                "explanation": "Periodo ipotetico dell'irrealtà nel passato ('If we had tested'). L'azione mancata richiede 'would have' + participio passato."
+            },
+            {
+                "id": 4,
+                "options": [
+                    "to create",
+                    "creating",
+                    "create",
+                    "for creating"
+                ],
+                "correctIndex": 1,
+                "focus": "Verb + gerund (suggest)",
+                "explanation": "Il verbo 'suggest' vuole sempre il gerundio (-ing) se seguito direttamente dal verbo che descrive l'azione suggerita."
+            },
+            {
+                "id": 5,
+                "options": [
+                    "will be",
+                    "would be",
+                    "is",
+                    "was"
+                ],
+                "correctIndex": 1,
+                "focus": "Reported Speech (Future in the past)",
+                "explanation": "La domanda al futuro ('Will it be ready?') nel discorso indiretto introdotto da 'asked' fa un passo indietro: 'will' diventa 'would'."
+            },
+            {
+                "id": 6,
+                "options": [
+                    "are edited",
+                    "edit",
+                    "are being edited",
+                    "have edited"
+                ],
+                "correctIndex": 2,
+                "focus": "Present Continuous Passive",
+                "explanation": "L'espressione 'Right now' colloca l'azione nel presente in corso di svolgimento. Le registrazioni subiscono l'editing (forma passiva progressiva)."
+            },
+            {
+                "id": 7,
+                "options": [
+                    "must",
+                    "ought",
+                    "had better to",
+                    "allowed to"
+                ],
+                "correctIndex": 0,
+                "focus": "Modals of obligation",
+                "explanation": "Si usa 'must' per un forte obbligo o intenzione proiettata al futuro. 'Ought', 'had better' (che non vuole il 'to') e 'allowed' presentano qui errori grammaticali."
+            },
+            {
+                "id": 8,
+                "options": [
+                    "used to manage",
+                    "am used to managing",
+                    "am used to manage",
+                    "use to managing"
+                ],
+                "correctIndex": 1,
+                "focus": "'Be used to' + gerund",
+                "explanation": "L'essere abituati a fare qualcosa in generale si esprime con 'be used to' + verbo in -ing. Qui il verbo 'be' è al presente."
+            },
+            {
+                "id": 9,
+                "options": [
+                    "will export",
+                    "are exporting",
+                    "would export",
+                    "will have exported"
+                ],
+                "correctIndex": 3,
+                "focus": "Future Perfect",
+                "explanation": "'By next Friday' segna una data nel futuro in cui il lavoro di esportazione sarà ormai ultimato. Serve il Future Perfect."
+            },
+            {
+                "id": 10,
+                "options": [
+                    "share",
+                    "sharing",
+                    "to share",
+                    "shared"
+                ],
+                "correctIndex": 1,
+                "focus": "'Look forward to' + gerund",
+                "explanation": "Regola ferrea: dopo 'look forward to' ci vuole sempre un sostantivo oppure il gerundio (-ing) del verbo."
+            }
+        ]
     }
 ]
