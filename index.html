@@ -4,14 +4,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>English Fill-in-the-Blanks</title>
+    <title>English CLA Simulator</title>
     <link rel="stylesheet" href="css/style.css">
+    <style>
+        .blank-select {
+            margin: 0 5px;
+            padding: 2px 5px;
+            font-size: 1rem;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            background-color: #f9f9f9;
+        }
+
+        .feedback-section {
+            margin-top: 30px;
+            padding: 15px;
+            background-color: #f0f8ff;
+            border-left: 5px solid #0066cc;
+            border-radius: 4px;
+        }
+
+        .feedback-item {
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #dcdcdc;
+        }
+
+        .feedback-item:last-child {
+            border-bottom: none;
+        }
+
+        .action-container {
+            margin-top: 15px;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+    </style>
 </head>
 
 <body>
     <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">🌙</button>
 
-    <!-- Timer Overlay -->
     <div id="timerOverlay" class="timer-overlay">
         <div class="timer-display">
             <div class="timer-label">TIMER</div>
@@ -27,7 +61,6 @@
         </div>
     </div>
 
-    <!-- Statistics Panel -->
     <div id="statsPanel" class="stats-panel">
         <div class="stats-header">
             <h3>📊 Statistics</h3>
@@ -57,87 +90,50 @@
     </div>
 
     <div class="container">
-        <h1><span class="title-emoji">📚</span> English Fill-in-the-Blanks</h1>
+        <h1><span class="title-emoji">🎓</span> CLA English Simulator</h1>
 
         <div id="controlsPanel" class="controls">
-            <h3>Settings</h3>
-            <div class="dropdown-container">
-                <label for="difficultySelect">Exercise Difficulty:</label>
-                <select id="difficultySelect">
-                    <option value="all">Any Difficulty</option>
-                    <option value="beginner">Beginner</option>
-                    <option value="intermediate">Intermediate</option>
-                    <option value="advanced">Advanced</option>
-                </select>
-                <button id="getNewTestBtn">Get <strong>New</strong> and <strong>Remove Words</strong></button>
-                <button id="getPartialTestBtn">Get <strong>New</strong> and <strong>Remove Letters</strong></button>
+            <h3>Test Setup</h3>
+            <div class="action-container">
+                <button id="getNewTestBtn" style="font-size: 1.1rem; padding: 10px 20px;">Genera Nuovo Test</button>
+                <button id="clearBlanksBtn" style="font-size: 1.1rem; padding: 10px 20px;">Resetta Test
+                    Corrente</button>
             </div>
-            <hr>
-            <div class="slider-container">
-                <label for="blankSlider">Percentage of Blanks:</label>
-                <div class="slider-wrapper">
-                    <input type="range" id="blankSlider" step="5">
-                    <div class="slider-tooltip"></div>
-                </div>
-            </div>
-            <div class="toggle-container">
-                <label class="toggle-switch">
-                    <input type="checkbox" id="includeRandomWords">
-                    <span class="toggle-slider"></span>
-                </label>
-                <span class="toggle-label">Include extra words for difficulty</span>
-            </div>
-            <div class="slider-container extra-words-slider" id="extraWordsSliderContainer" style="display: none;">
-                <label for="extraWordsSlider">Number of Extra Words:</label>
-                <div class="slider-wrapper">
-                    <input type="range" id="extraWordsSlider" min="0" max="2" step="0.1" value="0.5">
-                    <div class="slider-tooltip"></div>
-                </div>
-            </div>
-            <hr>
-            <button id="reblankTextBtn">Re-blank Same Text (Remove Words)</button>
-            <button id="reblankPartialBtn">Re-blank Same Text (Remove Letters)</button>
-            <button id="clearBlanksBtn">Clear Blanks</button>
         </div>
 
         <div id="resultsPanel" style="display: none;" class="results">
             <h2>Your Score: <span id="scoreDisplay">0</span> / <span id="totalDisplay">0</span></h2>
-            <p>Review your answers below:</p>
+
             <div class="exercise-text">
-                <h2 id="resultsTitle"></h2>
-                <div id="resultsContent"></div>
+                <h3 id="resultsTitle"></h3>
+                <p id="resultsTextDisplay" style="line-height: 2;"></p>
             </div>
-            <div class="original-text">
-                <h3>Original Text:</h3>
-                <p id="originalTextDisplay"></p>
+
+            <div id="feedbackContainer" class="feedback-section">
+                <h3>📖 Explanations & Grammar Focus</h3>
+                <div id="feedbackList"></div>
             </div>
-            <button id="backToExerciseBtn">Back to Exercise</button>
+
+            <button id="backToExerciseBtn" style="margin-top: 20px;">Try Another Test</button>
         </div>
 
         <div id="exercisePanel">
             <form id="exerciseForm">
-
-                <div class="word-bank">
-                    <h3>Word Bank</h3>
-                    <div class="word-bank-items" id="wordBankContainer">
-                        <p style="color: #888;">Words will appear here after you get a test.</p>
-                    </div>
-                </div>
-
                 <div class="exercise-text">
                     <h3 id="exerciseTitle" style="display: none;"></h3>
-                    <div id="exerciseTextContainer">
+                    <div id="exerciseTextContainer" style="line-height: 2.2;">
                         <div class="empty-state">
-                            <p>Click "Remove Words" or "Remove Letters" to start an exercise.</p>
+                            <p>Clicca "Genera Nuovo Test" per avviare la simulazione CLA.</p>
                         </div>
                     </div>
                 </div>
 
                 <div class="button-group">
-                    <button type="submit">Check Answers</button>
+                    <button type="submit" id="submitBtn" disabled>Controlla Risposte</button>
                 </div>
             </form>
         </div>
+
         <footer class="page-footer">
             <p>&copy; 2026 Enrico Fraccaroli. Contact: <a href="mailto:enry.frak@gmail.com">enry.frak@gmail.com</a></p>
         </footer>

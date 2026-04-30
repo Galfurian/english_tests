@@ -1,0 +1,126 @@
+{
+    "title": "A Job Interview",
+    "text": "Preparing for a job interview requires careful research and a lot of practice. Recently, I [GAP_1] for a new position in marketing, which has been quite a demanding process. Before my last interview, I made sure I [GAP_2] the company's background thoroughly. Experts say that candidates [GAP_3] to know the company's core values. During the interview, the manager asked me what my greatest strengths [GAP_4], which made me a bit nervous at first. I answered confidently because I had practiced my responses. If I hadn't prepared so well, I [GAP_5] when they asked about my weaknesses. Another important aspect is body language; you [GAP_6] maintain eye contact to show confidence. The interviewer also asked if I [GAP_7] under pressure. I explained that in my previous job, dealing with tight deadlines was normal. Towards the end, they asked if I had any questions. Asking thoughtful questions demonstrates genuine interest in the role. Finally, they told me that they [GAP_8] their decision by Friday. I am really looking forward to [GAP_9] from them. Even if I don't get the job, by the end of this week, the experience [GAP_10] me valuable practice for future opportunities.",
+    "gaps": [
+        {
+            "id": 1,
+            "options": [
+                "have been looking",
+                "was looking",
+                "look",
+                "had looked"
+            ],
+            "correctIndex": 0,
+            "focus": "Present Perfect Continuous vs Past Continuous",
+            "explanation": "L'uso di 'recently' e il fatto che l'azione sia iniziata nel passato e sia ancora in corso o abbia forti legami con il presente richiede il Present Perfect Continuous. 'Was looking' indica un'azione circoscritta interamente nel passato."
+        },
+        {
+            "id": 2,
+            "options": [
+                "researched",
+                "have researched",
+                "had researched",
+                "was researching"
+            ],
+            "correctIndex": 2,
+            "focus": "Past Perfect vs Past Simple",
+            "explanation": "Si usa il Past Perfect ('had researched') per sottolineare che un'azione nel passato (la ricerca) è avvenuta prima di un'altra azione anch'essa passata (il colloquio di lavoro)."
+        },
+        {
+            "id": 3,
+            "options": [
+                "are expecting",
+                "expect",
+                "have expected",
+                "are expected"
+            ],
+            "correctIndex": 3,
+            "focus": "Passive Voice",
+            "explanation": "Si tratta di una costruzione passiva (Passive Voice). I candidati non 'aspettano' qualcosa, ma 'ci si aspetta che' loro sappiano i valori dell'azienda, quindi la forma corretta è il passivo 'are expected'."
+        },
+        {
+            "id": 4,
+            "options": [
+                "are",
+                "were",
+                "have been",
+                "will be"
+            ],
+            "correctIndex": 1,
+            "focus": "Reported Speech (Tense backshift)",
+            "explanation": "Nel discorso indiretto (Reported Speech), se il verbo principale è al passato ('asked'), il tempo verbale della domanda riportata fa un 'passo indietro' (backshift). Il presente 'are' diventa il passato 'were'."
+        },
+        {
+            "id": 5,
+            "options": [
+                "would panic",
+                "will panic",
+                "panicked",
+                "would have panicked"
+            ],
+            "correctIndex": 3,
+            "focus": "Third Conditional",
+            "explanation": "È un periodo ipotetico del terzo tipo (Third Conditional), usato per immaginare un passato diverso dalla realtà ('If I hadn't prepared'). La conseguenza passata richiede 'would have' + participio passato."
+        },
+        {
+            "id": 6,
+            "options": [
+                "should",
+                "ought",
+                "better",
+                "need"
+            ],
+            "correctIndex": 0,
+            "focus": "Modals of advice/obligation",
+            "explanation": "'Should' è un verbo modale seguito dalla forma base senza 'to' per dare un consiglio. 'Ought' e 'need' richiederebbero il 'to' ('ought to', 'need to'), mentre 'better' si usa nella forma 'had better'."
+        },
+        {
+            "id": 7,
+            "options": [
+                "used to work",
+                "was used to working",
+                "am used to work",
+                "was used to work"
+            ],
+            "correctIndex": 1,
+            "focus": "'Be used to' + gerund",
+            "explanation": "L'espressione 'be used to' (essere abituato a) richiede sempre un sostantivo o un verbo al gerundio (forma in -ing). Poiché il racconto è al passato, la forma corretta è 'was used to working'."
+        },
+        {
+            "id": 8,
+            "options": [
+                "will make",
+                "made",
+                "would make",
+                "make"
+            ],
+            "correctIndex": 2,
+            "focus": "Reported Speech (Future in the past)",
+            "explanation": "Nel discorso indiretto, una frase originariamente al futuro con 'will' si trasforma nel condizionale passato con 'would', poiché il verbo che introduce il discorso ('told me') è al passato."
+        },
+        {
+            "id": 9,
+            "options": [
+                "hear",
+                "hearing",
+                "be hearing",
+                "heard"
+            ],
+            "correctIndex": 1,
+            "focus": "Gerund after prepositions ('look forward to')",
+            "explanation": "L'espressione 'look forward to' (non vedere l'ora di) è un'eccezione importante: il 'to' funge da preposizione, non da particella dell'infinito, quindi il verbo successivo deve essere al gerundio (-ing)."
+        },
+        {
+            "id": 10,
+            "options": [
+                "will give",
+                "will be giving",
+                "will have given",
+                "would give"
+            ],
+            "correctIndex": 2,
+            "focus": "Future Perfect",
+            "explanation": "Il Future Perfect ('will have' + participio passato) si usa per descrivere un'azione o una situazione che sarà sicuramente completata o raggiunta entro un preciso momento futuro ('by the end of this week')."
+        }
+    ]
+}
