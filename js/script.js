@@ -214,11 +214,19 @@ function renderExercise() {
     if (!currentState.exercise) return;
 
     const titleEl = document.getElementById('exerciseTitle');
+    const headingRowEl = document.getElementById('exerciseHeadingRow');
+    const idEl = document.getElementById('exerciseId');
     const container = document.getElementById('exerciseTextContainer');
     const submitBtn = document.getElementById('submitBtn');
 
     titleEl.textContent = currentState.exercise.title;
-    titleEl.style.display = 'block';
+    headingRowEl.style.display = 'flex';
+    if (currentState.exercise.exerciseId) {
+        idEl.textContent = `EXERCISE ID ${currentState.exercise.exerciseId}`;
+        idEl.style.display = 'inline-flex';
+    } else {
+        idEl.style.display = 'none';
+    }
 
     let htmlText = currentState.exercise.text;
 
@@ -284,7 +292,15 @@ function checkAnswers(e) {
 function showResults(resultsData, score, totalBlanks) {
     document.getElementById('scoreDisplay').textContent = score;
     document.getElementById('totalDisplay').textContent = totalBlanks;
-    document.getElementById('resultsTitle').textContent = currentState.exercise.title;
+    const resultsTitleEl = document.getElementById('resultsTitle');
+    const resultsIdEl = document.getElementById('resultsExerciseId');
+    resultsTitleEl.textContent = currentState.exercise.title;
+    if (currentState.exercise.exerciseId) {
+        resultsIdEl.textContent = `EXERCISE ID ${currentState.exercise.exerciseId}`;
+        resultsIdEl.style.display = 'inline-flex';
+    } else {
+        resultsIdEl.style.display = 'none';
+    }
 
     let htmlText = currentState.exercise.text;
     let feedbackHtml = '';
