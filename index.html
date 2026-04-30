@@ -64,6 +64,27 @@
                 <button id="clearBlanksBtn" style="font-size: 1.1rem; padding: 10px 20px;">Resetta Test
                     Corrente</button>
             </div>
+            <div class="exercise-manager-trigger-row">
+                <button id="toggleExerciseManagerBtn" type="button">Gestisci Esercizi</button>
+                <span id="exercisePoolInfo" class="exercise-pool-info"></span>
+            </div>
+            <div id="exerciseManagerPanel" class="exercise-manager-panel collapsed">
+                <div class="exercise-manager-header">
+                    <h4>Elenco Esercizi</h4>
+                    <div class="exercise-manager-header-actions">
+                        <button id="reactivateAllBtn" type="button">Riattiva Tutti</button>
+                        <button id="resetExerciseStateBtn" type="button">Azzera Stato Esercizi</button>
+                    </div>
+                </div>
+                <div class="exercise-manager-columns">
+                    <span>ID</span>
+                    <span>Titolo</span>
+                    <span>Status</span>
+                    <span>Attivo</span>
+                    <span>Azione</span>
+                </div>
+                <div id="exerciseManagerList" class="exercise-manager-list"></div>
+            </div>
         </div>
 
         <div id="resultsPanel" style="display: none;" class="results">

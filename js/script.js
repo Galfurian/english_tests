@@ -16,6 +16,150 @@ let currentState = {
     isLoadingExercises: false
 };
 
+let exercisesState = {
+    disabledIds: [],
+    progressById: {}
+};
+
+function loadExercisesState() {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return;
+    try {
+        const parsed = JSON.parse(raw);
+        exercisesState = {
+            disabledIds: Array.isArray(parsed.disabledIds) ? parsed.disabledIds : [],
+            progressById: parsed.progressById || {}
+        };
+    } catch (error) {
+        console.warn('[WARN] Impossibile leggere lo stato esercizi:', error);
+    }
+}
+
+function saveExercisesState() {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(exercisesState));
+}
+
+function getExerciseKey(exercise) {
+    return exercise.exerciseId ? String(exercise.exerciseId) : exercise.title;
+}
+
+function isExerciseDisabled(exercise) {
+    return exercisesState.disabledIds.includes(getExerciseKey(exercise));
+}
+
+function getExerciseProgress(exercise) {
+    return exercisesState.progressById[getExerciseKey(exercise)] || null;
+}
+
+function markExerciseCompleted(exercise, score, totalBlanks) {
+    const key = getExerciseKey(exercise);
+    exercisesState.progressById[key] = {
+        lastScore: score,
+        lastTotal: totalBlanks
+    };
+
+    if (!exercisesState.disabledIds.includes(key)) {
+        exercisesState.disabledIds.push(key);
+    }
+
+    saveExercisesState();
+}
+
+function renderExerciseManager() {
+    const list = document.getElementById('exerciseManagerList');
+    const poolInfo = document.getElementById('exercisePoolInfo');
+    if (!list || !poolInfo) return;
+
+    const enabled = exercisesData.filter(ex => !isExerciseDisabled(ex));
+    const notDoneEnabled = enabled.filter(ex => !getExerciseProgress(ex));
+    poolInfo.textContent = `Disponibili: ${notDoneEnabled.length}/${enabled.length} nuovi (${exercisesData.length} totali)`;
+
+    list.innerHTML = '';
+
+    exercisesData.forEach(exercise => {
+        const key = getExerciseKey(exercise);
+        const progress = getExerciseProgress(exercise);
+        const disabled = isExerciseDisabled(exercise);
+        const item = document.createElement('div');
+        item.className = 'exercise-manager-item';
+
+        const main = document.createElement('div');
+        main.className = 'exercise-manager-main';
+
+        const idCol = document.createElement('div');
+        idCol.className = 'exercise-manager-id';
+        idCol.textContent = `ID ${exercise.exerciseId || '-'}`;
+        main.appendChild(idCol);
+
+        const title = document.createElement('div');
+        title.className = 'exercise-manager-title';
+        title.textContent = exercise.title;
+        main.appendChild(title);
+
+        const status = document.createElement('div');
+        status.className = 'exercise-manager-summary';
+        if (progress) {
+            status.textContent = `Svolto (${progress.lastScore}/${progress.lastTotal})`;
+        } else {
+            status.textContent = 'Mai svolto';
+        }
+        main.appendChild(status);
+
+        const toggleWrap = document.createElement('div');
+        toggleWrap.className = 'exercise-toggle-wrap';
+
+        const toggleLabel = document.createElement('label');
+        toggleLabel.className = 'exercise-toggle';
+        const toggle = document.createElement('input');
+        toggle.type = 'checkbox';
+        toggle.checked = !disabled;
+        toggle.addEventListener('change', () => {
+            if (toggle.checked) {
+                exercisesState.disabledIds = exercisesState.disabledIds.filter(id => id !== key);
+            } else if (!exercisesState.disabledIds.includes(key)) {
+                exercisesState.disabledIds.push(key);
+            }
+            saveExercisesState();
+            renderExerciseManager();
+        });
+        toggleLabel.appendChild(toggle);
+        toggleLabel.appendChild(document.createTextNode(''));
+
+        toggleWrap.appendChild(toggleLabel);
+
+        const actions = document.createElement('div');
+        actions.className = 'exercise-manager-actions';
+
+        const retryBtn = document.createElement('button');
+        retryBtn.type = 'button';
+        retryBtn.className = 'retry-btn';
+        retryBtn.textContent = progress ? 'Rifai' : 'Apri';
+        retryBtn.disabled = disabled;
+        retryBtn.addEventListener('click', () => {
+            currentState.exercise = exercise;
+            renderExercise();
+            document.getElementById('resultsPanel').style.display = 'none';
+            document.getElementById('exercisePanel').style.display = 'block';
+        });
+
+        actions.appendChild(retryBtn);
+
+        item.appendChild(main);
+    item.appendChild(toggleWrap);
+        item.appendChild(actions);
+
+        list.appendChild(item);
+    });
+}
+
+function toggleExerciseManagerPanel() {
+    const panel = document.getElementById('exerciseManagerPanel');
+    panel.classList.toggle('collapsed');
+    if (!panel.classList.contains('collapsed')) {
+        renderExerciseManager();
+    }
+}
+
 // =========================================================================
 // STATISTICS SYSTEM
 // =========================================================================
@@ -166,8 +310,14 @@ async function loadExercises() {
         }
 
         exercisesData = await res.json();
+        exercisesData.forEach((exercise, index) => {
+            if (!exercise.exerciseId) {
+                exercise.exerciseId = index + 1;
+            }
+        });
         console.log('[DEBUG] Esercizi caricati:', exercisesData.length, 'esercizi');
         console.log('[DEBUG] Primo esercizio:', exercisesData[0]);
+        renderExerciseManager();
 
     } catch (error) {
         console.error('[ERROR] Errore nel caricamento degli esercizi:', error);
@@ -181,7 +331,12 @@ async function loadExercises() {
 
 function getRandomExercise() {
     console.log('[DEBUG] getRandomExercise() - Totale esercizi disponibili:', exercisesData.length);
-    return exercisesData.length > 0 ? exercisesData[Math.floor(Math.random() * exercisesData.length)] : null;
+    const enabledExercises = exercisesData.filter(exercise => !isExerciseDisabled(exercise));
+    if (enabledExercises.length === 0) return null;
+
+    const unseenEnabled = enabledExercises.filter(exercise => !getExerciseProgress(exercise));
+    const pool = unseenEnabled.length > 0 ? unseenEnabled : enabledExercises;
+    return pool[Math.floor(Math.random() * pool.length)];
 }
 
 function generateNewTest() {
@@ -197,7 +352,12 @@ function generateNewTest() {
 
     if (!exercise) {
         console.warn('[WARN] Nessun esercizio disponibile');
-        alert('Nessun esercizio disponibile nel file JSON.');
+        const enabledExercises = exercisesData.filter(item => !isExerciseDisabled(item));
+        if (enabledExercises.length === 0) {
+            alert('Tutti gli esercizi sono disattivati. Apri "Gestisci Esercizi" e riattivane almeno uno.');
+        } else {
+            alert('Hai gia completato tutti gli esercizi attivi almeno una volta. Usa "Gestisci Esercizi" per rifarli o disattivarli/riattivarli.');
+        }
         return;
     }
 
@@ -286,6 +446,8 @@ function checkAnswers(e) {
     });
 
     updateStatsAfterExercise(score, totalBlanks);
+    markExerciseCompleted(currentState.exercise, score, totalBlanks);
+    renderExerciseManager();
     showResults(resultsData, score, totalBlanks);
 }
 
@@ -349,6 +511,21 @@ document.getElementById('resetStatsBtn').addEventListener('click', resetStats);
 document.getElementById('getNewTestBtn').addEventListener('click', generateNewTest);
 document.getElementById('clearBlanksBtn').addEventListener('click', clearBlanks);
 document.getElementById('exerciseForm').addEventListener('submit', checkAnswers);
+document.getElementById('toggleExerciseManagerBtn').addEventListener('click', toggleExerciseManagerPanel);
+document.getElementById('reactivateAllBtn').addEventListener('click', () => {
+    exercisesState.disabledIds = [];
+    saveExercisesState();
+    renderExerciseManager();
+});
+document.getElementById('resetExerciseStateBtn').addEventListener('click', () => {
+    if (!confirm('Vuoi azzerare stato e punteggi di tutti gli esercizi?')) return;
+    exercisesState = {
+        disabledIds: [],
+        progressById: {}
+    };
+    saveExercisesState();
+    renderExerciseManager();
+});
 
 document.getElementById('backToExerciseBtn').addEventListener('click', () => {
     document.getElementById('exercisePanel').style.display = 'none';
@@ -361,6 +538,7 @@ async function initialize() {
     console.log('[DEBUG] URL della pagina:', window.location.href);
     loadTheme();
     loadStats();
+    loadExercisesState();
     updateTimerDisplay();
     updateTimerButtons();
     console.log('[DEBUG] Avvio caricamento esercizi...');
