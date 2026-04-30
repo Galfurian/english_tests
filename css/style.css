@@ -188,7 +188,7 @@ body.light-theme .dropdown-container select {
     color: var(--text-primary);
 }
 
-/* Nuova classe per i dropdown nel testo (CLA style) */
+/* Nuova classe per i dropdown nel testo */
 .blank-select {
     margin: 0 5px;
     padding: 2px 5px;
@@ -287,6 +287,34 @@ body.light-theme .blank-select {
 .exercise-text h3 {
     margin: 0px 0 10px;
     border-bottom: 2px solid var(--border-color);
+}
+
+.exercise-heading-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin: 0 0 10px;
+    border-bottom: 2px solid var(--border-color);
+}
+
+.exercise-heading-row h3 {
+    margin: 0;
+    border-bottom: none;
+}
+
+.exercise-id-chip {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3px 8px;
+    border-radius: 999px;
+    border: 1px solid var(--border-color);
+    background-color: var(--input-bg);
+    color: var(--text-primary);
+    font-size: 0.85rem;
+    font-weight: 600;
+    white-space: nowrap;
 }
 
 form {

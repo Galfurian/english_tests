@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>English CLA Simulator</title>
+    <title>English Test Simulator</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 
@@ -55,7 +55,7 @@
     </div>
 
     <div class="container">
-        <h1><span class="title-emoji">🎓</span> CLA English Simulator</h1>
+        <h1><span class="title-emoji">🎓</span> English Test Simulator</h1>
 
         <div id="controlsPanel" class="controls">
             <h3>Test Setup</h3>
@@ -70,7 +70,10 @@
             <h2>Your Score: <span id="scoreDisplay">0</span> / <span id="totalDisplay">0</span></h2>
 
             <div class="exercise-text">
-                <h3 id="resultsTitle"></h3>
+                <div class="exercise-heading-row">
+                    <h3 id="resultsTitle"></h3>
+                    <span id="resultsExerciseId" class="exercise-id-chip" style="display: none;"></span>
+                </div>
                 <p id="resultsTextDisplay" style="line-height: 2;"></p>
             </div>
 
@@ -85,7 +88,10 @@
         <div id="exercisePanel">
             <form id="exerciseForm">
                 <div class="exercise-text">
-                    <h3 id="exerciseTitle" style="display: none;"></h3>
+                    <div class="exercise-heading-row" style="display: none;" id="exerciseHeadingRow">
+                        <h3 id="exerciseTitle"></h3>
+                        <span id="exerciseId" class="exercise-id-chip" style="display: none;"></span>
+                    </div>
                     <div id="exerciseTextContainer" style="line-height: 2.2;">
                         <div class="empty-state">
                             <p>Clicca "Genera Nuovo Test" per avviare la simulazione CLA.</p>
