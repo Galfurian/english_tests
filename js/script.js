@@ -306,7 +306,7 @@ function showResults(resultsData, score, totalBlanks) {
                 <strong>Gap ${gap.id}:</strong> 
                 ${res.isCorrect ? '✅ Corretto' : '❌ Errato'} <br>
                 <em>Regola:</em> ${res.focus} <br>
-                <p style="margin: 5px 0 0 0; color: #555;">💡 <em>${res.explanation}</em></p>
+                <p style="margin: 5px 0 0 0; color: var(--text-primary);">💡 <em>${res.explanation}</em></p>
             </div>
         `;
     });

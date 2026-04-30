@@ -165,6 +165,11 @@ hr {
     transition: all 0.3s ease;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     font-weight: 500;
+    color-scheme: dark;
+}
+
+body.light-theme .dropdown-container select {
+    color-scheme: light;
 }
 
 .dropdown-container select:hover {
@@ -194,6 +199,11 @@ hr {
     color: var(--text-primary);
     cursor: pointer;
     transition: all 0.3s ease;
+    color-scheme: dark;
+}
+
+body.light-theme .blank-select {
+    color-scheme: light;
 }
 
 .blank-select:focus {
