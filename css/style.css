@@ -203,13 +203,19 @@ hr {
     background-color: var(--input-focus);
 }
 
+.blank-select option {
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+    padding: 4px 8px;
+}
+
 .results {
     margin-top: 20px;
     padding: 20px;
-    border: 2px solid #0066cc;
-    background: linear-gradient(135deg, rgba(0, 102, 204, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+    border: 2px solid var(--highlight-color);
+    background-color: var(--bg-secondary);
     border-radius: 12px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 6px var(--shadow);
 }
 
 .results h2 {

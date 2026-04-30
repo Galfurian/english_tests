@@ -754,5 +754,635 @@
                 "explanation": "L'espressione 'By the end of this year' traccia un limite nel futuro. Il Future Perfect indica che l'azione terminerà entro quella data certa."
             }
         ]
+    },
+    {
+        "title": "A New Diet",
+        "text": "Last year, I decided to change my lifestyle completely. Before I [GAP_1] this new diet, I had eaten fast food almost every day. My doctor warned me that I [GAP_2] serious health issues if I didn't change my habits immediately. She strongly suggested [GAP_3] meals at home using fresh ingredients. At first, I [GAP_4] so many vegetables, and I really missed my old routine. If I hadn't found some delicious recipes online, I [GAP_5] immediately. Now, healthy and organic food [GAP_6] in many local supermarkets, which makes things much easier for me. The nutritionist asked me how I [GAP_7] after the first month. I told her I had much more energy. By the end of this year, I [GAP_8] over ten kilograms. My friends [GAP_9] me on my progress lately, which is very motivating. I am really looking forward to [GAP_10] new clothes soon to celebrate my hard work.",
+        "gaps": [
+            {
+                "id": 1,
+                "options": [
+                    "started",
+                    "had started",
+                    "was starting",
+                    "have started"
+                ],
+                "correctIndex": 0,
+                "focus": "Past Simple vs Past Perfect",
+                "explanation": "L'azione di iniziare la dieta è successiva all'aver mangiato fast food (che è al Past Perfect). Per l'azione successiva nel passato si usa il Past Simple."
+            },
+            {
+                "id": 2,
+                "options": [
+                    "will develop",
+                    "developed",
+                    "would develop",
+                    "have developed"
+                ],
+                "correctIndex": 2,
+                "focus": "Reported Speech (Future in the past)",
+                "explanation": "L'avvertimento originale era 'You will develop...'. Nel discorso indiretto introdotto da un verbo al passato ('warned'), 'will' diventa 'would'."
+            },
+            {
+                "id": 3,
+                "options": [
+                    "to cook",
+                    "cooking",
+                    "cook",
+                    "for cooking"
+                ],
+                "correctIndex": 1,
+                "focus": "Verb + gerund (suggest)",
+                "explanation": "Il verbo 'suggest' seguito direttamente dal verbo dell'azione richiede la forma in -ing (gerundio), non l'infinito."
+            },
+            {
+                "id": 4,
+                "options": [
+                    "didn't use to eat",
+                    "wasn't used to eating",
+                    "am not used to eating",
+                    "used not to eat"
+                ],
+                "correctIndex": 1,
+                "focus": "'Be used to' + gerund (in the past)",
+                "explanation": "Il narratore descrive la mancanza di abitudine in un momento passato ('At first'). 'Wasn't used to' seguito da gerundio esprime questo concetto."
+            },
+            {
+                "id": 5,
+                "options": [
+                    "would give up",
+                    "will give up",
+                    "gave up",
+                    "would have given up"
+                ],
+                "correctIndex": 3,
+                "focus": "Third Conditional",
+                "explanation": "Periodo ipotetico del terzo tipo per un'azione passata che non si è verificata ('If I hadn't found...'). La conseguenza irreale al passato richiede 'would have' + participio passato."
+            },
+            {
+                "id": 6,
+                "options": [
+                    "sells",
+                    "is sold",
+                    "was sold",
+                    "has sold"
+                ],
+                "correctIndex": 1,
+                "focus": "Present Simple Passive",
+                "explanation": "Il cibo non vende, ma 'è venduto' (passivo). L'avverbio 'Now' ci indica che l'azione avviene nel presente."
+            },
+            {
+                "id": 7,
+                "options": [
+                    "feel",
+                    "was feeling",
+                    "will feel",
+                    "am feeling"
+                ],
+                "correctIndex": 1,
+                "focus": "Reported Speech (Tense backshift)",
+                "explanation": "La domanda diretta originale ('How are you feeling?') fa un passo indietro nel discorso indiretto introdotto da 'asked', diventando Past Continuous."
+            },
+            {
+                "id": 8,
+                "options": [
+                    "will lose",
+                    "would lose",
+                    "will have lost",
+                    "am losing"
+                ],
+                "correctIndex": 2,
+                "focus": "Future Perfect",
+                "explanation": "L'espressione 'By the end of this year' indica un momento futuro in cui un'azione sarà già conclusa, richiedendo il Future Perfect ('will have' + participio)."
+            },
+            {
+                "id": 9,
+                "options": [
+                    "congratulate",
+                    "are congratulating",
+                    "have been congratulating",
+                    "congratulated"
+                ],
+                "correctIndex": 2,
+                "focus": "Present Perfect Continuous",
+                "explanation": "L'avverbio 'lately' (ultimamente) suggerisce un'azione iniziata di recente nel passato e che continua a ripetersi fino al presente, richiedendo il Present Perfect Continuous."
+            },
+            {
+                "id": 10,
+                "options": [
+                    "buy",
+                    "to buy",
+                    "buying",
+                    "be buying"
+                ],
+                "correctIndex": 2,
+                "focus": "'Look forward to' + gerund",
+                "explanation": "Dopo il phrasal verb 'look forward to' il verbo successivo deve essere sempre coniugato al gerundio (-ing)."
+            }
+        ]
+    },
+    {
+        "title": "The Business Trip",
+        "text": "My boss recently informed me that I [GAP_1] for an important conference in London. While I [GAP_2] my suitcase the night before the flight, I realized my passport was missing. I vividly remembered [GAP_3] it in my office drawer the previous week. If I hadn't found it just in time, I [GAP_4] to travel. At the airport, we were told that the flight [GAP_5] due to heavy rain. An angry passenger asked the staff if they [GAP_6] food vouchers. The staff apologized and said we [GAP_7] wait patiently for further announcements. By the time we finally arrived at the conference center, the first presentation [GAP_8]. Next time, I [GAP_9] my trip a day earlier to avoid this level of stress. Honestly, I am not used to [GAP_10] with such disorganized and chaotic situations.",
+        "gaps": [
+            {
+                "id": 1,
+                "options": [
+                    "had chosen",
+                    "chose",
+                    "had been chosen",
+                    "was choosing"
+                ],
+                "correctIndex": 2,
+                "focus": "Past Perfect Passive",
+                "explanation": "Il narratore subisce l'azione (è stato scelto), quindi serve il passivo. L'azione è avvenuta prima dell'informazione ('informed'), quindi richiede il Past Perfect Passive."
+            },
+            {
+                "id": 2,
+                "options": [
+                    "packed",
+                    "was packing",
+                    "had packed",
+                    "have packed"
+                ],
+                "correctIndex": 1,
+                "focus": "Past Continuous",
+                "explanation": "'While' introduce un'azione prolungata che era in corso nel passato (fare la valigia), che viene interrotta da un evento breve (rendersi conto, 'realized')."
+            },
+            {
+                "id": 3,
+                "options": [
+                    "to leave",
+                    "leave",
+                    "leaving",
+                    "left"
+                ],
+                "correctIndex": 2,
+                "focus": "Verb + gerund vs infinitive (remember)",
+                "explanation": "Il verbo 'remember' seguito dalla forma in -ing significa ricordare un'azione già fatta nel passato (ricordo di averlo lasciato)."
+            },
+            {
+                "id": 4,
+                "options": [
+                    "won't be able",
+                    "wouldn't be able",
+                    "wouldn't have been able",
+                    "wasn't able"
+                ],
+                "correctIndex": 2,
+                "focus": "Third Conditional",
+                "explanation": "La condizione ('If I hadn't found it') è irreale e riferita al passato. La conseguenza passata richiede 'would have' + participio (been able)."
+            },
+            {
+                "id": 5,
+                "options": [
+                    "delayed",
+                    "is delayed",
+                    "has delayed",
+                    "had been delayed"
+                ],
+                "correctIndex": 3,
+                "focus": "Reported Speech / Past Perfect Passive",
+                "explanation": "Il volo subisce l'azione (passivo) e il ritardo è avvenuto prima dell'annuncio all'aeroporto, richiedendo il Past Perfect Passive."
+            },
+            {
+                "id": 6,
+                "options": [
+                    "can provide",
+                    "will provide",
+                    "could provide",
+                    "provided"
+                ],
+                "correctIndex": 2,
+                "focus": "Reported Speech (Modals)",
+                "explanation": "Nella domanda indiretta riportata al passato ('asked'), il modale 'can' compie un passo indietro e diventa 'could'."
+            },
+            {
+                "id": 7,
+                "options": [
+                    "ought",
+                    "must",
+                    "had to",
+                    "need"
+                ],
+                "correctIndex": 2,
+                "focus": "Reported Speech (Modals of obligation)",
+                "explanation": "Nel discorso indiretto, l'obbligo originale espresso con 'must' o 'have to' diventa 'had to' al passato."
+            },
+            {
+                "id": 8,
+                "options": [
+                    "already finished",
+                    "has already finished",
+                    "was already finishing",
+                    "had already finished"
+                ],
+                "correctIndex": 3,
+                "focus": "Past Perfect",
+                "explanation": "L'espressione 'By the time we arrived' (Quando siamo arrivati) richiede il Past Perfect per indicare che la presentazione era terminata prima di quel momento."
+            },
+            {
+                "id": 9,
+                "options": [
+                    "am booking",
+                    "will book",
+                    "will have booked",
+                    "book"
+                ],
+                "correctIndex": 1,
+                "focus": "Future Simple (Decisions/Promises)",
+                "explanation": "'Will' si usa per esprimere una promessa o una decisione spontanea presa per il futuro riguardo alle proprie abitudini di viaggio."
+            },
+            {
+                "id": 10,
+                "options": [
+                    "deal",
+                    "dealing",
+                    "to deal",
+                    "dealt"
+                ],
+                "correctIndex": 1,
+                "focus": "'Be used to' + gerund",
+                "explanation": "L'espressione 'be used to' richiede sempre un sostantivo o un verbo al gerundio (-ing) poiché il 'to' funge da preposizione."
+            }
+        ]
+    },
+    {
+        "title": "The Group Assignment",
+        "text": "University life often involves challenging teamwork. For the past month, my classmates and I [GAP_1] on a complex marketing project. Our professor told us that the final presentation [GAP_2] by Friday afternoon. Yesterday, my partner asked why I [GAP_3] my section yet. I explained to him that I [GAP_4] trouble finding reliable academic sources. He recommended [GAP_5] the university's online library instead of Google. If he hadn't helped me, I [GAP_6] the assignment. Currently, the final draft [GAP_7] by the whole team to check for errors. We [GAP_8] check all the references carefully before printing the final document. By tomorrow evening, we [GAP_9] everything completely. I am really looking forward to [GAP_10] this weekend after so much hard work and sleepless nights.",
+        "gaps": [
+            {
+                "id": 1,
+                "options": [
+                    "worked",
+                    "are working",
+                    "have been working",
+                    "work"
+                ],
+                "correctIndex": 2,
+                "focus": "Present Perfect Continuous",
+                "explanation": "L'indicatore 'For the past month' indica un'azione iniziata un mese fa e ancora in corso. Il Present Perfect Continuous enfatizza questa durata ininterrotta."
+            },
+            {
+                "id": 2,
+                "options": [
+                    "must submit",
+                    "had to be submitted",
+                    "has submitted",
+                    "submits"
+                ],
+                "correctIndex": 1,
+                "focus": "Reported Speech (Passive Obligation)",
+                "explanation": "Il professore ha dato un ordine al passato ('told'). 'Must be submitted' diventa 'had to be submitted' per il backshift dei tempi verbali e per mantenere la forma passiva."
+            },
+            {
+                "id": 3,
+                "options": [
+                    "didn't finish",
+                    "haven't finished",
+                    "hadn't finished",
+                    "wasn't finishing"
+                ],
+                "correctIndex": 2,
+                "focus": "Reported Speech (Past Perfect)",
+                "explanation": "La domanda originale 'Why haven't you finished?' viene riportata al passato ('asked'). Il Present Perfect diventa Past Perfect ('hadn't finished')."
+            },
+            {
+                "id": 4,
+                "options": [
+                    "have",
+                    "had",
+                    "was having",
+                    "am having"
+                ],
+                "correctIndex": 2,
+                "focus": "Reported Speech (Past Continuous)",
+                "explanation": "Spiegazione di un'azione temporanea in corso nel passato ('I am having trouble' diventa 'I was having trouble' nel discorso indiretto)."
+            },
+            {
+                "id": 5,
+                "options": [
+                    "to use",
+                    "using",
+                    "use",
+                    "for using"
+                ],
+                "correctIndex": 1,
+                "focus": "Verb + gerund (recommend)",
+                "explanation": "Il verbo 'recommend', se seguito direttamente dal verbo dell'azione, richiede obbligatoriamente il gerundio (-ing)."
+            },
+            {
+                "id": 6,
+                "options": [
+                    "would fail",
+                    "will fail",
+                    "failed",
+                    "would have failed"
+                ],
+                "correctIndex": 3,
+                "focus": "Third Conditional",
+                "explanation": "Situazione irreale nel passato. La condizione ('If he hadn't helped') richiede una conseguenza passata irrealizzata espressa con 'would have' + participio."
+            },
+            {
+                "id": 7,
+                "options": [
+                    "is reviewing",
+                    "reviews",
+                    "is being reviewed",
+                    "has reviewed"
+                ],
+                "correctIndex": 2,
+                "focus": "Present Continuous Passive",
+                "explanation": "'Currently' indica un'azione in corso adesso. La bozza (the draft) subisce l'azione della revisione, richiedendo il passivo del Present Continuous."
+            },
+            {
+                "id": 8,
+                "options": [
+                    "ought to",
+                    "should to",
+                    "had better to",
+                    "must to"
+                ],
+                "correctIndex": 0,
+                "focus": "Modals of advice",
+                "explanation": "'Ought to' è l'unico modale corretto in questa lista per esprimere un consiglio forte, in quanto 'should' e 'must' non vogliono il 'to', e 'had better' non vuole il 'to'."
+            },
+            {
+                "id": 9,
+                "options": [
+                    "will finish",
+                    "are finishing",
+                    "will have finished",
+                    "finished"
+                ],
+                "correctIndex": 2,
+                "focus": "Future Perfect",
+                "explanation": "'By tomorrow evening' fissa una scadenza nel futuro. Il Future Perfect descrive un'azione che sarà completata entro quella scadenza."
+            },
+            {
+                "id": 10,
+                "options": [
+                    "celebrate",
+                    "celebrating",
+                    "to celebrate",
+                    "be celebrating"
+                ],
+                "correctIndex": 1,
+                "focus": "'Look forward to' + gerund",
+                "explanation": "La struttura 'look forward to' (non vedere l'ora di) prevede sempre che il verbo successivo termini in -ing."
+            }
+        ]
+    },
+    {
+        "title": "The Stolen Bicycle",
+        "text": "Cycling is a great way to commute, but you have to be careful. Last week, I parked my bike outside the local supermarket. When I came back, I realized it [GAP_1]. I was completely shocked because I [GAP_2] it properly to a metal pole. While I [GAP_3] back home in the rain, I decided to call the police. The officer asked me what color the bicycle [GAP_4] and if it had any specific marks. He told me that many bikes [GAP_5] in that specific area every single day. He strongly advised me [GAP_6] a much stronger lock next time. If I had parked it in a busier street, the thief [GAP_7] it so easily. Since that day, I [GAP_8] the bus to work instead. I am honestly not used to [GAP_9] up so early for public transport. However, by the end of this month, I [GAP_10] enough money to buy a brand new one.",
+        "gaps": [
+            {
+                "id": 1,
+                "options": [
+                    "was stolen",
+                    "had been stolen",
+                    "has been stolen",
+                    "stole"
+                ],
+                "correctIndex": 1,
+                "focus": "Past Perfect Passive",
+                "explanation": "L'azione del furto è avvenuta prima del ritorno al passato ('came back'). Essendo la bici a subire l'azione, serve il passivo del Past Perfect."
+            },
+            {
+                "id": 2,
+                "options": [
+                    "locked",
+                    "was locking",
+                    "have locked",
+                    "had locked"
+                ],
+                "correctIndex": 3,
+                "focus": "Past Perfect",
+                "explanation": "Anche qui, l'azione di legare la bici è avvenuta prima della scoperta del furto. Il Past Perfect indica un'azione antecedente a un'altra azione passata."
+            },
+            {
+                "id": 3,
+                "options": [
+                    "walked",
+                    "had walked",
+                    "was walking",
+                    "have walked"
+                ],
+                "correctIndex": 2,
+                "focus": "Past Continuous",
+                "explanation": "L'uso di 'While' introduce un'azione di sfondo prolungata nel passato (camminare), durante la quale è stata presa una decisione (chiamare la polizia)."
+            },
+            {
+                "id": 4,
+                "options": [
+                    "is",
+                    "was",
+                    "had been",
+                    "has been"
+                ],
+                "correctIndex": 1,
+                "focus": "Reported Speech",
+                "explanation": "Nella domanda indiretta introdotta dal passato ('asked'), il verbo presente ('What color is it?') passa al passato ('was')."
+            },
+            {
+                "id": 5,
+                "options": [
+                    "are stolen",
+                    "were stolen",
+                    "have been stolen",
+                    "had been stolen"
+                ],
+                "correctIndex": 0,
+                "focus": "Present Simple Passive",
+                "explanation": "L'espressione 'every single day' indica un'abitudine o un fatto generale e ricorrente. Si usa quindi il Present Simple nella forma passiva."
+            },
+            {
+                "id": 6,
+                "options": [
+                    "buying",
+                    "buy",
+                    "to buy",
+                    "for buying"
+                ],
+                "correctIndex": 2,
+                "focus": "Verb + object + infinitive (advise)",
+                "explanation": "Il verbo 'advise' seguito da un complemento oggetto ('me') richiede l'uso dell'infinito con 'to' (advise someone to do something)."
+            },
+            {
+                "id": 7,
+                "options": [
+                    "wouldn't take",
+                    "won't take",
+                    "might not take",
+                    "might not have taken"
+                ],
+                "correctIndex": 3,
+                "focus": "Third Conditional (with modals)",
+                "explanation": "Ipotesi irreale nel passato. La conseguenza passata si costruisce con un modale (might/would/could) + have + participio passato."
+            },
+            {
+                "id": 8,
+                "options": [
+                    "take",
+                    "am taking",
+                    "took",
+                    "have been taking"
+                ],
+                "correctIndex": 3,
+                "focus": "Present Perfect Continuous",
+                "explanation": "L'uso di 'Since that day' descrive un'azione iniziata nel passato che continua regolarmente fino al presente."
+            },
+            {
+                "id": 9,
+                "options": [
+                    "wake",
+                    "woke",
+                    "waking",
+                    "have woken"
+                ],
+                "correctIndex": 2,
+                "focus": "'Be used to' + gerund",
+                "explanation": "La struttura 'be used to' (essere abituato a) richiede un sostantivo o un gerundio (-ing) poiché il 'to' è una preposizione."
+            },
+            {
+                "id": 10,
+                "options": [
+                    "will save",
+                    "am saving",
+                    "would save",
+                    "will have saved"
+                ],
+                "correctIndex": 3,
+                "focus": "Future Perfect",
+                "explanation": "L'orizzonte temporale 'by the end of this month' indica che entro quel momento futuro l'azione di risparmiare sarà stata completata."
+            }
+        ]
+    },
+    {
+        "title": "Working from Home",
+        "text": "Remote work has become incredibly popular lately. Two years ago, my company [GAP_1] us the option to work from home permanently. Before that decision, I [GAP_2] two hours commuting to the office every single day. At first, I really missed [GAP_3] my colleagues in person and chatting during coffee breaks. Last month, my manager asked if I [GAP_4] healthy boundaries between my work and personal life. He suggested [GAP_5] a dedicated workspace in a quiet corner of my apartment. If I hadn't followed his advice, I [GAP_6] out months ago. Now, all our weekly meetings [GAP_7] online via video call, which is very efficient. Sometimes, however, I wish we [GAP_8] at the office occasionally for creative brainstorming sessions. By next December, I [GAP_9] remotely for exactly three years. Despite some minor challenges, I look forward to [GAP_10] this flexible and productive lifestyle.",
+        "gaps": [
+            {
+                "id": 1,
+                "options": [
+                    "has given",
+                    "gave",
+                    "was giving",
+                    "had given"
+                ],
+                "correctIndex": 1,
+                "focus": "Past Simple",
+                "explanation": "L'indicatore temporale 'Two years ago' descrive un momento specifico e concluso nel passato, per cui è obbligatorio usare il Past Simple."
+            },
+            {
+                "id": 2,
+                "options": [
+                    "spent",
+                    "have spent",
+                    "had spent",
+                    "was spending"
+                ],
+                "correctIndex": 2,
+                "focus": "Past Perfect",
+                "explanation": "Le ore di viaggio avvenivano prima ('Before that decision') di un'altra azione passata conclusa. Questo richiede il Past Perfect."
+            },
+            {
+                "id": 3,
+                "options": [
+                    "to see",
+                    "see",
+                    "seeing",
+                    "for seeing"
+                ],
+                "correctIndex": 2,
+                "focus": "Verb + gerund (miss)",
+                "explanation": "Il verbo 'miss' (sentire la mancanza di) richiede sempre che il verbo successivo sia espresso al gerundio (-ing)."
+            },
+            {
+                "id": 4,
+                "options": [
+                    "am setting",
+                    "was setting",
+                    "have set",
+                    "set"
+                ],
+                "correctIndex": 1,
+                "focus": "Reported Speech (Past Continuous)",
+                "explanation": "Nel discorso indiretto introdotto dal passato ('asked'), la domanda originale 'Are you setting...?' fa un passo indietro nel Past Continuous."
+            },
+            {
+                "id": 5,
+                "options": [
+                    "to create",
+                    "create",
+                    "creating",
+                    "for creating"
+                ],
+                "correctIndex": 2,
+                "focus": "Verb + gerund (suggest)",
+                "explanation": "Il verbo 'suggest' seguito direttamente da un'azione esige il gerundio (-ing)."
+            },
+            {
+                "id": 6,
+                "options": [
+                    "would burn",
+                    "will burn",
+                    "burned",
+                    "would have burned"
+                ],
+                "correctIndex": 3,
+                "focus": "Third Conditional",
+                "explanation": "L'ipotesi riguarda un passato che non si è verificato ('If I hadn't followed'). La conseguenza passata si forma con 'would have' + participio passato."
+            },
+            {
+                "id": 7,
+                "options": [
+                    "hold",
+                    "are held",
+                    "were held",
+                    "are holding"
+                ],
+                "correctIndex": 1,
+                "focus": "Present Simple Passive",
+                "explanation": "Le riunioni non tengono, ma 'sono tenute' (passivo). L'avverbio 'Now' unito a 'weekly' indica una routine presente, quindi Present Simple Passive."
+            },
+            {
+                "id": 8,
+                "options": [
+                    "can meet",
+                    "could meet",
+                    "will meet",
+                    "have met"
+                ],
+                "correctIndex": 1,
+                "focus": "Wish + Past Simple/Modals",
+                "explanation": "Per esprimere un desiderio nel presente riguardo a una situazione che vorremmo diversa, si usa 'wish' seguito dal Past Simple o da 'could'."
+            },
+            {
+                "id": 9,
+                "options": [
+                    "will work",
+                    "am working",
+                    "will have been working",
+                    "have worked"
+                ],
+                "correctIndex": 2,
+                "focus": "Future Perfect Continuous",
+                "explanation": "Si usa il Future Perfect Continuous per descrivere la durata di un'azione ('for exactly three years') che sarà in corso fino a un certo momento nel futuro ('By next December')."
+            },
+            {
+                "id": 10,
+                "options": [
+                    "continue",
+                    "to continue",
+                    "continuing",
+                    "be continuing"
+                ],
+                "correctIndex": 2,
+                "focus": "'Look forward to' + gerund",
+                "explanation": "Il phrasal verb 'look forward to' richiede che il verbo che lo segue termini in -ing."
+            }
+        ]
     }
 ]
