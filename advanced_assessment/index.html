@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English Test Simulator</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <a href="../index.html" class="back-home-btn" aria-label="Return to home">← Home</a>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">🌙</button>
+
+    <div id="timerOverlay" class="timer-overlay">
+        <div class="timer-display">
+            <div class="timer-label">TIMER</div>
+            <div id="countdownDisplay">00:00</div>
+            <div class="timer-controls-row">
+                <button id="increaseTimeBtn" class="timer-btn square-btn">+</button>
+                <button id="decreaseTimeBtn" class="timer-btn square-btn">-</button>
+            </div>
+            <div class="timer-controls-row">
+                <button id="startStopBtn" class="timer-btn square-btn">▶</button>
+                <button id="resetBtn" class="timer-btn square-btn">⟲</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="statsPanel" class="stats-panel">
+        <div class="stats-header">
+            <h3>📊 Statistics</h3>
+            <button id="statsToggle" class="stats-toggle">▼</button>
+        </div>
+        <div id="statsContent" class="stats-content">
+            <div class="stat-item">
+                <span class="stat-label">Exercises Completed:</span>
+                <span class="stat-value" id="totalExercises">0</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Total Correct:</span>
+                <span class="stat-value correct-value" id="totalCorrect">0</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Total Incorrect:</span>
+                <span class="stat-value incorrect-value" id="totalIncorrect">0</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Accuracy:</span>
+                <span class="stat-value accuracy-value" id="accuracyRate">0%</span>
+            </div>
+            <div class="stats-actions">
+                <button id="resetStatsBtn" class="reset-stats-btn">Reset Statistics</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <h1><span class="title-emoji">🎓</span> English Test Simulator</h1>
+
+        <div id="controlsPanel" class="controls">
+            <h3>Test Setup</h3>
+            <div class="action-container">
+                <button id="getNewTestBtn" style="font-size: 1.1rem; padding: 10px 20px;">Genera Nuovo Test</button>
+                <button id="clearBlanksBtn" style="font-size: 1.1rem; padding: 10px 20px;">Resetta Test
+                    Corrente</button>
+            </div>
+            <div class="exercise-manager-trigger-row">
+                <button id="toggleExerciseManagerBtn" type="button">Gestisci Esercizi</button>
+                <span id="exercisePoolInfo" class="exercise-pool-info"></span>
+            </div>
+            <div id="exerciseManagerPanel" class="exercise-manager-panel collapsed">
+                <div class="exercise-manager-header">
+                    <h4>Elenco Esercizi</h4>
+                    <div class="exercise-manager-header-actions">
+                        <button id="reactivateAllBtn" type="button">Riattiva Tutti</button>
+                        <button id="resetExerciseStateBtn" type="button">Azzera Stato Esercizi</button>
+                    </div>
+                </div>
+                <div class="exercise-manager-columns">
+                    <span>ID</span>
+                    <span>Titolo</span>
+                    <span>Status</span>
+                    <span>Attivo</span>
+                    <span>Azione</span>
+                </div>
+                <div id="exerciseManagerList" class="exercise-manager-list"></div>
+            </div>
+        </div>
+
+        <div id="resultsPanel" style="display: none;" class="results">
+            <h2>Your Score: <span id="scoreDisplay">0</span> / <span id="totalDisplay">0</span></h2>
+
+            <div class="exercise-text">
+                <div class="exercise-heading-row">
+                    <h3 id="resultsTitle"></h3>
+                    <span id="resultsExerciseId" class="exercise-id-chip" style="display: none;"></span>
+                </div>
+                <p id="resultsTextDisplay" style="line-height: 2;"></p>
+            </div>
+
+            <div id="feedbackContainer" class="feedback-section">
+                <h3>📖 Explanations & Grammar Focus</h3>
+                <div id="feedbackList"></div>
+            </div>
+
+            <button id="backToExerciseBtn" style="margin-top: 20px;">Try Another Test</button>
+        </div>
+
+        <div id="exercisePanel">
+            <form id="exerciseForm">
+                <div class="exercise-text">
+                    <div class="exercise-heading-row" style="display: none;" id="exerciseHeadingRow">
+                        <h3 id="exerciseTitle"></h3>
+                        <span id="exerciseId" class="exercise-id-chip" style="display: none;"></span>
+                    </div>
+                    <div id="exerciseTextContainer" style="line-height: 2.2;">
+                        <div class="empty-state">
+                            <p>Clicca "Genera Nuovo Test" per avviare la simulazione CLA.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button type="submit" id="submitBtn" disabled>Controlla Risposte</button>
+                </div>
+            </form>
+        </div>
+
+        <footer class="page-footer">
+            <p>&copy; 2026 Enrico Fraccaroli. Contact: <a href="mailto:enry.frak@gmail.com">enry.frak@gmail.com</a></p>
+        </footer>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+
+</html>
