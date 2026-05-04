@@ -27,6 +27,18 @@ const MAX_PARTIAL_WORD_LENGTH = 6;
 // Minimum distance between blanks (in words), when possible.
 const MIN_BLANK_DISTANCE = 3;
 
+// Adjust these rules to bias word removal toward specific word families.
+const BLANK_SELECTION_BIAS_RULES = [
+    {
+        words: new Set(['and', 'but', 'or', 'so', 'because', 'it', 'also']),
+        weight: 5.0
+    },
+    {
+        words: new Set(['as', 'when', 'before', 'after', 'afterwards', 'firstly', 'then', 'finally', 'although', 'though', 'even', 'if', 'unless', 'while', 'whereas', 'since', 'until']),
+        weight: 2.0
+    }
+];
+
 let exercisesData = {
     beginner: [],
     intermediate: [],
@@ -360,11 +372,28 @@ function getBlankSelectionPopulation(words) {
     return words
         .map((word, index) => {
             const { coreWord } = parseToken(word);
-            return { word, coreWord, index };
+            return {
+                word,
+                coreWord,
+                index,
+                weight: getBlankSelectionWeight(coreWord)
+            };
         })
         .filter(({ coreWord }) => {
-            return coreWord && coreWord.length > 3;
+            return coreWord; // && coreWord.length > 3
         });
+}
+
+function getBlankSelectionWeight(coreWord) {
+    const normalizedWord = coreWord.toLowerCase();
+
+    for (const rule of BLANK_SELECTION_BIAS_RULES) {
+        if (rule.words.has(normalizedWord)) {
+            return rule.weight;
+        }
+    }
+
+    return 1;
 }
 
 function determineNumBlanks(populationSize, minBlanks, maxBlanks) {
@@ -373,16 +402,34 @@ function determineNumBlanks(populationSize, minBlanks, maxBlanks) {
     return Math.max(minBlanks, Math.min(maxBlanks, numBlanks));
 }
 
+function pickWeightedPopulationIndex(population) {
+    const totalWeight = population.reduce((sum, entry) => sum + entry.weight, 0);
+
+    if (totalWeight <= 0) {
+        return Math.floor(Math.random() * population.length);
+    }
+
+    let threshold = Math.random() * totalWeight;
+
+    for (let i = 0; i < population.length; i++) {
+        threshold -= population[i].weight;
+        if (threshold <= 0) {
+            return i;
+        }
+    }
+
+    return population.length - 1;
+}
+
 function selectRandomBlanks(population, numBlanks, minDistance = 0) {
     const selected = {};
-    const indices = new Set();
 
-    let attempts = 0;
-    const maxAttempts = population.length * 10; // prevent infinite loop
+    const remaining = population.map(entry => ({ ...entry }));
 
-    while (indices.size < Math.min(numBlanks, population.length) && attempts < maxAttempts) {
-        const randomIdx = Math.floor(Math.random() * population.length);
-        const { index } = population[randomIdx];
+    while (Object.keys(selected).length < Math.min(numBlanks, population.length) && remaining.length > 0) {
+        const randomIdx = pickWeightedPopulationIndex(remaining);
+        const [candidate] = remaining.splice(randomIdx, 1);
+        const { index } = candidate;
 
         // Check if this word index is at least minDistance away from all selected word indices
         let tooClose = false;
@@ -393,13 +440,9 @@ function selectRandomBlanks(population, numBlanks, minDistance = 0) {
             }
         }
 
-        if (!tooClose && !indices.has(randomIdx)) {
-            indices.add(randomIdx);
-            const { coreWord } = population[randomIdx];
-            selected[index] = coreWord.toLowerCase();
+        if (!tooClose) {
+            selected[index] = candidate.coreWord.toLowerCase();
         }
-
-        attempts++;
     }
 
     return selected;
@@ -435,7 +478,8 @@ function createExerciseWithBlanksPercentage(exerciseText, percentageBlanks, incl
         const nonBlankWords = words
             .filter((w, idx) => !blanksData[idx])
             .map(w => parseToken(w).coreWord)
-            .filter(w => w && w.length > 4);
+            // .filter(w => w && w.length > 4)
+            ;
         const numRandomWords = Math.ceil(wordBank.length * extraWordsMultiplier);
         const randomParts = nonBlankWords.slice(0, numRandomWords).map(w => w.toLowerCase());
         wordBank = wordBank.concat(randomParts);
