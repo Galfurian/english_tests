@@ -3,15 +3,15 @@
 // =========================================================================
 
 const PUNCTUATION = ".!,?;:'\"()[]{}<>—";
-const STORAGE_KEY = 'englishTestsState';
+const STORAGE_KEY = 'englishTestsStateFull';
 const THEME_KEY = 'englishTestsTheme';
 
 // Timer constants.
 const TIMER_INCREMENT = 60;
 
 // Blank percentage slider configuration.
-const MIN_BLANK_PERCENTAGE = 10;
-const MAX_BLANK_PERCENTAGE = 50;
+const MIN_BLANK_PERCENTAGE = 5;
+const MAX_BLANK_PERCENTAGE = 30;
 const DEFAULT_BLANK_PERCENTAGE = MIN_BLANK_PERCENTAGE + Math.floor((MAX_BLANK_PERCENTAGE - MIN_BLANK_PERCENTAGE) / 2);
 
 // Partial blank mode: 'random' for current behavior, 'begin_end' for beginning or end only
@@ -425,10 +425,14 @@ function selectRandomBlanks(population, numBlanks, minDistance = 0) {
     const selected = {};
 
     const remaining = population.map(entry => ({ ...entry }));
+    const targetCount = Math.min(numBlanks, population.length);
 
-    while (Object.keys(selected).length < Math.min(numBlanks, population.length) && remaining.length > 0) {
+    while (Object.keys(selected).length < targetCount && remaining.length > 0) {
         const randomIdx = pickWeightedPopulationIndex(remaining);
         const [candidate] = remaining.splice(randomIdx, 1);
+        if (!candidate) {
+            continue;
+        }
         const { index } = candidate;
 
         // Check if this word index is at least minDistance away from all selected word indices
@@ -445,6 +449,19 @@ function selectRandomBlanks(population, numBlanks, minDistance = 0) {
         }
     }
 
+    if (Object.keys(selected).length < targetCount) {
+        const fallbackPool = population.filter(({ index }) => !selected[index]);
+
+        while (Object.keys(selected).length < targetCount && fallbackPool.length > 0) {
+            const randomIdx = pickWeightedPopulationIndex(fallbackPool);
+            const [candidate] = fallbackPool.splice(randomIdx, 1);
+            if (!candidate) {
+                continue;
+            }
+            selected[candidate.index] = candidate.coreWord.toLowerCase();
+        }
+    }
+
     return selected;
 }
 
@@ -453,11 +470,13 @@ function createExerciseWithBlanksPercentage(exerciseText, percentageBlanks, incl
 
     // Use percentageBlanks directly as the target percentage of words to blank
     const targetBlanksPercent = percentageBlanks / 100;
-    const numBlanks = Math.max(1, Math.floor(words.length * targetBlanksPercent));
-
-    console.log(`Total words: ${words.length}, Percentage to blank: ${percentageBlanks}%, Number of blanks to create: ${numBlanks}`);
-
     const population = getBlankSelectionPopulation(words);
+    const numBlanks = population.length === 0
+        ? 0
+        : Math.max(1, Math.floor(population.length * targetBlanksPercent));
+
+    console.log(`Total words: ${words.length}, Eligible words: ${population.length}, Percentage to blank: ${percentageBlanks}%, Number of blanks to create: ${numBlanks}`);
+
     const blanksData = selectRandomBlanks(population, numBlanks, MIN_BLANK_DISTANCE);
 
     // Create display parts
@@ -498,9 +517,11 @@ function createExerciseWithPartialWords(exerciseText, percentageBlanks, includeR
     
     // Use percentageBlanks directly as the target percentage of words to blank
     const targetBlanksPercent = percentageBlanks / 100;
-    const numBlanks = Math.max(1, Math.floor(words.length * targetBlanksPercent));
-
     const population = getBlankSelectionPopulation(words);
+    const numBlanks = population.length === 0
+        ? 0
+        : Math.max(1, Math.floor(population.length * targetBlanksPercent));
+
     const blanksDataTemp = selectRandomBlanks(population, numBlanks, MIN_BLANK_DISTANCE);
 
     const blanksData = {};
@@ -581,15 +602,15 @@ async function loadExercises() {
         currentState.isLoadingExercises = true;
         setControlsDisabled(true);
 
-        const response = await fetch('data/beginner.json');
+        const response = await fetch('../data/beginner.json');
         const beginner = await response.json();
         exercisesData.beginner = beginner;
 
-        const response2 = await fetch('data/intermediate.json');
+        const response2 = await fetch('../data/intermediate.json');
         const intermediate = await response2.json();
         exercisesData.intermediate = intermediate;
 
-        const response3 = await fetch('data/advanced.json');
+        const response3 = await fetch('../data/advanced.json');
         const advanced = await response3.json();
         exercisesData.advanced = advanced;
 
@@ -973,10 +994,17 @@ function showResults(results, score, totalBlanks) {
 // EVENT LISTENERS
 // =========================================================================
 
-document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+function bindClick(id, handler) {
+    const element = document.getElementById(id);
+    if (element) {
+        element.addEventListener('click', handler);
+    }
+}
+
+bindClick('themeToggle', toggleTheme);
 
 // Timer event listeners
-document.getElementById('startStopBtn').addEventListener('click', () => {
+bindClick('startStopBtn', () => {
     if (timerState.isRunning) {
         stopTimer();
     } else {
@@ -984,21 +1012,24 @@ document.getElementById('startStopBtn').addEventListener('click', () => {
     }
 });
 
-document.getElementById('increaseTimeBtn').addEventListener('click', increaseTime);
-document.getElementById('decreaseTimeBtn').addEventListener('click', decreaseTime);
-document.getElementById('resetBtn').addEventListener('click', resetTimer);
+bindClick('increaseTimeBtn', increaseTime);
+bindClick('decreaseTimeBtn', decreaseTime);
+bindClick('resetBtn', resetTimer);
 
 // Statistics event listeners
-document.getElementById('statsToggle').addEventListener('click', toggleStatsPanel);
-document.getElementById('resetStatsBtn').addEventListener('click', resetStats);
+bindClick('statsToggle', toggleStatsPanel);
+bindClick('resetStatsBtn', resetStats);
 
-document.getElementById('getNewTestBtn').addEventListener('click', generateNewTest);
-document.getElementById('getPartialTestBtn').addEventListener('click', generatePartialTest);
-document.getElementById('reblankTextBtn').addEventListener('click', reblankText);
-document.getElementById('reblankPartialBtn').addEventListener('click', reblankPartialText);
-document.getElementById('clearBlanksBtn').addEventListener('click', clearBlanks);
-document.getElementById('exerciseForm').addEventListener('submit', checkAnswers);
-document.getElementById('backToExerciseBtn').addEventListener('click', () => {
+bindClick('getNewTestBtn', generateNewTest);
+bindClick('getPartialTestBtn', generatePartialTest);
+bindClick('reblankTextBtn', reblankText);
+bindClick('reblankPartialBtn', reblankPartialText);
+bindClick('clearBlanksBtn', clearBlanks);
+const exerciseForm = document.getElementById('exerciseForm');
+if (exerciseForm) {
+    exerciseForm.addEventListener('submit', checkAnswers);
+}
+bindClick('backToExerciseBtn', () => {
     document.getElementById('exercisePanel').style.display = 'block';
     document.getElementById('resultsPanel').style.display = 'none';
 });
