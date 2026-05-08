@@ -301,7 +301,7 @@ async function loadExercises() {
         console.log('[DEBUG] Inizio caricamento esercizi...');
 
         // Fetchs a single JSON file containing an array of exercises
-        const res = await fetch('data/exercises.json');
+        const res = await fetch('../data/exercises.json');
         console.log('[DEBUG] Risposta fetch:', res.status, res.statusText);
         console.log('[DEBUG] URL caricato:', res.url);
 
