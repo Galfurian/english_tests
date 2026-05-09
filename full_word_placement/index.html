@@ -63,16 +63,13 @@
         <div id="controlsPanel" class="controls">
             <h3>Settings</h3>
             <div class="dropdown-container">
-                <label for="difficultySelect">Exercise Difficulty:</label>
-                <select id="difficultySelect">
-                    <option value="all">Any Difficulty</option>
-                    <option value="beginner">Beginner</option>
-                    <option value="intermediate">Intermediate</option>
-                    <option value="advanced">Advanced</option>
-                </select>
-                <button id="getNewTestBtn">Get <strong>New</strong> and <strong>Remove Words</strong></button>
+                <p style="margin:0 0 8px 0;">Exercises: <strong>intermediate (static set)</strong></p>
+                <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+                    <button id="getNewTestBtn">Get <strong>New</strong> and <strong>Remove Words</strong></button>
+                    <button id="reblankTextBtn">Re-blank Same Text (Remove Words)</button>
+                    <button id="clearBlanksBtn">Clear Blanks</button>
+                </div>
             </div>
-            <hr>
             <div class="slider-container">
                 <label for="blankSlider">Percentage of Words Manipulated:</label>
                 <div class="slider-wrapper">
@@ -94,9 +91,7 @@
                     <div class="slider-tooltip"></div>
                 </div>
             </div>
-            <hr>
-            <button id="reblankTextBtn">Re-blank Same Text (Remove Words)</button>
-            <button id="clearBlanksBtn">Clear Blanks</button>
+            
         </div>
 
         <div id="resultsPanel" style="display: none;" class="results">

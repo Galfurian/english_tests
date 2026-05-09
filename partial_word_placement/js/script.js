@@ -27,6 +27,9 @@ const MAX_PARTIAL_WORD_LENGTH = 6;
 // Minimum distance between blanks (in words), when possible.
 const MIN_BLANK_DISTANCE = 3;
 
+// Use a fixed difficulty for this page (static intermediate dataset)
+const DEFAULT_DIFFICULTY = 'intermediate';
+
 // Adjust these rules to bias word removal toward specific word families.
 const BLANK_SELECTION_BIAS_RULES = [
     {
@@ -130,8 +133,8 @@ function updateStatsAfterExercise(score, totalBlanks) {
     userStats.totalCorrect += score;
     userStats.totalIncorrect += (totalBlanks - score);
     // Update difficulty stats
-    const difficulty = document.getElementById('difficultySelect').value;
-    if (difficulty !== 'all' && userStats.exercisesByDifficulty[difficulty] !== undefined) {
+    const difficulty = DEFAULT_DIFFICULTY;
+    if (userStats.exercisesByDifficulty[difficulty] !== undefined) {
         userStats.exercisesByDifficulty[difficulty]++;
     }
     saveStats();
@@ -602,17 +605,11 @@ async function loadExercises() {
         currentState.isLoadingExercises = true;
         setControlsDisabled(true);
 
-        const response = await fetch('../data/beginner.json');
-        const beginner = await response.json();
-        exercisesData.beginner = beginner;
-
-        const response2 = await fetch('../data/intermediate.json');
-        const intermediate = await response2.json();
+        // Load custom partial exercises (only the intermediate-derived set)
+        const response = await fetch('../data/partial_exercises.json');
+        const intermediate = await response.json();
+        // Keep the app's difficulty wiring simple: assign the loaded set to the intermediate bucket
         exercisesData.intermediate = intermediate;
-
-        const response3 = await fetch('../data/advanced.json');
-        const advanced = await response3.json();
-        exercisesData.advanced = advanced;
 
         console.log('Loaded exercises:', {
             beginner: exercisesData.beginner.length,
@@ -631,7 +628,7 @@ async function loadExercises() {
 function generateNewTest() {
     resetTimer(); // Reset timer when starting new exercise
     if (currentState.isLoadingExercises) return;
-    const difficulty = document.getElementById('difficultySelect').value;
+    const difficulty = DEFAULT_DIFFICULTY;
     const sliderValue = parseInt(document.getElementById('blankSlider').value);
     const includeRandomWords = document.getElementById('includeRandomWords').checked;
     const extraWordsMultiplier = includeRandomWords ? parseFloat(document.getElementById('extraWordsSlider').value) : 0;
@@ -670,7 +667,7 @@ function generateNewTest() {
 function generatePartialTest() {
     resetTimer(); // Reset timer when starting new exercise
     if (currentState.isLoadingExercises) return;
-    const difficulty = document.getElementById('difficultySelect').value;
+    const difficulty = DEFAULT_DIFFICULTY;
     const sliderValue = parseInt(document.getElementById('blankSlider').value);
     const includeRandomWords = document.getElementById('includeRandomWords').checked;
     const extraWordsMultiplier = includeRandomWords ? parseFloat(document.getElementById('extraWordsSlider').value) : 0;
