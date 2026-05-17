@@ -401,7 +401,9 @@ hr {
 }
 
 .blank-input {
-    width: 90px;
+    width: 14ch;
+    min-width: 120px;
+    max-width: 180px;
     height: 26px;
     text-align: center;
     border: 2px solid var(--border-color);
@@ -423,6 +425,14 @@ hr {
 
 .blank-input::placeholder {
     color: #888;
+}
+
+@media (max-width: 768px) {
+    .blank-input {
+        width: 11ch;
+        min-width: 100px;
+        max-width: 140px;
+    }
 }
 
 .word-bank {
