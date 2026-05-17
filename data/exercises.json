@@ -2796,7 +2796,7 @@
     {
         "exerciseId": 23,
         "title": "Learning a Language",
-        "text": "Mastering a foreign language takes years of practice. For the past two years, I [GAP_1] Japanese at a local school. Before I started the course, I [GAP_2] how difficult the writing system was. My teacher recommended [GAP_3] anime without subtitles to improve my listening skills. If I hadn't followed her advice, I [GAP_4] the listening test last month. During the last lesson, she asked me why I [GAP_5] so quiet. I explained that I [GAP_6] trouble with the new vocabulary. In my class, only Japanese [GAP_7] by the students to force immersion. I [GAP_8] making mistakes in front of others now, which helps me learn faster. By the end of this semester, we [GAP_9] all the basic grammar rules. I am really looking forward to [GAP_10] Tokyo next spring!",
+        "text": "Mastering a foreign language takes years of practice. For the past two years, I [GAP_1] Japanese at a local school. Before I started the course, I [GAP_2] how difficult the writing system was. My teacher recommended [GAP_3] anime without subtitles to improve my listening skills. If I hadn't followed her advice, I [GAP_4] the listening test last month. During the last lesson, she asked me why I [GAP_5] so quiet. I explained that I [GAP_6] trouble with the new vocabulary. In my class, only Japanese [GAP_7] by the students to force immersion. I [GAP_8] mistakes in front of others now, which helps me learn faster. By the end of this semester, we [GAP_9] all the basic grammar rules. I am really looking forward to [GAP_10] Tokyo next spring!",
         "gaps": [
             {
                 "id": 1,
