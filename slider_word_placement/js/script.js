@@ -15,7 +15,7 @@ let currentState = {
     exercise: null, 
     isLoadingExercises: false,
     selectedAnswers: {},
-    choiceCount: 3
+    choiceDensity: 20
 };
 
 let exercisesState = {
@@ -65,6 +65,19 @@ function getMaxChoiceCount() {
     return Math.max(...currentState.exercise.gaps.map(gap => gap.options.length));
 }
 
+function getChoiceCountForGap(gap, densityPercent) {
+    const uniqueOptions = [...new Set(gap.options)];
+    const minChoices = Math.min(2, uniqueOptions.length);
+    const maxChoices = uniqueOptions.length;
+
+    if (maxChoices <= minChoices) return maxChoices;
+
+    const normalized = Math.max(0, Math.min(1, densityPercent / 100));
+    const eased = Math.pow(normalized, 2.2);
+    const count = minChoices + Math.round(eased * (maxChoices - minChoices));
+    return Math.min(maxChoices, Math.max(minChoices, count));
+}
+
 function shuffleArray(items) {
     const shuffled = [...items];
     for (let index = shuffled.length - 1; index > 0; index--) {
@@ -74,37 +87,36 @@ function shuffleArray(items) {
     return shuffled;
 }
 
-function clampChoiceCount(choiceCount, maxChoiceCount) {
-    const safeMax = Math.max(2, maxChoiceCount || 2);
-    const parsedChoiceCount = Number.isFinite(choiceCount) ? choiceCount : 4;
-    return Math.min(safeMax, Math.max(2, parsedChoiceCount));
+function clampChoiceDensity(choiceDensity) {
+    const parsedChoiceDensity = Number.isFinite(choiceDensity) ? choiceDensity : 20;
+    return Math.min(100, Math.max(0, parsedChoiceDensity));
 }
 
-function updateChoiceCountDisplay(maxChoiceCount) {
+function updateChoiceCountDisplay() {
     const slider = document.getElementById('choiceCountSlider');
     const value = document.getElementById('choiceCountValue');
     if (!slider || !value) return;
 
-    const safeChoiceCount = clampChoiceCount(currentState.choiceCount, maxChoiceCount);
-    currentState.choiceCount = safeChoiceCount;
-    slider.min = '2';
-    slider.max = String(Math.max(2, maxChoiceCount || 2));
-    slider.value = String(safeChoiceCount);
-    value.textContent = String(safeChoiceCount);
+    const safeChoiceDensity = clampChoiceDensity(currentState.choiceDensity);
+    currentState.choiceDensity = safeChoiceDensity;
+    slider.min = '0';
+    slider.max = '100';
+    slider.value = String(safeChoiceDensity);
+    value.textContent = `${safeChoiceDensity}%`;
 }
 
 function getCurrentChoiceCount() {
-    return clampChoiceCount(currentState.choiceCount, getMaxChoiceCount());
+    return clampChoiceDensity(currentState.choiceDensity);
 }
 
-function buildWordBankWords(exercise, choiceCount) {
+function buildWordBankWords(exercise, densityPercent) {
     const wordBank = [];
 
     exercise.gaps.forEach(gap => {
         const correctWord = getGapCorrectWord(gap);
         const uniqueOptions = [...new Set(gap.options)];
         const distractors = uniqueOptions.filter(option => option !== correctWord);
-        const maxForGap = Math.min(choiceCount, uniqueOptions.length);
+        const maxForGap = getChoiceCountForGap(gap, densityPercent);
         const selectedOptions = shuffleArray([correctWord, ...shuffleArray(distractors).slice(0, Math.max(0, maxForGap - 1))]);
         wordBank.push(...selectedOptions);
     });
@@ -115,12 +127,12 @@ function buildWordBankWords(exercise, choiceCount) {
 function renderGapChoices() {
     if (!currentState.exercise) return;
 
-    const totalGaps = currentState.exercise.gaps.length;
-    const choiceCount = getCurrentChoiceCount();
+    const densityPercent = currentState.choiceDensity;
+    const choiceCount = currentState.exercise.gaps.reduce((total, gap) => total + getChoiceCountForGap(gap, densityPercent), 0);
     const wordBankContainer = document.getElementById('wordBankContainer');
-    const wordBank = buildWordBankWords(currentState.exercise, choiceCount);
+    const wordBank = buildWordBankWords(currentState.exercise, densityPercent);
 
-    updateChoiceCountDisplay(totalGaps);
+    updateChoiceCountDisplay();
 
     if (!wordBankContainer) return;
 
@@ -133,7 +145,7 @@ function renderGapChoices() {
 
     const wordBankTitle = document.querySelector('.word-bank h3');
     if (wordBankTitle) {
-        wordBankTitle.textContent = `Word Bank (${choiceCount} choice${choiceCount === 1 ? '' : 's'} per gap)`;
+        wordBankTitle.textContent = `Word Bank (${densityPercent}% density)`;
     }
 }
 
@@ -454,7 +466,7 @@ function generateNewTest() {
 
     currentState.exercise = exercise;
     currentState.selectedAnswers = {};
-    currentState.choiceCount = clampChoiceCount(currentState.choiceCount || 3, getMaxChoiceCount());
+    currentState.choiceDensity = clampChoiceDensity(currentState.choiceDensity);
     console.log('[DEBUG] Esercizio impostato nello stato, rendering...');
     renderExercise();
 }
@@ -476,17 +488,14 @@ function renderExercise() {
     titleEl.textContent = currentState.exercise.title;
     titleEl.style.display = 'block';
 
-    const maxChoiceCount = getMaxChoiceCount();
-    currentState.choiceCount = clampChoiceCount(currentState.choiceCount || 3, maxChoiceCount);
-    updateChoiceCountDisplay(maxChoiceCount);
+    updateChoiceCountDisplay();
 
     let htmlText = currentState.exercise.text;
 
     currentState.exercise.gaps.forEach(gap => {
         const gapMarker = `[GAP_${gap.id}]`;
         const correctWord = getGapCorrectWord(gap);
-        const inputWidth = Math.max(90, (correctWord.length + 2) * 10);
-        const inputHtml = `<input type="text" name="gap_${gap.id}" class="blank-input" autocomplete="off" placeholder="?" style="width: ${inputWidth}px;">`;
+        const inputHtml = `<input type="text" name="gap_${gap.id}" class="blank-input" autocomplete="off" placeholder="?">`;
 
         htmlText = htmlText.replace(gapMarker, inputHtml);
     });
@@ -598,8 +607,8 @@ document.getElementById('resetStatsBtn').addEventListener('click', resetStats);
 document.getElementById('getNewTestBtn').addEventListener('click', generateNewTest);
 document.getElementById('clearBlanksBtn').addEventListener('click', clearBlanks);
 document.getElementById('choiceCountSlider').addEventListener('input', event => {
-    currentState.choiceCount = clampChoiceCount(parseInt(event.target.value, 10), currentState.exercise ? getMaxChoiceCount() : 4);
-    updateChoiceCountDisplay(currentState.exercise ? getMaxChoiceCount() : 4);
+    currentState.choiceDensity = clampChoiceDensity(parseInt(event.target.value, 10));
+    updateChoiceCountDisplay();
     renderGapChoices();
 });
 document.getElementById('exerciseForm').addEventListener('submit', checkAnswers);
