@@ -588,6 +588,19 @@ function showResults(resultsData, score, totalBlanks) {
     resultsContentEl.innerHTML = renderText(false);
     originalTextDisplayEl.innerHTML = renderText(true);
 
+    // Build feedback list with explanations and focus for each gap
+    const feedbackListEl = document.getElementById('feedbackList');
+    if (feedbackListEl) {
+        let feedbackHtml = '';
+        // iterate in original gap order
+        currentState.exercise.gaps.forEach(gap => {
+            const res = resultsData.find(r => r.gapId === gap.id);
+            if (!res) return;
+            feedbackHtml += `\n                <div class="feedback-item">\n                    <strong>Gap ${gap.id}:</strong> ${res.isCorrect ? '✅ Correct' : '❌ Incorrect'} <br>\n                    <em>Focus:</em> ${escapeHtml(res.focus || '')} <br>\n                    <p style="margin: 5px 0 0 0; color: var(--text-primary);">💡 <em>${escapeHtml(res.explanation || '')}</em></p>\n                </div>`;
+        });
+        feedbackListEl.innerHTML = feedbackHtml;
+    }
+
     document.getElementById('exercisePanel').style.display = 'none';
     document.getElementById('resultsPanel').style.display = 'block';
 }
