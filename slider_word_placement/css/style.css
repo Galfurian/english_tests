@@ -89,6 +89,35 @@ h3 {
     color: var(--text-secondary);
 }
 
+.exercise-title {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.exercise-title-text {
+    font-size: inherit;
+}
+
+.exercise-title-meta {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: rgba(102, 126, 234, 0.16);
+    border: 1px solid rgba(102, 126, 234, 0.35);
+    color: var(--highlight-color);
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+}
+
+body.light-theme .exercise-title-meta {
+    background: rgba(102, 126, 234, 0.1);
+}
+
 h1 {
     font-size: 2.5rem;
     margin-bottom: 30px;

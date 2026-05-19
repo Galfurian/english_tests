@@ -67,15 +67,11 @@ function getMaxChoiceCount() {
 
 function getChoiceCountForGap(gap, densityPercent) {
     const uniqueOptions = [...new Set(gap.options)];
-    const minChoices = Math.min(2, uniqueOptions.length);
-    const maxChoices = uniqueOptions.length;
-
-    if (maxChoices <= minChoices) return maxChoices;
+    if (uniqueOptions.length === 0) return 0;
 
     const normalized = Math.max(0, Math.min(1, densityPercent / 100));
-    const eased = Math.pow(normalized, 2.2);
-    const count = minChoices + Math.round(eased * (maxChoices - minChoices));
-    return Math.min(maxChoices, Math.max(minChoices, count));
+    const count = Math.round(normalized * uniqueOptions.length);
+    return Math.min(uniqueOptions.length, Math.max(1, count));
 }
 
 function shuffleArray(items) {
@@ -89,7 +85,7 @@ function shuffleArray(items) {
 
 function clampChoiceDensity(choiceDensity) {
     const parsedChoiceDensity = Number.isFinite(choiceDensity) ? choiceDensity : 20;
-    return Math.min(100, Math.max(0, parsedChoiceDensity));
+    return Math.min(100, Math.max(0, Math.round(parsedChoiceDensity / 10) * 10));
 }
 
 function updateChoiceCountDisplay() {
@@ -107,6 +103,35 @@ function updateChoiceCountDisplay() {
 
 function getCurrentChoiceCount() {
     return clampChoiceDensity(currentState.choiceDensity);
+}
+
+function countExerciseWords(exercise) {
+    const textWithoutGaps = String(exercise?.text || '').replace(/\[GAP_\d+\]/g, ' ');
+    const wordMatches = textWithoutGaps.match(/[A-Za-z0-9]+(?:'[A-Za-z0-9]+)?/g);
+    return wordMatches ? wordMatches.length : 0;
+}
+
+function getExerciseTitleMeta(exercise) {
+    const wordCount = countExerciseWords(exercise);
+    const blankCount = Array.isArray(exercise?.gaps) ? exercise.gaps.length : 0;
+    return `${wordCount} words · ${blankCount} blanks`;
+}
+
+function updateExerciseTitleDisplay(titleElement, exercise) {
+    if (!titleElement) return;
+
+    const titleTextElement = titleElement.querySelector('.exercise-title-text');
+    const titleMetaElement = titleElement.querySelector('.exercise-title-meta');
+
+    if (titleTextElement) {
+        titleTextElement.textContent = exercise.title;
+    } else {
+        titleElement.textContent = exercise.title;
+    }
+
+    if (titleMetaElement) {
+        titleMetaElement.textContent = getExerciseTitleMeta(exercise);
+    }
 }
 
 function buildWordBankWords(exercise, densityPercent) {
@@ -128,7 +153,6 @@ function renderGapChoices() {
     if (!currentState.exercise) return;
 
     const densityPercent = currentState.choiceDensity;
-    const choiceCount = currentState.exercise.gaps.reduce((total, gap) => total + getChoiceCountForGap(gap, densityPercent), 0);
     const wordBankContainer = document.getElementById('wordBankContainer');
     const wordBank = buildWordBankWords(currentState.exercise, densityPercent);
 
@@ -145,7 +169,7 @@ function renderGapChoices() {
 
     const wordBankTitle = document.querySelector('.word-bank h3');
     if (wordBankTitle) {
-        wordBankTitle.textContent = `Word Bank (${densityPercent}% density)`;
+        wordBankTitle.textContent = `Word Bank (${densityPercent}% coverage)`;
     }
 }
 
@@ -485,8 +509,8 @@ function renderExercise() {
     const container = document.getElementById('exerciseTextContainer');
     const submitBtn = document.getElementById('submitBtn');
 
-    titleEl.textContent = currentState.exercise.title;
-    titleEl.style.display = 'block';
+    updateExerciseTitleDisplay(titleEl, currentState.exercise);
+    titleEl.style.display = 'flex';
 
     updateChoiceCountDisplay();
 
