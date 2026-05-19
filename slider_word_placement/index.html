@@ -69,13 +69,13 @@
             </div>
             <div class="slider-container">
                 <label for="choiceCountSlider">
-                    Bank density:
+                    Word bank coverage:
                     <span id="choiceCountValue" class="slider-value">20%</span>
                 </label>
                 <div class="slider-wrapper">
-                    <input type="range" id="choiceCountSlider" min="0" max="100" step="1" value="20">
+                    <input type="range" id="choiceCountSlider" min="0" max="100" step="10" value="20">
                 </div>
-                <p class="slider-hint">Move left for fewer choices per gap and right to include all available gap options.</p>
+                <p class="slider-hint">0% keeps only the correct word for each gap. 100% includes every option available for each gap.</p>
             </div>
         </div>
 
@@ -106,7 +106,10 @@
                 </div>
 
                 <div class="exercise-text">
-                    <h3 id="exerciseTitle" style="display: none;"></h3>
+                    <h3 id="exerciseTitle" class="exercise-title" style="display: none;">
+                        <span class="exercise-title-text"></span>
+                        <span class="exercise-title-meta"></span>
+                    </h3>
                     <div id="exerciseTextContainer">
                         <div class="empty-state">
                             <p>Click "Get New Test" to start an exercise.</p>
