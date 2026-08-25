@@ -1,0 +1,145 @@
+{
+  "exerciseId": "cla-b2-001",
+  "title": "Planning a University Open Day",
+  "level": "B2",
+  "instructions": "Listen to the conversation between Nadia and Bob. For each item, choose the option that best reflects what is said or implied.",
+  "entities": {
+    "nadia": {
+      "name": "Nadia",
+      "voice": "en-US-EmmaMultilingualNeural",
+      "rate": "+2%",
+      "pitch": "+1Hz"
+    },
+    "bob": {
+      "name": "Bob",
+      "voice": "en-US-AndrewMultilingualNeural",
+      "rate": "-1%",
+      "pitch": "-2Hz"
+    }
+  },
+  "audio": {
+    "url": "https://github.com/Galfurian/english_tests/releases/download/listening-audio-v1/cla-b2-001.mp3",
+    "sha256Url": "https://github.com/Galfurian/english_tests/releases/download/listening-audio-v1/cla-b2-001.mp3.sha256",
+    "description": "Two students discuss how to organise an open day for prospective students."
+  },
+  "transcript": [
+    {
+      "entity": "nadia",
+      "text": "We need to finalise our proposal for the university open day. The original plan was to organise guided tours every hour, but I am not convinced that is the best use of the volunteers. Visitors usually want to look around at their own pace, especially if they have already checked the campus map online."
+    },
+    {
+      "entity": "bob",
+      "text": "I see your point, although I would not remove the tours completely. When I came here for the first time, I found the campus confusing. Maybe we could run fewer tours and use the remaining volunteers at information points instead."
+    },
+    {
+      "entity": "nadia",
+      "text": "That sounds more practical. I also think the information points should be staffed by current students rather than administrative staff. Prospective students are usually more interested in what daily life is actually like than in hearing another formal presentation."
+    },
+    {
+      "entity": "bob",
+      "text": "Agreed, but we should still have somebody available for questions about applications and fees. Students can talk about accommodation or social life, but they may not know the details of the admissions process."
+    },
+    {
+      "entity": "nadia",
+      "text": "Fair enough. What about the afternoon programme? The science department wants to give a forty-minute lecture, while the language centre is proposing short workshops that visitors can join whenever they want."
+    },
+    {
+      "entity": "bob",
+      "text": "I would choose the workshops. A long lecture might be useful for people who already know what they want to study, but an open day should also help visitors explore different subjects. Short activities make it easier to try several things."
+    },
+    {
+      "entity": "nadia",
+      "text": "Exactly. We could ask every department to prepare a fifteen-minute activity. That would also reduce the risk of people arriving halfway through something and feeling they have missed too much."
+    },
+    {
+      "entity": "bob",
+      "text": "There is one issue, though. If everything happens continuously, some rooms could become overcrowded. We might need a simple booking system for the most popular activities."
+    },
+    {
+      "entity": "nadia",
+      "text": "Yes, but I would keep booking optional wherever possible. I do not want visitors spending the whole day looking at a timetable on their phones. The event should feel flexible, not like another day of classes."
+    },
+    {
+      "entity": "bob",
+      "text": "Then perhaps bookings only for activities with limited space, like the laboratory demonstrations. Everything else could be first come, first served."
+    },
+    {
+      "entity": "nadia",
+      "text": "That works for me. Finally, we need to decide whether to provide lunch. Catering for everyone would be expensive, but asking visitors to find food elsewhere could mean they leave the campus and do not come back for the afternoon sessions."
+    },
+    {
+      "entity": "bob",
+      "text": "What if we give everyone a voucher that can be used in the university cafes? It would cost less than a full organised lunch, and visitors could choose when and where to eat."
+    },
+    {
+      "entity": "nadia",
+      "text": "Good idea. So our proposal is fewer guided tours, student-run information points with admissions staff nearby, short interactive activities, limited booking only where necessary, and meal vouchers instead of a formal lunch."
+    },
+    {
+      "entity": "bob",
+      "text": "Yes. I think that gives visitors enough structure without making the day too rigid."
+    }
+  ],
+  "questions": [
+    {
+      "id": 1,
+      "prompt": "Why does Nadia want to reduce the number of guided tours?",
+      "options": [
+        "There are not enough campus maps for visitors.",
+        "Many visitors prefer to explore independently.",
+        "Administrative staff are unwilling to lead tours.",
+        "The existing tours take too long to complete."
+      ],
+      "correctIndex": 1,
+      "explanation": "Nadia says visitors often prefer to look around at their own pace, particularly when they have already seen the map online."
+    },
+    {
+      "id": 2,
+      "prompt": "What do they decide about the information points?",
+      "options": [
+        "They should be run only by admissions staff.",
+        "They should replace all formal presentations.",
+        "Current students should handle most questions, with specialist staff available nearby.",
+        "They should focus mainly on accommodation and social events."
+      ],
+      "correctIndex": 2,
+      "explanation": "They want current students to discuss everyday university life while admissions staff remain available for technical questions."
+    },
+    {
+      "id": 3,
+      "prompt": "Why does Bob prefer short workshops to a long lecture?",
+      "options": [
+        "They require fewer members of staff.",
+        "They allow visitors to experience several different subjects.",
+        "They are easier to organise in small rooms.",
+        "They provide more detailed academic information."
+      ],
+      "correctIndex": 1,
+      "explanation": "Bob argues that short activities let undecided visitors try several subjects rather than committing to one long session."
+    },
+    {
+      "id": 4,
+      "prompt": "What is their final view on booking activities in advance?",
+      "options": [
+        "Every activity should require a reservation.",
+        "Bookings should be avoided completely.",
+        "Only activities with limited capacity should require booking.",
+        "Visitors should book a complete timetable before arriving."
+      ],
+      "correctIndex": 2,
+      "explanation": "They agree that booking is useful only for limited-space activities such as laboratory demonstrations."
+    },
+    {
+      "id": 5,
+      "prompt": "What overall principle guides their final proposal?",
+      "options": [
+        "Keeping costs as low as possible, even if fewer activities are offered.",
+        "Giving visitors a structured day while preserving flexibility and choice.",
+        "Making the open day closely resemble a normal day of university classes.",
+        "Providing as much formal academic information as possible."
+      ],
+      "correctIndex": 1,
+      "explanation": "Bob summarises the proposal as providing enough structure without making the day too rigid."
+    }
+  ]
+}
