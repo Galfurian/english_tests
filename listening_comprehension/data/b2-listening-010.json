@@ -1,0 +1,36 @@
+{
+  "exerciseId": "b2-listening-010",
+  "title": "Volunteering at a Museum",
+  "level": "B2",
+  "instructions": "Listen to the conversation between Nadia and Bob. For each item, choose the option that best reflects what is said or implied.",
+  "entities": {
+    "nadia": {"name": "Nadia", "voice": "en-US-EmmaMultilingualNeural", "rate": "+2%", "pitch": "+1Hz"},
+    "bob": {"name": "Bob", "voice": "en-US-AndrewMultilingualNeural", "rate": "-1%", "pitch": "-2Hz"}
+  },
+  "audio": {
+    "url": "https://github.com/Galfurian/english_tests/releases/download/listening-audio-v1/b2-listening-010.mp3",
+    "sha256Url": "https://github.com/Galfurian/english_tests/releases/download/listening-audio-v1/b2-listening-010.mp3.sha256",
+    "description": "Two volunteers discuss how to make a museum programme more useful for visitors and manageable for volunteers."
+  },
+  "transcript": [
+    {"entity": "nadia", "text": "The museum wants to expand the weekend volunteer programme before the summer, and they asked us for feedback. At the moment most volunteers stand near the entrance and give directions, but I think we could do something more useful."},
+    {"entity": "bob", "text": "I agree. Visitors can already find basic directions on the map. The questions I get are usually about which galleries are worth seeing if someone only has an hour, or whether an exhibition is suitable for children."},
+    {"entity": "nadia", "text": "Exactly. We could train volunteers to give short recommendations rather than formal tours. A two-minute conversation at the entrance might help people plan their visit without needing to join a scheduled group."},
+    {"entity": "bob", "text": "That would be useful, but the training needs to be realistic. The museum suggested a full Saturday course every three months. Some volunteers only help twice a month, so asking them to give up another whole Saturday could discourage people."},
+    {"entity": "nadia", "text": "Maybe the basic training could be online, with a short in-person session for practice. Volunteers would need to know the main collections, accessibility information and current exhibitions, but they do not need to memorise every object in the building."},
+    {"entity": "bob", "text": "And they should learn when not to answer. I have heard volunteers guess when visitors ask detailed historical questions. It would be better to say they are not sure and direct the visitor to a curator or the information desk."},
+    {"entity": "nadia", "text": "Definitely. Another issue is scheduling. At present people sign up for four-hour shifts, but the busiest period is usually between eleven and two. We often have too many volunteers late in the afternoon and not enough around lunchtime."},
+    {"entity": "bob", "text": "We could introduce two- or three-hour shifts during peak periods. Shorter shifts might also attract people who cannot commit half a day. The risk is that the coordinator would have more individual schedules to manage."},
+    {"entity": "nadia", "text": "True, but an online rota could handle most of that. I would rather solve a scheduling problem than keep a system that puts volunteers there when they are least needed."},
+    {"entity": "bob", "text": "What about the idea of volunteers leading children's activities? I like it, but I think that requires a different level of training and responsibility. We should not add it automatically to everyone's role."},
+    {"entity": "nadia", "text": "Agreed. We could create an optional second role for volunteers who want extra training. For the general programme, the priority should be helping visitors make choices, answering routine questions accurately and knowing when to refer people to staff."},
+    {"entity": "bob", "text": "That sounds much clearer. It gives volunteers a more meaningful job without pretending they are museum experts, and the optional activities give experienced people somewhere to progress if they want to."}
+  ],
+  "questions": [
+    {"id": 1, "prompt": "Why does Nadia want to change the volunteers' current role?", "options": ["The museum plans to remove its entrance maps.", "She thinks volunteers could provide more useful guidance than simple directions.", "Visitors have complained that volunteers talk too much.", "The museum wants volunteers to replace professional guides."], "correctIndex": 1, "explanation": "Nadia argues that maps already provide directions and volunteers could instead help visitors decide how to use their limited time."},
+    {"id": 2, "prompt": "Why are they cautious about the proposed full-day training course?", "options": ["It contains too much specialist history.", "It would be too expensive for the museum to run.", "The time commitment could discourage occasional volunteers.", "It is offered only on weekdays."], "correctIndex": 2, "explanation": "They worry that volunteers who already give some weekends may not want to sacrifice an additional full Saturday for training."},
+    {"id": 3, "prompt": "What does Bob think volunteers should do with difficult factual questions?", "options": ["Give their best guess so the visitor receives an immediate answer.", "Avoid speaking to visitors about history at all.", "Refer the visitor to qualified staff when they are unsure.", "Ask another volunteer to invent an explanation."], "correctIndex": 2, "explanation": "Bob explicitly prefers volunteers to admit uncertainty and direct detailed questions to a curator or information desk."},
+    {"id": 4, "prompt": "Why do they consider shorter volunteer shifts?", "options": ["The museum is legally limiting volunteer hours.", "Shorter shifts could match busy periods better and attract people with less time.", "Visitors prefer seeing different volunteers every hour.", "The museum plans to close earlier in summer."], "correctIndex": 1, "explanation": "They want staffing to match the busiest hours and believe shorter commitments may attract more volunteers."},
+    {"id": 5, "prompt": "What is their final view of children's activities?", "options": ["Every volunteer should be required to lead them.", "They should be removed from the programme completely.", "They should be an optional advanced role with additional training.", "Only new volunteers should be responsible for them."], "correctIndex": 2, "explanation": "They separate children's activities from the general volunteer role and suggest extra training for those who choose to take them on."}
+  ]
+}

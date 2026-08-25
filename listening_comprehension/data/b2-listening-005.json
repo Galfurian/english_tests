@@ -1,0 +1,36 @@
+{
+  "exerciseId": "b2-listening-005",
+  "title": "Preparing a Group Presentation",
+  "level": "B2",
+  "instructions": "Listen to the conversation between Nadia and Bob. For each item, choose the option that best reflects what is said or implied.",
+  "entities": {
+    "nadia": {"name": "Nadia", "voice": "en-US-EmmaMultilingualNeural", "rate": "+1%", "pitch": "+1Hz"},
+    "bob": {"name": "Bob", "voice": "en-US-AndrewMultilingualNeural", "rate": "-1%", "pitch": "-2Hz"}
+  },
+  "audio": {
+    "url": "https://github.com/Galfurian/english_tests/releases/download/listening-audio-v1/b2-listening-005.mp3",
+    "sha256Url": "https://github.com/Galfurian/english_tests/releases/download/listening-audio-v1/b2-listening-005.mp3.sha256",
+    "description": "Two students reorganise a group presentation after discovering problems with the original plan."
+  },
+  "transcript": [
+    {"entity": "nadia", "text": "I looked at the slides everyone uploaded last night, and I think we have a problem. Individually the sections are fine, but together they feel like four separate presentations. We repeat the same background information three times."},
+    {"entity": "bob", "text": "I noticed that too. We divided the work by topic, but nobody was responsible for the overall structure. I think we should cut the repeated material and build the presentation around one clear question rather than four mini-topics."},
+    {"entity": "nadia", "text": "The assignment asks whether remote work improves productivity, so that can be our main question. I can introduce the research and explain how productivity was measured, then we move to the evidence for and against."},
+    {"entity": "bob", "text": "Good. My section has the employee survey, but it contains too many numbers. If I put every percentage on a slide, people will stop listening. I could show two key results and mention the rest briefly."},
+    {"entity": "nadia", "text": "Yes, and we should be careful not to suggest the survey proves more than it does. Most respondents work in technology companies, so we cannot assume their experience represents every profession."},
+    {"entity": "bob", "text": "That limitation could actually strengthen the presentation because it shows we have evaluated the evidence. What about Maya's section? She has a case study from one company that reported a big increase in output after closing its office."},
+    {"entity": "nadia", "text": "I would keep it, but use it as an example rather than proof. The company also changed its management system at the same time, so we do not know whether remote work caused the improvement by itself."},
+    {"entity": "bob", "text": "Right. Then the final section can compare the evidence and argue that remote work can improve productivity under certain conditions, but not automatically. That sounds more balanced than saying it is simply good or bad."},
+    {"entity": "nadia", "text": "Agreed. We also need to rehearse transitions. Last time we practised separately and then lost time because nobody knew exactly when the next person was supposed to start. The presentation has a strict twelve-minute limit."},
+    {"entity": "bob", "text": "Can everyone meet tomorrow afternoon? Even one full rehearsal would help. We can time each section and remove material if we are over twelve minutes instead of rushing on the day."},
+    {"entity": "nadia", "text": "Maya cannot come until five, but I would rather rehearse later with the whole group than earlier without her. I will also combine the slides into one file so the design and references are consistent."},
+    {"entity": "bob", "text": "Perfect. So today we simplify the evidence and remove repetition, and tomorrow we focus on timing and handovers. That should make it sound like one argument rather than four people reading their own research."}
+  ],
+  "questions": [
+    {"id": 1, "prompt": "What is the main weakness Nadia identifies in the original slides?", "options": ["The research is too difficult for the audience.", "The sections repeat information and lack a unified structure.", "Several group members have not completed their work.", "The slides contain almost no numerical evidence."], "correctIndex": 1, "explanation": "Nadia says the individual sections are acceptable but feel disconnected and repeat the same background material."},
+    {"id": 2, "prompt": "Why does Bob decide to reduce the number of survey statistics he shows?", "options": ["The statistics are unreliable.", "The lecturer has forbidden detailed charts.", "Too many figures may distract the audience from the main points.", "He has lost part of the survey data."], "correctIndex": 2, "explanation": "Bob worries that presenting every percentage will make the audience stop listening, so he chooses two key findings."},
+    {"id": 3, "prompt": "Why are Nadia and Bob cautious about the company case study?", "options": ["The company did not actually measure productivity.", "Other changes happened at the same time, so the cause is uncertain.", "The case study is several decades old.", "The company employs too few people to be relevant."], "correctIndex": 1, "explanation": "The company changed its management system while moving to remote work, making it impossible to attribute the improvement to one factor alone."},
+    {"id": 4, "prompt": "Why does Nadia prefer a later rehearsal?", "options": ["The classroom is unavailable earlier.", "She wants to finish editing the references first.", "It allows the entire group to practise together.", "Their presentation is scheduled for the evening."], "correctIndex": 2, "explanation": "Maya cannot attend until five, and Nadia considers a full-group rehearsal more useful than an earlier incomplete one."},
+    {"id": 5, "prompt": "What is the main aim of their revised approach?", "options": ["To make the presentation longer and more detailed.", "To present one coherent, balanced argument supported by selected evidence.", "To ensure each student speaks for exactly the same amount of time.", "To avoid mentioning weaknesses in the research."], "correctIndex": 1, "explanation": "They reorganise the material around one question, select evidence carefully and acknowledge limitations to create a coherent argument."}
+  ]
+}

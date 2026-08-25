@@ -1,0 +1,36 @@
+{
+  "exerciseId": "b2-listening-002",
+  "title": "Choosing a Part-Time Job",
+  "level": "B2",
+  "instructions": "Listen to the conversation between Nadia and Bob. For each item, choose the option that best reflects what is said or implied.",
+  "entities": {
+    "nadia": {"name": "Nadia", "voice": "en-US-EmmaMultilingualNeural", "rate": "+2%", "pitch": "+1Hz"},
+    "bob": {"name": "Bob", "voice": "en-US-AndrewMultilingualNeural", "rate": "-1%", "pitch": "-2Hz"}
+  },
+  "audio": {
+    "url": "https://github.com/Galfurian/english_tests/releases/download/listening-audio-v1/b2-listening-002.mp3",
+    "sha256Url": "https://github.com/Galfurian/english_tests/releases/download/listening-audio-v1/b2-listening-002.mp3.sha256",
+    "description": "Two students compare part-time jobs and try to choose the option that best fits their studies."
+  },
+  "transcript": [
+    {"entity": "nadia", "text": "I have been looking for a part-time job for next semester, and I have narrowed it down to two options. One is at a cafe near campus, and the other is an evening receptionist job at a small hotel. The hotel pays more, but the shifts finish quite late."},
+    {"entity": "bob", "text": "How late are we talking? If it is midnight every night, the extra money may not be worth it, especially when you have morning lectures. You already said last term that you found it difficult to concentrate when you had not slept enough."},
+    {"entity": "nadia", "text": "Most shifts end at eleven, although twice a month I would have to stay until one in the morning. The cafe closes at eight, so the hours are easier, but they want me to work every Saturday and Sunday. I was hoping to keep at least part of the weekend free."},
+    {"entity": "bob", "text": "That makes the choice less obvious. The cafe sounds better during the week, but losing every weekend could be a problem. Do either of them offer any flexibility around exams? That would matter more to me than a small difference in hourly pay."},
+    {"entity": "nadia", "text": "The hotel manager said students can swap shifts if they give enough notice. The cafe manager was friendly, but she said weekends are their busiest period, so those shifts are basically fixed. On the other hand, the cafe is only five minutes from my flat."},
+    {"entity": "bob", "text": "And the hotel? If you have to spend forty minutes travelling home after a late shift, that changes things. Sometimes people compare salaries and forget to include travel time and transport costs."},
+    {"entity": "nadia", "text": "It is about twenty-five minutes by bus. The last bus is just after eleven thirty, so on the very late nights I would need a taxi. The hotel would pay for it, though, which surprised me. They also provide a meal during the shift."},
+    {"entity": "bob", "text": "That is actually quite reasonable. What kind of work would you prefer? At the cafe you would probably be on your feet constantly, while the hotel might have quiet periods when nothing much happens."},
+    {"entity": "nadia", "text": "The receptionist role sounds more interesting because I would meet travellers and use my English. The manager also said I could study when the desk is quiet, as long as guests come first. I would never be able to open a textbook in the cafe."},
+    {"entity": "bob", "text": "Then I think the hotel fits your priorities better. The late hours are a disadvantage, but they are not every night, and the flexibility around exams is important. You would also gain experience that could actually be useful later rather than just earning money."},
+    {"entity": "nadia", "text": "That is what I am thinking. I was focusing too much on the finishing time, but the fixed weekends at the cafe would probably affect my social life more. I will ask the hotel to confirm the shift-swapping policy in writing before I accept."},
+    {"entity": "bob", "text": "Good idea. If they confirm it, I would take the hotel job. Just promise you will not volunteer for every late shift because the pay is better."}
+  ],
+  "questions": [
+    {"id": 1, "prompt": "Why is Nadia uncertain about the cafe job?", "options": ["The hourly pay is extremely low.", "It would require her to work every weekend.", "The journey from her flat is too long.", "She would have to work until after midnight."], "correctIndex": 1, "explanation": "The cafe closes early and is nearby, but its weekend shifts are fixed, which would leave Nadia little weekend free time."},
+    {"id": 2, "prompt": "What does Bob consider especially important when comparing the jobs?", "options": ["Whether the employer offers free transport every day.", "Whether Nadia can change shifts around exam periods.", "Whether the work involves speaking English.", "Whether the workplace provides meals."], "correctIndex": 1, "explanation": "Bob explicitly says flexibility around exams matters more to him than a small difference in hourly pay."},
+    {"id": 3, "prompt": "What reduces the disadvantage of the hotel's late shifts?", "options": ["The hotel closes earlier on weekdays.", "Nadia can sleep at the hotel after work.", "The hotel pays for a taxi when buses have stopped.", "Late shifts are always followed by a day off."], "correctIndex": 2, "explanation": "For the occasional very late shift, the hotel covers Nadia's taxi home."},
+    {"id": 4, "prompt": "Why does the receptionist role appeal to Nadia personally?", "options": ["It offers management training immediately.", "It would let her use English and sometimes study during quiet periods.", "It guarantees higher pay after one month.", "It involves less contact with customers."], "correctIndex": 1, "explanation": "Nadia values meeting travellers, using English and being allowed to study when the desk is quiet."},
+    {"id": 5, "prompt": "What is the main reason Nadia moves towards choosing the hotel?", "options": ["She realises it offers a better overall fit despite some late nights.", "She discovers that the cafe has cancelled her application.", "She decides that salary is the only factor that matters.", "She wants to avoid working with other students."], "correctIndex": 0, "explanation": "By the end, Nadia weighs flexibility, relevant experience and free weekends against the occasional late finish and sees the hotel as the better overall fit."}
+  ]
+}

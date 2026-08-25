@@ -1,0 +1,36 @@
+{
+  "exerciseId": "b2-listening-008",
+  "title": "Choosing Exchange Accommodation",
+  "level": "B2",
+  "instructions": "Listen to the conversation between Nadia and Bob. For each item, choose the option that best reflects what is said or implied.",
+  "entities": {
+    "nadia": {"name": "Nadia", "voice": "en-US-EmmaMultilingualNeural", "rate": "+2%", "pitch": "+1Hz"},
+    "bob": {"name": "Bob", "voice": "en-US-AndrewMultilingualNeural", "rate": "-1%", "pitch": "-2Hz"}
+  },
+  "audio": {
+    "url": "https://github.com/Galfurian/english_tests/releases/download/listening-audio-v1/b2-listening-008.mp3",
+    "sha256Url": "https://github.com/Galfurian/english_tests/releases/download/listening-audio-v1/b2-listening-008.mp3.sha256",
+    "description": "Two students compare accommodation options for a semester abroad."
+  },
+  "transcript": [
+    {"entity": "nadia", "text": "I finally received the accommodation options for my semester in Dublin. I can choose a university residence, a host family, or find a room in a shared flat myself. I thought the residence would be the obvious choice, but it is actually the most expensive."},
+    {"entity": "bob", "text": "Does the residence include anything useful, though? Sometimes the price looks high until you add internet, heating and transport to the cheaper options."},
+    {"entity": "nadia", "text": "Utilities and internet are included, and it is ten minutes from campus. The host family is cheaper and includes breakfast and dinner, but they live about forty minutes away by bus. A shared flat could be cheapest, although I would have to arrange everything independently."},
+    {"entity": "bob", "text": "The host family might be good for your English. You would be speaking with local people every day instead of spending all your time with other international students."},
+    {"entity": "nadia", "text": "That is what attracts me, but I am slightly worried about independence. They expect everyone to be home for dinner on weekdays unless they give notice. It is reasonable, but I do not want to organise my social life around a meal schedule."},
+    {"entity": "bob", "text": "Then the residence gives you more freedom, and meeting people would probably be easy. The downside is that residence life can become a bubble. You might spend four months abroad without getting to know much of the city outside the student area."},
+    {"entity": "nadia", "text": "Exactly. The shared flat seems like a compromise, but finding one from another country makes me nervous. Some adverts ask for deposits before you have even seen the room, and the university warns students about scams."},
+    {"entity": "bob", "text": "Could you stay somewhere temporary for the first week and search after you arrive? That would reduce the risk, but it also means starting the semester while trying to find a permanent place."},
+    {"entity": "nadia", "text": "I considered that, but orientation week is already busy. I would rather arrive knowing where I am living. The university residence lets exchange students cancel after the first month with reasonable notice, which gives me another idea."},
+    {"entity": "bob", "text": "Start in the residence and look for a shared flat once you know the city? That costs more initially, but you would have a safe place when you arrive and could inspect flats properly before deciding."},
+    {"entity": "nadia", "text": "Yes. I might even decide I like the residence and stay there. It gives me flexibility without forcing me to solve everything before I arrive. The host family sounds welcoming, but I think the fixed routine would bother me after a while."},
+    {"entity": "bob", "text": "That seems sensible. You are paying a little extra for a low-risk start, not necessarily committing to the expensive option for the whole semester."}
+  ],
+  "questions": [
+    {"id": 1, "prompt": "What makes the university residence more attractive than its price first suggests?", "options": ["It provides all meals and free flights.", "Several costs are included and it is close to campus.", "Students receive private apartments.", "It is cheaper than every other option after one month."], "correctIndex": 1, "explanation": "The residence includes utilities and internet and is only ten minutes from campus, so its higher headline price covers useful costs and convenience."},
+    {"id": 2, "prompt": "What concerns Nadia about living with a host family?", "options": ["She would have very little opportunity to practise English.", "She dislikes the neighbourhood where they live.", "Their weekday meal routine could limit her independence.", "They do not provide internet access."], "correctIndex": 2, "explanation": "Nadia understands the dinner rule but worries about having to organise social plans around it."},
+    {"id": 3, "prompt": "Why is Nadia cautious about arranging a shared flat before travelling?", "options": ["Shared flats are not allowed for exchange students.", "She is concerned about fraudulent adverts and paying before seeing a room.", "All shared flats are far from the university.", "She would have to sign a two-year contract."], "correctIndex": 1, "explanation": "She mentions adverts demanding deposits before viewings and the university's warning about scams."},
+    {"id": 4, "prompt": "Why does Nadia reject the idea of temporary accommodation at first?", "options": ["Temporary accommodation is unavailable during orientation week.", "She wants to avoid searching for housing while beginning a busy semester.", "It would prevent her from joining orientation activities.", "She cannot afford even one night in a hotel."], "correctIndex": 1, "explanation": "Nadia prefers to arrive with housing settled because orientation week will already require her attention."},
+    {"id": 5, "prompt": "What solution do Nadia and Bob finally favour?", "options": ["Commit to the host family for the whole semester.", "Rent the first shared flat available online.", "Begin in the residence and reconsider once Nadia knows the city.", "Stay in temporary accommodation for the entire first month."], "correctIndex": 2, "explanation": "The residence provides a safe, flexible start while leaving open the possibility of moving to a shared flat later."}
+  ]
+}
