@@ -4,5 +4,59 @@
     "title": "Planning a University Open Day",
     "level": "B2",
     "data": "./data/b2-listening-001.json"
+  },
+  {
+    "exerciseId": "b2-listening-002",
+    "title": "Choosing a Part-Time Job",
+    "level": "B2",
+    "data": "./data/b2-listening-002.json"
+  },
+  {
+    "exerciseId": "b2-listening-003",
+    "title": "Redesigning the Community Library",
+    "level": "B2",
+    "data": "./data/b2-listening-003.json"
+  },
+  {
+    "exerciseId": "b2-listening-004",
+    "title": "Planning a Weekend Trip",
+    "level": "B2",
+    "data": "./data/b2-listening-004.json"
+  },
+  {
+    "exerciseId": "b2-listening-005",
+    "title": "Preparing a Group Presentation",
+    "level": "B2",
+    "data": "./data/b2-listening-005.json"
+  },
+  {
+    "exerciseId": "b2-listening-006",
+    "title": "Improving a Recycling Scheme",
+    "level": "B2",
+    "data": "./data/b2-listening-006.json"
+  },
+  {
+    "exerciseId": "b2-listening-007",
+    "title": "Choosing a Staff Training Course",
+    "level": "B2",
+    "data": "./data/b2-listening-007.json"
+  },
+  {
+    "exerciseId": "b2-listening-008",
+    "title": "Choosing Exchange Accommodation",
+    "level": "B2",
+    "data": "./data/b2-listening-008.json"
+  },
+  {
+    "exerciseId": "b2-listening-009",
+    "title": "Changing a Sports Centre Membership",
+    "level": "B2",
+    "data": "./data/b2-listening-009.json"
+  },
+  {
+    "exerciseId": "b2-listening-010",
+    "title": "Volunteering at a Museum",
+    "level": "B2",
+    "data": "./data/b2-listening-010.json"
   }
 ]

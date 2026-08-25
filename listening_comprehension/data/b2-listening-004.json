@@ -1,0 +1,36 @@
+{
+  "exerciseId": "b2-listening-004",
+  "title": "Planning a Weekend Trip",
+  "level": "B2",
+  "instructions": "Listen to the conversation between Nadia and Bob. For each item, choose the option that best reflects what is said or implied.",
+  "entities": {
+    "nadia": {"name": "Nadia", "voice": "en-US-EmmaMultilingualNeural", "rate": "+2%", "pitch": "+1Hz"},
+    "bob": {"name": "Bob", "voice": "en-US-AndrewMultilingualNeural", "rate": "-1%", "pitch": "-2Hz"}
+  },
+  "audio": {
+    "url": "https://github.com/Galfurian/english_tests/releases/download/listening-audio-v1/b2-listening-004.mp3",
+    "sha256Url": "https://github.com/Galfurian/english_tests/releases/download/listening-audio-v1/b2-listening-004.mp3.sha256",
+    "description": "Two friends compare transport and accommodation options for a short weekend trip."
+  },
+  "transcript": [
+    {"entity": "nadia", "text": "I checked the options for our weekend in York. Driving looks cheapest at first, especially if four of us share the fuel, but parking in the centre is expensive and the hotel charges extra as well."},
+    {"entity": "bob", "text": "I saw that. The train costs more per person, but it gets us there before lunch and we would not need the car once we arrive. Most of the places we want to visit are within walking distance."},
+    {"entity": "nadia", "text": "The only problem is the return journey on Sunday. The cheapest train leaves at five in the afternoon, which means we lose part of the day. The later train is almost thirty pounds more per person."},
+    {"entity": "bob", "text": "Could we stay Sunday night and come back early Monday? I know that sounds more expensive, but the hotel has a three-night discount. We would pay only a little more for the room and get almost a full extra day."},
+    {"entity": "nadia", "text": "That might work for you, but I have a seminar at ten on Monday morning. I could probably make it if we caught the first train, but I do not want to spend the whole journey worrying about delays."},
+    {"entity": "bob", "text": "Fair enough. Then maybe the later Sunday train is worth paying for. If we drove, someone would have to spend nearly four hours behind the wheel after a full day out, which is not exactly relaxing."},
+    {"entity": "nadia", "text": "Agreed. What about accommodation? I found a guest house twenty minutes from the centre for sixty pounds a night. The central hotel is ninety, but breakfast is included and we would save time travelling in and out."},
+    {"entity": "bob", "text": "Normally I would choose the cheaper place, but for such a short trip location matters. If we only have two days, spending forty minutes a day on buses seems silly. We might also end up buying breakfast separately anyway."},
+    {"entity": "nadia", "text": "Exactly. The central hotel also lets us leave our bags after checkout on Sunday. That would be useful because I do not want to carry a backpack around museums all afternoon."},
+    {"entity": "bob", "text": "So we are paying more for the train and the hotel, but both choices give us more usable time. We can save money elsewhere by booking the museum tickets online and avoiding restaurants in the tourist area."},
+    {"entity": "nadia", "text": "I like that approach. I do not mind spending extra when it improves the trip, but I do not want every decision to be the most expensive one. We can have one good dinner and keep the other meals simple."},
+    {"entity": "bob", "text": "Then it is settled: train both ways, central hotel, and the later return on Sunday. It is not the cheapest possible weekend, but it sounds much less stressful."}
+  ],
+  "questions": [
+    {"id": 1, "prompt": "Why do Nadia and Bob move away from the idea of driving?", "options": ["The route is much longer than they expected.", "They would need to rent a car for the whole weekend.", "Parking and the tiring return drive reduce the apparent savings.", "None of them is allowed to drive in the city centre."], "correctIndex": 2, "explanation": "Although fuel could be shared, parking costs and the prospect of a long drive home make driving less attractive."},
+    {"id": 2, "prompt": "Why does Nadia reject staying until Monday?", "options": ["The hotel does not offer a third night.", "She has an academic commitment on Monday morning.", "The first Monday train is too expensive.", "She prefers to travel at night."], "correctIndex": 1, "explanation": "Nadia has a seminar at ten on Monday and does not want to risk arriving late because of delays."},
+    {"id": 3, "prompt": "Why do they prefer the more central hotel?", "options": ["It is the only hotel that includes dinner.", "It has larger rooms for groups.", "It saves travel time during a short trip and includes useful extras.", "The guest house has poor online reviews."], "correctIndex": 2, "explanation": "They value the central location, included breakfast and luggage storage because these features make better use of their limited time."},
+    {"id": 4, "prompt": "How do they plan to control the total cost of the trip?", "options": ["By choosing the cheapest option in every category.", "By spending more on convenience while saving on tickets and some meals.", "By cancelling most paid attractions.", "By travelling with fewer people."], "correctIndex": 1, "explanation": "They accept higher transport and hotel costs but plan savings through online tickets and simpler meals."},
+    {"id": 5, "prompt": "What is their overall priority when making decisions?", "options": ["Minimising stress and making the most of limited time.", "Keeping the trip as luxurious as possible.", "Avoiding all advance bookings.", "Spending as little as possible regardless of convenience."], "correctIndex": 0, "explanation": "Their final choices repeatedly favour convenience, usable time and reduced stress rather than the absolute lowest price."}
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "exerciseId": "b2-listening-009",
+  "title": "Changing a Sports Centre Membership",
+  "level": "B2",
+  "instructions": "Listen to the conversation between Nadia and Bob. For each item, choose the option that best reflects what is said or implied.",
+  "entities": {
+    "nadia": {"name": "Nadia", "voice": "en-US-EmmaMultilingualNeural", "rate": "+1%", "pitch": "+1Hz"},
+    "bob": {"name": "Bob", "voice": "en-US-AndrewMultilingualNeural", "rate": "-1%", "pitch": "-2Hz"}
+  },
+  "audio": {
+    "url": "https://github.com/Galfurian/english_tests/releases/download/listening-audio-v1/b2-listening-009.mp3",
+    "sha256Url": "https://github.com/Galfurian/english_tests/releases/download/listening-audio-v1/b2-listening-009.mp3.sha256",
+    "description": "Two members discuss proposed changes to pricing and class booking at a local sports centre."
+  },
+  "transcript": [
+    {"entity": "nadia", "text": "Did you see the sports centre's proposal for new memberships? They want to replace the single monthly price with three levels: gym only, gym plus classes, and an unlimited plan that also includes the pool."},
+    {"entity": "bob", "text": "I did. In theory it is fairer because people pay for what they use, but I am not convinced by the class plan. It is only slightly cheaper than the unlimited one, yet it still excludes swimming."},
+    {"entity": "nadia", "text": "For me the gym-only option would actually reduce my bill. I rarely take classes. But I understand why regular class users are annoyed, especially because the centre also wants to introduce a cancellation fee."},
+    {"entity": "bob", "text": "The fee itself does not bother me. The popular evening classes are always fully booked and then several people simply do not turn up. A small penalty might encourage people to cancel early enough for someone else to take the place."},
+    {"entity": "nadia", "text": "I agree in principle, but the proposal charges the fee even if you cancel six hours before the class. That seems too strict. People get sick or have to work late. Twenty-four hours' notice is not always realistic."},
+    {"entity": "bob", "text": "Maybe they need two rules: no fee if you cancel a few hours ahead, but a fee for not showing up at all. The real problem is empty spaces in classes that supposedly have waiting lists."},
+    {"entity": "nadia", "text": "Another change is the booking app. Members on the unlimited plan would be able to reserve classes one day earlier than everyone else. That feels like they are creating a better service for people who simply pay more."},
+    {"entity": "bob", "text": "Yes, I dislike that part more than the prices. Early booking could mean the most popular classes are effectively unavailable to people on the middle plan, even though classes are exactly what that membership is designed for."},
+    {"entity": "nadia", "text": "What would you suggest instead? They clearly want the unlimited plan to feel more valuable, and I can understand that from a business point of view."},
+    {"entity": "bob", "text": "Give unlimited members guest passes or a discount at the cafe, something that does not reduce access for other members. The membership levels should offer extra benefits without making the basic service worse for everyone else."},
+    {"entity": "nadia", "text": "That sounds reasonable. I am going to respond to the consultation. I will support the different membership levels and some kind of no-show fee, but suggest a shorter cancellation window and equal booking times for classes."},
+    {"entity": "bob", "text": "I will say something similar. The centre probably needs to increase revenue, but if the new system frustrates regular users, they may save money in the short term and lose members later."}
+  ],
+  "questions": [
+    {"id": 1, "prompt": "What advantage does Nadia see in the new membership structure?", "options": ["Every member will gain access to the pool.", "People who use fewer services may pay less.", "Classes will become free for all members.", "The sports centre will open for longer hours."], "correctIndex": 1, "explanation": "Nadia says the gym-only option would reduce her own bill because she rarely attends classes."},
+    {"id": 2, "prompt": "Why does Bob support some form of cancellation penalty?", "options": ["He wants classes to become more expensive.", "He thinks it could reduce unused places in fully booked classes.", "He wants members to book classes further in advance.", "He believes instructors are currently underpaid."], "correctIndex": 1, "explanation": "Bob is concerned that people reserve popular classes and then fail to attend, leaving places unused despite waiting lists."},
+    {"id": 3, "prompt": "What does Nadia think is unfair about the proposed cancellation rule?", "options": ["It applies only to evening classes.", "It gives members too little flexibility when unexpected events occur.", "It allows people to cancel after a class begins.", "It charges different amounts depending on membership level."], "correctIndex": 1, "explanation": "She argues that requiring very early cancellation does not allow for illness or unexpected work commitments."},
+    {"id": 4, "prompt": "Why do both speakers object to early booking for unlimited members?", "options": ["It would make the booking app more complicated.", "It could reduce realistic access to classes for members who already pay for classes.", "It would increase the cost of hiring instructors.", "It would prevent unlimited members from using the gym."], "correctIndex": 1, "explanation": "They fear popular classes could fill before middle-plan members even get the chance to reserve them."},
+    {"id": 5, "prompt": "What principle does Bob suggest for premium membership benefits?", "options": ["Premium users should always receive priority access to shared services.", "Extra benefits should add value without reducing the normal service available to others.", "All membership levels should offer exactly the same benefits.", "The centre should avoid offering any non-sport benefits."], "correctIndex": 1, "explanation": "Bob proposes guest passes or discounts because these reward premium users without making class access worse for other members."}
+  ]
+}

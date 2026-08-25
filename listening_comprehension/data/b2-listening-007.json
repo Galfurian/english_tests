@@ -1,0 +1,36 @@
+{
+  "exerciseId": "b2-listening-007",
+  "title": "Choosing a Staff Training Course",
+  "level": "B2",
+  "instructions": "Listen to the conversation between Nadia and Bob. For each item, choose the option that best reflects what is said or implied.",
+  "entities": {
+    "nadia": {"name": "Nadia", "voice": "en-US-EmmaMultilingualNeural", "rate": "+1%", "pitch": "+1Hz"},
+    "bob": {"name": "Bob", "voice": "en-US-AndrewMultilingualNeural", "rate": "-1%", "pitch": "-2Hz"}
+  },
+  "audio": {
+    "url": "https://github.com/Galfurian/english_tests/releases/download/listening-audio-v1/b2-listening-007.mp3",
+    "sha256Url": "https://github.com/Galfurian/english_tests/releases/download/listening-audio-v1/b2-listening-007.mp3.sha256",
+    "description": "Two colleagues compare training options for a team that needs both practical and flexible learning."
+  },
+  "transcript": [
+    {"entity": "nadia", "text": "We need to recommend a training course for the new project-management software. The cheapest option is a self-paced online package, but I am not sure that is enough for the team. Some people are already confident with digital tools, while others need more support."},
+    {"entity": "bob", "text": "I agree. The online course is attractive because everyone can do it when they have time, but it is mostly videos and quizzes. Our team will have to build real project schedules and reports, so practical exercises would be more useful."},
+    {"entity": "nadia", "text": "There is also a two-day classroom course. It includes hands-on tasks with an instructor, but sending twelve people at once would leave the office short-staffed. We could split the team into two groups, although that doubles the number of days affected."},
+    {"entity": "bob", "text": "What about the blended course? I saw one where people complete the basic modules online and then attend a half-day workshop. It costs more than the online package but much less than two full classroom days."},
+    {"entity": "nadia", "text": "That could work. My concern is whether people will actually finish the online modules before the workshop. We tried something similar last year, and several people arrived without doing the preparation, so the trainer had to repeat the basics."},
+    {"entity": "bob", "text": "Then we need to build the preparation into working hours instead of expecting people to do it whenever they can. If managers reserve two hours in everyone's calendar, completion is much more likely."},
+    {"entity": "nadia", "text": "Good point. We should also choose examples that match our real projects. The standard workshop uses construction projects, which may feel irrelevant to a marketing team. The provider said they can customise the exercises for an additional fee."},
+    {"entity": "bob", "text": "I think the customisation is worth paying for if it saves time later. People learn faster when they can see how a tool fits their actual work. We could send the trainer one of our old project plans and ask them to adapt it."},
+    {"entity": "nadia", "text": "Another question is follow-up support. The classroom provider offers email support for only one week. The blended provider gives access to a monthly question session for three months, which might be more useful once people start using the software independently."},
+    {"entity": "bob", "text": "That probably decides it for me. Most questions will appear after the course, not during it. A short workshop plus ongoing support sounds more realistic than trying to teach everything in two intensive days."},
+    {"entity": "nadia", "text": "So we recommend the blended option, but only if managers protect time for the online preparation and we pay for customised exercises. That makes it slightly more expensive, but it should reduce the risk of people completing the course without being able to use the system."},
+    {"entity": "bob", "text": "Exactly. We should judge the course by whether the team can apply what they learn, not simply by the lowest price or the number of training hours."}
+  ],
+  "questions": [
+    {"id": 1, "prompt": "Why are Nadia and Bob doubtful about the cheapest online course?", "options": ["It is available only outside working hours.", "It may not provide enough practical experience for all staff.", "It teaches a different software package.", "It requires employees to travel."], "correctIndex": 1, "explanation": "They worry that videos and quizzes alone will not prepare the whole team to perform real tasks in the software."},
+    {"id": 2, "prompt": "What is a disadvantage of the two-day classroom course?", "options": ["It has no instructor support.", "It cannot be divided into groups.", "It would disrupt normal staffing for a significant amount of time.", "It does not include practical exercises."], "correctIndex": 2, "explanation": "Sending the team to full-day classroom sessions would leave the office short-staffed, even if attendance were split."},
+    {"id": 3, "prompt": "How do they plan to improve completion of the online preparation?", "options": ["Make it optional for experienced staff.", "Ask employees to complete it at home.", "Reserve dedicated time for it during the working day.", "Replace it with a written manual."], "correctIndex": 2, "explanation": "Bob suggests managers block two hours in employees' calendars so the preparation is treated as actual work."},
+    {"id": 4, "prompt": "Why do they value the blended provider's follow-up support?", "options": ["It includes free software licences.", "Questions are likely to arise after employees begin using the system themselves.", "It guarantees that nobody will need a manager's help.", "The support sessions replace the online modules."], "correctIndex": 1, "explanation": "They expect practical questions to appear after training, so access to support over several months is useful."},
+    {"id": 5, "prompt": "What principle guides their final recommendation?", "options": ["Choose the course with the largest number of teaching hours.", "Choose the option most likely to transfer learning into real work.", "Choose the cheapest provider and add support later.", "Avoid online learning whenever possible."], "correctIndex": 1, "explanation": "Their decision focuses on practical application, relevant exercises, preparation time and follow-up rather than price alone."}
+  ]
+}

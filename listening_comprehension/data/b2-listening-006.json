@@ -1,0 +1,36 @@
+{
+  "exerciseId": "b2-listening-006",
+  "title": "Improving a Recycling Scheme",
+  "level": "B2",
+  "instructions": "Listen to the conversation between Nadia and Bob. For each item, choose the option that best reflects what is said or implied.",
+  "entities": {
+    "nadia": {"name": "Nadia", "voice": "en-US-EmmaMultilingualNeural", "rate": "+2%", "pitch": "+1Hz"},
+    "bob": {"name": "Bob", "voice": "en-US-AndrewMultilingualNeural", "rate": "-1%", "pitch": "-2Hz"}
+  },
+  "audio": {
+    "url": "https://github.com/Galfurian/english_tests/releases/download/listening-audio-v1/b2-listening-006.mp3",
+    "sha256Url": "https://github.com/Galfurian/english_tests/releases/download/listening-audio-v1/b2-listening-006.mp3.sha256",
+    "description": "Two residents discuss how to make a building recycling scheme easier to use and more effective."
+  },
+  "transcript": [
+    {"entity": "nadia", "text": "The building manager asked for suggestions because our recycling rate has dropped again. The strange thing is that almost everyone says they support recycling, but the bins downstairs are still full of the wrong materials."},
+    {"entity": "bob", "text": "I think part of the problem is the labels. They are just small pieces of text stuck on identical grey bins. If you are carrying rubbish and in a hurry, you have to stop and read every label."},
+    {"entity": "nadia", "text": "Exactly. We could use different colours and large pictures showing common items. But we should also explain what not to put in each bin. People keep putting greasy pizza boxes with clean paper, and that can contaminate the whole collection."},
+    {"entity": "bob", "text": "Good point. Another complaint is that the recycling area is only in the basement. People on the sixth floor say they are more likely to use the normal rubbish chute because it is right outside their door."},
+    {"entity": "nadia", "text": "We cannot afford separate recycling bins on every floor, but perhaps we could put small collection points on every second floor. The cleaning staff already move through the building each morning, so they could empty them into the main containers downstairs."},
+    {"entity": "bob", "text": "That sounds practical, although we should ask the cleaners before adding work to their routine. Maybe the residents' association could pay for an extra half hour of cleaning time rather than simply expecting them to do more."},
+    {"entity": "nadia", "text": "Agreed. What do you think about rewards? Someone suggested giving a discount on service charges if the building reaches a recycling target, but measuring each flat separately would be almost impossible."},
+    {"entity": "bob", "text": "A building-wide reward could work, but I would not make it the main strategy. People might participate for a month and then go back to old habits. Making recycling convenient and clear is more likely to change behaviour permanently."},
+    {"entity": "nadia", "text": "I also want to include food waste. At the moment there is no separate container, even though the city collects it. We would need bins with proper lids because nobody wants the basement smelling worse than it already does."},
+    {"entity": "bob", "text": "Yes, and we should start small. One food-waste bin in the main area, clear instructions, and maybe free compostable bags for the first few weeks. If people actually use it correctly, we can expand later."},
+    {"entity": "nadia", "text": "So our proposal is better signs, collection points on alternate floors, proper consultation with the cleaning staff and a trial food-waste scheme. We can mention the shared reward as an optional extra rather than the centre of the plan."},
+    {"entity": "bob", "text": "That feels realistic. It solves the reasons people give for not recycling instead of assuming they just need to be persuaded to care more."}
+  ],
+  "questions": [
+    {"id": 1, "prompt": "What problem does Bob identify with the existing recycling bins?", "options": ["They are too small for the building.", "Their labels are difficult to understand quickly.", "They are emptied too often.", "They are placed outside the building."], "correctIndex": 1, "explanation": "The bins look identical and have small text labels, making them inconvenient to use quickly."},
+    {"id": 2, "prompt": "Why do Nadia and Bob consider collection points on some upper floors?", "options": ["The basement will soon be closed.", "Residents find the current recycling location inconvenient.", "The city requires recycling on every floor.", "The cleaning staff requested more bins."], "correctIndex": 1, "explanation": "Some residents use the normal rubbish chute because it is much closer than the basement recycling area."},
+    {"id": 3, "prompt": "What concern does Bob raise about involving the cleaning staff?", "options": ["They may not know how recycling works.", "They should be consulted and compensated if their workload increases.", "They are not allowed to enter the recycling area.", "They already work too many evening shifts."], "correctIndex": 1, "explanation": "Bob says the scheme should not simply add duties and suggests paying for extra cleaning time."},
+    {"id": 4, "prompt": "Why is Bob cautious about using rewards as the main solution?", "options": ["He believes rewards are illegal.", "He thinks they may create only temporary behaviour change.", "He thinks residents already pay very low service charges.", "He wants rewards to go only to individual flats."], "correctIndex": 1, "explanation": "Bob prefers permanent improvements to convenience and clarity because incentives may only change behaviour briefly."},
+    {"id": 5, "prompt": "What general approach do they favour?", "options": ["Making recycling easier before trying to motivate people with incentives.", "Punishing residents who use the wrong bin.", "Replacing all ordinary rubbish facilities with recycling bins.", "Waiting for the city to redesign the entire system."], "correctIndex": 0, "explanation": "Their proposal focuses on reducing practical barriers and confusion, with rewards treated only as a possible addition."}
+  ]
+}

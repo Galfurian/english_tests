@@ -1,0 +1,36 @@
+{
+  "exerciseId": "b2-listening-003",
+  "title": "Redesigning the Community Library",
+  "level": "B2",
+  "instructions": "Listen to the conversation between Nadia and Bob. For each item, choose the option that best reflects what is said or implied.",
+  "entities": {
+    "nadia": {"name": "Nadia", "voice": "en-US-EmmaMultilingualNeural", "rate": "+1%", "pitch": "+1Hz"},
+    "bob": {"name": "Bob", "voice": "en-US-AndrewMultilingualNeural", "rate": "-1%", "pitch": "-2Hz"}
+  },
+  "audio": {
+    "url": "https://github.com/Galfurian/english_tests/releases/download/listening-audio-v1/b2-listening-003.mp3",
+    "sha256Url": "https://github.com/Galfurian/english_tests/releases/download/listening-audio-v1/b2-listening-003.mp3.sha256",
+    "description": "Two volunteers discuss how to redesign a community library without losing its quiet character."
+  },
+  "transcript": [
+    {"entity": "nadia", "text": "The council has finally approved the library renovation, but the budget is smaller than we expected. We cannot do everything on the original list, so we need to decide what will make the biggest difference to visitors."},
+    {"entity": "bob", "text": "I would start with the study area. At the moment there are only six desks near the entrance, and it gets noisy whenever people come in. Students keep asking for somewhere they can work for a couple of hours without being interrupted."},
+    {"entity": "nadia", "text": "I agree the study area needs attention, but I am not sure we should simply add more desks. Families with young children also use the library a lot. If we move the children's section closer to the entrance, the back room could become a quiet study space."},
+    {"entity": "bob", "text": "That would separate the two groups, which makes sense. My only concern is that the back room has poor lighting. We would need new lamps and probably extra electrical sockets, so that would use quite a lot of the budget."},
+    {"entity": "nadia", "text": "True, but some of that work has to be done anyway because the wiring is old. I would rather spend money on something that improves the building long term than buy a lot of furniture we may replace again in a few years."},
+    {"entity": "bob", "text": "Fair point. What about the cafe proposal? Several people suggested a small coffee counter, and it could bring in some income. But if we are trying to protect quiet areas, adding a cafe seems slightly contradictory."},
+    {"entity": "nadia", "text": "I like the idea in principle, but not for this phase. A cafe needs staff, cleaning and food regulations, so it is not just the cost of buying a machine. Maybe we could install a water station and allow covered drinks instead."},
+    {"entity": "bob", "text": "That is much simpler. We should also think about computers. Half of the public computers are more than eight years old, but fewer people use them now because most visitors bring laptops or phones."},
+    {"entity": "nadia", "text": "Then replacing all of them would be wasteful. What if we keep four reliable computers for people who genuinely need them and use the freed space for two small tables where people can work together? Group work is another thing the current layout does badly."},
+    {"entity": "bob", "text": "I like that. We could make those tables bookable, so groups are less likely to take over the quiet study room. We would end up with a children's area near the entrance, a silent room at the back and a small collaborative zone in the middle."},
+    {"entity": "nadia", "text": "Exactly. And rather than spending the remaining money on decoration, I would improve signs and accessibility. The current signs are confusing, and the shelves near the history section are too close together for wheelchair users."},
+    {"entity": "bob", "text": "That should definitely be included. It is not the most exciting part of the renovation, but it affects whether people can actually use the space. I think we have a sensible order of priorities now."}
+  ],
+  "questions": [
+    {"id": 1, "prompt": "Why does Nadia suggest moving the children's section?", "options": ["To make it easier for staff to supervise children.", "To create a quieter study room at the back of the library.", "To make space for a larger cafe near the entrance.", "To reduce the number of books in the children's collection."], "correctIndex": 1, "explanation": "Moving the children's section to the entrance would free the back room for quiet study and separate noisy and quiet activities."},
+    {"id": 2, "prompt": "Why is Bob initially concerned about using the back room for study?", "options": ["It is too small for desks.", "It is difficult to access from the entrance.", "Its lighting and electrical facilities need improvement.", "It is currently used for staff meetings."], "correctIndex": 2, "explanation": "Bob points out that the back room has poor lighting and needs additional sockets."},
+    {"id": 3, "prompt": "Why do they postpone the cafe idea?", "options": ["Visitors have said they do not want food in the library.", "The council has forbidden food service in public buildings.", "It would create ongoing staffing and regulatory costs.", "There is no available space for a coffee counter."], "correctIndex": 2, "explanation": "Nadia notes that a cafe requires staff, cleaning and compliance with food regulations, so its true cost is higher than it first appears."},
+    {"id": 4, "prompt": "What do they decide about the public computers?", "options": ["Replace every old computer immediately.", "Remove computers completely because most people own laptops.", "Keep a smaller number of dependable computers and reuse some space.", "Move all computers into the children's section."], "correctIndex": 2, "explanation": "They plan to retain four reliable computers and turn some of the remaining space into a collaborative area."},
+    {"id": 5, "prompt": "What principle best describes their final plan?", "options": ["Prioritising practical improvements that serve different users.", "Spending most of the budget on attractive new furniture.", "Making the library primarily a social meeting place.", "Reducing services in order to lower staffing costs."], "correctIndex": 0, "explanation": "Their priorities focus on separating activities, accessibility, useful infrastructure and flexible spaces rather than cosmetic changes."}
+  ]
+}
