@@ -20,11 +20,24 @@ function toggleTheme(){
   applyTheme();
 }
 
+function populateExercisePicker(){
+  const picker=el('exercisePicker');
+  picker.innerHTML='';
+  exerciseIndex.forEach((entry,index)=>{
+    const option=document.createElement('option');
+    const number=entry.exerciseId.split('-').pop();
+    option.value=String(index);
+    option.textContent=`#${number} · ${entry.title}`;
+    picker.appendChild(option);
+  });
+}
+
 async function loadIndex(){
   const res=await fetch(INDEX_URL);
   if(!res.ok) throw new Error(`Unable to load exercise index (${res.status})`);
   exerciseIndex=await res.json();
   if(!Array.isArray(exerciseIndex)||!exerciseIndex.length) throw new Error('No listening exercises found.');
+  populateExercisePicker();
 }
 
 async function loadExercise(position){
@@ -41,12 +54,12 @@ function renderExercise(){
   el('resultsPanel').hidden=true;
   el('exercisePanel').hidden=false;
   el('exerciseCounter').textContent=`Exercise ${currentPosition+1} / ${exerciseIndex.length}`;
+  el('exercisePicker').value=String(currentPosition);
   const saved=progress[currentExercise.exerciseId];
   el('scoreSummary').textContent=saved?`Last score: ${saved.score}/${saved.total}`:'Not attempted';
   el('levelBadge').textContent=currentExercise.level||'B2';
   el('exerciseTitle').textContent=currentExercise.title;
   el('exerciseInstructions').textContent=currentExercise.instructions||'Listen and select the best answer for each item.';
-  el('exerciseId').textContent=currentExercise.exerciseId;
   el('audioMeta').textContent=currentExercise.audio?.description||'Play the recording when you are ready.';
 
   const player=el('audioPlayer');
@@ -140,6 +153,7 @@ async function initialize(){
 }
 
 el('themeToggle').addEventListener('click',toggleTheme);
+el('exercisePicker').addEventListener('change',event=>loadExercise(Number(event.target.value)));
 el('questionForm').addEventListener('submit',checkAnswers);
 el('resetAnswersBtn').addEventListener('click',clearAnswers);
 el('retryBtn').addEventListener('click',()=>renderExercise());
