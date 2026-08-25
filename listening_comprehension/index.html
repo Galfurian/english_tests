@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>B2 Listening Comprehension</title>
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+  <main class="page-shell">
+    <header class="topbar">
+      <a class="back-link" href="../index.html">← All exercises</a>
+      <button id="themeToggle" class="icon-btn" type="button" aria-label="Toggle theme">☾</button>
+    </header>
+
+    <section class="hero">
+      <div>
+        <span class="eyebrow">CLA-style practice · CEFR B2</span>
+        <h1>Listening Comprehension</h1>
+        <p>Listen to the conversation and choose the option that best matches what the speakers say.</p>
+      </div>
+      <div class="progress-card">
+        <span id="exerciseCounter">Exercise 1 / 1</span>
+        <strong id="scoreSummary">Not attempted</strong>
+      </div>
+    </section>
+
+    <section id="loadingPanel" class="panel centered">Loading exercise…</section>
+
+    <section id="exercisePanel" class="panel" hidden>
+      <div class="exercise-heading">
+        <div>
+          <span id="levelBadge" class="badge">B2</span>
+          <h2 id="exerciseTitle"></h2>
+          <p id="exerciseInstructions" class="muted"></p>
+        </div>
+        <span id="exerciseId" class="exercise-id"></span>
+      </div>
+
+      <div class="audio-card">
+        <div class="audio-copy">
+          <strong>Conversation audio</strong>
+          <span id="audioMeta" class="muted">Play the recording when you are ready.</span>
+        </div>
+        <audio id="audioPlayer" controls preload="metadata"></audio>
+        <div id="audioError" class="error-box" hidden></div>
+      </div>
+
+      <form id="questionForm">
+        <div id="questionsContainer" class="questions"></div>
+        <div class="actions">
+          <button id="resetAnswersBtn" class="secondary-btn" type="button">Clear answers</button>
+          <button class="primary-btn" type="submit">Check answers</button>
+        </div>
+      </form>
+    </section>
+
+    <section id="resultsPanel" class="panel" hidden>
+      <div class="result-header">
+        <div>
+          <span class="eyebrow">Result</span>
+          <h2><span id="scoreValue">0</span> / <span id="scoreTotal">5</span></h2>
+        </div>
+        <button id="retryBtn" class="secondary-btn" type="button">Try again</button>
+      </div>
+      <div id="feedbackContainer" class="feedback-list"></div>
+      <details id="transcriptDetails" class="transcript">
+        <summary>Show transcript</summary>
+        <div id="transcriptContainer"></div>
+      </details>
+      <div class="actions">
+        <button id="nextExerciseBtn" class="primary-btn" type="button">Next exercise</button>
+      </div>
+    </section>
+  </main>
+  <script src="./js/script.js"></script>
+</body>
+</html>
