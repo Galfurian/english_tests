@@ -1,47 +1,77 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="English language exercise and test-style practice prototype by Enrico Fraccaroli.">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="English language exercises and test-style practice.">
     <meta name="author" content="Enrico Fraccaroli">
     <title>English Tests</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen,Ubuntu,Cantarell,sans-serif; background: linear-gradient(135deg,#667eea 0%,#764ba2 100%); min-height:100vh; display:flex; align-items:center; justify-content:center; padding:20px; }
-        .container { max-width: 900px; width:100%; text-align:center; }
-        h1 { color:white; font-size:2.5rem; margin-bottom:10px; text-shadow:0 2px 10px rgba(0,0,0,.2); }
-        .subtitle { color:rgba(255,255,255,.9); font-size:1.1rem; margin-bottom:50px; text-shadow:0 1px 5px rgba(0,0,0,.2); }
-        .cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:30px; margin-bottom:30px; }
-        .card { background:white; border-radius:12px; padding:40px 30px; box-shadow:0 10px 40px rgba(0,0,0,.2); transition:transform .3s ease,box-shadow .3s ease; display:flex; flex-direction:column; justify-content:space-between; }
-        .card:hover { transform:translateY(-5px); box-shadow:0 15px 50px rgba(0,0,0,.3); }
-        .card-icon { font-size:3rem; margin-bottom:15px; }
-        .card h2 { color:#333; font-size:1.8rem; margin-bottom:10px; }
-        .card p { color:#666; font-size:1rem; line-height:1.6; margin-bottom:25px; flex-grow:1; }
-        .card-link { display:inline-block; background:linear-gradient(135deg,#667eea 0%,#764ba2 100%); color:white; padding:12px 30px; border-radius:6px; text-decoration:none; font-weight:600; transition:opacity .3s ease,transform .3s ease; }
-        .card-link:hover { opacity:.9; transform:scale(1.05); }
-        :focus-visible { outline:3px solid #fff; outline-offset:4px; }
-        footer { color:rgba(255,255,255,.9); font-size:.9rem; margin-top:40px; line-height:1.6; }
-        footer a { color:white; }
-        @media(max-width:600px){ h1{font-size:1.8rem}.subtitle{font-size:1rem}.cards{gap:20px}.card{padding:30px 20px}.card h2{font-size:1.5rem} }
-        @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
-    </style>
+    <script src="shared/preferences.js"></script>
+    <link rel="stylesheet" href="shared/tokens.css">
+    <link rel="stylesheet" href="shared/base.css">
+    <link rel="stylesheet" href="shared/layout.css">
+    <link rel="stylesheet" href="shared/components.css">
+    <link rel="stylesheet" href="shared/accessibility.css">
+    <link rel="stylesheet" href="css/catalogue.css">
 </head>
 <body>
-    <main class="container">
-        <h1>English Tests</h1>
-        <p class="subtitle">Select an exercise type to begin</p>
-        <div class="cards">
-            <div class="card"><div><div class="card-icon" aria-hidden="true">📚</div><h2>Full Word Placement</h2><p>The whole-word version of the grammar test, where you replace complete words in the text.</p></div><a href="./full_word_placement/index.html" class="card-link">Start Full Word Placement</a></div>
-            <div class="card"><div><div class="card-icon" aria-hidden="true">⚡</div><h2>Partial Word Placement</h2><p>The letter-removal version of the grammar test, where only part of each selected word is hidden.</p></div><a href="./partial_word_placement/index.html" class="card-link">Start Partial Word Placement</a></div>
-            <div class="card"><div><div class="card-icon" aria-hidden="true">🧪</div><h2>Dropdown Word Placement</h2><p>The drop-down list version of the grammar test, where you select the correct word from a list of options.</p></div><a href="./dropdown_word_placement/index.html" class="card-link">Start Dropdown Word Placement</a></div>
-            <div class="card"><div><div class="card-icon" aria-hidden="true">🎚️</div><h2>Slider Word Placement</h2><p>The word-bank version of the grammar test, where a slider controls how many candidate words appear in each gap.</p></div><a href="./slider_word_placement/index.html" class="card-link">Start Slider Word Placement</a></div>
-            <div class="card"><div><div class="card-icon" aria-hidden="true">🎧</div><h2>B2 Listening Comprehension</h2><p>B2 listening practice with a dialogue, five dropdown questions, scoring, explanations, and transcript review.</p></div><a href="./listening_comprehension/index.html" class="card-link">Start Listening Practice</a></div>
-        </div>
-        <footer>
-            <p>Grammar and listening practice for English learners</p>
-            <p>&copy; 2025-2026 Enrico Fraccaroli &middot; <a href="https://github.com/Galfurian/english_tests/blob/main/LICENSE.md">MIT License</a></p>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+    <div class="site-shell">
+        <header class="site-header">
+            <a class="site-brand" href="./index.html">English Tests</a>
+            <nav class="site-nav" aria-label="Primary navigation">
+                <a href="./index.html" aria-current="page">All exercises</a>
+            </nav>
+            <div class="preferences" role="group" aria-label="Reading preferences">
+                <div class="field"><label for="themePreference">Theme</label><select id="themePreference" class="preference-control" data-preference="theme"><option value="system">System theme</option><option value="light">Light theme</option><option value="dark">Dark theme</option></select></div>
+                <div class="field"><label for="textSizePreference">Text size</label><select id="textSizePreference" class="preference-control" data-preference="textSize"><option value="normal">Standard text</option><option value="large">Large text</option><option value="larger">Extra-large text</option></select></div>
+                <div class="field"><label for="densityPreference">Spacing</label><select id="densityPreference" class="preference-control" data-preference="density"><option value="standard">Standard spacing</option><option value="comfortable">Comfortable spacing</option><option value="spacious">Spacious layout</option></select></div>
+            </div>
+        </header>
+
+        <main id="main-content" class="content-column">
+            <header class="page-intro catalogue-intro">
+                <p class="exercise-meta">English practice</p>
+                <h1>Choose an exercise</h1>
+                <p>Practise grammar and listening with short, focused activities. Choose a format to get started.</p>
+            </header>
+
+            <section aria-labelledby="exercise-types-heading">
+                <h2 id="exercise-types-heading" class="visually-hidden">Exercise types</h2>
+                <div class="exercise-grid">
+                    <article class="surface exercise-card">
+                        <header class="exercise-card-header"><span class="exercise-card-icon" aria-hidden="true">📚</span><h2>Full word placement</h2></header>
+                        <p>Complete a text by replacing missing words.</p>
+                        <a class="button-primary exercise-card-link" href="./full_word_placement/index.html">Start full word placement</a>
+                    </article>
+                    <article class="surface exercise-card">
+                        <header class="exercise-card-header"><span class="exercise-card-icon" aria-hidden="true">⚡</span><h2>Partial word placement</h2></header>
+                        <p>Complete words with some letters removed.</p>
+                        <a class="button-primary exercise-card-link" href="./partial_word_placement/index.html">Start partial word placement</a>
+                    </article>
+                    <article class="surface exercise-card">
+                        <header class="exercise-card-header"><span class="exercise-card-icon" aria-hidden="true">🧪</span><h2>Dropdown word placement</h2></header>
+                        <p>Choose the best option for each gap.</p>
+                        <a class="button-primary exercise-card-link" href="./dropdown_word_placement/index.html">Start dropdown word placement</a>
+                    </article>
+                    <article class="surface exercise-card">
+                        <header class="exercise-card-header"><span class="exercise-card-icon" aria-hidden="true">🎚️</span><h2>Slider word placement</h2></header>
+                        <p>Complete gaps using a word bank.</p>
+                        <a class="button-primary exercise-card-link" href="./slider_word_placement/index.html">Start slider word placement</a>
+                    </article>
+                    <article class="surface exercise-card">
+                        <header class="exercise-card-header"><span class="exercise-card-icon" aria-hidden="true">🎧</span><h2>B2 listening comprehension</h2></header>
+                        <p>Listen to a conversation and answer questions.</p>
+                        <a class="button-primary exercise-card-link" href="./listening_comprehension/index.html">Start listening comprehension</a>
+                    </article>
+                </div>
+            </section>
+        </main>
+
+        <footer class="site-footer">
+            <p>Grammar and listening practice for English learners.</p>
+            <p>© 2025–2026 Enrico Fraccaroli · <a href="https://github.com/Galfurian/english_tests/blob/main/LICENSE.md">MIT License</a></p>
         </footer>
-    </main>
+    </div>
 </body>
 </html>

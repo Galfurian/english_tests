@@ -1,0 +1,11 @@
+.catalogue-intro { padding-bottom: var(--space-5); }
+.catalogue-intro h1 { margin-bottom: var(--space-3); font-size: clamp(2rem, 5vw, 3.5rem); }
+.catalogue-intro p { color: var(--color-muted); }
+.exercise-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr)); gap: calc(var(--space-5) * var(--content-density)); }
+.exercise-card { display: flex; flex-direction: column; gap: var(--space-4); min-height: 100%; }
+.exercise-card-header { display: flex; align-items: center; gap: var(--space-3); }
+.exercise-card-icon { font-size: 2rem; line-height: 1; }
+.exercise-card h2 { margin: 0; font-size: 1.35em; }
+.exercise-card p { flex: 1; margin: 0; color: var(--color-muted); }
+.exercise-card-link { align-self: flex-start; text-decoration: none; }
+@media (max-width: 640px) { .exercise-card-link { align-self: stretch; } }
