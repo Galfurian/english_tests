@@ -10,7 +10,7 @@
       "path": "full_word_placement/",
       "title": "Full word placement",
       "features": {
-        "exerciseSelector": false,
+        "exerciseSelector": true,
         "progress": true,
         "timer": { "enabled": true, "mode": "optional", "defaultMinutes": 20 }
       }

@@ -24,7 +24,7 @@
         }
         selector.addEventListener('change', () => { const accepted = onExerciseChange(Number(selector.value)); if (accepted === false) selector.value = String(selectedIndex); });
         update(currentIndex);
-        return { update, destroy: () => timer?.destroy() };
+        return { update, resetTimer: () => timer?.reset(), destroy: () => timer?.destroy() };
     }
     window.EnglishTestsToolbar = { mount };
 }());
