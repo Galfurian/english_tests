@@ -17,7 +17,7 @@ function chooseExercise(exclude = null) {
 
 function makeAnswerSelect(gap) {
     const select = document.createElement('select');
-    select.className = 'answer-select'; select.name = `gap_${gap.id}`; select.id = `gap-${gap.id}`; select.required = true;
+    select.className = 'answer-select'; select.name = `gap_${gap.id}`; select.id = `gap-${gap.id}`;
     select.setAttribute('aria-label', `Answer for gap ${gap.id}`);
     const empty = document.createElement('option'); empty.value = ''; empty.textContent = 'Choose an answer'; select.appendChild(empty);
     gap.options.forEach((optionText, index) => { const option = document.createElement('option'); option.value = String(index); option.textContent = optionText; select.appendChild(option); });
@@ -42,32 +42,24 @@ function renderAttempt(exercise) {
 }
 
 function clearAnswers() {
-    get('exerciseForm').reset(); document.querySelectorAll('.answer-select').forEach((select) => { select.removeAttribute('aria-invalid'); select.removeAttribute('aria-describedby'); });
-    get('validationErrors').replaceChildren(); showStatus('Answers cleared.');
-}
-
-function validateAnswers() {
-    const invalid = [...document.querySelectorAll('.answer-select')].filter((select) => !select.value);
-    get('validationErrors').replaceChildren();
-    document.querySelectorAll('.answer-select').forEach((select) => { select.removeAttribute('aria-invalid'); select.removeAttribute('aria-describedby'); });
-    if (!invalid.length) return true;
-    invalid.forEach((select) => { const error = document.createElement('p'); error.className = 'field-error'; error.id = `${select.id}-error`; error.textContent = 'Choose an answer for this gap.'; select.setAttribute('aria-invalid', 'true'); select.setAttribute('aria-describedby', error.id); get('validationErrors').appendChild(error); });
-    showStatus(`${invalid.length} answer${invalid.length === 1 ? '' : 's'} need attention.`, 'error'); invalid[0].focus(); return false;
+    get('exerciseForm').reset(); showStatus('Answers cleared.');
 }
 
 function renderResults(results, score) {
-    get('scoreDisplay').textContent = score; get('totalDisplay').textContent = currentExercise.gaps.length; get('resultsSummary').textContent = `${score} of ${currentExercise.gaps.length} answers correct.`;
+    const unansweredCount = results.filter((result) => result.unanswered).length;
+    get('scoreDisplay').textContent = score; get('totalDisplay').textContent = currentExercise.gaps.length;
+    get('resultsSummary').textContent = `${score} of ${currentExercise.gaps.length} answers correct.${unansweredCount ? ` ${unansweredCount} unanswered.` : ''}`;
     const text = get('resultsTextDisplay'); text.replaceChildren(); const paragraph = document.createElement('p');
-    currentExercise.text.split(/(\[GAP_\d+\])/g).forEach((part) => { const match = part.match(/^\[GAP_(\d+)\]$/); if (!match) { paragraph.appendChild(document.createTextNode(part)); return; } const result = results.find((item) => item.gapId === Number(match[1])); const answer = document.createElement('strong'); answer.textContent = result.answer; answer.className = `result-status ${result.correct ? 'correct' : 'incorrect'}`; paragraph.appendChild(answer); });
+    currentExercise.text.split(/(\[GAP_\d+\])/g).forEach((part) => { const match = part.match(/^\[GAP_(\d+)\]$/); if (!match) { paragraph.appendChild(document.createTextNode(part)); return; } const result = results.find((item) => item.gapId === Number(match[1])); const answer = document.createElement('strong'); answer.textContent = result.answer; answer.className = `result-status ${result.state.toLowerCase()}`; paragraph.appendChild(answer); });
     text.appendChild(paragraph);
     const feedback = get('feedbackList'); feedback.replaceChildren();
-    results.forEach((result) => { const item = document.createElement('article'); item.className = `result-item ${result.correct ? 'correct' : 'incorrect'}`; const heading = document.createElement('p'); const status = document.createElement('span'); status.className = `result-status ${result.correct ? 'correct' : 'incorrect'}`; status.textContent = `Gap ${result.gapId}: ${result.correct ? 'Correct' : 'Incorrect'}`; heading.appendChild(status); item.appendChild(heading); const detail = document.createElement('p'); detail.textContent = result.correct ? `Your answer is correct. Focus: ${result.focus}. ${result.explanation}` : `Your answer: ${result.answer}. Correct answer: ${result.correctAnswer}. Focus: ${result.focus}. ${result.explanation}`; item.appendChild(detail); feedback.appendChild(item); });
+    results.forEach((result) => { const item = document.createElement('article'); item.className = `result-item ${result.state.toLowerCase()}`; const heading = document.createElement('p'); const status = document.createElement('span'); status.className = `result-status ${result.state.toLowerCase()}`; status.textContent = `Gap ${result.gapId}: ${result.state}`; heading.appendChild(status); item.appendChild(heading); const detail = document.createElement('p'); detail.textContent = `Your answer: ${result.answer}. Correct answer: ${result.correctAnswer}. Focus: ${result.focus}. ${result.explanation}`; item.appendChild(detail); feedback.appendChild(item); });
     get('exercisePanel').hidden = true; get('resultsPanel').hidden = false; get('resultsHeading').focus(); showStatus('Results ready.');
 }
 
 function checkAnswers(event) {
-    event.preventDefault(); if (!currentExercise || !validateAnswers()) return;
-    const results = currentExercise.gaps.map((gap) => { const selected = Number(get(`gap-${gap.id}`).value); return { gapId: gap.id, answer: gap.options[selected], correctAnswer: gap.options[gap.correctIndex], correct: selected === gap.correctIndex, focus: gap.focus || 'Grammar', explanation: gap.explanation || '' }; });
+    event.preventDefault(); if (!currentExercise) return;
+    const results = currentExercise.gaps.map((gap) => { const value = get(`gap-${gap.id}`).value; const unanswered = value === ''; const selected = unanswered ? null : Number(value); const correct = !unanswered && selected === gap.correctIndex; return { gapId: gap.id, answer: unanswered ? 'No answer' : gap.options[selected], correctAnswer: gap.options[gap.correctIndex], correct, unanswered, state: unanswered ? 'Unanswered' : (correct ? 'Correct' : 'Incorrect'), focus: gap.focus || 'Grammar', explanation: gap.explanation || '' }; });
     const score = results.filter((result) => result.correct).length; const progress = readProgress(); progress[String(currentExercise.exerciseId)] = { score, total: results.length, at: new Date().toISOString() }; writeProgress(progress); renderResults(results, score);
 }
 
