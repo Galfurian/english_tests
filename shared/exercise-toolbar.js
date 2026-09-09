@@ -2,7 +2,7 @@
     function mount(container, options) {
         const { exercises, currentIndex, features, onExerciseChange } = options;
         let selectedIndex = currentIndex;
-        container.replaceChildren(); container.hidden = false; container.className = 'exercise-toolbar'; container.setAttribute('role', 'toolbar'); container.setAttribute('aria-label', 'Exercise controls');
+        container.replaceChildren(); container.hidden = false; container.className = 'exercise-toolbar'; container.setAttribute('role', 'group'); container.setAttribute('aria-label', 'Exercise controls');
         const progress = document.createElement('span'); progress.className = 'toolbar-progress';
         const selectorGroup = document.createElement('div'); selectorGroup.className = 'toolbar-selector';
         const selectorLabel = document.createElement('label'); selectorLabel.textContent = 'Change exercise'; selectorLabel.htmlFor = 'exerciseSelector';

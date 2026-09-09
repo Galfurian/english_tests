@@ -1,88 +1,66 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="B2 listening-comprehension exercise prototype by Enrico Fraccaroli.">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="B2 listening-comprehension practice with audio, questions, explanations, and transcript review.">
   <meta name="author" content="Enrico Fraccaroli">
-  <title>B2 Listening Comprehension</title>
-  <link rel="stylesheet" href="./css/style.css">
+  <title>Listening comprehension | English Tests</title>
+  <script src="../shared/preferences.js"></script>
+  <link rel="stylesheet" href="../shared/tokens.css">
+  <link rel="stylesheet" href="../shared/base.css">
+  <link rel="stylesheet" href="../shared/layout.css">
+  <link rel="stylesheet" href="../shared/components.css">
   <link rel="stylesheet" href="../shared/accessibility.css">
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <main class="page-shell">
-    <header class="topbar">
-      <a class="back-link" href="../index.html">← All exercises</a>
-      <button id="themeToggle" class="icon-btn" type="button" aria-label="Toggle light and dark theme">☾</button>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <div class="site-shell">
+    <header class="site-header">
+      <a class="site-brand" href="../index.html">English Tests</a>
+      <nav class="site-nav" aria-label="Primary navigation"><a class="back-to-catalogue" href="../index.html"><span class="back-to-catalogue-arrow" aria-hidden="true">↰</span><span>All exercises</span></a></nav>
+      <div class="preferences" role="group" aria-label="Reading preferences">
+        <div class="field"><label for="themePreference">Theme</label><select id="themePreference" class="preference-control" data-preference="theme"><option value="system">System theme</option><option value="light">Light theme</option><option value="dark">Dark theme</option></select></div>
+        <div class="field"><label for="textSizePreference">Text size</label><select id="textSizePreference" class="preference-control" data-preference="textSize"><option value="normal">Standard text</option><option value="large">Large text</option><option value="larger">Extra-large text</option></select></div>
+        <div class="field"><label for="densityPreference">Spacing</label><select id="densityPreference" class="preference-control" data-preference="density"><option value="standard">Standard spacing</option><option value="comfortable">Comfortable spacing</option><option value="spacious">Spacious layout</option></select></div>
+      </div>
     </header>
-
-    <section class="hero">
-      <div>
-        <span class="eyebrow">Listening practice · CEFR B2</span>
-        <h1>Listening Comprehension</h1>
+    <main id="main-content" class="content-column">
+      <div id="exerciseToolbar" hidden></div>
+      <header class="page-intro">
+        <p class="exercise-meta">Listening practice · CEFR B2</p>
+        <h1>Listening comprehension</h1>
         <p>Listen to the conversation and choose the option that best matches what the speakers say.</p>
-      </div>
-      <div class="progress-card">
-        <span id="exerciseCounter">Exercise 1 / 1</span>
-        <strong id="scoreSummary">Not attempted</strong>
-      </div>
-    </section>
-
-    <section id="loadingPanel" class="panel centered" aria-live="polite">Loading exercise…</section>
-
-    <section id="exercisePanel" class="panel" hidden>
-      <div class="exercise-heading">
-        <div>
-          <span id="levelBadge" class="badge">B2</span>
-          <h2 id="exerciseTitle"></h2>
-          <p id="exerciseInstructions" class="muted"></p>
+        <p id="scoreSummary" class="exercise-meta">Not attempted</p>
+      </header>
+      <section id="loadingPanel" class="surface centered" role="status" aria-live="polite">Loading exercise…</section>
+      <section id="exercisePanel" class="surface" hidden aria-labelledby="exerciseTitle">
+        <header class="exercise-heading">
+          <div><span id="levelBadge" class="badge">B2</span><h2 id="exerciseTitle" tabindex="-1"></h2><p id="exerciseInstructions" class="muted"></p></div>
+        </header>
+        <div class="audio-card">
+          <div class="audio-copy"><strong>Conversation audio</strong><span id="audioMeta" class="muted">Play the recording when you are ready.</span></div>
+          <audio id="audioPlayer" controls preload="metadata" aria-label="Conversation audio"></audio>
+          <div id="audioError" class="error-box" role="alert" hidden></div>
         </div>
-        <div class="exercise-picker-wrap">
-          <label for="exercisePicker">Listening</label>
-          <select id="exercisePicker" class="exercise-picker" aria-label="Choose listening exercise"></select>
-        </div>
-      </div>
-
-      <div class="audio-card">
-        <div class="audio-copy">
-          <strong>Conversation audio</strong>
-          <span id="audioMeta" class="muted">Play the recording when you are ready.</span>
-        </div>
-        <audio id="audioPlayer" controls preload="metadata"></audio>
-        <div id="audioError" class="error-box" role="alert" hidden></div>
-      </div>
-
-      <form id="questionForm">
-        <div id="questionsContainer" class="questions"></div>
-        <div class="actions">
-          <button id="resetAnswersBtn" class="secondary-btn" type="button">Clear answers</button>
-          <button class="primary-btn" type="submit">Check answers</button>
-        </div>
-      </form>
-    </section>
-
-    <section id="resultsPanel" class="panel" aria-live="polite" hidden>
-      <div class="result-header">
-        <div>
-          <span class="eyebrow">Result</span>
-          <h2><span id="scoreValue">0</span> / <span id="scoreTotal">5</span></h2>
-        </div>
-        <button id="retryBtn" class="secondary-btn" type="button">Try again</button>
-      </div>
-      <div id="feedbackContainer" class="feedback-list"></div>
-      <details id="transcriptDetails" class="transcript">
-        <summary>Show transcript</summary>
-        <div id="transcriptContainer"></div>
-      </details>
-      <div class="actions">
-        <button id="nextExerciseBtn" class="primary-btn" type="button">Next exercise</button>
-      </div>
-    </section>
-
-    <footer class="project-footer">
-      <p>&copy; 2025-2026 Enrico Fraccaroli &middot; <a href="https://github.com/Galfurian/english_tests/blob/main/LICENSE.md">MIT License</a></p>
-    </footer>
-  </main>
+        <form id="questionForm">
+          <div id="questionsContainer" class="questions"></div>
+          <div class="actions"><button id="resetAnswersBtn" class="secondary-btn" type="button">Clear answers</button><button class="primary-btn" type="submit">Check answers</button></div>
+        </form>
+      </section>
+      <section id="resultsPanel" class="surface" aria-labelledby="resultsHeading" hidden>
+        <div class="result-header"><div><span class="eyebrow">Result</span><h2 id="resultsHeading" tabindex="-1"><span id="scoreValue">0</span> / <span id="scoreTotal">5</span></h2></div><button id="retryBtn" class="secondary-btn" type="button">Try again</button></div>
+        <div id="feedbackContainer" class="feedback-list"></div>
+        <details id="transcriptDetails" class="transcript"><summary>Show transcript</summary><div id="transcriptContainer"></div></details>
+        <div class="actions"><button id="nextExerciseBtn" class="primary-btn" type="button">Next exercise</button><a class="button-link" href="../index.html">Return to all exercises</a></div>
+      </section>
+    </main>
+    <footer class="site-footer"><p>Practice results are stored locally in this browser and are not official assessment results.</p><p>© 2025–2026 Enrico Fraccaroli · <a href="https://github.com/Galfurian/english_tests/blob/main/LICENSE.md">MIT License</a></p></footer>
+  </div>
+  <script src="../shared/site-config.js"></script>
+  <script src="../shared/timer.js"></script>
+  <script src="../shared/exercise-toolbar.js"></script>
   <script src="./js/script.js"></script>
 </body>
 </html>
