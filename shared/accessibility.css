@@ -1,0 +1,35 @@
+/* Shared accessibility safeguards for all exercise pages. */
+
+:focus-visible {
+    outline: 3px solid #667eea !important;
+    outline-offset: 3px !important;
+}
+
+.toggle-switch input:focus-visible + .toggle-slider {
+    outline: 3px solid #667eea;
+    outline-offset: 3px;
+}
+
+.project-footer {
+    margin-top: 28px;
+    text-align: center;
+    font-size: 0.9rem;
+    color: inherit;
+    opacity: 0.85;
+    line-height: 1.6;
+}
+
+.project-footer a {
+    color: inherit;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
