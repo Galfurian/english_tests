@@ -1,0 +1,59 @@
+{
+  "features": {
+    "exerciseSelector": true,
+    "progress": true,
+    "timer": true
+  },
+  "exercises": {
+    "full-word": {
+      "enabled": true,
+      "path": "full_word_placement/",
+      "title": "Full word placement",
+      "features": {
+        "exerciseSelector": true,
+        "progress": true,
+        "timer": { "enabled": true, "mode": "optional", "defaultMinutes": 20 }
+      }
+    },
+    "partial-word": {
+      "enabled": true,
+      "path": "partial_word_placement/",
+      "title": "Partial word placement",
+      "features": {
+        "exerciseSelector": false,
+        "progress": true,
+        "timer": { "enabled": true, "mode": "optional", "defaultMinutes": 20 }
+      }
+    },
+    "dropdown": {
+      "enabled": true,
+      "path": "dropdown_word_placement/",
+      "title": "Dropdown word placement",
+      "features": {
+        "exerciseSelector": true,
+        "progress": true,
+        "timer": { "enabled": true, "mode": "optional", "defaultMinutes": 20 }
+      }
+    },
+    "slider": {
+      "enabled": true,
+      "path": "slider_word_placement/",
+      "title": "Slider word placement",
+      "features": {
+        "exerciseSelector": true,
+        "progress": true,
+        "timer": { "enabled": true, "mode": "optional", "defaultMinutes": 20 }
+      }
+    },
+    "listening": {
+      "enabled": true,
+      "path": "listening_comprehension/",
+      "title": "B2 listening comprehension",
+      "features": {
+        "exerciseSelector": true,
+        "progress": true,
+        "timer": { "enabled": false, "mode": "none", "defaultMinutes": 20 }
+      }
+    }
+  }
+}

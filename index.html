@@ -20,7 +20,6 @@
         <header class="site-header">
             <a class="site-brand" href="./index.html">English Tests</a>
             <nav class="site-nav" aria-label="Primary navigation">
-                <a href="./index.html" aria-current="page">All exercises</a>
             </nav>
             <div class="preferences" role="group" aria-label="Reading preferences">
                 <div class="field"><label for="themePreference">Theme</label><select id="themePreference" class="preference-control" data-preference="theme"><option value="system">System theme</option><option value="light">Light theme</option><option value="dark">Dark theme</option></select></div>
@@ -39,30 +38,30 @@
             <section aria-labelledby="exercise-types-heading">
                 <h2 id="exercise-types-heading" class="visually-hidden">Exercise types</h2>
                 <div class="exercise-grid">
-                    <article class="surface exercise-card">
+                    <article class="surface exercise-card" data-exercise-id="full-word">
                         <header class="exercise-card-header"><span class="exercise-card-icon" aria-hidden="true">📚</span><h2>Full word placement</h2></header>
                         <p>Complete a text by replacing missing words.</p>
-                        <a class="button-primary exercise-card-link" href="./full_word_placement/index.html">Start full word placement</a>
+                        <a class="button-primary exercise-card-link" href="./full_word_placement/index.html">Start</a>
                     </article>
-                    <article class="surface exercise-card">
+                    <article class="surface exercise-card" data-exercise-id="partial-word">
                         <header class="exercise-card-header"><span class="exercise-card-icon" aria-hidden="true">⚡</span><h2>Partial word placement</h2></header>
                         <p>Complete words with some letters removed.</p>
-                        <a class="button-primary exercise-card-link" href="./partial_word_placement/index.html">Start partial word placement</a>
+                        <a class="button-primary exercise-card-link" href="./partial_word_placement/index.html">Start</a>
                     </article>
-                    <article class="surface exercise-card">
+                    <article class="surface exercise-card" data-exercise-id="dropdown">
                         <header class="exercise-card-header"><span class="exercise-card-icon" aria-hidden="true">🧪</span><h2>Dropdown word placement</h2></header>
                         <p>Choose the best option for each gap.</p>
-                        <a class="button-primary exercise-card-link" href="./dropdown_word_placement/index.html">Start dropdown word placement</a>
+                        <a class="button-primary exercise-card-link" href="./dropdown_word_placement/index.html">Start</a>
                     </article>
-                    <article class="surface exercise-card">
+                    <article class="surface exercise-card" data-exercise-id="slider">
                         <header class="exercise-card-header"><span class="exercise-card-icon" aria-hidden="true">🎚️</span><h2>Slider word placement</h2></header>
                         <p>Complete gaps using a word bank.</p>
-                        <a class="button-primary exercise-card-link" href="./slider_word_placement/index.html">Start slider word placement</a>
+                        <a class="button-primary exercise-card-link" href="./slider_word_placement/index.html">Start</a>
                     </article>
-                    <article class="surface exercise-card">
+                    <article class="surface exercise-card" data-exercise-id="listening">
                         <header class="exercise-card-header"><span class="exercise-card-icon" aria-hidden="true">🎧</span><h2>B2 listening comprehension</h2></header>
                         <p>Listen to a conversation and answer questions.</p>
-                        <a class="button-primary exercise-card-link" href="./listening_comprehension/index.html">Start listening comprehension</a>
+                        <a class="button-primary exercise-card-link" href="./listening_comprehension/index.html">Start</a>
                     </article>
                 </div>
             </section>
@@ -73,5 +72,15 @@
             <p>© 2025–2026 Enrico Fraccaroli · <a href="https://github.com/Galfurian/english_tests/blob/main/LICENSE.md">MIT License</a></p>
         </footer>
     </div>
+    <script src="shared/site-config.js"></script>
+    <script>
+        window.addEventListener('DOMContentLoaded', async () => {
+            const config = await window.EnglishTestsSiteConfig.load('config/site.json');
+            document.querySelectorAll('[data-exercise-id]').forEach((card) => {
+                const exercise = window.EnglishTestsSiteConfig.getExercise(config, card.dataset.exerciseId);
+                if (exercise && exercise.enabled === false) card.hidden = true;
+            });
+        });
+    </script>
 </body>
 </html>

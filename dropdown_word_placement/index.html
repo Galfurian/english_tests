@@ -19,9 +19,7 @@
     <div class="site-shell">
         <header class="site-header">
             <a class="site-brand" href="../index.html">English Tests</a>
-            <nav class="site-nav" aria-label="Primary navigation">
-                <a href="../index.html">All exercises</a>
-            </nav>
+            <nav class="site-nav" aria-label="Primary navigation"><a class="back-to-catalogue" href="../index.html"><span class="back-to-catalogue-arrow" aria-hidden="true">↸</span><span>All exercises</span></a></nav>
             <div class="preferences" role="group" aria-label="Reading preferences">
                 <div class="field"><label for="themePreference">Theme</label><select id="themePreference" class="preference-control" data-preference="theme"><option value="system">System theme</option><option value="light">Light theme</option><option value="dark">Dark theme</option></select></div>
                 <div class="field"><label for="textSizePreference">Text size</label><select id="textSizePreference" class="preference-control" data-preference="textSize"><option value="normal">Standard text</option><option value="large">Large text</option><option value="larger">Extra-large text</option></select></div>
@@ -29,6 +27,7 @@
             </div>
         </header>
         <main id="main-content" class="content-column">
+            <div id="exerciseToolbar" hidden></div>
             <header class="page-intro">
                 <p class="exercise-meta">Grammar practice · Dropdown answers</p>
                 <h1>Choose the best word</h1>
@@ -56,6 +55,9 @@
             <p>© 2025–2026 Enrico Fraccaroli · <a href="https://github.com/Galfurian/english_tests/blob/main/LICENSE.md">MIT License</a></p>
         </footer>
     </div>
+    <script src="../shared/site-config.js"></script>
+    <script src="../shared/timer.js"></script>
+    <script src="../shared/exercise-toolbar.js"></script>
     <script src="js/script.js"></script>
 </body>
 </html>
