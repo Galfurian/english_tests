@@ -1,140 +1,62 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Dropdown English test-style exercise prototype by Enrico Fraccaroli.">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Practice choosing the best word for each gap in an English text.">
     <meta name="author" content="Enrico Fraccaroli">
-    <title>English Test Simulator</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>Dropdown word placement | English Tests</title>
+    <script src="../shared/preferences.js"></script>
+    <link rel="stylesheet" href="../shared/tokens.css">
+    <link rel="stylesheet" href="../shared/base.css">
+    <link rel="stylesheet" href="../shared/layout.css">
+    <link rel="stylesheet" href="../shared/components.css">
     <link rel="stylesheet" href="../shared/accessibility.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
-
 <body>
-    <a href="../index.html" class="back-home-btn" aria-label="Return to home">← Home</a>
-    <button class="theme-toggle" id="themeToggle" aria-label="Toggle light and dark theme">🌙</button>
-
-    <div id="timerOverlay" class="timer-overlay">
-        <div class="timer-display">
-            <div class="timer-label">TIMER</div>
-            <div id="countdownDisplay">00:00</div>
-            <div class="timer-controls-row">
-                <button id="increaseTimeBtn" class="timer-btn square-btn" type="button" aria-label="Increase timer">+</button>
-                <button id="decreaseTimeBtn" class="timer-btn square-btn" type="button" aria-label="Decrease timer">-</button>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+    <div class="site-shell">
+        <header class="site-header">
+            <a class="site-brand" href="../index.html">English Tests</a>
+            <nav class="site-nav" aria-label="Primary navigation">
+                <a href="../index.html">All exercises</a>
+            </nav>
+            <div class="preferences" role="group" aria-label="Reading preferences">
+                <div class="field"><label for="themePreference">Theme</label><select id="themePreference" class="preference-control" data-preference="theme"><option value="system">System theme</option><option value="light">Light theme</option><option value="dark">Dark theme</option></select></div>
+                <div class="field"><label for="textSizePreference">Text size</label><select id="textSizePreference" class="preference-control" data-preference="textSize"><option value="normal">Standard text</option><option value="large">Large text</option><option value="larger">Extra-large text</option></select></div>
+                <div class="field"><label for="densityPreference">Spacing</label><select id="densityPreference" class="preference-control" data-preference="density"><option value="standard">Standard spacing</option><option value="comfortable">Comfortable spacing</option><option value="spacious">Spacious layout</option></select></div>
             </div>
-            <div class="timer-controls-row">
-                <button id="startStopBtn" class="timer-btn square-btn" type="button" aria-label="Start or stop timer">▶</button>
-                <button id="resetBtn" class="timer-btn square-btn" type="button" aria-label="Reset timer">⟲</button>
-            </div>
-        </div>
-    </div>
-
-    <div id="statsPanel" class="stats-panel">
-        <div class="stats-header">
-            <h3>📊 Statistics</h3>
-            <button id="statsToggle" class="stats-toggle" type="button" aria-label="Toggle statistics panel">▼</button>
-        </div>
-        <div id="statsContent" class="stats-content">
-            <div class="stat-item">
-                <span class="stat-label">Exercises Completed:</span>
-                <span class="stat-value" id="totalExercises">0</span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-label">Total Correct:</span>
-                <span class="stat-value correct-value" id="totalCorrect">0</span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-label">Total Incorrect:</span>
-                <span class="stat-value incorrect-value" id="totalIncorrect">0</span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-label">Accuracy:</span>
-                <span class="stat-value accuracy-value" id="accuracyRate">0%</span>
-            </div>
-            <div class="stats-actions">
-                <button id="resetStatsBtn" class="reset-stats-btn" type="button">Reset Statistics</button>
-            </div>
-        </div>
-    </div>
-
-    <div class="container">
-        <h1><span class="title-emoji" aria-hidden="true">🎓</span> English Test Simulator</h1>
-
-        <div id="controlsPanel" class="controls">
-            <h3>Test Setup</h3>
-            <div class="action-container">
-                <button id="getNewTestBtn" type="button" style="font-size: 1.1rem; padding: 10px 20px;">Genera Nuovo Test</button>
-                <button id="clearBlanksBtn" type="button" style="font-size: 1.1rem; padding: 10px 20px;">Resetta Test Corrente</button>
-            </div>
-            <div class="exercise-manager-trigger-row">
-                <button id="toggleExerciseManagerBtn" type="button">Gestisci Esercizi</button>
-                <span id="exercisePoolInfo" class="exercise-pool-info"></span>
-            </div>
-            <div id="exerciseManagerPanel" class="exercise-manager-panel collapsed">
-                <div class="exercise-manager-header">
-                    <h4>Elenco Esercizi</h4>
-                    <div class="exercise-manager-header-actions">
-                        <button id="reactivateAllBtn" type="button">Riattiva Tutti</button>
-                        <button id="resetExerciseStateBtn" type="button">Azzera Stato Esercizi</button>
-                    </div>
-                </div>
-                <div class="exercise-manager-columns">
-                    <span>ID</span>
-                    <span>Titolo</span>
-                    <span>Status</span>
-                    <span>Attivo</span>
-                    <span>Azione</span>
-                </div>
-                <div id="exerciseManagerList" class="exercise-manager-list"></div>
-            </div>
-        </div>
-
-        <div id="resultsPanel" style="display: none;" class="results">
-            <h2>Your Score: <span id="scoreDisplay">0</span> / <span id="totalDisplay">0</span></h2>
-
-            <div class="exercise-text">
-                <div class="exercise-heading-row">
-                    <h3 id="resultsTitle"></h3>
-                    <span id="resultsExerciseId" class="exercise-id-chip" style="display: none;"></span>
-                </div>
-                <p id="resultsTextDisplay" style="line-height: 2;"></p>
-            </div>
-
-            <div id="feedbackContainer" class="feedback-section">
-                <h3>📖 Explanations & Grammar Focus</h3>
-                <div id="feedbackList"></div>
-            </div>
-
-            <button id="backToExerciseBtn" type="button" style="margin-top: 20px;">Try Another Test</button>
-        </div>
-
-        <div id="exercisePanel">
-            <form id="exerciseForm">
-                <div class="exercise-text">
-                    <div class="exercise-heading-row" style="display: none;" id="exerciseHeadingRow">
-                        <h3 id="exerciseTitle"></h3>
-                        <span id="exerciseId" class="exercise-id-chip" style="display: none;"></span>
-                    </div>
-                    <div id="exerciseTextContainer" style="line-height: 2.2;">
-                        <div class="empty-state">
-                            <p>Clicca "Genera Nuovo Test" per avviare la simulazione B2.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="button-group">
-                    <button type="submit" id="submitBtn" disabled>Controlla Risposte</button>
-                </div>
-            </form>
-        </div>
-
-        <footer class="page-footer">
-            <p>&copy; 2025-2026 Enrico Fraccaroli. Contact: <a href="mailto:enry.frak@gmail.com">enry.frak@gmail.com</a> &middot; <a href="https://github.com/Galfurian/english_tests/blob/main/LICENSE.md">MIT License</a></p>
+        </header>
+        <main id="main-content" class="content-column">
+            <header class="page-intro">
+                <p class="exercise-meta">Grammar practice · Dropdown answers</p>
+                <h1>Choose the best word</h1>
+                <p>Select an answer for every gap in the text. You can practise without a timer and check your answers when you are ready.</p>
+            </header>
+            <section id="status" class="status" role="status" aria-live="polite">Loading exercises…</section>
+            <section id="exercisePanel" class="surface" hidden aria-labelledby="exerciseTitle">
+                <header><p id="exerciseProgress" class="exercise-meta"></p><h2 id="exerciseTitle" tabindex="-1"></h2></header>
+                <form id="exerciseForm" novalidate>
+                    <div id="exerciseTextContainer" class="exercise-text" aria-describedby="exerciseInstructions"></div>
+                    <div id="validationErrors" class="validation-errors" aria-live="polite"></div>
+                    <p id="exerciseInstructions" class="exercise-meta">Choose one answer for each gap, then select “Check answers”.</p>
+                    <div class="form-actions"><button id="clearAnswersBtn" class="button-secondary" type="button">Clear answers</button><button id="submitBtn" class="button-primary" type="submit">Check answers</button></div>
+                </form>
+            </section>
+            <section id="resultsPanel" class="surface" hidden aria-labelledby="resultsHeading">
+                <header><p class="exercise-meta">Result</p><h2 id="resultsHeading" tabindex="-1">Score: <span id="scoreDisplay">0</span> / <span id="totalDisplay">0</span></h2></header>
+                <p id="resultsSummary" role="status"></p>
+                <div id="resultsTextDisplay" class="exercise-text"></div>
+                <section aria-labelledby="feedbackHeading"><h3 id="feedbackHeading">Explanations</h3><div id="feedbackList"></div></section>
+                <div class="form-actions"><button id="backToExerciseBtn" class="button-secondary" type="button">Try another exercise</button><a class="button-link" href="../index.html">Return to all exercises</a></div>
+            </section>
+        </main>
+        <footer class="site-footer">
+            <p>Practice results are stored locally in this browser and are not official assessment results.</p>
+            <p>© 2025–2026 Enrico Fraccaroli · <a href="https://github.com/Galfurian/english_tests/blob/main/LICENSE.md">MIT License</a></p>
         </footer>
     </div>
-
     <script src="js/script.js"></script>
 </body>
-
 </html>
