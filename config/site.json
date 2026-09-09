@@ -40,7 +40,7 @@
       "path": "slider_word_placement/",
       "title": "Slider word placement",
       "features": {
-        "exerciseSelector": false,
+        "exerciseSelector": true,
         "progress": true,
         "timer": { "enabled": true, "mode": "optional", "defaultMinutes": 20 }
       }
