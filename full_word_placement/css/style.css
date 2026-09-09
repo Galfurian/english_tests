@@ -7,8 +7,8 @@
 .check-field { display: flex; gap: var(--space-2); align-items: center; margin-top: var(--space-3); }
 .word-bank { margin-bottom: var(--space-5); padding: var(--space-4); background: var(--color-surface-raised); border: 1px solid var(--color-border); border-radius: .6rem; }
 .word-bank h3 { margin: 0 0 var(--space-3); }
-.word-bank-items { display: flex; flex-wrap: wrap; gap: var(--space-2); }
-.word-bank-items span { padding: var(--space-1) var(--space-2); background: var(--color-surface); border: 1px solid var(--color-border); border-radius: .35rem; }
+#wordBankContainer { display: flex; flex-wrap: wrap; gap: var(--space-2); line-height: 1.5; }
+#wordBankContainer span { display: inline-block; max-width: 100%; padding: var(--space-1) var(--space-2); background: var(--color-surface); border: 1px solid var(--color-border); border-radius: .35rem; white-space: nowrap; }
 .exercise-text { margin: var(--space-5) 0; font-size: 1.05em; line-height: calc(1.8 * var(--content-density)); }
 .blank-input { min-width: 5rem; max-width: 14rem; margin: 0 .2rem; padding: var(--space-1) var(--space-2); background: var(--color-surface-raised); color: var(--color-text); vertical-align: baseline; }
 .blank-input:focus { background: var(--color-surface); }
