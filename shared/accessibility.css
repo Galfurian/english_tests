@@ -20,6 +20,10 @@
     outline-offset: 3px !important;
 }
 
+:where(button, input, select, textarea, summary, [tabindex]) {
+    scroll-margin-top: 8rem;
+}
+
 @media (forced-colors: active) { *, *::before, *::after { box-shadow: none !important; } }
 
 .toggle-switch input:focus-visible + .toggle-slider {

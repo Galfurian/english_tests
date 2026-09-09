@@ -2,6 +2,9 @@ const DATA_URL = '../data/exercises.json';
 const STORAGE_KEY = 'englishTests.dropdown.progress.v1';
 let exercises = [];
 let currentExercise = null;
+let currentExerciseIndex = 0;
+let toolbar = null;
+let exerciseFeatures = {};
 const get = (id) => document.getElementById(id);
 
 function readProgress() { try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); } catch (error) { return {}; } }
@@ -24,8 +27,9 @@ function makeAnswerSelect(gap) {
     return select;
 }
 
-function renderAttempt(exercise) {
+function renderAttempt(exercise, index = exercises.indexOf(exercise)) {
     currentExercise = exercise;
+    currentExerciseIndex = index;
     const progress = readProgress()[String(exercise.exerciseId)];
     get('exerciseTitle').textContent = exercise.title;
     get('exerciseProgress').textContent = `${exercise.gaps.length} gaps${progress ? ` · Last score ${progress.score}/${progress.total}` : ''}`;
@@ -38,7 +42,18 @@ function renderAttempt(exercise) {
         if (gap) paragraph.appendChild(makeAnswerSelect(gap));
     });
     container.appendChild(paragraph); get('resultsPanel').hidden = true; get('exercisePanel').hidden = false;
+    get('exerciseProgress').hidden = exerciseFeatures.progress === false;
+    toolbar?.update(index);
     get('submitBtn').disabled = false; showStatus('Exercise ready.'); get('exerciseTitle').focus();
+}
+
+function hasAnswers() { return [...document.querySelectorAll('.answer-select')].some((select) => select.value !== ''); }
+
+function changeExercise(index) {
+    if (index === currentExerciseIndex) return true;
+    if (!get('exercisePanel').hidden && hasAnswers() && !window.confirm('Change exercise and discard the current answers?')) return false;
+    renderAttempt(exercises[index], index);
+    return true;
 }
 
 function clearAnswers() {
@@ -64,7 +79,20 @@ function checkAnswers(event) {
 }
 
 async function initialize() {
-    try { const response = await fetch(DATA_URL); if (!response.ok) throw new Error(`HTTP ${response.status}`); exercises = await response.json(); if (!Array.isArray(exercises) || !exercises.length) throw new Error('No exercises found'); renderAttempt(chooseExercise()); }
+    try {
+        const [config, response] = await Promise.all([window.EnglishTestsSiteConfig.load('../config/site.json'), fetch(DATA_URL)]);
+        const configuredExercise = window.EnglishTestsSiteConfig.getExercise(config, 'dropdown');
+        if (configuredExercise && configuredExercise.enabled === false) { showStatus('This exercise is currently unavailable.', 'error'); return; }
+        const fallbackFeatures = { exerciseSelector: true, progress: true, timer: { enabled: true, mode: 'optional', defaultMinutes: 20 } };
+        exerciseFeatures = config.loaded === false ? fallbackFeatures : window.EnglishTestsSiteConfig.resolveFeatures(config, 'dropdown');
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        exercises = await response.json();
+        if (!Array.isArray(exercises) || !exercises.length) throw new Error('No exercises found');
+        const initialExercise = chooseExercise();
+        const initialIndex = exercises.indexOf(initialExercise);
+        toolbar = window.EnglishTestsToolbar.mount(get('exerciseToolbar'), { exercises, currentIndex: initialIndex, features: exerciseFeatures, onExerciseChange: changeExercise });
+        renderAttempt(initialExercise, initialIndex);
+    }
     catch (error) { console.error(error); showStatus('Exercises could not be loaded. Please try again later.', 'error'); }
 }
 
