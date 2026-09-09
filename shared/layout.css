@@ -1,5 +1,5 @@
 .site-shell { width: min(var(--content-width), calc(100% - 2rem)); margin: 0 auto; padding: var(--space-4) 0 var(--space-7); }
-.site-header { display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); padding-bottom: var(--space-6); }
+.site-header { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-4); padding-bottom: var(--space-6); }
 .site-brand { color: var(--color-text); font-weight: 750; text-decoration: none; }
 .site-nav { display: flex; flex-wrap: wrap; gap: var(--space-3); align-items: center; }
 .site-nav a { padding: var(--space-2) var(--space-3); }

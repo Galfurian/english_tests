@@ -3,6 +3,18 @@
 .skip-link { position: absolute; left: .75rem; top: .75rem; z-index: 10; transform: translateY(-200%); padding: .65rem .9rem; background: var(--color-surface, #fff); color: var(--color-text, #111); border: 2px solid currentColor; border-radius: .4rem; }
 .skip-link:focus { transform: translateY(0); }
 
+.visually-hidden {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
+}
+
 :focus-visible {
     outline: 3px solid var(--color-focus, #ffe08a) !important;
     outline-offset: 3px !important;
