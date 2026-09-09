@@ -5,13 +5,13 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "english-tests"
 version = "0.1.0"
-description = "A web application for English language tests with multiple difficulty levels"
+description = "A static, browser-based prototype for English language exercises and test-style practice"
 readme = "README.md"
 license = { text = "MIT" }
 requires-python = ">=3.8"
-authors = [{ name = "Galfurian", email = "galfurian@example.com" }]
-maintainers = [{ name = "Galfurian", email = "galfurian@example.com" }]
-keywords = ["english", "language", "tests", "education", "flask"]
+authors = [{ name = "Enrico Fraccaroli", email = "enry.frak@gmail.com" }]
+maintainers = [{ name = "Enrico Fraccaroli", email = "enry.frak@gmail.com" }]
+keywords = ["english", "language", "tests", "education", "accessibility"]
 classifiers = [
     "Development Status :: 3 - Alpha",
     "Intended Audience :: Education",
@@ -23,7 +23,7 @@ classifiers = [
     "Programming Language :: Python :: 3.11",
     "Topic :: Education",
 ]
-dependencies = ["flask>=2.0.0"]
+dependencies = []
 
 [project.optional-dependencies]
 dev = [
@@ -33,15 +33,11 @@ dev = [
     "mypy>=1.0.0",
     "black",
 ]
-experimental = [
-    "horde_sdk",
-]
 
 [project.urls]
 Homepage = "https://github.com/Galfurian/english_tests"
 Repository = "https://github.com/Galfurian/english_tests.git"
 Issues = "https://github.com/Galfurian/english_tests/issues"
-Changelog = "https://github.com/Galfurian/english_tests/blob/main/CHANGELOG.md"
 
 [tool.setuptools]
 package-dir = { "" = "src" }
