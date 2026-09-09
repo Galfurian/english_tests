@@ -7,5 +7,4 @@
 .exercise-card-icon { font-size: 2rem; line-height: 1; }
 .exercise-card h2 { margin: 0; font-size: 1.35em; }
 .exercise-card p { flex: 1; margin: 0; color: var(--color-muted); }
-.exercise-card-link { align-self: flex-start; text-decoration: none; }
-@media (max-width: 640px) { .exercise-card-link { align-self: stretch; } }
+.exercise-card-link { align-self: center; text-decoration: none; }
