@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="English language exercise and test-style practice prototype by Enrico Fraccaroli.">
+    <meta name="author" content="Enrico Fraccaroli">
     <title>English Tests</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -18,22 +20,28 @@
         .card p { color:#666; font-size:1rem; line-height:1.6; margin-bottom:25px; flex-grow:1; }
         .card-link { display:inline-block; background:linear-gradient(135deg,#667eea 0%,#764ba2 100%); color:white; padding:12px 30px; border-radius:6px; text-decoration:none; font-weight:600; transition:opacity .3s ease,transform .3s ease; }
         .card-link:hover { opacity:.9; transform:scale(1.05); }
-        footer { color:rgba(255,255,255,.8); font-size:.9rem; margin-top:40px; }
+        :focus-visible { outline:3px solid #fff; outline-offset:4px; }
+        footer { color:rgba(255,255,255,.9); font-size:.9rem; margin-top:40px; line-height:1.6; }
+        footer a { color:white; }
         @media(max-width:600px){ h1{font-size:1.8rem}.subtitle{font-size:1rem}.cards{gap:20px}.card{padding:30px 20px}.card h2{font-size:1.5rem} }
+        @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
     </style>
 </head>
 <body>
-    <div class="container">
+    <main class="container">
         <h1>English Tests</h1>
         <p class="subtitle">Select an exercise type to begin</p>
         <div class="cards">
-            <div class="card"><div><div class="card-icon">📚</div><h2>Full Word Placement</h2><p>The whole-word version of the grammar test, where you replace complete words in the text.</p></div><a href="./full_word_placement/index.html" class="card-link">Start Full Word Placement</a></div>
-            <div class="card"><div><div class="card-icon">⚡</div><h2>Partial Word Placement</h2><p>The letter-removal version of the grammar test, where only part of each selected word is hidden.</p></div><a href="./partial_word_placement/index.html" class="card-link">Start Partial Word Placement</a></div>
-            <div class="card"><div><div class="card-icon">🧪</div><h2>Dropdown Word Placement</h2><p>The drop-down list version of the grammar test, where you select the correct word from a list of options.</p></div><a href="./dropdown_word_placement/index.html" class="card-link">Start Dropdown Word Placement</a></div>
-            <div class="card"><div><div class="card-icon">🎚️</div><h2>Slider Word Placement</h2><p>The word-bank version of the grammar test, where a slider controls how many candidate words appear in each gap.</p></div><a href="./slider_word_placement/index.html" class="card-link">Start Slider Word Placement</a></div>
-            <div class="card"><div><div class="card-icon">🎧</div><h2>B2 Listening Comprehension</h2><p>B2 listening practice with a dialogue, five dropdown questions, scoring, explanations, and transcript review.</p></div><a href="./listening_comprehension/index.html" class="card-link">Start Listening Practice</a></div>
+            <div class="card"><div><div class="card-icon" aria-hidden="true">📚</div><h2>Full Word Placement</h2><p>The whole-word version of the grammar test, where you replace complete words in the text.</p></div><a href="./full_word_placement/index.html" class="card-link">Start Full Word Placement</a></div>
+            <div class="card"><div><div class="card-icon" aria-hidden="true">⚡</div><h2>Partial Word Placement</h2><p>The letter-removal version of the grammar test, where only part of each selected word is hidden.</p></div><a href="./partial_word_placement/index.html" class="card-link">Start Partial Word Placement</a></div>
+            <div class="card"><div><div class="card-icon" aria-hidden="true">🧪</div><h2>Dropdown Word Placement</h2><p>The drop-down list version of the grammar test, where you select the correct word from a list of options.</p></div><a href="./dropdown_word_placement/index.html" class="card-link">Start Dropdown Word Placement</a></div>
+            <div class="card"><div><div class="card-icon" aria-hidden="true">🎚️</div><h2>Slider Word Placement</h2><p>The word-bank version of the grammar test, where a slider controls how many candidate words appear in each gap.</p></div><a href="./slider_word_placement/index.html" class="card-link">Start Slider Word Placement</a></div>
+            <div class="card"><div><div class="card-icon" aria-hidden="true">🎧</div><h2>B2 Listening Comprehension</h2><p>B2 listening practice with a dialogue, five dropdown questions, scoring, explanations, and transcript review.</p></div><a href="./listening_comprehension/index.html" class="card-link">Start Listening Practice</a></div>
         </div>
-        <footer><p>Grammar and listening practice for English learners</p></footer>
-    </div>
+        <footer>
+            <p>Grammar and listening practice for English learners</p>
+            <p>&copy; 2025-2026 Enrico Fraccaroli &middot; <a href="https://github.com/Galfurian/english_tests/blob/main/LICENSE.md">MIT License</a></p>
+        </footer>
+    </main>
 </body>
 </html>

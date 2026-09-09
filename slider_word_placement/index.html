@@ -4,25 +4,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Slider-based English word-placement exercise prototype by Enrico Fraccaroli.">
+    <meta name="author" content="Enrico Fraccaroli">
     <title>English Slider Word Placement</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="../shared/accessibility.css">
 </head>
 
 <body>
     <a href="../index.html" class="back-home-btn" aria-label="Return to home">← Home</a>
-    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">🌙</button>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle light and dark theme">🌙</button>
 
     <div id="timerOverlay" class="timer-overlay">
         <div class="timer-display">
             <div class="timer-label">TIMER</div>
             <div id="countdownDisplay">00:00</div>
             <div class="timer-controls-row">
-                <button id="increaseTimeBtn" class="timer-btn square-btn">+</button>
-                <button id="decreaseTimeBtn" class="timer-btn square-btn">-</button>
+                <button id="increaseTimeBtn" class="timer-btn square-btn" type="button" aria-label="Increase timer">+</button>
+                <button id="decreaseTimeBtn" class="timer-btn square-btn" type="button" aria-label="Decrease timer">-</button>
             </div>
             <div class="timer-controls-row">
-                <button id="startStopBtn" class="timer-btn square-btn">▶</button>
-                <button id="resetBtn" class="timer-btn square-btn">⟲</button>
+                <button id="startStopBtn" class="timer-btn square-btn" type="button" aria-label="Start or stop timer">▶</button>
+                <button id="resetBtn" class="timer-btn square-btn" type="button" aria-label="Reset timer">⟲</button>
             </div>
         </div>
     </div>
@@ -30,7 +33,7 @@
     <div id="statsPanel" class="stats-panel">
         <div class="stats-header">
             <h3>📊 Statistics</h3>
-            <button id="statsToggle" class="stats-toggle">▼</button>
+            <button id="statsToggle" class="stats-toggle" type="button" aria-label="Toggle statistics panel">▼</button>
         </div>
         <div id="statsContent" class="stats-content">
             <div class="stat-item">
@@ -50,21 +53,21 @@
                 <span class="stat-value accuracy-value" id="accuracyRate">0%</span>
             </div>
             <div class="stats-actions">
-                <button id="resetStatsBtn" class="reset-stats-btn">Reset Statistics</button>
+                <button id="resetStatsBtn" class="reset-stats-btn" type="button">Reset Statistics</button>
             </div>
         </div>
     </div>
 
     <div class="container">
-        <h1><span class="title-emoji">📚</span> English Slider Word Placement</h1>
+        <h1><span class="title-emoji" aria-hidden="true">📚</span> English Slider Word Placement</h1>
 
         <div id="controlsPanel" class="controls">
             <h3>Settings</h3>
             <div class="dropdown-container">
                 <p style="margin:0 0 8px 0;">Exercises: <strong>JSON gap exercises</strong></p>
                 <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
-                    <button id="getNewTestBtn">Get <strong>New</strong> Test</button>
-                    <button id="clearBlanksBtn">Clear Blanks</button>
+                    <button id="getNewTestBtn" type="button">Get <strong>New</strong> Test</button>
+                    <button id="clearBlanksBtn" type="button">Clear Blanks</button>
                 </div>
             </div>
             <div class="slider-container">
@@ -93,7 +96,7 @@
                 <h3>📖 Explanations & Grammar Focus</h3>
                 <div id="feedbackList"></div>
             </div>
-            <button id="backToExerciseBtn">Back to Exercise</button>
+            <button id="backToExerciseBtn" type="button">Back to Exercise</button>
         </div>
 
         <div id="exercisePanel">
@@ -124,7 +127,7 @@
         </div>
 
         <footer class="page-footer">
-            <p>&copy; 2026 Enrico Fraccaroli. Contact: <a href="mailto:enry.frak@gmail.com">enry.frak@gmail.com</a></p>
+            <p>&copy; 2025-2026 Enrico Fraccaroli. Contact: <a href="mailto:enry.frak@gmail.com">enry.frak@gmail.com</a> &middot; <a href="https://github.com/Galfurian/english_tests/blob/main/LICENSE.md">MIT License</a></p>
         </footer>
     </div>
 

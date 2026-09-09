@@ -10,6 +10,19 @@
     outline-offset: 3px;
 }
 
+.project-footer {
+    margin-top: 28px;
+    text-align: center;
+    font-size: 0.9rem;
+    color: inherit;
+    opacity: 0.85;
+    line-height: 1.6;
+}
+
+.project-footer a {
+    color: inherit;
+}
+
 @media (prefers-reduced-motion: reduce) {
     *,
     *::before,

@@ -3,14 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="B2 listening-comprehension exercise prototype by Enrico Fraccaroli.">
+  <meta name="author" content="Enrico Fraccaroli">
   <title>B2 Listening Comprehension</title>
   <link rel="stylesheet" href="./css/style.css">
+  <link rel="stylesheet" href="../shared/accessibility.css">
 </head>
 <body>
   <main class="page-shell">
     <header class="topbar">
       <a class="back-link" href="../index.html">← All exercises</a>
-      <button id="themeToggle" class="icon-btn" type="button" aria-label="Toggle theme">☾</button>
+      <button id="themeToggle" class="icon-btn" type="button" aria-label="Toggle light and dark theme">☾</button>
     </header>
 
     <section class="hero">
@@ -25,7 +28,7 @@
       </div>
     </section>
 
-    <section id="loadingPanel" class="panel centered">Loading exercise…</section>
+    <section id="loadingPanel" class="panel centered" aria-live="polite">Loading exercise…</section>
 
     <section id="exercisePanel" class="panel" hidden>
       <div class="exercise-heading">
@@ -46,7 +49,7 @@
           <span id="audioMeta" class="muted">Play the recording when you are ready.</span>
         </div>
         <audio id="audioPlayer" controls preload="metadata"></audio>
-        <div id="audioError" class="error-box" hidden></div>
+        <div id="audioError" class="error-box" role="alert" hidden></div>
       </div>
 
       <form id="questionForm">
@@ -58,7 +61,7 @@
       </form>
     </section>
 
-    <section id="resultsPanel" class="panel" hidden>
+    <section id="resultsPanel" class="panel" aria-live="polite" hidden>
       <div class="result-header">
         <div>
           <span class="eyebrow">Result</span>
@@ -75,6 +78,10 @@
         <button id="nextExerciseBtn" class="primary-btn" type="button">Next exercise</button>
       </div>
     </section>
+
+    <footer class="project-footer">
+      <p>&copy; 2025-2026 Enrico Fraccaroli &middot; <a href="https://github.com/Galfurian/english_tests/blob/main/LICENSE.md">MIT License</a></p>
+    </footer>
   </main>
   <script src="./js/script.js"></script>
 </body>
