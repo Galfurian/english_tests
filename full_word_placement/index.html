@@ -39,8 +39,7 @@
                 <div class="form-actions"><button id="getNewTestBtn" class="button-primary" type="button">New exercise</button><button id="reblankTextBtn" class="button-secondary" type="button">New gaps in this text</button><button id="clearBlanksBtn" class="button-secondary" type="button">Clear answers</button></div>
                 <div id="demoControls" class="demo-controls">
                     <h3>Exercise controls</h3>
-                    <div class="gap-count-control"><button id="decreaseGapsBtn" class="button-secondary" type="button" aria-label="Remove one gap">−</button><output id="gapCountValue" aria-live="polite">17 gaps</output><button id="increaseGapsBtn" class="button-secondary" type="button" aria-label="Add one gap">+</button></div>
-                    <div class="field"><label for="blankSlider">Percentage of words hidden</label><input type="range" id="blankSlider" min="5" max="30" step="1" value="17"><output id="blankSliderValue" for="blankSlider">17%</output></div>
+                    <div class="field gap-count-control"><label for="blankSlider">Percentage of words hidden</label><input type="range" id="blankSlider" min="5" max="30" step="1" value="17"><output id="gapCountValue" aria-live="polite">17 gaps (17%)</output></div>
                     <label class="check-field"><input type="checkbox" id="includeRandomWords"> Include extra distractor words</label>
                     <div class="field" id="extraWordsSliderContainer" hidden><label for="extraWordsSlider">Extra-word multiplier</label><input type="range" id="extraWordsSlider" min="0" max="2" step="0.1" value="0.5"></div>
                 </div>
