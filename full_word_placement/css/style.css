@@ -3,6 +3,9 @@
 .setup-panel h2 { margin-top: 0; }
 .demo-controls { margin-top: var(--space-5); padding-top: var(--space-4); border-top: 1px solid var(--color-border); }
 .demo-controls .field { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3); }
+.gap-count-control { display: flex; align-items: center; gap: var(--space-3); margin-bottom: var(--space-4); }
+.gap-count-control button { min-height: 2rem; padding: var(--space-1) var(--space-3); }
+.gap-count-control output { min-width: 5rem; text-align: center; font-weight: 700; }
 .demo-controls input[type="range"] { flex: 1 1 16rem; accent-color: var(--color-accent); }
 .check-field { display: flex; gap: var(--space-2); align-items: center; margin-top: var(--space-3); }
 .word-bank { margin-bottom: var(--space-5); padding: var(--space-4); background: var(--color-surface-raised); border: 1px solid var(--color-border); border-radius: .6rem; }
@@ -10,7 +13,7 @@
 #wordBankContainer { display: flex; flex-wrap: wrap; gap: var(--space-2); line-height: 1.5; }
 #wordBankContainer span { display: inline-block; max-width: 100%; padding: var(--space-1) var(--space-2); background: var(--color-surface); border: 1px solid var(--color-border); border-radius: .35rem; white-space: nowrap; }
 .exercise-text { margin: var(--space-5) 0; font-size: 1.05em; line-height: calc(1.8 * var(--content-density)); }
-.blank-input { min-width: 5rem; max-width: 14rem; margin: 0 .2rem; padding: var(--space-1) var(--space-2); background: var(--color-surface-raised); color: var(--color-text); vertical-align: baseline; }
+.blank-input { min-width: 5rem; max-width: 14rem; height: 1.9rem; min-height: 1.9rem; margin: 0 .2rem; padding: .1rem var(--space-2); line-height: 1.2; background: var(--color-surface-raised); color: var(--color-text); vertical-align: baseline; }
 .blank-input:focus { background: var(--color-surface); }
 .review-section { margin-top: var(--space-5); }
 .review-section h3 { margin-bottom: var(--space-2); }

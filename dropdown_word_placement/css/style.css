@@ -1,6 +1,6 @@
 .exercise-text { margin: var(--space-5) 0; font-size: 1.05em; line-height: calc(1.8 * var(--content-density)); }
 .exercise-text p { max-width: 78ch; }
-.answer-select { display: inline-block; width: auto; min-width: 9rem; margin: 0 .2rem; vertical-align: baseline; }
+.answer-select { display: inline-block; width: auto; min-width: 9rem; height: 1.9rem; min-height: 1.9rem; margin: 0 .2rem; padding: .1rem var(--space-2); line-height: 1.2; vertical-align: baseline; }
 .result-item p { margin: var(--space-2) 0 0; }
 .result-item { border-left: .35rem solid var(--color-border); padding: var(--space-3) var(--space-4); margin-top: var(--space-3); background: var(--color-surface-raised); }
 .result-item.correct { border-left-color: var(--color-success); }

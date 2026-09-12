@@ -2,7 +2,7 @@
 html { font-size: 100%; }
 body { margin: 0; min-width: 320px; background: var(--color-bg); color: var(--color-text); font-family: system-ui, -apple-system, "Segoe UI", sans-serif; font-size: calc(1rem * var(--text-scale)); line-height: 1.6; }
 button, input, select { font: inherit; }
-button, select, input[type="text"] { min-height: 2.75rem; }
+button { min-height: 2.75rem; }
 a { color: var(--color-accent-strong); }
 h1, h2, h3 { line-height: 1.2; }
 button, select, input[type="text"] { border: 2px solid var(--color-border); border-radius: .5rem; }

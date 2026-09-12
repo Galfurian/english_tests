@@ -14,6 +14,7 @@
 .site-header .field label { font-size: .85em; white-space: nowrap; }
 .site-header .preference-control { min-height: 2.25rem; padding: var(--space-1) var(--space-2); }
 .field select, .answer-select { width: 100%; padding: var(--space-2) var(--space-3); background: var(--color-surface-raised); color: var(--color-text); }
+.exercise-text .blank-input { height: 1.9rem; min-height: 1.9rem; padding: .1rem var(--space-2); line-height: 1.2; }
 .status { margin: var(--space-4) 0; padding: var(--space-3); border-radius: .5rem; }
 .status-error { background: color-mix(in srgb, var(--color-error) 15%, var(--color-surface)); color: var(--color-error); }
 .question-list { display: grid; gap: calc(var(--space-4) * var(--content-density)); }
