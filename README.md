@@ -11,7 +11,7 @@ https://galfurian.github.io/english_tests/
 - **Full Word Placement** — replace complete missing words in a text.
 - **Partial Word Placement** — complete words from which letters have been removed.
 - **Dropdown Word Placement** — choose the correct answer from a set of alternatives.
-- **Slider Word Placement** — word-bank exercise with configurable candidate coverage.
+- **Guided Grammar Gaps** — grammar-focused gaps with configurable word-bank coverage.
 - **B2 Listening Comprehension** — listen to a dialogue and answer comprehension questions, with scoring, explanations, and transcript review.
 
 The interfaces include light/dark presentation modes on the exercise pages, local progress/statistics where applicable, responsive layouts, and keyboard-visible focus safeguards.

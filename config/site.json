@@ -38,7 +38,7 @@
     "slider": {
       "enabled": true,
       "path": "slider_word_placement/",
-      "title": "Slider word placement",
+      "title": "Guided grammar gaps",
       "features": {
         "exerciseSelector": true,
         "progress": true,

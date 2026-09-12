@@ -1,6 +1,9 @@
 const DATA_URL='../data/exercises.json', CONFIG_URL='../config/site.json', STORAGE_KEY='englishTests.slider.progress.v1';
 let exercises=[], currentIndex=0, currentExercise=null, toolbar=null, currentResults=[];
 const get=(id)=>document.getElementById(id);
+const EXERCISE_TITLE='Guided grammar gaps';
+document.title=EXERCISE_TITLE+' | English Tests';
+document.querySelector('.page-intro .exercise-meta').textContent='Grammar practice · '+EXERCISE_TITLE;
 const shuffle=(items)=>{const result=[...items];for(let i=result.length-1;i>0;i-=1){const j=Math.floor(Math.random()*(i+1));[result[i],result[j]]=[result[j],result[i]];}return result;};
 const correctWord=(gap)=>gap.options[gap.correctIndex];
 function choiceDensity(){return Number(get('choiceCountSlider').value);}
