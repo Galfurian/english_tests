@@ -20,7 +20,7 @@
       "path": "partial_word_placement/",
       "title": "Partial word placement",
       "features": {
-        "exerciseSelector": false,
+        "exerciseSelector": true,
         "progress": true,
         "timer": { "enabled": true, "mode": "optional", "defaultMinutes": 20 }
       }
