@@ -3,13 +3,13 @@
 .setup-panel h2 { margin-top: 0; }
 .demo-controls { margin-top: var(--space-5); padding-top: var(--space-4); border-top: 1px solid var(--color-border); }
 .demo-controls .field { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3); }
-.exercise-controls-row { display: flex; flex-wrap: nowrap; align-items: end; gap: var(--space-4); }
-.gap-count-control { display: flex; flex: 1 1 auto; min-width: 0; flex-wrap: wrap; align-items: center; gap: var(--space-3); }
-.gap-count-control input[type="range"] { flex: 1 1 16rem; accent-color: var(--color-accent); }
-.gap-count-control output { min-width: 7rem; text-align: right; font-weight: 700; }
-.exercise-controls-row > .check-field { flex: 0 0 auto; margin: 0; white-space: nowrap; }
-.extra-word-multiplier { flex: 0 1 14rem; min-width: 8rem; }
-.extra-word-multiplier input[type="range"] { width: 100%; accent-color: var(--color-accent); }
+.exercise-controls { display: grid; gap: var(--space-3); }
+.slider-row { display: flex; align-items: center; gap: var(--space-3); min-width: 0; }
+.slider-row > label:not(.check-field) { flex: 0 0 9rem; font-weight: 700; }
+.slider-row input[type="range"] { flex: 1 1 auto; min-width: 8rem; accent-color: var(--color-accent); }
+.slider-row output { flex: 0 0 7rem; text-align: right; font-weight: 700; }
+.slider-row .check-field { flex: 0 0 9rem; margin: 0; white-space: nowrap; }
+.slider-row > label[for="extraWordsSlider"] { flex: 0 0 auto; font-weight: 700; }
 .demo-controls input[type="range"] { flex: 1 1 16rem; accent-color: var(--color-accent); }
 .check-field { display: flex; gap: var(--space-2); align-items: center; margin-top: var(--space-3); }
 .word-bank { margin-bottom: var(--space-5); padding: var(--space-4); background: var(--color-surface-raised); border: 1px solid var(--color-border); border-radius: .6rem; }
@@ -25,4 +25,4 @@
 .incorrect { color: var(--color-error); font-weight: 750; }
 .unanswered { color: var(--color-muted); font-weight: 750; }
 @media (max-width: 640px) { .blank-input { max-width: 100%; } }
-@media (max-width: 640px) { .exercise-controls-row { flex-wrap: wrap; } .gap-count-control { flex-basis: 100%; } }
+@media (max-width: 640px) { .slider-row { flex-wrap: wrap; } .slider-row > label:not(.check-field), .slider-row .check-field { flex-basis: auto; } .slider-row input[type="range"] { flex-basis: 100%; } .slider-row output { margin-left: auto; } }

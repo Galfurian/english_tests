@@ -39,10 +39,9 @@
                 <div class="form-actions"><button id="getNewTestBtn" class="button-primary" type="button">New exercise</button><button id="reblankTextBtn" class="button-secondary" type="button">New gaps in this text</button><button id="clearBlanksBtn" class="button-secondary" type="button">Clear answers</button></div>
                 <div id="demoControls" class="demo-controls">
                     <h3>Exercise controls</h3>
-                    <div class="exercise-controls-row">
-                        <div class="field gap-count-control"><label for="blankSlider">Percentage of words hidden</label><input type="range" id="blankSlider" min="5" max="30" step="1" value="17"><output id="gapCountValue" aria-live="polite">17 gaps (17%)</output></div>
-                        <label class="check-field"><input type="checkbox" id="includeRandomWords"> Include extra distractor words</label>
-                        <div class="field extra-word-multiplier" id="extraWordsSliderContainer" hidden><label for="extraWordsSlider">Extra-word multiplier</label><input type="range" id="extraWordsSlider" min="0" max="2" step="0.1" value="0.5"></div>
+                    <div class="exercise-controls">
+                        <div class="slider-row"><label for="blankSlider">Gaps</label><input type="range" id="blankSlider" min="5" max="30" step="1" value="17"><output id="gapCountValue" aria-live="polite">17 gaps (17%)</output></div>
+                        <div class="slider-row" id="extraWordsSliderContainer"><label class="check-field"><input type="checkbox" id="includeRandomWords"> Extra words</label><label for="extraWordsSlider">Multiplier</label><input type="range" id="extraWordsSlider" min="0" max="2" step="0.1" value="0.5" disabled><output id="extraWordsValue">0.5×</output></div>
                     </div>
                 </div>
             </section>
