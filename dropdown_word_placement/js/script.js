@@ -22,7 +22,7 @@ function makeAnswerSelect(gap) {
     const select = document.createElement('select');
     select.className = 'answer-select'; select.name = `gap_${gap.id}`; select.id = `gap-${gap.id}`;
     select.setAttribute('aria-label', `Answer for gap ${gap.id}`);
-    const empty = document.createElement('option'); empty.value = ''; empty.textContent = 'Choose an answer'; select.appendChild(empty);
+    const empty = document.createElement('option'); empty.value = ''; empty.textContent = '—'; select.appendChild(empty);
     gap.options.forEach((optionText, index) => { const option = document.createElement('option'); option.value = String(index); option.textContent = optionText; select.appendChild(option); });
     return select;
 }
@@ -65,7 +65,7 @@ function renderResults(results, score) {
     get('scoreDisplay').textContent = score; get('totalDisplay').textContent = currentExercise.gaps.length;
     get('resultsSummary').textContent = `${score} of ${currentExercise.gaps.length} answers correct.${unansweredCount ? ` ${unansweredCount} unanswered.` : ''}`;
     const text = get('resultsTextDisplay'); text.replaceChildren(); const paragraph = document.createElement('p');
-    currentExercise.text.split(/(\[GAP_\d+\])/g).forEach((part) => { const match = part.match(/^\[GAP_(\d+)\]$/); if (!match) { paragraph.appendChild(document.createTextNode(part)); return; } const result = results.find((item) => item.gapId === Number(match[1])); const answer = document.createElement('strong'); answer.textContent = result.answer; answer.className = `result-status ${result.state.toLowerCase()}`; paragraph.appendChild(answer); });
+    currentExercise.text.split(/(\[GAP_\d+\])/g).forEach((part) => { const match = part.match(/^\[GAP_(\d+)\]$/); if (!match) { paragraph.appendChild(document.createTextNode(part)); return; } const result = results.find((item) => item.gapId === Number(match[1])); const answer = document.createElement('strong'); answer.textContent = result.unanswered ? `No answer (Correct: ${result.correctAnswer})` : result.answer; answer.className = `result-status ${result.state.toLowerCase()}`; paragraph.appendChild(answer); });
     text.appendChild(paragraph);
     const feedback = get('feedbackList'); feedback.replaceChildren();
     results.forEach((result) => { const item = document.createElement('article'); item.className = `result-item ${result.state.toLowerCase()}`; const heading = document.createElement('p'); const status = document.createElement('span'); status.className = `result-status ${result.state.toLowerCase()}`; status.textContent = `Gap ${result.gapId}: ${result.state}`; heading.appendChild(status); item.appendChild(heading); const detail = document.createElement('p'); detail.textContent = `Your answer: ${result.answer}. Correct answer: ${result.correctAnswer}. Focus: ${result.focus}. ${result.explanation}`; item.appendChild(detail); feedback.appendChild(item); });

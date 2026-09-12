@@ -20,6 +20,13 @@
     outline-offset: 3px !important;
 }
 
+.exercise-text input[type="text"]:focus,
+.exercise-text select:focus {
+    outline: none !important;
+    outline-offset: 0 !important;
+    border-color: var(--color-focus, #ffe08a) !important;
+}
+
 :where(button, input, select, textarea, summary, [tabindex]) {
     scroll-margin-top: 8rem;
 }
