@@ -1,0 +1,97 @@
+{
+  "exerciseId": "b2-listening-030",
+  "title": "Planning Meals on a Budget",
+  "level": "B2",
+  "instructions": "Listen carefully. Choose the option that best matches what is said or implied.",
+  "entities": {
+    "friend_a": {
+      "name": "Speaker A",
+      "voice": "en-US-AnaNeural",
+      "rate": "+0%",
+      "pitch": "+0Hz"
+    },
+    "friend_b": {
+      "name": "Speaker B",
+      "voice": "en-US-GuyNeural",
+      "rate": "+0%",
+      "pitch": "+0Hz"
+    }
+  },
+  "audio": {
+    "url": "https://github.com/Galfurian/english_tests/releases/download/listening-audio-v1/b2-listening-030.mp3",
+    "sha256Url": "https://github.com/Galfurian/english_tests/releases/download/listening-audio-v1/b2-listening-030.mp3.sha256",
+    "description": "Friends discuss a low-cost meal plan and what to buy."
+  },
+  "transcript": [
+    {
+      "entity": "friend_a",
+      "text": "We have spent too much on lunches this month. I do not want to prepare every meal, but we could cook soup Sunday and freeze a few portions."
+    },
+    {
+      "entity": "friend_b",
+      "text": "I will bring leftover vegetables after checking they are fresh. We need filling food for nights we are out late."
+    },
+    {
+      "entity": "friend_a",
+      "text": "We could add beans and keep bread frozen. Then we can eat quickly instead of buying food on the way home."
+    },
+    {
+      "entity": "friend_b",
+      "text": "Let’s compare prices at both shops. The market can be cheaper, but not if we buy more than we can use."
+    },
+    {
+      "entity": "friend_a",
+      "text": "Choose two meals first, then buy what is missing. We can share extras instead of wasting them."
+    }
+  ],
+  "questions": [
+    {
+      "id": 1,
+      "prompt": "Why are the friends discussing a new meal plan?",
+      "options": [
+        "They have spent too much on lunches.",
+        "They have no freezer space.",
+        "They are hosting a large dinner.",
+        "They want to stop eating vegetables."
+      ],
+      "correctIndex": 0,
+      "explanation": "Friend A says they have spent more than planned on lunches this month."
+    },
+    {
+      "id": 2,
+      "prompt": "What does Friend B want the meals to include?",
+      "options": [
+        "More expensive ingredients",
+        "A fresh meal every evening",
+        "Food that cannot be frozen",
+        "Something filling for late days"
+      ],
+      "correctIndex": 3,
+      "explanation": "Friend B asks for something filling on days they are out late."
+    },
+    {
+      "id": 3,
+      "prompt": "Why do they plan to compare two shops?",
+      "options": [
+        "One shop is only open on Sundays.",
+        "Prices vary, and buying too much could waste food.",
+        "They need to return a kitchen appliance.",
+        "The supermarket has no vegetables."
+      ],
+      "correctIndex": 1,
+      "explanation": "They say one shop may be cheaper for vegetables, but only if they do not buy more than they can use."
+    },
+    {
+      "id": 4,
+      "prompt": "What is their main approach to shopping?",
+      "options": [
+        "Buy a large amount of everything",
+        "Shop separately without comparing lists",
+        "Plan meals first and buy only missing items",
+        "Avoid freezing leftovers"
+      ],
+      "correctIndex": 2,
+      "explanation": "They agree to choose two meals and then buy only what they are missing."
+    }
+  ]
+}

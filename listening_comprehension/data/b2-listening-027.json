@@ -1,0 +1,93 @@
+{
+  "exerciseId": "b2-listening-027",
+  "title": "Swapping a Work Shift",
+  "level": "B2",
+  "instructions": "Listen carefully. Choose the option that best matches what is said or implied.",
+  "entities": {
+    "colleague_a": {
+      "name": "Speaker A",
+      "voice": "en-GB-LibbyNeural",
+      "rate": "+0%",
+      "pitch": "+0Hz"
+    },
+    "colleague_b": {
+      "name": "Speaker B",
+      "voice": "en-GB-RyanNeural",
+      "rate": "+0%",
+      "pitch": "+0Hz"
+    }
+  },
+  "audio": {
+    "url": "https://github.com/Galfurian/english_tests/releases/download/listening-audio-v1/b2-listening-027.mp3",
+    "sha256Url": "https://github.com/Galfurian/english_tests/releases/download/listening-audio-v1/b2-listening-027.mp3.sha256",
+    "description": "Colleagues negotiate a shift change around a family commitment."
+  },
+  "transcript": [
+    {
+      "entity": "colleague_a",
+      "text": "I found out this morning that the family meal is Thursday, not Friday. I am due to close the shop that evening, so I need someone to swap. I do not want to leave the closing duties uncovered."
+    },
+    {
+      "entity": "colleague_b",
+      "text": "I could take Thursday if you cover my Saturday morning. I promised to help a friend move, but they now need me after lunch, so morning is free."
+    },
+    {
+      "entity": "colleague_a",
+      "text": "That works. I can do Saturday morning, but cannot stay late because I have an early appointment Sunday."
+    },
+    {
+      "entity": "colleague_b",
+      "text": "No problem. I will update the rota once the manager confirms it. We should check the new version in case another shift has moved."
+    }
+  ],
+  "questions": [
+    {
+      "id": 1,
+      "prompt": "Why does Colleague A need to change shifts?",
+      "options": [
+        "The shop is closed on Friday.",
+        "A family meal has been moved to Thursday.",
+        "They have been assigned extra training.",
+        "Their Sunday appointment was cancelled."
+      ],
+      "correctIndex": 1,
+      "explanation": "They explain that the family meal is now on Thursday, when they are due to close."
+    },
+    {
+      "id": 2,
+      "prompt": "What will Colleague A do in return?",
+      "options": [
+        "Work after lunch on Thursday",
+        "Move the family meal to Friday",
+        "Ask the manager for a different job",
+        "Cover Saturday morning"
+      ],
+      "correctIndex": 3,
+      "explanation": "They agree to cover the other colleague’s Saturday morning shift."
+    },
+    {
+      "id": 3,
+      "prompt": "Why can Colleague A not stay late on Saturday?",
+      "options": [
+        "They have an early appointment the next day.",
+        "They need to help with a move after lunch.",
+        "They are scheduled to close the shop.",
+        "They are meeting the manager."
+      ],
+      "correctIndex": 0,
+      "explanation": "They mention an early appointment on Sunday as the reason."
+    },
+    {
+      "id": 4,
+      "prompt": "What do they plan to check after the change?",
+      "options": [
+        "Whether the shop will open Sunday",
+        "Whether the family meal is still happening",
+        "Whether another shift has also moved",
+        "Whether the friend has finished moving"
+      ],
+      "correctIndex": 2,
+      "explanation": "They agree to check the updated rota in case any other shift has changed."
+    }
+  ]
+}

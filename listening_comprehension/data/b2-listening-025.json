@@ -1,0 +1,63 @@
+{
+  "exerciseId": "b2-listening-025",
+  "title": "A Reminder About an Appointment",
+  "level": "B2",
+  "instructions": "Listen carefully. Choose the option that best matches what is said or implied.",
+  "entities": {
+    "caller": {
+      "name": "Speaker A",
+      "voice": "en-US-AnaNeural",
+      "rate": "+0%",
+      "pitch": "+0Hz"
+    }
+  },
+  "audio": {
+    "url": "https://github.com/Galfurian/english_tests/releases/download/listening-audio-v1/b2-listening-025.mp3",
+    "sha256Url": "https://github.com/Galfurian/english_tests/releases/download/listening-audio-v1/b2-listening-025.mp3.sha256",
+    "description": "A voicemail reminding someone to bring a document."
+  },
+  "transcript": [
+    {
+      "entity": "caller",
+      "text": "Just a reminder about your appointment at half past ten tomorrow. Bring the form you received by email; you do not need to print it, because showing it on your phone is fine. If you are running late, send a message before you arrive. The appointment should last about half an hour."
+    }
+  ],
+  "questions": [
+    {
+      "id": 1,
+      "prompt": "What time is the appointment?",
+      "options": [
+        "Ten o’clock",
+        "Half past eleven",
+        "Half past ten",
+        "One o’clock"
+      ],
+      "correctIndex": 2,
+      "explanation": "The caller gives the time as half past ten tomorrow."
+    },
+    {
+      "id": 2,
+      "prompt": "What should the listener bring?",
+      "options": [
+        "A printed copy of the email",
+        "A form that can be shown on a phone",
+        "A payment receipt",
+        "A photograph of the appointment letter"
+      ],
+      "correctIndex": 1,
+      "explanation": "The caller asks for the emailed form and says a phone copy is acceptable."
+    },
+    {
+      "id": 3,
+      "prompt": "What should the listener do if delayed?",
+      "options": [
+        "Cancel the appointment online.",
+        "Call the previous day.",
+        "Wait until the appointment has ended.",
+        "Send a message before arriving."
+      ],
+      "correctIndex": 3,
+      "explanation": "The caller asks for a message before arrival if the listener is running late."
+    }
+  ]
+}

@@ -1,0 +1,77 @@
+{
+  "exerciseId": "b2-listening-022",
+  "title": "Exchanging a Jacket",
+  "level": "B2",
+  "instructions": "Listen carefully. Choose the option that best matches what is said or implied.",
+  "entities": {
+    "customer": {
+      "name": "Speaker A",
+      "voice": "en-GB-SoniaNeural",
+      "rate": "+0%",
+      "pitch": "+0Hz"
+    },
+    "assistant": {
+      "name": "Speaker B",
+      "voice": "en-US-AriaNeural",
+      "rate": "+0%",
+      "pitch": "+0Hz"
+    }
+  },
+  "audio": {
+    "url": "https://github.com/Galfurian/english_tests/releases/download/listening-audio-v1/b2-listening-022.mp3",
+    "sha256Url": "https://github.com/Galfurian/english_tests/releases/download/listening-audio-v1/b2-listening-022.mp3.sha256",
+    "description": "A short conversation about exchanging an item without a paper receipt."
+  },
+  "transcript": [
+    {
+      "entity": "customer",
+      "text": "I bought this jacket last week, but the sleeves are too long. I have the email receipt. Could I exchange it for the next size down?"
+    },
+    {
+      "entity": "assistant",
+      "text": "Certainly. That size is in stock, but this colour is online only. Would grey work instead?"
+    },
+    {
+      "entity": "customer",
+      "text": "Yes. I would rather exchange it today than wait for delivery."
+    }
+  ],
+  "questions": [
+    {
+      "id": 1,
+      "prompt": "Why does the customer want a different jacket?",
+      "options": [
+        "The sleeves are too long.",
+        "The current one has a broken zip.",
+        "The colour is different from the picture.",
+        "The jacket arrived late."
+      ],
+      "correctIndex": 0,
+      "explanation": "The customer says the sleeves are too long and asks for the next size down."
+    },
+    {
+      "id": 2,
+      "prompt": "What does the assistant say about the preferred colour?",
+      "options": [
+        "It has been discontinued completely.",
+        "It is available in every size in the shop.",
+        "It can be collected tomorrow.",
+        "It is available only online."
+      ],
+      "correctIndex": 3,
+      "explanation": "The assistant says that colour is only available online."
+    },
+    {
+      "id": 3,
+      "prompt": "Why does the customer accept grey?",
+      "options": [
+        "Grey is the only colour they ever wear.",
+        "They prefer to take an exchange today rather than wait.",
+        "The original colour is damaged.",
+        "The assistant offers a discount on grey."
+      ],
+      "correctIndex": 1,
+      "explanation": "The customer says grey is fine because they would rather exchange it today than wait for delivery."
+    }
+  ]
+}

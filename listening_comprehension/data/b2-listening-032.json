@@ -1,0 +1,97 @@
+{
+  "exerciseId": "b2-listening-032",
+  "title": "A Noisy Evening",
+  "level": "B2",
+  "instructions": "Listen carefully. Choose the option that best matches what is said or implied.",
+  "entities": {
+    "flatmate_a": {
+      "name": "Speaker A",
+      "voice": "en-GB-LibbyNeural",
+      "rate": "+0%",
+      "pitch": "+0Hz"
+    },
+    "flatmate_b": {
+      "name": "Speaker B",
+      "voice": "en-GB-ThomasNeural",
+      "rate": "+0%",
+      "pitch": "+0Hz"
+    }
+  },
+  "audio": {
+    "url": "https://github.com/Galfurian/english_tests/releases/download/listening-audio-v1/b2-listening-032.mp3",
+    "sha256Url": "https://github.com/Galfurian/english_tests/releases/download/listening-audio-v1/b2-listening-032.mp3.sha256",
+    "description": "Flatmates discuss a considerate way to handle evening noise."
+  },
+  "transcript": [
+    {
+      "entity": "flatmate_a",
+      "text": "The music next door was loud after eleven last night. I have an early shift, but do not want an argument over one evening."
+    },
+    {
+      "entity": "flatmate_b",
+      "text": "It has happened three times this month. A polite note asking them to lower it after ten may help; they may not know how far sound carries."
+    },
+    {
+      "entity": "flatmate_a",
+      "text": "A note is a good start. If it happens again, I would speak the next morning, when everyone is calmer."
+    },
+    {
+      "entity": "flatmate_b",
+      "text": "Agreed. Let’s mention thin walls and politely ask them to lower the music at night."
+    },
+    {
+      "entity": "flatmate_a",
+      "text": "I can write it today. If it continues, we can check the building guidance and decide what to do next."
+    }
+  ],
+  "questions": [
+    {
+      "id": 1,
+      "prompt": "Why is Flatmate A reluctant to act immediately?",
+      "options": [
+        "They enjoy hearing the music.",
+        "They are moving out tomorrow.",
+        "They do not have an early shift.",
+        "They do not want to cause an argument over one evening."
+      ],
+      "correctIndex": 3,
+      "explanation": "They say they do not want to start an argument over one evening, despite having an early shift."
+    },
+    {
+      "id": 2,
+      "prompt": "Why does Flatmate B suggest leaving a note?",
+      "options": [
+        "The neighbours have asked for written feedback.",
+        "They cannot speak to anyone in the building.",
+        "The neighbours may not know how much sound travels.",
+        "The music has already stopped permanently."
+      ],
+      "correctIndex": 2,
+      "explanation": "They suggest the neighbours might not realise how clearly the sound carries."
+    },
+    {
+      "id": 3,
+      "prompt": "Why would Flatmate A wait until the next morning to speak?",
+      "options": [
+        "People may be less annoyed then.",
+        "The building is closed at night.",
+        "The music is only loud in the morning.",
+        "They need permission from the owner first."
+      ],
+      "correctIndex": 0,
+      "explanation": "They say speaking the next morning may be better than knocking while everyone is annoyed."
+    },
+    {
+      "id": 4,
+      "prompt": "What tone do they want the note to have?",
+      "options": [
+        "Strict and threatening",
+        "Polite and informal",
+        "Humorous and sarcastic",
+        "Detailed and legal"
+      ],
+      "correctIndex": 1,
+      "explanation": "They agree to avoid making it sound like a formal complaint and ask politely."
+    }
+  ]
+}

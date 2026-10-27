@@ -131,5 +131,103 @@
     "level": "B2",
     "data": "./data/b2-listening-019.json",
     "group": "Long · about 2–3 min"
+  },
+  {
+    "exerciseId": "b2-listening-020",
+    "title": "A Change to the Pool Schedule",
+    "level": "B2",
+    "data": "./data/b2-listening-020.json",
+    "group": "Short · about 20 sec"
+  },
+  {
+    "exerciseId": "b2-listening-021",
+    "title": "A Missed Delivery",
+    "level": "B2",
+    "data": "./data/b2-listening-021.json",
+    "group": "Short · about 20 sec"
+  },
+  {
+    "exerciseId": "b2-listening-022",
+    "title": "Exchanging a Jacket",
+    "level": "B2",
+    "data": "./data/b2-listening-022.json",
+    "group": "Short · about 20 sec"
+  },
+  {
+    "exerciseId": "b2-listening-023",
+    "title": "A Temporary Bus Stop",
+    "level": "B2",
+    "data": "./data/b2-listening-023.json",
+    "group": "Short · about 20 sec"
+  },
+  {
+    "exerciseId": "b2-listening-024",
+    "title": "A Heating Repair Visit",
+    "level": "B2",
+    "data": "./data/b2-listening-024.json",
+    "group": "Short · about 20 sec"
+  },
+  {
+    "exerciseId": "b2-listening-025",
+    "title": "A Reminder About an Appointment",
+    "level": "B2",
+    "data": "./data/b2-listening-025.json",
+    "group": "Short · about 20 sec"
+  },
+  {
+    "exerciseId": "b2-listening-026",
+    "title": "A Weekend Repair Workshop",
+    "level": "B2",
+    "data": "./data/b2-listening-026.json",
+    "group": "Short · about 20 sec"
+  },
+  {
+    "exerciseId": "b2-listening-027",
+    "title": "Swapping a Work Shift",
+    "level": "B2",
+    "data": "./data/b2-listening-027.json",
+    "group": "Medium · about 40 sec"
+  },
+  {
+    "exerciseId": "b2-listening-028",
+    "title": "A Missed Train Connection",
+    "level": "B2",
+    "data": "./data/b2-listening-028.json",
+    "group": "Medium · about 40 sec"
+  },
+  {
+    "exerciseId": "b2-listening-029",
+    "title": "A Repair Before Moving In",
+    "level": "B2",
+    "data": "./data/b2-listening-029.json",
+    "group": "Medium · about 40 sec"
+  },
+  {
+    "exerciseId": "b2-listening-030",
+    "title": "Planning Meals on a Budget",
+    "level": "B2",
+    "data": "./data/b2-listening-030.json",
+    "group": "Medium · about 40 sec"
+  },
+  {
+    "exerciseId": "b2-listening-031",
+    "title": "Returning a Headset",
+    "level": "B2",
+    "data": "./data/b2-listening-031.json",
+    "group": "Medium · about 40 sec"
+  },
+  {
+    "exerciseId": "b2-listening-032",
+    "title": "A Noisy Evening",
+    "level": "B2",
+    "data": "./data/b2-listening-032.json",
+    "group": "Medium · about 40 sec"
+  },
+  {
+    "exerciseId": "b2-listening-033",
+    "title": "A Short Training Session",
+    "level": "B2",
+    "data": "./data/b2-listening-033.json",
+    "group": "Medium · about 40 sec"
   }
 ]

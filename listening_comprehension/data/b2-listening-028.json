@@ -1,0 +1,97 @@
+{
+  "exerciseId": "b2-listening-028",
+  "title": "A Missed Train Connection",
+  "level": "B2",
+  "instructions": "Listen carefully. Choose the option that best matches what is said or implied.",
+  "entities": {
+    "traveller_a": {
+      "name": "Speaker A",
+      "voice": "en-US-JennyNeural",
+      "rate": "+0%",
+      "pitch": "+0Hz"
+    },
+    "traveller_b": {
+      "name": "Speaker B",
+      "voice": "en-US-GuyNeural",
+      "rate": "+0%",
+      "pitch": "+0Hz"
+    }
+  },
+  "audio": {
+    "url": "https://github.com/Galfurian/english_tests/releases/download/listening-audio-v1/b2-listening-028.mp3",
+    "sha256Url": "https://github.com/Galfurian/english_tests/releases/download/listening-audio-v1/b2-listening-028.mp3.sha256",
+    "description": "Travellers decide how to continue after a delayed arrival."
+  },
+  "transcript": [
+    {
+      "entity": "traveller_a",
+      "text": "Our train is twenty minutes late, so we will miss the connection. The next direct service is at seven; we expected to be home by six."
+    },
+    {
+      "entity": "traveller_b",
+      "text": "A train through the northern stop leaves in ten minutes. It takes longer, and the platform change is quick."
+    },
+    {
+      "entity": "traveller_a",
+      "text": "I prefer the later direct train. We have seats booked, and changing platforms with our bags sounds stressful."
+    },
+    {
+      "entity": "traveller_b",
+      "text": "I will check whether our ticket is valid on the later train. If not, we can ask the help desk because the delay was not our choice."
+    },
+    {
+      "entity": "traveller_a",
+      "text": "I will message our ride that we will arrive after seven, so they can wait at home."
+    }
+  ],
+  "questions": [
+    {
+      "id": 1,
+      "prompt": "Why will the travellers miss their connection?",
+      "options": [
+        "They boarded the wrong train.",
+        "The next station is closed.",
+        "Their train is running twenty minutes late.",
+        "They have too many bags to carry."
+      ],
+      "correctIndex": 2,
+      "explanation": "The first traveller says the train is twenty minutes late and that this makes them miss the connection."
+    },
+    {
+      "id": 2,
+      "prompt": "Why does Traveller A prefer the later direct service?",
+      "options": [
+        "They do not want to rush between platforms with their bags.",
+        "It is the only route with reserved seats.",
+        "The northern route has been cancelled.",
+        "They need to buy food at the next station."
+      ],
+      "correctIndex": 0,
+      "explanation": "They say the alternative requires a quick platform change and would be stressful with their bags."
+    },
+    {
+      "id": 3,
+      "prompt": "What will Traveller B check?",
+      "options": [
+        "Whether the station sells luggage covers",
+        "Whether there is a bus to the northern stop",
+        "Whether the meeting point has changed",
+        "Whether the ticket can be used on the later train"
+      ],
+      "correctIndex": 3,
+      "explanation": "Traveller B says they will check if the ticket is valid on the later service."
+    },
+    {
+      "id": 4,
+      "prompt": "What will Traveller A do about the person meeting them?",
+      "options": [
+        "Ask them to come to the station sooner",
+        "Tell them the arrival will be later",
+        "Cancel the meeting without an explanation",
+        "Ask them to buy another ticket"
+      ],
+      "correctIndex": 1,
+      "explanation": "They plan to message that they will arrive after seven and the person can wait at home."
+    }
+  ]
+}

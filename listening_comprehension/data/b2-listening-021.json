@@ -1,0 +1,63 @@
+{
+  "exerciseId": "b2-listening-021",
+  "title": "A Missed Delivery",
+  "level": "B2",
+  "instructions": "Listen carefully. Choose the option that best matches what is said or implied.",
+  "entities": {
+    "caller": {
+      "name": "Speaker A",
+      "voice": "en-US-GuyNeural",
+      "rate": "+0%",
+      "pitch": "+0Hz"
+    }
+  },
+  "audio": {
+    "url": "https://github.com/Galfurian/english_tests/releases/download/listening-audio-v1/b2-listening-021.mp3",
+    "sha256Url": "https://github.com/Galfurian/english_tests/releases/download/listening-audio-v1/b2-listening-021.mp3.sha256",
+    "description": "A voicemail offering a new delivery time."
+  },
+  "transcript": [
+    {
+      "entity": "caller",
+      "text": "Hi, I tried to deliver your parcel this afternoon, but nobody answered. I can come back between six and eight tomorrow evening. If that does not work, you can collect it from the depot after lunch on Friday. Please reply by text so I know which option to keep. It is too large for the letter slot."
+    }
+  ],
+  "questions": [
+    {
+      "id": 1,
+      "prompt": "Why was the parcel not delivered?",
+      "options": [
+        "The address was incomplete.",
+        "The parcel was damaged.",
+        "Nobody answered the door.",
+        "The driver arrived after eight."
+      ],
+      "correctIndex": 2,
+      "explanation": "The caller says nobody answered when they tried to deliver the parcel."
+    },
+    {
+      "id": 2,
+      "prompt": "What is the alternative to another delivery?",
+      "options": [
+        "Collecting it tomorrow morning",
+        "Collecting it on Friday afternoon",
+        "Asking a neighbour to take it",
+        "Changing the delivery address"
+      ],
+      "correctIndex": 1,
+      "explanation": "The caller offers collection from the depot after lunch on Friday."
+    },
+    {
+      "id": 3,
+      "prompt": "Why should the listener reply by text?",
+      "options": [
+        "To choose which option to keep",
+        "To send a payment confirmation",
+        "To ask for a different parcel",
+        "To report the address as incorrect"
+      ],
+      "correctIndex": 0,
+      "explanation": "The driver needs to know which of the two options the listener prefers."
+    }
+  ]
+}

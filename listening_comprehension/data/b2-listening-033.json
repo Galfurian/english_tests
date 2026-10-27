@@ -1,0 +1,97 @@
+{
+  "exerciseId": "b2-listening-033",
+  "title": "A Short Training Session",
+  "level": "B2",
+  "instructions": "Listen carefully. Choose the option that best matches what is said or implied.",
+  "entities": {
+    "colleague_a": {
+      "name": "Speaker A",
+      "voice": "en-US-AriaNeural",
+      "rate": "+10%",
+      "pitch": "+0Hz"
+    },
+    "colleague_b": {
+      "name": "Speaker B",
+      "voice": "en-GB-RyanNeural",
+      "rate": "+10%",
+      "pitch": "+0Hz"
+    }
+  },
+  "audio": {
+    "url": "https://github.com/Galfurian/english_tests/releases/download/listening-audio-v1/b2-listening-033.mp3",
+    "sha256Url": "https://github.com/Galfurian/english_tests/releases/download/listening-audio-v1/b2-listening-033.mp3.sha256",
+    "description": "Colleagues plan a practical training session around busy hours."
+  },
+  "transcript": [
+    {
+      "entity": "colleague_a",
+      "text": "The new booking system starts next month. We need to train everyone, but a full-day session would leave the front desk short-staffed."
+    },
+    {
+      "entity": "colleague_b",
+      "text": "Could we run two shorter sessions, before opening and after lunch? People can choose by shift. We should record a demo for anyone absent."
+    },
+    {
+      "entity": "colleague_a",
+      "text": "That sounds practical. A recording can cover common tasks, but cannot answer unusual questions. We will need support afterwards."
+    },
+    {
+      "entity": "colleague_b",
+      "text": "I can answer questions the first week. Let’s list issues so we can improve the guide instead of repeating answers."
+    },
+    {
+      "entity": "colleague_a",
+      "text": "I will send choices today. Reply by Friday so we know how many places are needed. Anyone missing both sessions can watch the recording."
+    }
+  ],
+  "questions": [
+    {
+      "id": 1,
+      "prompt": "Why do they avoid a full-day training session?",
+      "options": [
+        "The booking system is not ready.",
+        "It would leave the front desk short-staffed.",
+        "The team does not want a recording.",
+        "The session room is unavailable."
+      ],
+      "correctIndex": 1,
+      "explanation": "Colleague A says a full-day session would leave the front desk short-staffed."
+    },
+    {
+      "id": 2,
+      "prompt": "How will they make the training fit different shifts?",
+      "options": [
+        "Repeat the same full-day session every week",
+        "Ask everyone to work an extra shift",
+        "Send printed instructions only",
+        "Offer two shorter sessions at different times"
+      ],
+      "correctIndex": 3,
+      "explanation": "Colleague B proposes a session before opening and another after lunch."
+    },
+    {
+      "id": 3,
+      "prompt": "What limitation do they see in a recorded demonstration?",
+      "options": [
+        "It will be too long to watch.",
+        "It cannot show common tasks.",
+        "It cannot respond to unusual questions.",
+        "It will only work at the front desk."
+      ],
+      "correctIndex": 2,
+      "explanation": "Colleague A says the recording can cover common tasks but cannot answer questions about unusual bookings."
+    },
+    {
+      "id": 4,
+      "prompt": "Why will they keep a shared list of problems?",
+      "options": [
+        "To improve the guide and avoid repeating answers",
+        "To decide who should miss training",
+        "To remove unusual bookings from the system",
+        "To measure how quickly people work"
+      ],
+      "correctIndex": 0,
+      "explanation": "Colleague B says the list will help update the guide instead of answering the same questions repeatedly."
+    }
+  ]
+}

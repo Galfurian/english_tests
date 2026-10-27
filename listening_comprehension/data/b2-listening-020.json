@@ -1,0 +1,63 @@
+{
+  "exerciseId": "b2-listening-020",
+  "title": "A Change to the Pool Schedule",
+  "level": "B2",
+  "instructions": "Listen carefully. Choose the option that best matches what is said or implied.",
+  "entities": {
+    "announcer": {
+      "name": "Speaker A",
+      "voice": "en-GB-LibbyNeural",
+      "rate": "+0%",
+      "pitch": "+0Hz"
+    }
+  },
+  "audio": {
+    "url": "https://github.com/Galfurian/english_tests/releases/download/listening-audio-v1/b2-listening-020.mp3",
+    "sha256Url": "https://github.com/Galfurian/english_tests/releases/download/listening-audio-v1/b2-listening-020.mp3.sha256",
+    "description": "A brief announcement about a changed opening time."
+  },
+  "transcript": [
+    {
+      "entity": "announcer",
+      "text": "The pool will open at nine tomorrow instead of eight because maintenance staff need extra time to check the changing rooms. The fitness classes will run as planned. Please use the side entrance until the main doors have been inspected. Allow a few extra minutes to reach the lockers."
+    }
+  ],
+  "questions": [
+    {
+      "id": 1,
+      "prompt": "Why will the pool open later?",
+      "options": [
+        "A class has been cancelled.",
+        "Staff need more time for checks.",
+        "The main entrance is being rebuilt.",
+        "The pool is being cleaned all day."
+      ],
+      "correctIndex": 1,
+      "explanation": "The announcement says maintenance staff need extra time to check the changing rooms."
+    },
+    {
+      "id": 2,
+      "prompt": "What will happen to the fitness classes?",
+      "options": [
+        "They will go ahead as planned.",
+        "They will start later.",
+        "They will move to another building.",
+        "They will be replaced by swimming lessons."
+      ],
+      "correctIndex": 0,
+      "explanation": "The speaker explicitly says the fitness classes will run as planned."
+    },
+    {
+      "id": 3,
+      "prompt": "Which entrance should visitors use?",
+      "options": [
+        "The staff entrance",
+        "The main doors",
+        "The side entrance",
+        "The entrance beside the pool"
+      ],
+      "correctIndex": 2,
+      "explanation": "Visitors are asked to use the side entrance while the main doors are inspected."
+    }
+  ]
+}

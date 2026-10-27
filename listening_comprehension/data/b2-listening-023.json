@@ -1,0 +1,63 @@
+{
+  "exerciseId": "b2-listening-023",
+  "title": "A Temporary Bus Stop",
+  "level": "B2",
+  "instructions": "Listen carefully. Choose the option that best matches what is said or implied.",
+  "entities": {
+    "announcer": {
+      "name": "Speaker A",
+      "voice": "en-US-JennyNeural",
+      "rate": "+0%",
+      "pitch": "+0Hz"
+    }
+  },
+  "audio": {
+    "url": "https://github.com/Galfurian/english_tests/releases/download/listening-audio-v1/b2-listening-023.mp3",
+    "sha256Url": "https://github.com/Galfurian/english_tests/releases/download/listening-audio-v1/b2-listening-023.mp3.sha256",
+    "description": "A roadside announcement about a temporary stop change."
+  },
+  "transcript": [
+    {
+      "entity": "announcer",
+      "text": "The next bus to the town centre will not stop outside the market today. Roadworks have closed that section of the street. Please wait opposite the public gardens; the bus will arrive at the usual time. Look for the temporary sign beside the crossing. Please wait behind the marked line."
+    }
+  ],
+  "questions": [
+    {
+      "id": 1,
+      "prompt": "Why is the usual stop unavailable?",
+      "options": [
+        "A market event is taking place.",
+        "Roadworks have closed that part of the street.",
+        "The bus is running an hour late.",
+        "The stop is being moved permanently."
+      ],
+      "correctIndex": 1,
+      "explanation": "The announcement says roadworks have closed that section of the street."
+    },
+    {
+      "id": 2,
+      "prompt": "Where should passengers wait?",
+      "options": [
+        "Outside the market",
+        "At the station entrance",
+        "Opposite the public gardens",
+        "Across from the bus depot"
+      ],
+      "correctIndex": 2,
+      "explanation": "The temporary stop is opposite the public gardens."
+    },
+    {
+      "id": 3,
+      "prompt": "What does the announcement imply about the timetable?",
+      "options": [
+        "The bus time has not changed.",
+        "The bus will skip the town centre.",
+        "The service will end early.",
+        "Passengers should expect a long delay."
+      ],
+      "correctIndex": 0,
+      "explanation": "The speaker says the bus will arrive at the temporary stop at the usual time."
+    }
+  ]
+}

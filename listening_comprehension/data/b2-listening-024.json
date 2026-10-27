@@ -1,0 +1,77 @@
+{
+  "exerciseId": "b2-listening-024",
+  "title": "A Heating Repair Visit",
+  "level": "B2",
+  "instructions": "Listen carefully. Choose the option that best matches what is said or implied.",
+  "entities": {
+    "tenant": {
+      "name": "Speaker A",
+      "voice": "en-GB-ThomasNeural",
+      "rate": "+0%",
+      "pitch": "+0Hz"
+    },
+    "office": {
+      "name": "Speaker B",
+      "voice": "en-GB-SoniaNeural",
+      "rate": "+0%",
+      "pitch": "+0Hz"
+    }
+  },
+  "audio": {
+    "url": "https://github.com/Galfurian/english_tests/releases/download/listening-audio-v1/b2-listening-024.mp3",
+    "sha256Url": "https://github.com/Galfurian/english_tests/releases/download/listening-audio-v1/b2-listening-024.mp3.sha256",
+    "description": "A brief exchange about arranging a heating repair."
+  },
+  "transcript": [
+    {
+      "entity": "tenant",
+      "text": "The heating has stopped again. It was repaired Monday, but the radiators are cold. Can someone visit before the weekend?"
+    },
+    {
+      "entity": "office",
+      "text": "We can send a technician Friday afternoon. Please clear the cupboard by the boiler so they can reach the controls."
+    },
+    {
+      "entity": "tenant",
+      "text": "Fine. I will move the boxes tonight and leave the side gate unlocked."
+    }
+  ],
+  "questions": [
+    {
+      "id": 1,
+      "prompt": "What has happened to the heating?",
+      "options": [
+        "It is making too much noise.",
+        "It was removed on Monday.",
+        "It only works in one room.",
+        "It stopped working again."
+      ],
+      "correctIndex": 3,
+      "explanation": "The tenant says it has stopped working again and the radiators are cold."
+    },
+    {
+      "id": 2,
+      "prompt": "When can a technician visit?",
+      "options": [
+        "Friday afternoon",
+        "Monday morning",
+        "Before lunch on Friday",
+        "At the weekend"
+      ],
+      "correctIndex": 0,
+      "explanation": "The office offers a visit on Friday afternoon."
+    },
+    {
+      "id": 3,
+      "prompt": "What does the tenant agree to do?",
+      "options": [
+        "Buy new controls",
+        "Stay home all day Monday",
+        "Clear the cupboard and open the side gate",
+        "Move the boiler outside"
+      ],
+      "correctIndex": 2,
+      "explanation": "The tenant will move the boxes near the boiler and leave the side gate unlocked."
+    }
+  ]
+}

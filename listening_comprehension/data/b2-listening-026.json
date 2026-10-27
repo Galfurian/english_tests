@@ -1,0 +1,77 @@
+{
+  "exerciseId": "b2-listening-026",
+  "title": "A Weekend Repair Workshop",
+  "level": "B2",
+  "instructions": "Listen carefully. Choose the option that best matches what is said or implied.",
+  "entities": {
+    "organiser": {
+      "name": "Speaker A",
+      "voice": "en-US-AriaNeural",
+      "rate": "+0%",
+      "pitch": "+0Hz"
+    },
+    "neighbour": {
+      "name": "Speaker B",
+      "voice": "en-GB-RyanNeural",
+      "rate": "+0%",
+      "pitch": "+0Hz"
+    }
+  },
+  "audio": {
+    "url": "https://github.com/Galfurian/english_tests/releases/download/listening-audio-v1/b2-listening-026.mp3",
+    "sha256Url": "https://github.com/Galfurian/english_tests/releases/download/listening-audio-v1/b2-listening-026.mp3.sha256",
+    "description": "Two neighbours coordinate a small repair event."
+  },
+  "transcript": [
+    {
+      "entity": "organiser",
+      "text": "Rain is forecast for Saturday. Should we move the repair tables indoors?"
+    },
+    {
+      "entity": "neighbour",
+      "text": "The hall is booked until noon. We could start outside later. I can bring covers, but they will not help in strong wind."
+    },
+    {
+      "entity": "organiser",
+      "text": "That works. I will tell everyone the new time and ask them to bring small items only."
+    }
+  ],
+  "questions": [
+    {
+      "id": 1,
+      "prompt": "What might disrupt the original plan?",
+      "options": [
+        "Rain in the morning",
+        "A lack of tables",
+        "A delivery arriving late",
+        "The hall being closed all day"
+      ],
+      "correctIndex": 0,
+      "explanation": "The organiser mentions a forecast of morning rain."
+    },
+    {
+      "id": 2,
+      "prompt": "Why can they not use the hall immediately?",
+      "options": [
+        "It has no electricity.",
+        "It is too small for repair tables.",
+        "It is booked until noon.",
+        "It is being cleaned after lunch."
+      ],
+      "correctIndex": 2,
+      "explanation": "The neighbour says the hall is booked until noon."
+    },
+    {
+      "id": 3,
+      "prompt": "What will the organiser tell participants?",
+      "options": [
+        "To arrive before breakfast",
+        "To bring large furniture",
+        "That the event is cancelled",
+        "That the event will start later"
+      ],
+      "correctIndex": 3,
+      "explanation": "The organiser agrees to tell people about the later start and limit items to small ones."
+    }
+  ]
+}

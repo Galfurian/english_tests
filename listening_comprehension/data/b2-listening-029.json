@@ -1,0 +1,97 @@
+{
+  "exerciseId": "b2-listening-029",
+  "title": "A Repair Before Moving In",
+  "level": "B2",
+  "instructions": "Listen carefully. Choose the option that best matches what is said or implied.",
+  "entities": {
+    "renter_a": {
+      "name": "Speaker A",
+      "voice": "en-GB-ThomasNeural",
+      "rate": "+0%",
+      "pitch": "+0Hz"
+    },
+    "renter_b": {
+      "name": "Speaker B",
+      "voice": "en-US-AriaNeural",
+      "rate": "+0%",
+      "pitch": "+0Hz"
+    }
+  },
+  "audio": {
+    "url": "https://github.com/Galfurian/english_tests/releases/download/listening-audio-v1/b2-listening-029.mp3",
+    "sha256Url": "https://github.com/Galfurian/english_tests/releases/download/listening-audio-v1/b2-listening-029.mp3.sha256",
+    "description": "Two renters coordinate access for a repair before moving day."
+  },
+  "transcript": [
+    {
+      "entity": "renter_a",
+      "text": "The kitchen tap still leaks, and movers arrive Monday. A repair Monday afternoon means working around boxes."
+    },
+    {
+      "entity": "renter_b",
+      "text": "Could they come Saturday? I can meet them, but I do not have the spare key yet. It should be in the lockbox by the door."
+    },
+    {
+      "entity": "renter_a",
+      "text": "I can collect the key Friday. There is a loose shelf too; I will send a photo so they know what to bring."
+    },
+    {
+      "entity": "renter_b",
+      "text": "Great. I will ask if the same person can fix both. If not, the shelf can wait, but the tap needs attention first."
+    },
+    {
+      "entity": "renter_a",
+      "text": "Agreed. I will confirm Saturday and keep the kitchen clear. We should leave cleaning supplies packed until the work is done."
+    }
+  ],
+  "questions": [
+    {
+      "id": 1,
+      "prompt": "Why do they want the tap repaired before Monday afternoon?",
+      "options": [
+        "The tap will be removed by the movers.",
+        "The repair person is unavailable after lunch.",
+        "They are leaving the property on Sunday.",
+        "The move is on Monday morning and boxes would make access difficult."
+      ],
+      "correctIndex": 3,
+      "explanation": "They say the movers arrive Monday morning and a later repair would take place around boxes and furniture."
+    },
+    {
+      "id": 2,
+      "prompt": "What does Renter B need before meeting the repair person?",
+      "options": [
+        "A copy of the moving schedule",
+        "The spare key",
+        "A new tap",
+        "A photograph of the kitchen"
+      ],
+      "correctIndex": 1,
+      "explanation": "Renter B says they do not yet have the spare key and expects it in the lockbox."
+    },
+    {
+      "id": 3,
+      "prompt": "Why will Renter A send a photo of the shelf?",
+      "options": [
+        "To prove the shelf is new",
+        "To ask the movers to remove it",
+        "So the repair person knows what to bring",
+        "So Renter B can choose a different room"
+      ],
+      "correctIndex": 2,
+      "explanation": "They plan to send a photo so the repair person knows which items or tools to bring."
+    },
+    {
+      "id": 4,
+      "prompt": "Which repair do they consider more urgent?",
+      "options": [
+        "The leaking tap",
+        "The loose shelf",
+        "The front door lock",
+        "The kitchen cupboards"
+      ],
+      "correctIndex": 0,
+      "explanation": "Renter B says the shelf can wait, but the tap needs attention first."
+    }
+  ]
+}
