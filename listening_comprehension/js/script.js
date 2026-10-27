@@ -157,7 +157,13 @@ async function initialize() {
     if (configuredExercise && configuredExercise.enabled === false) { el('loadingPanel').textContent = 'This exercise is currently unavailable.'; return; }
     const features = config.loaded === false ? { exerciseSelector: true, progress: true, timer: false } : window.EnglishTestsSiteConfig.resolveFeatures(config, 'listening');
     await loadIndex();
-    toolbar = window.EnglishTestsToolbar.mount(el('exerciseToolbar'), { exercises: exerciseIndex, currentIndex: 0, features, onExerciseChange: changeExercise });
+    toolbar = window.EnglishTestsToolbar.mount(el('exerciseToolbar'), {
+      exercises: exerciseIndex,
+      currentIndex: 0,
+      features,
+      onExerciseChange: changeExercise,
+      groupOrder: ['Short · about 20 sec', 'Medium · about 40 sec', 'Long · about 2–3 min'],
+    });
     await loadExercise(0);
   } catch (error) { showError(error); }
 }

@@ -1,13 +1,22 @@
 (function () {
     function mount(container, options) {
-        const { exercises, currentIndex, features, onExerciseChange } = options;
+        const { exercises, currentIndex, features, onExerciseChange, groupOrder } = options;
         let selectedIndex = currentIndex;
         container.replaceChildren(); container.hidden = false; container.className = 'exercise-toolbar'; container.setAttribute('role', 'group'); container.setAttribute('aria-label', 'Exercise controls');
         const progress = document.createElement('span'); progress.className = 'toolbar-progress';
         const selectorGroup = document.createElement('div'); selectorGroup.className = 'toolbar-selector';
         const selectorLabel = document.createElement('label'); selectorLabel.textContent = 'Change exercise'; selectorLabel.htmlFor = 'exerciseSelector';
         const selector = document.createElement('select'); selector.id = 'exerciseSelector'; selector.className = 'toolbar-select';
-        exercises.forEach((exercise, index) => { const option = document.createElement('option'); option.value = String(index); option.textContent = `Exercise ${index + 1}: ${exercise.title}`; selector.appendChild(option); });
+        const appendExerciseOption = (parent, exercise, index) => { const option = document.createElement('option'); option.value = String(index); option.textContent = `Exercise ${index + 1}: ${exercise.title}`; parent.appendChild(option); };
+        if (Array.isArray(groupOrder) && groupOrder.length) {
+            groupOrder.forEach((groupLabel) => {
+                const group = document.createElement('optgroup'); group.label = groupLabel;
+                exercises.forEach((exercise, index) => { if (exercise.group === groupLabel) appendExerciseOption(group, exercise, index); });
+                if (group.children.length) selector.appendChild(group);
+            });
+        } else {
+            exercises.forEach((exercise, index) => appendExerciseOption(selector, exercise, index));
+        }
         selectorGroup.append(selectorLabel, selector);
         const timerContainer = document.createElement('div'); timerContainer.className = 'toolbar-timer';
         let timer = null;

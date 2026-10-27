@@ -3,114 +3,133 @@
     "exerciseId": "b2-listening-001",
     "title": "Planning a University Open Day",
     "level": "B2",
-    "data": "./data/b2-listening-001.json"
+    "data": "./data/b2-listening-001.json",
+    "group": "Long · about 2–3 min"
   },
   {
     "exerciseId": "b2-listening-002",
     "title": "Choosing a Part-Time Job",
     "level": "B2",
-    "data": "./data/b2-listening-002.json"
+    "data": "./data/b2-listening-002.json",
+    "group": "Long · about 2–3 min"
   },
   {
     "exerciseId": "b2-listening-003",
     "title": "Redesigning the Community Library",
     "level": "B2",
-    "data": "./data/b2-listening-003.json"
+    "data": "./data/b2-listening-003.json",
+    "group": "Long · about 2–3 min"
   },
   {
     "exerciseId": "b2-listening-004",
     "title": "Planning a Weekend Trip",
     "level": "B2",
-    "data": "./data/b2-listening-004.json"
+    "data": "./data/b2-listening-004.json",
+    "group": "Long · about 2–3 min"
   },
   {
     "exerciseId": "b2-listening-005",
     "title": "Preparing a Group Presentation",
     "level": "B2",
-    "data": "./data/b2-listening-005.json"
+    "data": "./data/b2-listening-005.json",
+    "group": "Long · about 2–3 min"
   },
   {
     "exerciseId": "b2-listening-006",
     "title": "Improving a Recycling Scheme",
     "level": "B2",
-    "data": "./data/b2-listening-006.json"
+    "data": "./data/b2-listening-006.json",
+    "group": "Long · about 2–3 min"
   },
   {
     "exerciseId": "b2-listening-007",
     "title": "Choosing a Staff Training Course",
     "level": "B2",
-    "data": "./data/b2-listening-007.json"
+    "data": "./data/b2-listening-007.json",
+    "group": "Long · about 2–3 min"
   },
   {
     "exerciseId": "b2-listening-008",
     "title": "Choosing Exchange Accommodation",
     "level": "B2",
-    "data": "./data/b2-listening-008.json"
+    "data": "./data/b2-listening-008.json",
+    "group": "Long · about 2–3 min"
   },
   {
     "exerciseId": "b2-listening-009",
     "title": "Changing a Sports Centre Membership",
     "level": "B2",
-    "data": "./data/b2-listening-009.json"
+    "data": "./data/b2-listening-009.json",
+    "group": "Long · about 2–3 min"
   },
   {
     "exerciseId": "b2-listening-010",
     "title": "Volunteering at a Museum",
     "level": "B2",
-    "data": "./data/b2-listening-010.json"
+    "data": "./data/b2-listening-010.json",
+    "group": "Long · about 2–3 min"
   },
   {
     "exerciseId": "b2-listening-011",
     "title": "A Change to the Departure Platform",
     "level": "B2",
-    "data": "./data/b2-listening-011.json"
+    "data": "./data/b2-listening-011.json",
+    "group": "Short · about 20 sec"
   },
   {
     "exerciseId": "b2-listening-012",
     "title": "A Repair Appointment",
     "level": "B2",
-    "data": "./data/b2-listening-012.json"
+    "data": "./data/b2-listening-012.json",
+    "group": "Short · about 20 sec"
   },
   {
     "exerciseId": "b2-listening-013",
     "title": "A Quick Café Conversation",
     "level": "B2",
-    "data": "./data/b2-listening-013.json"
+    "data": "./data/b2-listening-013.json",
+    "group": "Short · about 20 sec"
   },
   {
     "exerciseId": "b2-listening-014",
     "title": "A Room That Is Not Ready",
     "level": "B2",
-    "data": "./data/b2-listening-014.json"
+    "data": "./data/b2-listening-014.json",
+    "group": "Medium · about 40 sec"
   },
   {
     "exerciseId": "b2-listening-015",
     "title": "A Shift in the Delivery Schedule",
     "level": "B2",
-    "data": "./data/b2-listening-015.json"
+    "data": "./data/b2-listening-015.json",
+    "group": "Medium · about 40 sec"
   },
   {
     "exerciseId": "b2-listening-016",
     "title": "A Neighbourhood Power Cut",
     "level": "B2",
-    "data": "./data/b2-listening-016.json"
+    "data": "./data/b2-listening-016.json",
+    "group": "Medium · about 40 sec"
   },
   {
     "exerciseId": "b2-listening-017",
     "title": "A Delayed Ferry Crossing",
     "level": "B2",
-    "data": "./data/b2-listening-017.json"
+    "data": "./data/b2-listening-017.json",
+    "group": "Long · about 2–3 min"
   },
   {
     "exerciseId": "b2-listening-018",
     "title": "Improving a Community Project",
     "level": "B2",
-    "data": "./data/b2-listening-018.json"
+    "data": "./data/b2-listening-018.json",
+    "group": "Long · about 2–3 min"
   },
   {
     "exerciseId": "b2-listening-019",
     "title": "Making a Shared Workspace Work",
     "level": "B2",
-    "data": "./data/b2-listening-019.json"
+    "data": "./data/b2-listening-019.json",
+    "group": "Long · about 2–3 min"
   }
 ]
