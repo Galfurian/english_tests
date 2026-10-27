@@ -1,0 +1,129 @@
+{
+  "exerciseId": "b2-listening-017",
+  "title": "A Delayed Ferry Crossing",
+  "level": "B2",
+  "instructions": "Listen carefully. Choose the option that best matches what is said or implied.",
+  "entities": {
+    "traveller_a": {
+      "name": "Speaker A",
+      "voice": "en-GB-ThomasNeural",
+      "rate": "+0%",
+      "pitch": "+0Hz"
+    },
+    "traveller_b": {
+      "name": "Speaker B",
+      "voice": "en-US-AriaNeural",
+      "rate": "+0%",
+      "pitch": "+0Hz"
+    }
+  },
+  "audio": {
+    "url": "https://github.com/Galfurian/english_tests/releases/download/listening-audio-v1/b2-listening-017.mp3",
+    "sha256Url": "https://github.com/Galfurian/english_tests/releases/download/listening-audio-v1/b2-listening-017.mp3.sha256",
+    "description": "Two travellers discuss a delayed crossing and revise their plans."
+  },
+  "transcript": [
+    {
+      "entity": "traveller_a",
+      "text": "The board has changed our sailing to six thirty, which is almost two hours later. They say strong winds are slowing the incoming ferry. I was hoping we could still make the evening coach on the other side."
+    },
+    {
+      "entity": "traveller_b",
+      "text": "The coach leaves at seven forty-five, doesn’t it? Even if we arrive on time, we would have to get through the terminal and cross town. I think that connection is too tight."
+    },
+    {
+      "entity": "traveller_a",
+      "text": "I checked the next coach. It leaves at nine ten, but the online fare is much cheaper than the ticket at the station. The booking page says changes are allowed for a small fee."
+    },
+    {
+      "entity": "traveller_b",
+      "text": "Then perhaps we should book that one now. If the ferry is delayed again, at least we will not be racing through town. We can ask whether our current tickets can be moved rather than buying twice."
+    },
+    {
+      "entity": "traveller_a",
+      "text": "I will go to the desk. Meanwhile, we should find somewhere to sit. The café is crowded, but there are seats upstairs near the windows. We could take turns watching the departure screen."
+    },
+    {
+      "entity": "traveller_b",
+      "text": "Let’s do that. I also need to charge my phone before we board. There are sockets by the information desk, but they may be busy. I can ask if the waiting area has any free ones."
+    },
+    {
+      "entity": "traveller_a",
+      "text": "The desk has just confirmed we can transfer the coach tickets to the later departure for a small charge. They also said the ferry estimate is still six thirty, though they will announce any further change."
+    },
+    {
+      "entity": "traveller_b",
+      "text": "Good. That means we can stop checking the booking page. Let’s get the tickets sorted, charge the phone, and have something to eat. We have time now, even if the delay is frustrating."
+    },
+    {
+      "entity": "traveller_a",
+      "text": "Agreed. I will keep the receipt in case the coach time changes again. We should stay inside the terminal until boarding is confirmed, because the wind could affect the schedule once more."
+    },
+    {
+      "entity": "traveller_b",
+      "text": "Right. I will message the person meeting us and explain that we will arrive later. They do not need to wait at the coach stop; we can call when we are close."
+    }
+  ],
+  "questions": [
+    {
+      "id": 1,
+      "prompt": "Why has the ferry been delayed?",
+      "options": [
+        "Strong winds are slowing the incoming ferry.",
+        "The coach company has changed the timetable.",
+        "A traveller has lost a ticket.",
+        "The terminal café is overcrowded."
+      ],
+      "correctIndex": 0,
+      "explanation": "The departure board attributes the delay to strong winds affecting the incoming ferry."
+    },
+    {
+      "id": 2,
+      "prompt": "Why do the travellers reject the earlier coach connection?",
+      "options": [
+        "It only accepts cash payment.",
+        "It leaves before the ferry arrives.",
+        "They would have too little time to reach it across town.",
+        "It has no seats available."
+      ],
+      "correctIndex": 2,
+      "explanation": "They note that after arriving they must pass through the terminal and cross town, making the connection too tight."
+    },
+    {
+      "id": 3,
+      "prompt": "What do they learn about their existing coach tickets?",
+      "options": [
+        "They can only be refunded in cash.",
+        "They can transfer them for a small charge.",
+        "They are valid for any coach without changes.",
+        "They must buy a second set of tickets."
+      ],
+      "correctIndex": 1,
+      "explanation": "The desk confirms the tickets can be moved to the later departure for a small fee."
+    },
+    {
+      "id": 4,
+      "prompt": "What does the second traveller mean by saying they can “stop checking the booking page”?",
+      "options": [
+        "The ferry is certain to leave on time now.",
+        "The coach has been cancelled.",
+        "There is no internet in the terminal.",
+        "The ticket issue has been resolved directly with the desk."
+      ],
+      "correctIndex": 3,
+      "explanation": "After the desk confirms the ticket transfer, they no longer need to keep checking online for that information."
+    },
+    {
+      "id": 5,
+      "prompt": "What will they do about the person meeting them?",
+      "options": [
+        "Ask them to wait inside the ferry.",
+        "Cancel the meeting without explanation.",
+        "Tell them the arrival will be later and call near the stop.",
+        "Send them the receipt for the coach tickets."
+      ],
+      "correctIndex": 2,
+      "explanation": "The second traveller says they will message about the delay and call when they are close."
+    }
+  ]
+}

@@ -58,5 +58,59 @@
     "title": "Volunteering at a Museum",
     "level": "B2",
     "data": "./data/b2-listening-010.json"
+  },
+  {
+    "exerciseId": "b2-listening-011",
+    "title": "A Change to the Departure Platform",
+    "level": "B2",
+    "data": "./data/b2-listening-011.json"
+  },
+  {
+    "exerciseId": "b2-listening-012",
+    "title": "A Repair Appointment",
+    "level": "B2",
+    "data": "./data/b2-listening-012.json"
+  },
+  {
+    "exerciseId": "b2-listening-013",
+    "title": "A Quick Café Conversation",
+    "level": "B2",
+    "data": "./data/b2-listening-013.json"
+  },
+  {
+    "exerciseId": "b2-listening-014",
+    "title": "A Room That Is Not Ready",
+    "level": "B2",
+    "data": "./data/b2-listening-014.json"
+  },
+  {
+    "exerciseId": "b2-listening-015",
+    "title": "A Shift in the Delivery Schedule",
+    "level": "B2",
+    "data": "./data/b2-listening-015.json"
+  },
+  {
+    "exerciseId": "b2-listening-016",
+    "title": "A Neighbourhood Power Cut",
+    "level": "B2",
+    "data": "./data/b2-listening-016.json"
+  },
+  {
+    "exerciseId": "b2-listening-017",
+    "title": "A Delayed Ferry Crossing",
+    "level": "B2",
+    "data": "./data/b2-listening-017.json"
+  },
+  {
+    "exerciseId": "b2-listening-018",
+    "title": "Improving a Community Project",
+    "level": "B2",
+    "data": "./data/b2-listening-018.json"
+  },
+  {
+    "exerciseId": "b2-listening-019",
+    "title": "Making a Shared Workspace Work",
+    "level": "B2",
+    "data": "./data/b2-listening-019.json"
   }
 ]

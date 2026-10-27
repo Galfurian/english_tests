@@ -1,0 +1,63 @@
+{
+  "exerciseId": "b2-listening-011",
+  "title": "A Change to the Departure Platform",
+  "level": "B2",
+  "instructions": "Listen carefully. Choose the option that best matches what is said or implied.",
+  "entities": {
+    "announcer": {
+      "name": "Speaker A",
+      "voice": "en-GB-RyanNeural",
+      "rate": "+0%",
+      "pitch": "+0Hz"
+    }
+  },
+  "audio": {
+    "url": "https://github.com/Galfurian/english_tests/releases/download/listening-audio-v1/b2-listening-011.mp3",
+    "sha256Url": "https://github.com/Galfurian/english_tests/releases/download/listening-audio-v1/b2-listening-011.mp3.sha256",
+    "description": "A station announcement about a platform change."
+  },
+  "transcript": [
+    {
+      "entity": "announcer",
+      "text": "The 10:18 service will leave from platform six instead of platform four. Please use the footbridge because the lifts are temporarily out of order. The train still leaves at 10:18, so check the display before boarding and allow time to reach the other platform. Staff are available nearby if you need help."
+    }
+  ],
+  "questions": [
+    {
+      "id": 1,
+      "prompt": "What has changed about the service?",
+      "options": [
+        "Its departure platform",
+        "Its departure time",
+        "Its destination",
+        "The number of carriages"
+      ],
+      "correctIndex": 0,
+      "explanation": "The announcement says it will leave from platform six instead of platform four; it explicitly says the time remains 10:18."
+    },
+    {
+      "id": 2,
+      "prompt": "Why should passengers use the footbridge?",
+      "options": [
+        "The platform is being cleaned.",
+        "The station entrance is closed.",
+        "The lifts are not working at the moment.",
+        "The train is too long for the usual platform."
+      ],
+      "correctIndex": 2,
+      "explanation": "The speaker explains, “the lifts are temporarily out of order,” so the footbridge is the available route."
+    },
+    {
+      "id": 3,
+      "prompt": "What does the final instruction suggest?",
+      "options": [
+        "Passengers should wait outside the station.",
+        "The information may need checking again.",
+        "Boarding has already finished.",
+        "The train will probably be cancelled."
+      ],
+      "correctIndex": 1,
+      "explanation": "Passengers are asked to check the display before boarding, implying they should confirm the information there."
+    }
+  ]
+}

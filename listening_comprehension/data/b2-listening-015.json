@@ -1,0 +1,101 @@
+{
+  "exerciseId": "b2-listening-015",
+  "title": "A Shift in the Delivery Schedule",
+  "level": "B2",
+  "instructions": "Listen carefully. Choose the option that best matches what is said or implied.",
+  "entities": {
+    "colleague_a": {
+      "name": "Speaker A",
+      "voice": "en-US-JennyNeural",
+      "rate": "+0%",
+      "pitch": "+0Hz"
+    },
+    "colleague_b": {
+      "name": "Speaker B",
+      "voice": "en-US-GuyNeural",
+      "rate": "+0%",
+      "pitch": "+0Hz"
+    }
+  },
+  "audio": {
+    "url": "https://github.com/Galfurian/english_tests/releases/download/listening-audio-v1/b2-listening-015.mp3",
+    "sha256Url": "https://github.com/Galfurian/english_tests/releases/download/listening-audio-v1/b2-listening-015.mp3.sha256",
+    "description": "Two colleagues adjust a work schedule after a supply delay."
+  },
+  "transcript": [
+    {
+      "entity": "colleague_a",
+      "text": "The printed guides are stuck at the depot. We cannot run the session without them, can we?"
+    },
+    {
+      "entity": "colleague_b",
+      "text": "We could use digital copies, but some people need paper. What if we begin with the demonstration?"
+    },
+    {
+      "entity": "colleague_a",
+      "text": "That buys an hour, but delivery has no estimate. I do not want everyone waiting if the guides miss the afternoon session."
+    },
+    {
+      "entity": "colleague_b",
+      "text": "I will call the depot at noon. If there is no update, we can offer an online session today or meet tomorrow."
+    },
+    {
+      "entity": "colleague_a",
+      "text": "Keep today’s room booking for now. I will prepare a few copies in case the boxes arrive, and you can update the slides."
+    },
+    {
+      "entity": "colleague_b",
+      "text": "Agreed. Let’s explain the change is about materials, not the session itself."
+    }
+  ],
+  "questions": [
+    {
+      "id": 1,
+      "prompt": "What problem has disrupted the plan?",
+      "options": [
+        "The printed guides have not arrived.",
+        "The room is unavailable today.",
+        "The digital slides were deleted.",
+        "Several people cancelled the session."
+      ],
+      "correctIndex": 0,
+      "explanation": "The printed guides are delayed because the boxes are stuck at a depot."
+    },
+    {
+      "id": 2,
+      "prompt": "Why is the digital version not a complete solution?",
+      "options": [
+        "It cannot be shown in the room.",
+        "The slides contain outdated information.",
+        "Some participants want to write on a paper copy.",
+        "The group has no internet access."
+      ],
+      "correctIndex": 2,
+      "explanation": "One colleague says half the group wanted something they could write on."
+    },
+    {
+      "id": 3,
+      "prompt": "What will the second colleague do at noon?",
+      "options": [
+        "Print copies of the guides",
+        "Call the depot for an update",
+        "Cancel the room booking",
+        "Email the supplier a new order"
+      ],
+      "correctIndex": 1,
+      "explanation": "They say, “I can call the depot at noon” to find out whether the materials will arrive."
+    },
+    {
+      "id": 4,
+      "prompt": "What is the purpose of offering an online option?",
+      "options": [
+        "To reduce the size of the group permanently",
+        "To replace the session with a written test",
+        "To avoid explaining the delivery problem",
+        "To avoid making anyone wait if the delivery is still delayed"
+      ],
+      "correctIndex": 3,
+      "explanation": "If there is no clear update, participants can join online or attend the next day rather than wait."
+    }
+  ]
+}

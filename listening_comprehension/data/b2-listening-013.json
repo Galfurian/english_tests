@@ -1,0 +1,81 @@
+{
+  "exerciseId": "b2-listening-013",
+  "title": "A Quick Café Conversation",
+  "level": "B2",
+  "instructions": "Listen carefully. Choose the option that best matches what is said or implied.",
+  "entities": {
+    "customer_a": {
+      "name": "Speaker A",
+      "voice": "en-GB-SoniaNeural",
+      "rate": "+0%",
+      "pitch": "+0Hz"
+    },
+    "customer_b": {
+      "name": "Speaker B",
+      "voice": "en-US-AriaNeural",
+      "rate": "+0%",
+      "pitch": "+0Hz"
+    }
+  },
+  "audio": {
+    "url": "https://github.com/Galfurian/english_tests/releases/download/listening-audio-v1/b2-listening-013.mp3",
+    "sha256Url": "https://github.com/Galfurian/english_tests/releases/download/listening-audio-v1/b2-listening-013.mp3.sha256",
+    "description": "Two customers discuss a drink order and a food preference."
+  },
+  "transcript": [
+    {
+      "entity": "customer_a",
+      "text": "Sorry, my soup contains cream. Could I change it for a vegetable sandwich?"
+    },
+    {
+      "entity": "customer_b",
+      "text": "Of course. It comes with cheese. Should I leave that off?"
+    },
+    {
+      "entity": "customer_a",
+      "text": "Yes. I am avoiding dairy, but I will keep the salad."
+    },
+    {
+      "entity": "customer_b",
+      "text": "No problem. A fresh one may take a few minutes."
+    }
+  ],
+  "questions": [
+    {
+      "id": 1,
+      "prompt": "Why does the first customer change the order?",
+      "options": [
+        "The soup contains an ingredient they are avoiding today.",
+        "The soup is too expensive.",
+        "The sandwich is the only meal still available.",
+        "They have already eaten the soup."
+      ],
+      "correctIndex": 0,
+      "explanation": "They notice that the soup contains cream and say they are avoiding dairy today."
+    },
+    {
+      "id": 2,
+      "prompt": "What does the second customer check about the sandwich?",
+      "options": [
+        "Whether the salad is included",
+        "Whether it contains soup",
+        "Whether it can be served without cheese",
+        "Whether it is ready to take away"
+      ],
+      "correctIndex": 2,
+      "explanation": "The customer points out that the sandwich normally includes cheese and asks if it should be left off."
+    },
+    {
+      "id": 3,
+      "prompt": "What can be inferred about the delay?",
+      "options": [
+        "The café has run out of vegetables.",
+        "The replacement is being prepared from scratch.",
+        "The customer must pay for a second meal.",
+        "The kitchen is about to close."
+      ],
+      "correctIndex": 1,
+      "explanation": "The server says it will take a few minutes because they need to “make a fresh one.”"
+    }
+  ]
+}

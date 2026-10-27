@@ -1,0 +1,101 @@
+{
+  "exerciseId": "b2-listening-016",
+  "title": "A Neighbourhood Power Cut",
+  "level": "B2",
+  "instructions": "Listen carefully. Choose the option that best matches what is said or implied.",
+  "entities": {
+    "resident_a": {
+      "name": "Speaker A",
+      "voice": "en-GB-RyanNeural",
+      "rate": "+0%",
+      "pitch": "+0Hz"
+    },
+    "resident_b": {
+      "name": "Speaker B",
+      "voice": "en-GB-SoniaNeural",
+      "rate": "+0%",
+      "pitch": "+0Hz"
+    }
+  },
+  "audio": {
+    "url": "https://github.com/Galfurian/english_tests/releases/download/listening-audio-v1/b2-listening-016.mp3",
+    "sha256Url": "https://github.com/Galfurian/english_tests/releases/download/listening-audio-v1/b2-listening-016.mp3.sha256",
+    "description": "Residents discuss a short power cut and how to check on others."
+  },
+  "transcript": [
+    {
+      "entity": "resident_a",
+      "text": "The lights went out after six; repairs may take two hours. My phone is nearly flat, so I am saving its battery."
+    },
+    {
+      "entity": "resident_b",
+      "text": "The radio says the fault is in the street cabinet. A team is there, but there is no exact estimate."
+    },
+    {
+      "entity": "resident_a",
+      "text": "I cannot use the hob. Does the small shop have a generator?"
+    },
+    {
+      "entity": "resident_b",
+      "text": "It was open, but its card machine was down, so it took cash. I can check on the older couple next door."
+    },
+    {
+      "entity": "resident_a",
+      "text": "Would you? They use an electric stair lift, so I hope they are all right. I will leave a torch outside."
+    },
+    {
+      "entity": "resident_b",
+      "text": "Good idea. If power is still off at eight, we can share food from my freezer before it thaws."
+    }
+  ],
+  "questions": [
+    {
+      "id": 1,
+      "prompt": "What does the radio report about the cause?",
+      "options": [
+        "A fault in the street cabinet",
+        "Damage inside one home",
+        "A planned repair to the shop",
+        "A problem with mobile phone signals"
+      ],
+      "correctIndex": 0,
+      "explanation": "The resident says the radio identifies the street cabinet as the location of the problem."
+    },
+    {
+      "id": 2,
+      "prompt": "Why is the shop accepting cash only?",
+      "options": [
+        "It has run out of change.",
+        "The shop is closing early.",
+        "Its card machine is not working.",
+        "The power has already returned there."
+      ],
+      "correctIndex": 2,
+      "explanation": "The resident saw that the shop was open but its card machine was down."
+    },
+    {
+      "id": 3,
+      "prompt": "Why does Resident A ask the neighbour to check on the older couple?",
+      "options": [
+        "They have no food in the house.",
+        "They may depend on an electric stair lift.",
+        "They are responsible for the repair team.",
+        "They cannot use a battery radio."
+      ],
+      "correctIndex": 1,
+      "explanation": "Resident A specifically mentions that the couple use an electric stair lift and hopes they are all right."
+    },
+    {
+      "id": 4,
+      "prompt": "What are the residents planning to do if the outage continues?",
+      "options": [
+        "Move everyone to the shop.",
+        "Buy a new generator together.",
+        "Contact the repair team every few minutes.",
+        "Share food from the freezer before it thaws."
+      ],
+      "correctIndex": 3,
+      "explanation": "They agree that if power is still off by eight, they can share the freezer food before it begins to thaw."
+    }
+  ]
+}

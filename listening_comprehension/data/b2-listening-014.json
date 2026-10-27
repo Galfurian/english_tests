@@ -1,0 +1,101 @@
+{
+  "exerciseId": "b2-listening-014",
+  "title": "A Room That Is Not Ready",
+  "level": "B2",
+  "instructions": "Listen carefully. Choose the option that best matches what is said or implied.",
+  "entities": {
+    "guest": {
+      "name": "Speaker A",
+      "voice": "en-GB-LibbyNeural",
+      "rate": "+0%",
+      "pitch": "+0Hz"
+    },
+    "clerk": {
+      "name": "Speaker B",
+      "voice": "en-GB-ThomasNeural",
+      "rate": "+0%",
+      "pitch": "+0Hz"
+    }
+  },
+  "audio": {
+    "url": "https://github.com/Galfurian/english_tests/releases/download/listening-audio-v1/b2-listening-014.mp3",
+    "sha256Url": "https://github.com/Galfurian/english_tests/releases/download/listening-audio-v1/b2-listening-014.mp3.sha256",
+    "description": "A traveller discusses a delayed room and a practical alternative."
+  },
+  "transcript": [
+    {
+      "entity": "guest",
+      "text": "My room should be ready, but I have an online meeting at four. Is there somewhere quiet to use my laptop?"
+    },
+    {
+      "entity": "clerk",
+      "text": "Sorry. The previous guest left late. You can use the meeting room for an hour; we will bring your bags up later."
+    },
+    {
+      "entity": "guest",
+      "text": "That helps. I need reliable internet. Is the room connected to the guest network?"
+    },
+    {
+      "entity": "clerk",
+      "text": "Yes, and I can extend checkout tomorrow by an hour to make up for the wait."
+    },
+    {
+      "entity": "guest",
+      "text": "Thanks. I have an early start, so may not use it. Please tell me when the room is ready."
+    },
+    {
+      "entity": "clerk",
+      "text": "Certainly. I will message you. The meeting room is just past the lounge."
+    }
+  ],
+  "questions": [
+    {
+      "id": 1,
+      "prompt": "Why does the guest need a quiet place?",
+      "options": [
+        "They have an online meeting soon.",
+        "They want to sleep before travelling.",
+        "They need to make a private phone call to the clerk.",
+        "They are waiting for a colleague to arrive."
+      ],
+      "correctIndex": 0,
+      "explanation": "The guest says an online meeting is scheduled for four and asks for a quiet place to use a laptop."
+    },
+    {
+      "id": 2,
+      "prompt": "What caused the room to be late?",
+      "options": [
+        "A technical problem with the internet",
+        "The guest arrived before check-in time",
+        "The previous guest left later than expected",
+        "Housekeeping could not find the bags"
+      ],
+      "correctIndex": 2,
+      "explanation": "The clerk explains that the previous guest left late and housekeeping is still finishing the room."
+    },
+    {
+      "id": 3,
+      "prompt": "What does the clerk offer immediately?",
+      "options": [
+        "A different room for the whole night",
+        "Use of a meeting room for an hour",
+        "A meal while the guest waits",
+        "A refund for the booking"
+      ],
+      "correctIndex": 1,
+      "explanation": "The clerk offers the small meeting room for an hour so the guest can work while waiting."
+    },
+    {
+      "id": 4,
+      "prompt": "Why is the guest unsure about the later checkout?",
+      "options": [
+        "They are leaving before the room is ready.",
+        "They already paid for an extra night.",
+        "They prefer to work in the meeting room.",
+        "They have an early start and may not need it."
+      ],
+      "correctIndex": 3,
+      "explanation": "The guest accepts the option but says they have an early start and probably will not use it."
+    }
+  ]
+}

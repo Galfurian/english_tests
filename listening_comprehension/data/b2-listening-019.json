@@ -1,0 +1,137 @@
+{
+  "exerciseId": "b2-listening-019",
+  "title": "Making a Shared Workspace Work",
+  "level": "B2",
+  "instructions": "Listen carefully. Choose the option that best matches what is said or implied.",
+  "entities": {
+    "colleague_a": {
+      "name": "Speaker A",
+      "voice": "en-GB-LibbyNeural",
+      "rate": "+0%",
+      "pitch": "+0Hz"
+    },
+    "colleague_b": {
+      "name": "Speaker B",
+      "voice": "en-US-GuyNeural",
+      "rate": "+0%",
+      "pitch": "+0Hz"
+    }
+  },
+  "audio": {
+    "url": "https://github.com/Galfurian/english_tests/releases/download/listening-audio-v1/b2-listening-019.mp3",
+    "sha256Url": "https://github.com/Galfurian/english_tests/releases/download/listening-audio-v1/b2-listening-019.mp3.sha256",
+    "description": "Colleagues discuss feedback and changes to a shared office arrangement."
+  },
+  "transcript": [
+    {
+      "entity": "colleague_a",
+      "text": "The shared workspace has been open six weeks. People like choosing where to sit, but the quiet area is not staying quiet; teams hold discussions there."
+    },
+    {
+      "entity": "colleague_b",
+      "text": "They are not trying to disturb anyone. Often they cannot find an empty meeting room. We should clarify each area’s purpose before introducing stricter rules."
+    },
+    {
+      "entity": "colleague_a",
+      "text": "We could mark one side for quiet work. I would not ban brief conversations entirely, since people sometimes need to ask a quick question without booking a room."
+    },
+    {
+      "entity": "colleague_b",
+      "text": "We should check the booking system too. Yesterday it showed two rooms free, but both were in use."
+    },
+    {
+      "entity": "colleague_a",
+      "text": "People may forget to cancel. A reminder after half an hour could help, and teams could release rooms when plans change. That may improve capacity before we add rooms."
+    },
+    {
+      "entity": "colleague_b",
+      "text": "Several people mentioned glare on the window desks in the afternoon. Moving monitors could help, but make the desks less flexible for laptop users."
+    },
+    {
+      "entity": "colleague_a",
+      "text": "Let’s test adjustable blinds first. Facilities can check the cost, and regular users can tell us whether it helps. A couple of comments are not enough reason to buy equipment."
+    },
+    {
+      "entity": "colleague_b",
+      "text": "We had over forty feedback replies, so we understand common concerns. Still, we do not know whether the same people replied or whether the layout works for everyone."
+    },
+    {
+      "entity": "colleague_a",
+      "text": "We can keep the layout another month and ask people who have not used the form. Include remote staff, who may have different needs on team days."
+    },
+    {
+      "entity": "colleague_b",
+      "text": "They may need a predictable desk when they arrive. We could let them reserve one, while keeping most desks free for unplanned visits."
+    },
+    {
+      "entity": "colleague_a",
+      "text": "Let’s update signs, fix calendar reminders, and test blinds. We can review results at month’s end before deciding on larger changes."
+    },
+    {
+      "entity": "colleague_b",
+      "text": "We should explain why each change is a trial. People may then feel more comfortable saying honestly what helps and what does not."
+    }
+  ],
+  "questions": [
+    {
+      "id": 1,
+      "prompt": "What is one problem with the quiet area?",
+      "options": [
+        "People are having discussions there.",
+        "The desks cannot be moved.",
+        "It is only open in the afternoon.",
+        "The area is difficult to find."
+      ],
+      "correctIndex": 0,
+      "explanation": "The feedback shows the quiet area is not staying quiet because teams use it for discussions."
+    },
+    {
+      "id": 2,
+      "prompt": "Why does Colleague B hesitate to introduce stricter rules immediately?",
+      "options": [
+        "The workspace is closing soon.",
+        "The signs are too expensive.",
+        "People may be talking because meeting rooms are unavailable.",
+        "Nobody has complained about noise."
+      ],
+      "correctIndex": 2,
+      "explanation": "They observe that people often cannot find an empty meeting room and may be talking there for that reason."
+    },
+    {
+      "id": 3,
+      "prompt": "What might be causing the calendar to show rooms as free when they are occupied?",
+      "options": [
+        "The rooms are being renovated.",
+        "People forget to cancel reservations.",
+        "The calendar only updates at night.",
+        "Remote staff are booking them twice."
+      ],
+      "correctIndex": 1,
+      "explanation": "Colleague A suggests people may forget to cancel when plans change."
+    },
+    {
+      "id": 4,
+      "prompt": "Why do they want to test blinds before buying equipment?",
+      "options": [
+        "They need to reduce the number of desks.",
+        "The monitors cannot be moved.",
+        "They have already spent the budget on signs.",
+        "They want evidence that the change solves the glare problem."
+      ],
+      "correctIndex": 3,
+      "explanation": "They propose checking the cost and asking regular users whether blinds help rather than buying equipment based on a few comments."
+    },
+    {
+      "id": 5,
+      "prompt": "What does the final plan suggest about their approach?",
+      "options": [
+        "They intend to remove all shared desks.",
+        "They will apply every suggestion immediately.",
+        "They prefer small trials and later review before making wider changes.",
+        "They believe the feedback form is unreliable and should be ignored."
+      ],
+      "correctIndex": 2,
+      "explanation": "They agree to test signs, reminders, and blinds, then review the results at month end before deciding on bigger changes."
+    }
+  ]
+}

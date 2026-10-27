@@ -1,0 +1,153 @@
+{
+  "exerciseId": "b2-listening-018",
+  "title": "Improving a Community Project",
+  "level": "B2",
+  "instructions": "Listen carefully. Choose the option that best matches what is said or implied.",
+  "entities": {
+    "presenter": {
+      "name": "Speaker A",
+      "voice": "en-US-JennyNeural",
+      "rate": "+0%",
+      "pitch": "+0Hz"
+    },
+    "host": {
+      "name": "Speaker B",
+      "voice": "en-US-GuyNeural",
+      "rate": "+0%",
+      "pitch": "+0Hz"
+    }
+  },
+  "audio": {
+    "url": "https://github.com/Galfurian/english_tests/releases/download/listening-audio-v1/b2-listening-018.mp3",
+    "sha256Url": "https://github.com/Galfurian/english_tests/releases/download/listening-audio-v1/b2-listening-018.mp3.sha256",
+    "description": "A presenter discusses feedback and practical changes to a local project."
+  },
+  "transcript": [
+    {
+      "entity": "host",
+      "text": "What did you expect people to want from the project?"
+    },
+    {
+      "entity": "presenter",
+      "text": "I thought they would mainly come to grow vegetables. Many actually wanted a reason to get outside and meet others. The social side matters just as much as the growing."
+    },
+    {
+      "entity": "host",
+      "text": "Did that change how you welcome newcomers?"
+    },
+    {
+      "entity": "presenter",
+      "text": "Yes. We used to give a short talk about the day’s jobs. New volunteers found it formal and were unsure which tools to use, so now they learn alongside experienced people."
+    },
+    {
+      "entity": "host",
+      "text": "Does that take time from regular volunteers?"
+    },
+    {
+      "entity": "presenter",
+      "text": "At first, yes. Showing people where things are and how to work safely takes time. But people return when included, so we rotate the welcome role instead of relying on the same two volunteers."
+    },
+    {
+      "entity": "host",
+      "text": "Why add an evening session?"
+    },
+    {
+      "entity": "presenter",
+      "text": "People told us weekends were difficult because of work shifts and family commitments. The evening is quieter and not right for every task, but it gives more people a chance to join."
+    },
+    {
+      "entity": "host",
+      "text": "How do you keep the project affordable?"
+    },
+    {
+      "entity": "presenter",
+      "text": "A small grant helped with tools, but we avoid relying on grants for ordinary supplies. We reuse clean containers and ask for spare crates. It saves money, although we must plan and store materials carefully."
+    },
+    {
+      "entity": "host",
+      "text": "How do you handle volunteers’ suggestions?"
+    },
+    {
+      "entity": "presenter",
+      "text": "We review a notebook monthly. Some ideas, like clearer signs, are easy; others need time or money. We explain delays so people know their suggestions have not been ignored."
+    },
+    {
+      "entity": "host",
+      "text": "What would you like to offer next?"
+    },
+    {
+      "entity": "presenter",
+      "text": "Short sessions for beginners. People assume they need special knowledge or equipment. We can show a simple way to start and let them choose whether to take on more responsibility."
+    },
+    {
+      "entity": "host",
+      "text": "How will you know the project is succeeding?"
+    },
+    {
+      "entity": "presenter",
+      "text": "We want people to feel they belong and can contribute at their own level. If the garden produces more but becomes less welcoming, we will have missed the point."
+    }
+  ],
+  "questions": [
+    {
+      "id": 1,
+      "prompt": "What did the presenter initially expect visitors to be most interested in?",
+      "options": [
+        "Growing vegetables",
+        "Learning to repair tools",
+        "Meeting local shop owners",
+        "Organising evening events"
+      ],
+      "correctIndex": 0,
+      "explanation": "The presenter says they first thought people would mainly come to grow vegetables."
+    },
+    {
+      "id": 2,
+      "prompt": "Why did the project stop beginning with a short talk?",
+      "options": [
+        "The talks were too expensive to prepare.",
+        "Regular volunteers wanted to work alone.",
+        "New volunteers found it too formal and were uncertain about the tools.",
+        "The garden did not have a place to gather."
+      ],
+      "correctIndex": 2,
+      "explanation": "New volunteers reported that the talk felt formal, particularly when they did not know which tools to use."
+    },
+    {
+      "id": 3,
+      "prompt": "Why does the group rotate the welcome role?",
+      "options": [
+        "To give newcomers control of the budget",
+        "To avoid relying on the same two people every week",
+        "To reduce the number of safety instructions",
+        "To make sessions shorter"
+      ],
+      "correctIndex": 1,
+      "explanation": "The presenter says they rotate the role instead of expecting the same two people to welcome everyone."
+    },
+    {
+      "id": 4,
+      "prompt": "Why was an evening session added?",
+      "options": [
+        "The garden is too crowded in the morning.",
+        "The grant required longer opening hours.",
+        "Tools are only available after work.",
+        "Some people could not attend at weekends."
+      ],
+      "correctIndex": 3,
+      "explanation": "Feedback showed that weekends were difficult for people with work shifts or family commitments."
+    },
+    {
+      "id": 5,
+      "prompt": "What does the presenter imply about suggestions that cannot be acted on immediately?",
+      "options": [
+        "They should be removed from the notebook.",
+        "They are usually less useful than signs.",
+        "Explaining the reason helps volunteers feel heard.",
+        "They should be passed to local shops."
+      ],
+      "correctIndex": 2,
+      "explanation": "The group tells people when an idea cannot be acted on yet so they know it has not been ignored."
+    }
+  ]
+}

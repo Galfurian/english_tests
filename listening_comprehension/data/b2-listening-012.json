@@ -1,0 +1,63 @@
+{
+  "exerciseId": "b2-listening-012",
+  "title": "A Repair Appointment",
+  "level": "B2",
+  "instructions": "Listen carefully. Choose the option that best matches what is said or implied.",
+  "entities": {
+    "caller": {
+      "name": "Speaker A",
+      "voice": "en-US-AnaNeural",
+      "rate": "+0%",
+      "pitch": "+0Hz"
+    }
+  },
+  "audio": {
+    "url": "https://github.com/Galfurian/english_tests/releases/download/listening-audio-v1/b2-listening-012.mp3",
+    "sha256Url": "https://github.com/Galfurian/english_tests/releases/download/listening-audio-v1/b2-listening-012.mp3.sha256",
+    "description": "A phone message about rearranging a home repair visit."
+  },
+  "transcript": [
+    {
+      "entity": "caller",
+      "text": "Hi, this is a message about the washing machine repair. The engineer is delayed by an earlier job, so the two o’clock visit is unlikely. They can come after four today or tomorrow morning. Please text back with your preference; there is no need to call, and I will confirm the time."
+    }
+  ],
+  "questions": [
+    {
+      "id": 1,
+      "prompt": "Why is the engineer running late?",
+      "options": [
+        "An earlier job is taking longer than expected.",
+        "The caller gave the wrong address.",
+        "The machine needs a part from another city.",
+        "The engineer has taken the day off."
+      ],
+      "correctIndex": 0,
+      "explanation": "The caller directly links the delay to “an earlier job.” No other cause is mentioned."
+    },
+    {
+      "id": 2,
+      "prompt": "What two alternatives are offered?",
+      "options": [
+        "A visit at two today or tomorrow evening",
+        "A phone consultation or a visit next week",
+        "A visit after four today or tomorrow morning",
+        "A visit today only, at either two or four"
+      ],
+      "correctIndex": 2,
+      "explanation": "The message offers “after four today” or “tomorrow morning.”"
+    },
+    {
+      "id": 3,
+      "prompt": "How should the listener reply?",
+      "options": [
+        "Leave a message with the engineer",
+        "Send a text saying which time works",
+        "Call the repair office tomorrow",
+        "Confirm both options by email"
+      ],
+      "correctIndex": 1,
+      "explanation": "The caller asks for a text with the listener’s preference and says there is no need to call."
+    }
+  ]
+}
