@@ -7,11 +7,12 @@
         const selectorGroup = document.createElement('div'); selectorGroup.className = 'toolbar-selector';
         const selectorLabel = document.createElement('label'); selectorLabel.textContent = 'Change exercise'; selectorLabel.htmlFor = 'exerciseSelector';
         const selector = document.createElement('select'); selector.id = 'exerciseSelector'; selector.className = 'toolbar-select';
-        const appendExerciseOption = (parent, exercise, index) => { const option = document.createElement('option'); option.value = String(index); option.textContent = `Exercise ${index + 1}: ${exercise.title}`; parent.appendChild(option); };
+        const appendExerciseOption = (parent, exercise, index, displayNumber = index + 1, grouped = false) => { const option = document.createElement('option'); option.value = String(index); option.textContent = grouped ? `${displayNumber}. ${exercise.title}` : `Exercise ${displayNumber}: ${exercise.title}`; parent.appendChild(option); };
         if (Array.isArray(groupOrder) && groupOrder.length) {
             groupOrder.forEach((groupLabel) => {
                 const group = document.createElement('optgroup'); group.label = groupLabel;
-                exercises.forEach((exercise, index) => { if (exercise.group === groupLabel) appendExerciseOption(group, exercise, index); });
+                let groupPosition = 0;
+                exercises.forEach((exercise, index) => { if (exercise.group === groupLabel) appendExerciseOption(group, exercise, index, ++groupPosition, true); });
                 if (group.children.length) selector.appendChild(group);
             });
         } else {
