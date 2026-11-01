@@ -178,7 +178,7 @@ async function initialize() {
       currentIndex: 0,
       features,
       onExerciseChange: changeExercise,
-      groupOrder: ['Short · about 20 sec', 'Medium · about 40 sec', 'Long · about 2–3 min'],
+      groupOrder: ['Short · about 20 sec', 'Medium · about 40 sec', 'Long · about 2–3 min', 'Additional · 034–053'],
     });
     await loadExercise(0);
   } catch (error) { showError(error); }
