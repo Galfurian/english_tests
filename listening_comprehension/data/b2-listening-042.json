@@ -1,0 +1,63 @@
+{
+  "exerciseId": "b2-listening-042",
+  "title": "Choosing a Fitness Class",
+  "level": "B2",
+  "instructions": "Listen carefully. Choose the option that best matches what is said or implied.",
+  "entities": {
+    "speaker": {
+      "name": "Speaker A",
+      "voice": "en-US-EmmaMultilingualNeural",
+      "rate": "+2%",
+      "pitch": "+1Hz"
+    }
+  },
+  "audio": {
+    "url": "https://github.com/Galfurian/english_tests/releases/download/listening-audio-v1/b2-listening-042.mp3",
+    "sha256Url": "https://github.com/Galfurian/english_tests/releases/download/listening-audio-v1/b2-listening-042.mp3.sha256",
+    "description": "Choosing a Fitness Class. Locally generated synthetic English speech."
+  },
+  "transcript": [
+    {
+      "entity": "speaker",
+      "text": "I was going to join the advanced fitness class, but the instructor suggested starting with the intermediate group. She explained that the advanced sessions focus on speed, while the intermediate class gives more time to practise technique. I agreed because improving my technique matters more to me right now."
+    }
+  ],
+  "questions": [
+    {
+      "id": 1,
+      "prompt": "Why was the intermediate class recommended?",
+      "options": [
+        "It has no physical exercises",
+        "It is the only class with places left",
+        "It allows more time for technique",
+        "It is shorter than every other class"
+      ],
+      "correctIndex": 2,
+      "explanation": "Intermediate sessions prioritise technique practice."
+    },
+    {
+      "id": 2,
+      "prompt": "What is emphasised in advanced sessions?",
+      "options": [
+        "Equipment maintenance",
+        "Speed",
+        "Individual feedback",
+        "Theory only"
+      ],
+      "correctIndex": 1,
+      "explanation": "The instructor contrasts advanced speed with intermediate technique."
+    },
+    {
+      "id": 3,
+      "prompt": "Why did the speaker agree?",
+      "options": [
+        "Technique is the current priority",
+        "The advanced class was cancelled",
+        "The fee was lower",
+        "A friend had already enrolled"
+      ],
+      "correctIndex": 0,
+      "explanation": "The speaker values technique more than speed at present."
+    }
+  ]
+}

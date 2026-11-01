@@ -1,0 +1,63 @@
+{
+  "exerciseId": "b2-listening-053",
+  "title": "The Final Exam Strategy",
+  "level": "B2",
+  "instructions": "Listen carefully. Choose the option that best matches what is said or implied.",
+  "entities": {
+    "speaker": {
+      "name": "Speaker A",
+      "voice": "en-US-EmmaMultilingualNeural",
+      "rate": "+2%",
+      "pitch": "+1Hz"
+    }
+  },
+  "audio": {
+    "url": "https://github.com/Galfurian/english_tests/releases/download/listening-audio-v1/b2-listening-053.mp3",
+    "sha256Url": "https://github.com/Galfurian/english_tests/releases/download/listening-audio-v1/b2-listening-053.mp3.sha256",
+    "description": "The Final Exam Strategy. Locally generated synthetic English speech."
+  },
+  "transcript": [
+    {
+      "entity": "speaker",
+      "text": "I used to listen for every single word, and whenever I missed one, I would stop following the rest of the recording. My tutor suggested reading the questions first and listening for the speaker’s main point. Since then, I have become better at recognising paraphrases, even when the recording uses different words from the answer options. I still find long recordings challenging, but I no longer panic when I miss a detail."
+    }
+  ],
+  "questions": [
+    {
+      "id": 1,
+      "prompt": "What was the speaker’s original problem?",
+      "options": [
+        "The audio was always too quiet",
+        "The questions were in another language",
+        "The recordings were too short",
+        "Missing one word disrupted the rest of the listening"
+      ],
+      "correctIndex": 3,
+      "explanation": "Focusing on every word caused loss of concentration."
+    },
+    {
+      "id": 2,
+      "prompt": "What strategy did the tutor recommend?",
+      "options": [
+        "Ignore all answer options",
+        "Write down the entire recording",
+        "Read questions first and focus on the main point",
+        "Translate each sentence word for word"
+      ],
+      "correctIndex": 2,
+      "explanation": "The tutor recommended previewing questions and listening for gist."
+    },
+    {
+      "id": 3,
+      "prompt": "What has improved?",
+      "options": [
+        "Avoiding long recordings entirely",
+        "Recognising ideas expressed in different words",
+        "Understanding every word perfectly",
+        "Finishing every exam early"
+      ],
+      "correctIndex": 1,
+      "explanation": "The speaker now recognises paraphrases and stays calmer."
+    }
+  ]
+}

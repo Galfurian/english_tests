@@ -1,0 +1,63 @@
+{
+  "exerciseId": "b2-listening-037",
+  "title": "An Evening Language Course",
+  "level": "B2",
+  "instructions": "Listen carefully. Choose the option that best matches what is said or implied.",
+  "entities": {
+    "speaker": {
+      "name": "Speaker A",
+      "voice": "en-US-EmmaMultilingualNeural",
+      "rate": "+2%",
+      "pitch": "+1Hz"
+    }
+  },
+  "audio": {
+    "url": "https://github.com/Galfurian/english_tests/releases/download/listening-audio-v1/b2-listening-037.mp3",
+    "sha256Url": "https://github.com/Galfurian/english_tests/releases/download/listening-audio-v1/b2-listening-037.mp3.sha256",
+    "description": "An Evening Language Course. Locally generated synthetic English speech."
+  },
+  "transcript": [
+    {
+      "entity": "speaker",
+      "text": "The evening English course usually meets on Mondays and Wednesdays. Next week, however, Wednesday’s lesson will be online because the building is being inspected. Monday’s class will take place as normal. Students will receive the video link by email on Tuesday."
+    }
+  ],
+  "questions": [
+    {
+      "id": 1,
+      "prompt": "Which lesson will be online?",
+      "options": [
+        "Monday’s lesson next week",
+        "Both lessons this week",
+        "Every Wednesday lesson",
+        "Wednesday’s lesson next week"
+      ],
+      "correctIndex": 3,
+      "explanation": "Only next Wednesday changes format."
+    },
+    {
+      "id": 2,
+      "prompt": "Why is the change necessary?",
+      "options": [
+        "The internet has failed",
+        "There is an examination",
+        "The building is being inspected",
+        "The teacher is on holiday"
+      ],
+      "correctIndex": 2,
+      "explanation": "A building inspection prevents the usual Wednesday meeting."
+    },
+    {
+      "id": 3,
+      "prompt": "When will students receive the link?",
+      "options": [
+        "Friday",
+        "Tuesday",
+        "Monday evening",
+        "Wednesday after class"
+      ],
+      "correctIndex": 1,
+      "explanation": "The link is due by email on Tuesday."
+    }
+  ]
+}

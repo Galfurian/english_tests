@@ -1,0 +1,63 @@
+{
+  "exerciseId": "b2-listening-048",
+  "title": "An Office Policy",
+  "level": "B2",
+  "instructions": "Listen carefully. Choose the option that best matches what is said or implied.",
+  "entities": {
+    "speaker": {
+      "name": "Speaker A",
+      "voice": "en-US-EmmaMultilingualNeural",
+      "rate": "+2%",
+      "pitch": "+1Hz"
+    }
+  },
+  "audio": {
+    "url": "https://github.com/Galfurian/english_tests/releases/download/listening-audio-v1/b2-listening-048.mp3",
+    "sha256Url": "https://github.com/Galfurian/english_tests/releases/download/listening-audio-v1/b2-listening-048.mp3.sha256",
+    "description": "An Office Policy. Locally generated synthetic English speech."
+  },
+  "transcript": [
+    {
+      "entity": "speaker",
+      "text": "Employees may work from home up to two days a week, provided their manager approves the arrangement in advance. The policy does not apply to days when face-to-face training is scheduled. Staff should not assume that an informal conversation counts as approval; the request must be recorded in the online system."
+    }
+  ],
+  "questions": [
+    {
+      "id": 1,
+      "prompt": "What is the maximum regular remote-work allowance?",
+      "options": [
+        "Two days per week",
+        "Two days per month",
+        "Three days per week",
+        "Every working day"
+      ],
+      "correctIndex": 0,
+      "explanation": "The policy permits up to two days weekly."
+    },
+    {
+      "id": 2,
+      "prompt": "When does the policy not apply?",
+      "options": [
+        "During ordinary desk work",
+        "When managers are in the office",
+        "On days without meetings",
+        "On scheduled face-to-face training days"
+      ],
+      "correctIndex": 3,
+      "explanation": "In-person training days are excluded."
+    },
+    {
+      "id": 3,
+      "prompt": "What is required for approval?",
+      "options": [
+        "An email to all colleagues",
+        "A printed letter from a client",
+        "A request recorded online",
+        "Only a casual conversation"
+      ],
+      "correctIndex": 2,
+      "explanation": "Informal discussion is not sufficient; online recording is required."
+    }
+  ]
+}

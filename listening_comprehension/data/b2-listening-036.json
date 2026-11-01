@@ -1,0 +1,63 @@
+{
+  "exerciseId": "b2-listening-036",
+  "title": "The Community Garden",
+  "level": "B2",
+  "instructions": "Listen carefully. Choose the option that best matches what is said or implied.",
+  "entities": {
+    "speaker": {
+      "name": "Speaker A",
+      "voice": "en-US-EmmaMultilingualNeural",
+      "rate": "+2%",
+      "pitch": "+1Hz"
+    }
+  },
+  "audio": {
+    "url": "https://github.com/Galfurian/english_tests/releases/download/listening-audio-v1/b2-listening-036.mp3",
+    "sha256Url": "https://github.com/Galfurian/english_tests/releases/download/listening-audio-v1/b2-listening-036.mp3.sha256",
+    "description": "The Community Garden. Locally generated synthetic English speech."
+  },
+  "transcript": [
+    {
+      "entity": "speaker",
+      "text": "We planned to plant vegetables this Saturday, but heavy rain is forecast. Rather than cancel the whole event, we will meet in the community centre to prepare seed trays and discuss the planting schedule. Outdoor work will take place next weekend, weather permitting."
+    }
+  ],
+  "questions": [
+    {
+      "id": 1,
+      "prompt": "What will happen this Saturday?",
+      "options": [
+        "Indoor preparation activities",
+        "Outdoor planting as planned",
+        "The entire event will be cancelled",
+        "A gardening competition"
+      ],
+      "correctIndex": 0,
+      "explanation": "The group will meet indoors to prepare seed trays."
+    },
+    {
+      "id": 2,
+      "prompt": "Why was the original plan changed?",
+      "options": [
+        "There are not enough volunteers",
+        "Seeds have not arrived",
+        "The centre is being renovated",
+        "Rain is expected"
+      ],
+      "correctIndex": 3,
+      "explanation": "The forecast predicts heavy rain."
+    },
+    {
+      "id": 3,
+      "prompt": "When is outdoor planting expected?",
+      "options": [
+        "Every weekday morning",
+        "Immediately after the meeting",
+        "Next weekend if weather allows",
+        "Later on Saturday"
+      ],
+      "correctIndex": 2,
+      "explanation": "Outdoor work is postponed to next weekend, subject to weather."
+    }
+  ]
+}

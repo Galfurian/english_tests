@@ -1,0 +1,63 @@
+{
+  "exerciseId": "b2-listening-049",
+  "title": "A Volunteer Programme",
+  "level": "B2",
+  "instructions": "Listen carefully. Choose the option that best matches what is said or implied.",
+  "entities": {
+    "speaker": {
+      "name": "Speaker A",
+      "voice": "en-US-EmmaMultilingualNeural",
+      "rate": "+2%",
+      "pitch": "+1Hz"
+    }
+  },
+  "audio": {
+    "url": "https://github.com/Galfurian/english_tests/releases/download/listening-audio-v1/b2-listening-049.mp3",
+    "sha256Url": "https://github.com/Galfurian/english_tests/releases/download/listening-audio-v1/b2-listening-049.mp3.sha256",
+    "description": "A Volunteer Programme. Locally generated synthetic English speech."
+  },
+  "transcript": [
+    {
+      "entity": "speaker",
+      "text": "The animal shelter needs volunteers for weekend mornings, particularly people who can commit for at least three months. New volunteers do not handle animals immediately; they first attend a safety session and help with cleaning and food preparation. Experience is welcome, but reliability is more important."
+    }
+  ],
+  "questions": [
+    {
+      "id": 1,
+      "prompt": "Who is especially needed?",
+      "options": [
+        "Only qualified veterinarians",
+        "People free on weekday evenings",
+        "Visitors who can stay one day",
+        "People available on weekend mornings"
+      ],
+      "correctIndex": 3,
+      "explanation": "Weekend-morning availability is a priority."
+    },
+    {
+      "id": 2,
+      "prompt": "What happens before handling animals?",
+      "options": [
+        "Three months of unpaid office work",
+        "An interview with every visitor",
+        "Safety training and basic tasks",
+        "A written language test"
+      ],
+      "correctIndex": 2,
+      "explanation": "New volunteers start with safety training and support duties."
+    },
+    {
+      "id": 3,
+      "prompt": "What quality matters most?",
+      "options": [
+        "Being able to drive",
+        "Reliability",
+        "Previous professional experience",
+        "Owning a pet"
+      ],
+      "correctIndex": 1,
+      "explanation": "The speaker explicitly values reliability over experience."
+    }
+  ]
+}

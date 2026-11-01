@@ -1,0 +1,63 @@
+{
+  "exerciseId": "b2-listening-046",
+  "title": "An Unexpected Repair",
+  "level": "B2",
+  "instructions": "Listen carefully. Choose the option that best matches what is said or implied.",
+  "entities": {
+    "speaker": {
+      "name": "Speaker A",
+      "voice": "en-US-EmmaMultilingualNeural",
+      "rate": "+2%",
+      "pitch": "+1Hz"
+    }
+  },
+  "audio": {
+    "url": "https://github.com/Galfurian/english_tests/releases/download/listening-audio-v1/b2-listening-046.mp3",
+    "sha256Url": "https://github.com/Galfurian/english_tests/releases/download/listening-audio-v1/b2-listening-046.mp3.sha256",
+    "description": "An Unexpected Repair. Locally generated synthetic English speech."
+  },
+  "transcript": [
+    {
+      "entity": "speaker",
+      "text": "The plumber thought the leak was coming from the kitchen tap, but after checking the pipes he found a small crack behind the washing machine. He fixed the crack immediately. He advised us to keep an eye on the floor over the next few days, in case any moisture remained."
+    }
+  ],
+  "questions": [
+    {
+      "id": 1,
+      "prompt": "Where was the actual problem?",
+      "options": [
+        "Under the bathroom sink",
+        "In the roof",
+        "Behind the washing machine",
+        "Inside the kitchen tap"
+      ],
+      "correctIndex": 2,
+      "explanation": "The crack was found behind the washing machine."
+    },
+    {
+      "id": 2,
+      "prompt": "What did the plumber do?",
+      "options": [
+        "Scheduled a repair for next month",
+        "Repaired the crack straight away",
+        "Replaced the washing machine",
+        "Left without checking the pipes"
+      ],
+      "correctIndex": 1,
+      "explanation": "He fixed the crack immediately."
+    },
+    {
+      "id": 3,
+      "prompt": "Why should the floor be monitored?",
+      "options": [
+        "Some moisture may still remain",
+        "A new appliance will arrive",
+        "The floor is being painted",
+        "The tap needs replacing"
+      ],
+      "correctIndex": 0,
+      "explanation": "Monitoring is precautionary in case moisture remains."
+    }
+  ]
+}

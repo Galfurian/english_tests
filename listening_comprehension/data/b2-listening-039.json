@@ -1,0 +1,63 @@
+{
+  "exerciseId": "b2-listening-039",
+  "title": "A Team Project Update",
+  "level": "B2",
+  "instructions": "Listen carefully. Choose the option that best matches what is said or implied.",
+  "entities": {
+    "speaker": {
+      "name": "Speaker A",
+      "voice": "en-US-EmmaMultilingualNeural",
+      "rate": "+2%",
+      "pitch": "+1Hz"
+    }
+  },
+  "audio": {
+    "url": "https://github.com/Galfurian/english_tests/releases/download/listening-audio-v1/b2-listening-039.mp3",
+    "sha256Url": "https://github.com/Galfurian/english_tests/releases/download/listening-audio-v1/b2-listening-039.mp3.sha256",
+    "description": "A Team Project Update. Locally generated synthetic English speech."
+  },
+  "transcript": [
+    {
+      "entity": "speaker",
+      "text": "We had expected to finish the website redesign by Friday. Unfortunately, the testing phase took longer than anticipated. The design itself is complete, but we need another three days to check accessibility features. We will publish the site once those checks have been completed."
+    }
+  ],
+  "questions": [
+    {
+      "id": 1,
+      "prompt": "What caused the delay?",
+      "options": [
+        "The client requested new colours",
+        "Testing took longer than expected",
+        "The design team resigned",
+        "The budget was reduced"
+      ],
+      "correctIndex": 1,
+      "explanation": "The testing phase exceeded the planned time."
+    },
+    {
+      "id": 2,
+      "prompt": "What has already been finished?",
+      "options": [
+        "The website design",
+        "All accessibility checks",
+        "The publication process",
+        "The final user survey"
+      ],
+      "correctIndex": 0,
+      "explanation": "The speaker says the design itself is complete."
+    },
+    {
+      "id": 3,
+      "prompt": "When will the site go live?",
+      "options": [
+        "Immediately on Friday",
+        "Before any further testing",
+        "Only after a new design is made",
+        "After accessibility checks are finished"
+      ],
+      "correctIndex": 3,
+      "explanation": "Publication depends on completing accessibility checks."
+    }
+  ]
+}

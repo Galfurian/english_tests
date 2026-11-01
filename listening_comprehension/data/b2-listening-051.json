@@ -1,0 +1,63 @@
+{
+  "exerciseId": "b2-listening-051",
+  "title": "A Housing Decision",
+  "level": "B2",
+  "instructions": "Listen carefully. Choose the option that best matches what is said or implied.",
+  "entities": {
+    "speaker": {
+      "name": "Speaker A",
+      "voice": "en-US-EmmaMultilingualNeural",
+      "rate": "+2%",
+      "pitch": "+1Hz"
+    }
+  },
+  "audio": {
+    "url": "https://github.com/Galfurian/english_tests/releases/download/listening-audio-v1/b2-listening-051.mp3",
+    "sha256Url": "https://github.com/Galfurian/english_tests/releases/download/listening-audio-v1/b2-listening-051.mp3.sha256",
+    "description": "A Housing Decision. Locally generated synthetic English speech."
+  },
+  "transcript": [
+    {
+      "entity": "speaker",
+      "text": "We nearly rented the flat near the station because the journey to work would have been shorter. However, after visiting it in the evening, we realised how noisy the street was. The other flat is further away, but it has better insulation and a small balcony. We have decided that a quieter home is worth the extra travel time."
+    }
+  ],
+  "questions": [
+    {
+      "id": 1,
+      "prompt": "Why was the station flat initially attractive?",
+      "options": [
+        "It included free transport",
+        "It reduced commuting time",
+        "It had a larger balcony",
+        "It was completely silent"
+      ],
+      "correctIndex": 1,
+      "explanation": "The commute would have been shorter."
+    },
+    {
+      "id": 2,
+      "prompt": "What changed their opinion?",
+      "options": [
+        "Noise noticed during an evening visit",
+        "A sudden increase in rent",
+        "The lack of a kitchen",
+        "An unexpected change of employer"
+      ],
+      "correctIndex": 0,
+      "explanation": "The evening visit revealed street noise."
+    },
+    {
+      "id": 3,
+      "prompt": "What do they now value more?",
+      "options": [
+        "The shortest possible commute",
+        "Living directly beside a station",
+        "Having no outdoor space",
+        "A quieter living environment"
+      ],
+      "correctIndex": 3,
+      "explanation": "They accept a longer journey for greater quiet."
+    }
+  ]
+}

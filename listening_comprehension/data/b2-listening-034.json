@@ -1,0 +1,63 @@
+{
+  "exerciseId": "b2-listening-034",
+  "title": "A Workshop Room Change",
+  "level": "B2",
+  "instructions": "Listen carefully. Choose the option that best matches what is said or implied.",
+  "entities": {
+    "speaker": {
+      "name": "Speaker A",
+      "voice": "en-US-EmmaMultilingualNeural",
+      "rate": "+2%",
+      "pitch": "+1Hz"
+    }
+  },
+  "audio": {
+    "url": "https://github.com/Galfurian/english_tests/releases/download/listening-audio-v1/b2-listening-034.mp3",
+    "sha256Url": "https://github.com/Galfurian/english_tests/releases/download/listening-audio-v1/b2-listening-034.mp3.sha256",
+    "description": "A Workshop Room Change. Locally generated synthetic English speech."
+  },
+  "transcript": [
+    {
+      "entity": "speaker",
+      "text": "Good morning. The photography workshop has been moved from Room 12 to the library on the first floor. It will still begin at half past nine, but please arrive ten minutes early to collect your equipment. If you have already borrowed a camera, bring it with you."
+    }
+  ],
+  "questions": [
+    {
+      "id": 1,
+      "prompt": "What has changed?",
+      "options": [
+        "The subject of the workshop",
+        "The instructor",
+        "The location of the workshop",
+        "The starting time"
+      ],
+      "correctIndex": 2,
+      "explanation": "The library replaces Room 12, while the start time stays the same."
+    },
+    {
+      "id": 2,
+      "prompt": "Why should participants arrive early?",
+      "options": [
+        "To return library books",
+        "To collect equipment",
+        "To choose an instructor",
+        "To complete a written exam"
+      ],
+      "correctIndex": 1,
+      "explanation": "They need extra time to collect equipment."
+    },
+    {
+      "id": 3,
+      "prompt": "Who needs to bring a camera?",
+      "options": [
+        "People who already borrowed one",
+        "Everyone attending",
+        "Only the instructor",
+        "People arriving late"
+      ],
+      "correctIndex": 0,
+      "explanation": "The speaker specifically addresses participants who borrowed a camera."
+    }
+  ]
+}

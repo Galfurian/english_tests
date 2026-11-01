@@ -1,0 +1,63 @@
+{
+  "exerciseId": "b2-listening-040",
+  "title": "A Library Membership",
+  "level": "B2",
+  "instructions": "Listen carefully. Choose the option that best matches what is said or implied.",
+  "entities": {
+    "speaker": {
+      "name": "Speaker A",
+      "voice": "en-US-EmmaMultilingualNeural",
+      "rate": "+2%",
+      "pitch": "+1Hz"
+    }
+  },
+  "audio": {
+    "url": "https://github.com/Galfurian/english_tests/releases/download/listening-audio-v1/b2-listening-040.mp3",
+    "sha256Url": "https://github.com/Galfurian/english_tests/releases/download/listening-audio-v1/b2-listening-040.mp3.sha256",
+    "description": "A Library Membership. Locally generated synthetic English speech."
+  },
+  "transcript": [
+    {
+      "entity": "speaker",
+      "text": "I renewed my library membership online yesterday, but the system still showed my old address. The librarian explained that renewal and updating personal details are separate processes. She offered to change the address at the desk, although I could also do it myself through my account."
+    }
+  ],
+  "questions": [
+    {
+      "id": 1,
+      "prompt": "What did the speaker do yesterday?",
+      "options": [
+        "Renewed a library membership",
+        "Changed a postal address",
+        "Borrowed a rare book",
+        "Cancelled an account"
+      ],
+      "correctIndex": 0,
+      "explanation": "Membership renewal happened yesterday."
+    },
+    {
+      "id": 2,
+      "prompt": "What had not been updated?",
+      "options": [
+        "The membership fee",
+        "The opening hours",
+        "The list of borrowed books",
+        "The speaker’s address"
+      ],
+      "correctIndex": 3,
+      "explanation": "The old address remained visible."
+    },
+    {
+      "id": 3,
+      "prompt": "What did the librarian explain?",
+      "options": [
+        "The membership had expired permanently",
+        "Online accounts cannot be edited",
+        "Renewal does not automatically update personal details",
+        "All changes must be made by post"
+      ],
+      "correctIndex": 2,
+      "explanation": "The two processes are separate."
+    }
+  ]
+}

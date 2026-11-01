@@ -1,0 +1,63 @@
+{
+  "exerciseId": "b2-listening-047",
+  "title": "A Change of Opinion",
+  "level": "B2",
+  "instructions": "Listen carefully. Choose the option that best matches what is said or implied.",
+  "entities": {
+    "speaker": {
+      "name": "Speaker A",
+      "voice": "en-US-EmmaMultilingualNeural",
+      "rate": "+2%",
+      "pitch": "+1Hz"
+    }
+  },
+  "audio": {
+    "url": "https://github.com/Galfurian/english_tests/releases/download/listening-audio-v1/b2-listening-047.mp3",
+    "sha256Url": "https://github.com/Galfurian/english_tests/releases/download/listening-audio-v1/b2-listening-047.mp3.sha256",
+    "description": "A Change of Opinion. Locally generated synthetic English speech."
+  },
+  "transcript": [
+    {
+      "entity": "speaker",
+      "text": "At first I thought the documentary would be too technical, especially because I knew very little about climate research. Yet the presenter explained the science through everyday examples, and I found myself following the argument easily. I would recommend it even to people who normally avoid scientific programmes."
+    }
+  ],
+  "questions": [
+    {
+      "id": 1,
+      "prompt": "What did the speaker expect initially?",
+      "options": [
+        "A film about travel",
+        "A difficult technical programme",
+        "A comedy with no science",
+        "A very short news report"
+      ],
+      "correctIndex": 1,
+      "explanation": "The speaker feared it would be too technical."
+    },
+    {
+      "id": 2,
+      "prompt": "What made the documentary accessible?",
+      "options": [
+        "Everyday examples",
+        "Detailed mathematical equations",
+        "A famous actor",
+        "A short running time"
+      ],
+      "correctIndex": 0,
+      "explanation": "The presenter used familiar examples to explain science."
+    },
+    {
+      "id": 3,
+      "prompt": "What is the speaker’s final attitude?",
+      "options": [
+        "Still completely confused",
+        "Strongly disappointed",
+        "Indifferent",
+        "Surprisingly positive"
+      ],
+      "correctIndex": 3,
+      "explanation": "The speaker now recommends the programme widely."
+    }
+  ]
+}

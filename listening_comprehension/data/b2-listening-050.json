@@ -1,0 +1,63 @@
+{
+  "exerciseId": "b2-listening-050",
+  "title": "A Conference Talk",
+  "level": "B2",
+  "instructions": "Listen carefully. Choose the option that best matches what is said or implied.",
+  "entities": {
+    "speaker": {
+      "name": "Speaker A",
+      "voice": "en-US-EmmaMultilingualNeural",
+      "rate": "+2%",
+      "pitch": "+1Hz"
+    }
+  },
+  "audio": {
+    "url": "https://github.com/Galfurian/english_tests/releases/download/listening-audio-v1/b2-listening-050.mp3",
+    "sha256Url": "https://github.com/Galfurian/english_tests/releases/download/listening-audio-v1/b2-listening-050.mp3.sha256",
+    "description": "A Conference Talk. Locally generated synthetic English speech."
+  },
+  "transcript": [
+    {
+      "entity": "speaker",
+      "text": "The speaker was supposed to discuss the results of a recent study, but she began by describing the mistakes her team had made. At first this seemed unusual. Later, however, it became clear that those mistakes had led to a more reliable research method. The audience asked more questions about the process than about the final findings."
+    }
+  ],
+  "questions": [
+    {
+      "id": 1,
+      "prompt": "What was unusual about the introduction?",
+      "options": [
+        "It contained no research details",
+        "It was given by a different speaker",
+        "It focused on the team’s mistakes",
+        "It began with the final results"
+      ],
+      "correctIndex": 2,
+      "explanation": "The talk opened with errors rather than findings."
+    },
+    {
+      "id": 2,
+      "prompt": "What resulted from those mistakes?",
+      "options": [
+        "A decision to avoid further testing",
+        "A more reliable method",
+        "The cancellation of the project",
+        "A smaller audience"
+      ],
+      "correctIndex": 1,
+      "explanation": "The mistakes improved the research method."
+    },
+    {
+      "id": 3,
+      "prompt": "What interested the audience most?",
+      "options": [
+        "How the research was conducted",
+        "The conference venue",
+        "The speaker’s qualifications",
+        "The study’s funding only"
+      ],
+      "correctIndex": 0,
+      "explanation": "Questions centred on the process rather than the results."
+    }
+  ]
+}

@@ -1,0 +1,63 @@
+{
+  "exerciseId": "b2-listening-052",
+  "title": "A Difficult Conversation",
+  "level": "B2",
+  "instructions": "Listen carefully. Choose the option that best matches what is said or implied.",
+  "entities": {
+    "speaker": {
+      "name": "Speaker A",
+      "voice": "en-US-EmmaMultilingualNeural",
+      "rate": "+2%",
+      "pitch": "+1Hz"
+    }
+  },
+  "audio": {
+    "url": "https://github.com/Galfurian/english_tests/releases/download/listening-audio-v1/b2-listening-052.mp3",
+    "sha256Url": "https://github.com/Galfurian/english_tests/releases/download/listening-audio-v1/b2-listening-052.mp3.sha256",
+    "description": "A Difficult Conversation. Locally generated synthetic English speech."
+  },
+  "transcript": [
+    {
+      "entity": "speaker",
+      "text": "I had intended to complain about the delay, but the manager apologised before I had even explained the problem. She admitted the company should have contacted customers sooner and offered a partial refund. Although I was still disappointed, her willingness to take responsibility made the conversation much easier."
+    }
+  ],
+  "questions": [
+    {
+      "id": 1,
+      "prompt": "What did the manager do first?",
+      "options": [
+        "Apologised before hearing the full complaint",
+        "Denied that there had been a delay",
+        "Asked the customer to leave",
+        "Offered a replacement immediately"
+      ],
+      "correctIndex": 0,
+      "explanation": "She apologised before the problem was fully explained."
+    },
+    {
+      "id": 2,
+      "prompt": "What did the manager acknowledge?",
+      "options": [
+        "The product had been delivered early",
+        "The complaint was unreasonable",
+        "The company had no responsibility",
+        "Customers should have been informed earlier"
+      ],
+      "correctIndex": 3,
+      "explanation": "She admitted communication should have happened sooner."
+    },
+    {
+      "id": 3,
+      "prompt": "Why did the speaker feel better about the discussion?",
+      "options": [
+        "The refund covered the full price",
+        "The speaker forgot the problem",
+        "The manager accepted responsibility",
+        "The delay had never happened"
+      ],
+      "correctIndex": 2,
+      "explanation": "Accountability eased the conversation despite disappointment."
+    }
+  ]
+}

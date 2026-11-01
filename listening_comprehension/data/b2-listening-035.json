@@ -1,0 +1,63 @@
+{
+  "exerciseId": "b2-listening-035",
+  "title": "A Delayed Delivery",
+  "level": "B2",
+  "instructions": "Listen carefully. Choose the option that best matches what is said or implied.",
+  "entities": {
+    "speaker": {
+      "name": "Speaker A",
+      "voice": "en-US-EmmaMultilingualNeural",
+      "rate": "+2%",
+      "pitch": "+1Hz"
+    }
+  },
+  "audio": {
+    "url": "https://github.com/Galfurian/english_tests/releases/download/listening-audio-v1/b2-listening-035.mp3",
+    "sha256Url": "https://github.com/Galfurian/english_tests/releases/download/listening-audio-v1/b2-listening-035.mp3.sha256",
+    "description": "A Delayed Delivery. Locally generated synthetic English speech."
+  },
+  "transcript": [
+    {
+      "entity": "speaker",
+      "text": "Hello, this is Maya from Green Office Supplies. Your desk was due to arrive on Tuesday, but our driver has been delayed by roadworks. We can deliver it on Thursday morning instead, or you can collect it from our warehouse tomorrow after two. Please let us know which option suits you."
+    }
+  ],
+  "questions": [
+    {
+      "id": 1,
+      "prompt": "Why is the delivery late?",
+      "options": [
+        "The customer changed the address",
+        "Roadworks delayed the driver",
+        "The desk is damaged",
+        "The warehouse is closed"
+      ],
+      "correctIndex": 1,
+      "explanation": "Roadworks are given as the cause."
+    },
+    {
+      "id": 2,
+      "prompt": "When is home delivery now available?",
+      "options": [
+        "Thursday morning",
+        "Tuesday afternoon",
+        "Tomorrow morning",
+        "Friday evening"
+      ],
+      "correctIndex": 0,
+      "explanation": "Thursday morning is the revised delivery slot."
+    },
+    {
+      "id": 3,
+      "prompt": "What can the customer do tomorrow?",
+      "options": [
+        "Receive a home delivery before noon",
+        "Cancel only in person",
+        "Speak to the driver at nine",
+        "Collect the desk after two"
+      ],
+      "correctIndex": 3,
+      "explanation": "Warehouse collection is available tomorrow after two."
+    }
+  ]
+}

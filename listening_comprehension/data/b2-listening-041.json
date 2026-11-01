@@ -1,0 +1,63 @@
+{
+  "exerciseId": "b2-listening-041",
+  "title": "A Job Interview",
+  "level": "B2",
+  "instructions": "Listen carefully. Choose the option that best matches what is said or implied.",
+  "entities": {
+    "speaker": {
+      "name": "Speaker A",
+      "voice": "en-US-EmmaMultilingualNeural",
+      "rate": "+2%",
+      "pitch": "+1Hz"
+    }
+  },
+  "audio": {
+    "url": "https://github.com/Galfurian/english_tests/releases/download/listening-audio-v1/b2-listening-041.mp3",
+    "sha256Url": "https://github.com/Galfurian/english_tests/releases/download/listening-audio-v1/b2-listening-041.mp3.sha256",
+    "description": "A Job Interview. Locally generated synthetic English speech."
+  },
+  "transcript": [
+    {
+      "entity": "speaker",
+      "text": "The interviewer said my experience was relevant, but she wanted more examples of how I had solved problems under pressure. She also asked whether I would be willing to travel occasionally. I left feeling positive, although I know the company is interviewing several other candidates."
+    }
+  ],
+  "questions": [
+    {
+      "id": 1,
+      "prompt": "What did the interviewer request?",
+      "options": [
+        "A copy of the speaker’s passport",
+        "A different job application",
+        "Proof of foreign-language certificates",
+        "More examples of handling pressure"
+      ],
+      "correctIndex": 3,
+      "explanation": "She requested concrete examples of problem-solving under pressure."
+    },
+    {
+      "id": 2,
+      "prompt": "What might the job involve?",
+      "options": [
+        "Daily night shifts",
+        "Managing a large team immediately",
+        "Occasional travel",
+        "Working abroad permanently"
+      ],
+      "correctIndex": 2,
+      "explanation": "The interviewer asked about travelling occasionally."
+    },
+    {
+      "id": 3,
+      "prompt": "How does the speaker feel?",
+      "options": [
+        "Uninterested in the role",
+        "Hopeful but aware of competition",
+        "Certain of receiving the job",
+        "Angry about the questions"
+      ],
+      "correctIndex": 1,
+      "explanation": "Positive feelings are balanced by awareness of other candidates."
+    }
+  ]
+}

@@ -1,0 +1,63 @@
+{
+  "exerciseId": "b2-listening-045",
+  "title": "A Restaurant Reservation",
+  "level": "B2",
+  "instructions": "Listen carefully. Choose the option that best matches what is said or implied.",
+  "entities": {
+    "speaker": {
+      "name": "Speaker A",
+      "voice": "en-US-EmmaMultilingualNeural",
+      "rate": "+2%",
+      "pitch": "+1Hz"
+    }
+  },
+  "audio": {
+    "url": "https://github.com/Galfurian/english_tests/releases/download/listening-audio-v1/b2-listening-045.mp3",
+    "sha256Url": "https://github.com/Galfurian/english_tests/releases/download/listening-audio-v1/b2-listening-045.mp3.sha256",
+    "description": "A Restaurant Reservation. Locally generated synthetic English speech."
+  },
+  "transcript": [
+    {
+      "entity": "speaker",
+      "text": "I booked a table for eight on Friday, but my friend called to say she could not arrive until half past eight. The restaurant said they could move our booking to nine, but not to eight thirty because the table would still be occupied. We decided to meet nearby for a drink first."
+    }
+  ],
+  "questions": [
+    {
+      "id": 1,
+      "prompt": "Why did the group change its plans?",
+      "options": [
+        "The restaurant closed early",
+        "The booking was for Saturday",
+        "The restaurant changed its menu",
+        "A friend could not arrive at eight"
+      ],
+      "correctIndex": 3,
+      "explanation": "One person could only arrive later."
+    },
+    {
+      "id": 2,
+      "prompt": "What time could the restaurant offer?",
+      "options": [
+        "Eight thirty",
+        "Seven thirty",
+        "Nine o’clock",
+        "Eight o’clock"
+      ],
+      "correctIndex": 2,
+      "explanation": "The restaurant could move the booking to nine."
+    },
+    {
+      "id": 3,
+      "prompt": "What will the group do before dinner?",
+      "options": [
+        "Cancel the evening",
+        "Meet for a drink nearby",
+        "Go straight to the table",
+        "Order food for delivery"
+      ],
+      "correctIndex": 1,
+      "explanation": "They plan to meet nearby for a drink."
+    }
+  ]
+}

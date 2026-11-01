@@ -1,0 +1,63 @@
+{
+  "exerciseId": "b2-listening-043",
+  "title": "The Train Connection",
+  "level": "B2",
+  "instructions": "Listen carefully. Choose the option that best matches what is said or implied.",
+  "entities": {
+    "speaker": {
+      "name": "Speaker A",
+      "voice": "en-US-EmmaMultilingualNeural",
+      "rate": "+2%",
+      "pitch": "+1Hz"
+    }
+  },
+  "audio": {
+    "url": "https://github.com/Galfurian/english_tests/releases/download/listening-audio-v1/b2-listening-043.mp3",
+    "sha256Url": "https://github.com/Galfurian/english_tests/releases/download/listening-audio-v1/b2-listening-043.mp3.sha256",
+    "description": "The Train Connection. Locally generated synthetic English speech."
+  },
+  "transcript": [
+    {
+      "entity": "speaker",
+      "text": "We could take the direct train at six, but it is considerably more expensive. The earlier service leaves at five fifteen and involves a change at Oxford. Although the journey takes twenty minutes longer, I would prefer it because we could use the money saved for dinner."
+    }
+  ],
+  "questions": [
+    {
+      "id": 1,
+      "prompt": "What is the disadvantage of the earlier train?",
+      "options": [
+        "It has no available seats",
+        "It requires a change and takes longer",
+        "It costs much more",
+        "It arrives the next day"
+      ],
+      "correctIndex": 1,
+      "explanation": "The earlier service requires a change and adds twenty minutes."
+    },
+    {
+      "id": 2,
+      "prompt": "Why does the speaker prefer it?",
+      "options": [
+        "It would save money",
+        "It is a direct service",
+        "It leaves later",
+        "It offers free dinner"
+      ],
+      "correctIndex": 0,
+      "explanation": "The lower fare would leave money for dinner."
+    },
+    {
+      "id": 3,
+      "prompt": "What is implied about the direct train?",
+      "options": [
+        "It is slower than the other service",
+        "It stops at Oxford",
+        "It is already sold out",
+        "It is more convenient but pricier"
+      ],
+      "correctIndex": 3,
+      "explanation": "It is direct but considerably more expensive."
+    }
+  ]
+}

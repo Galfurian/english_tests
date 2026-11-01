@@ -1,0 +1,63 @@
+{
+  "exerciseId": "b2-listening-038",
+  "title": "A Museum Audio Guide",
+  "level": "B2",
+  "instructions": "Listen carefully. Choose the option that best matches what is said or implied.",
+  "entities": {
+    "speaker": {
+      "name": "Speaker A",
+      "voice": "en-US-EmmaMultilingualNeural",
+      "rate": "+2%",
+      "pitch": "+1Hz"
+    }
+  },
+  "audio": {
+    "url": "https://github.com/Galfurian/english_tests/releases/download/listening-audio-v1/b2-listening-038.mp3",
+    "sha256Url": "https://github.com/Galfurian/english_tests/releases/download/listening-audio-v1/b2-listening-038.mp3.sha256",
+    "description": "A Museum Audio Guide. Locally generated synthetic English speech."
+  },
+  "transcript": [
+    {
+      "entity": "speaker",
+      "text": "Visitors can download the museum audio guide free of charge. Headphones are not provided, so please bring your own. The guide covers the permanent collection, but the temporary exhibition requires a separate ticket and is not included in the recording."
+    }
+  ],
+  "questions": [
+    {
+      "id": 1,
+      "prompt": "What is free?",
+      "options": [
+        "Headphones at reception",
+        "The temporary exhibition",
+        "The museum audio guide",
+        "Entry to every exhibition"
+      ],
+      "correctIndex": 2,
+      "explanation": "The audio guide can be downloaded without payment."
+    },
+    {
+      "id": 2,
+      "prompt": "What should visitors bring?",
+      "options": [
+        "A membership card",
+        "Their own headphones",
+        "A printed guide",
+        "A laptop"
+      ],
+      "correctIndex": 1,
+      "explanation": "The museum does not supply headphones."
+    },
+    {
+      "id": 3,
+      "prompt": "What is excluded from the guide?",
+      "options": [
+        "The temporary exhibition",
+        "The permanent collection",
+        "The main entrance",
+        "The museum café"
+      ],
+      "correctIndex": 0,
+      "explanation": "The recording covers the permanent collection only."
+    }
+  ]
+}

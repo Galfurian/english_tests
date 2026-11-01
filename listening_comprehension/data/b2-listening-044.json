@@ -1,0 +1,63 @@
+{
+  "exerciseId": "b2-listening-044",
+  "title": "A University Deadline",
+  "level": "B2",
+  "instructions": "Listen carefully. Choose the option that best matches what is said or implied.",
+  "entities": {
+    "speaker": {
+      "name": "Speaker A",
+      "voice": "en-US-EmmaMultilingualNeural",
+      "rate": "+2%",
+      "pitch": "+1Hz"
+    }
+  },
+  "audio": {
+    "url": "https://github.com/Galfurian/english_tests/releases/download/listening-audio-v1/b2-listening-044.mp3",
+    "sha256Url": "https://github.com/Galfurian/english_tests/releases/download/listening-audio-v1/b2-listening-044.mp3.sha256",
+    "description": "A University Deadline. Locally generated synthetic English speech."
+  },
+  "transcript": [
+    {
+      "entity": "speaker",
+      "text": "Students who submitted their applications before the original deadline do not need to do anything else. The deadline has been extended by four days because of technical problems with the website. However, applicants who saved an unfinished form must return to the portal and press Submit; saving a draft does not count as applying."
+    }
+  ],
+  "questions": [
+    {
+      "id": 1,
+      "prompt": "Why was the deadline extended?",
+      "options": [
+        "The website had technical problems",
+        "The course has been cancelled",
+        "There are too many interviews",
+        "Students requested a new subject"
+      ],
+      "correctIndex": 0,
+      "explanation": "Technical problems caused the extension."
+    },
+    {
+      "id": 2,
+      "prompt": "Who needs to take action?",
+      "options": [
+        "Everyone who already submitted",
+        "Only successful applicants",
+        "Students who applied by post",
+        "People with unfinished saved forms"
+      ],
+      "correctIndex": 3,
+      "explanation": "Drafts must be formally submitted."
+    },
+    {
+      "id": 3,
+      "prompt": "What is the key distinction?",
+      "options": [
+        "The deadline has been shortened",
+        "Every applicant needs an interview",
+        "Saving a draft is not submitting an application",
+        "Applications must be printed"
+      ],
+      "correctIndex": 2,
+      "explanation": "A saved draft is not a submitted application."
+    }
+  ]
+}
