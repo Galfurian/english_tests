@@ -7,8 +7,8 @@ let toolbar = null;
 let exerciseFeatures = {};
 const get = (id) => document.getElementById(id);
 
-function readProgress() { try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); } catch (error) { return {}; } }
-function writeProgress(progress) { try { localStorage.setItem(STORAGE_KEY, JSON.stringify(progress)); } catch (error) { /* optional */ } }
+function readProgress() { return window.EnglishTestsStorage.read(STORAGE_KEY, {}); }
+function writeProgress(progress) { window.EnglishTestsStorage.write(STORAGE_KEY, progress); }
 function showStatus(message, kind = '') { const status = get('status'); status.textContent = message; status.className = `status${kind ? ` status-${kind}` : ''}`; }
 function chooseExercise(exclude = null) {
     if (!exercises.length) return null;
@@ -86,8 +86,9 @@ async function initialize() {
         const fallbackFeatures = { exerciseSelector: true, progress: true, timer: { enabled: true, mode: 'optional', defaultMinutes: 20 } };
         exerciseFeatures = config.loaded === false ? fallbackFeatures : window.EnglishTestsSiteConfig.resolveFeatures(config, 'dropdown');
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
-        exercises = await response.json();
-        if (!Array.isArray(exercises) || !exercises.length) throw new Error('No exercises found');
+        const validation = window.EnglishTestsData.validateGapExerciseCollection(await response.json());
+        if (!validation.valid) throw new Error(validation.error);
+        exercises = validation.data;
         const initialExercise = chooseExercise();
         const initialIndex = exercises.indexOf(initialExercise);
         toolbar = window.EnglishTestsToolbar.mount(get('exerciseToolbar'), { exercises, currentIndex: initialIndex, features: exerciseFeatures, onExerciseChange: changeExercise });

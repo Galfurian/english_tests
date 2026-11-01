@@ -37,7 +37,7 @@
     flex-wrap: nowrap;
     align-items: center;
     gap: var(--space-3);
-    width: 100vw;
+    width: auto;
     margin: 0 calc((100vw - 100%) / -2) var(--space-5);
     padding: var(--space-2) max(var(--space-4), calc((100% - var(--content-width)) / 2));
     background: var(--color-surface-raised);

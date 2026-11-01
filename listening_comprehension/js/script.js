@@ -11,18 +11,20 @@ let toolbar = null;
 const el = (id) => document.getElementById(id);
 
 function readProgress() {
-  try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); } catch (error) { return {}; }
+  return window.EnglishTestsStorage.read(STORAGE_KEY, {});
 }
 
 function saveProgress() {
-  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(progress)); } catch (error) { /* optional */ }
+  window.EnglishTestsStorage.write(STORAGE_KEY, progress);
 }
 
 async function loadIndex() {
   const response = await fetch(INDEX_URL);
   if (!response.ok) throw new Error('Unable to load exercise index (' + response.status + ')');
   exerciseIndex = await response.json();
-  if (!Array.isArray(exerciseIndex) || !exerciseIndex.length) throw new Error('No listening exercises found.');
+  const validation = window.EnglishTestsData.validateListeningIndex(exerciseIndex);
+  if (!validation.valid) throw new Error(validation.error);
+  exerciseIndex = validation.data;
 }
 
 async function loadExercise(position) {
@@ -31,11 +33,25 @@ async function loadExercise(position) {
   const response = await fetch(entry.data);
   if (!response.ok) throw new Error('Unable to load ' + entry.data + ' (' + response.status + ')');
   currentExercise = await response.json();
+  const validation = window.EnglishTestsData.validateListeningExercise(currentExercise);
+  if (!validation.valid) throw new Error(validation.error);
+  currentExercise = validation.data;
+  rebalanceAnswerPositions(currentExercise, currentPosition);
   renderExercise();
 }
 
 function hasAnswers() {
   return [...document.querySelectorAll('#questionsContainer select')].some((select) => select.value !== '');
+}
+
+function rebalanceAnswerPositions(exercise, position) {
+  exercise.questions.forEach((question, index) => {
+    const targetIndex = (position * exercise.questions.length + index) % 4;
+    if (question.correctIndex === targetIndex) return;
+    const currentIndex = question.correctIndex;
+    [question.options[currentIndex], question.options[targetIndex]] = [question.options[targetIndex], question.options[currentIndex]];
+    question.correctIndex = targetIndex;
+  });
 }
 
 function changeExercise(position) {
